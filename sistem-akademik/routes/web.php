@@ -16,3 +16,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/dosen/absensi', function () {
+    return view('dosen.absensi');
+});
+
+Route::get('/dosen/nilai_mahasiswa', function () {
+    return view('dosen.nilai_mahasiswa');
+});
