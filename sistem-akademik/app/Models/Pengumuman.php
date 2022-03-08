@@ -5,13 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class MahasiswaEntity extends UserEntity{
+class Pengumuman{
 
-	private $jurusan;
-	private $tahunMasuk;
-	private $tahunLulus;
-	private $RencanaStudi;
-	
+	private $id;
+	private $judul;
+	private $keterangan;
+	private $tanggal;
+
 	function __construct()
 	{
 	}
@@ -23,8 +23,7 @@ class MahasiswaEntity extends UserEntity{
 
 
 }
-
-class Mahasiswa extends Model
+class Pengumuman extends Model
 {
     use HasFactory;
 }
