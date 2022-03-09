@@ -9,8 +9,8 @@
                 <label for="dropdownMatakuliah" class="col-form-label" style="width: 120px">Mata Kuliah</label>
                 <label class="col-form-label" style="width: 20px">:</label>
                 <div class="dropdown">
-                    <button class="btn btn-primary dropdown-toggle dropdown-toggle-split" type="button" id="dropdownMatakuliah"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 200px;">
+                    <button class="btn btn-secondary dropdown-toggle dropdown-toggle-split" type="button" id="dropdownMatakuliah"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 200px; background-color: #F4F6F8; color: black;">
                         --- Pilih Matakuliah ---
                     </button>
 
@@ -27,7 +27,7 @@
                 <label class="col-form-label" style="width: 20px">:</label>
                 <div class="dropdown">
                     <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownKelas"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 200px;"">
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 200px; background-color: #F4F6F8; color: black;">
                         ------ Pilih Kelas ------
                     </button>
 
@@ -43,7 +43,8 @@
     <div id="presensi-container" class="card" style="margin-top: 20px; padding: 10px 10px 0px 10px; visibility: hidden;">
         <div class="d-flex justify-content-between" style="margin-bottom: 20px;">
             <h4 id="matakuliah-kelas">Rekayasa Perangkat Lunak - Kelas B</h4>
-            <button class="btn btn-primary" type="button" id="buttonQR">Tampilkan QR</button>
+            <button class="btn btn-primary" type="button" id="buttonQR"
+                style="background-color: #33297D;" data-toggle="modal" data-target="#modalQRCode">Tampilkan QR</button>
         </div>
 
         <table class="table">
@@ -97,9 +98,60 @@
                 </tr>
             </tbody>
         </table>
+
+        <div class="d-flex justify-content-end" style="margin-bottom: 20px;">
+            <button class="btn btn-primary" type="button" id="buttonSimpan"
+                style="background-color: #33297D;">Simpan</button>
+        </div>
     </div>
 
-    @yield('absensi_script')
+    {{-- Modal untuk QR Code --}}
+    <div class="modal fade" id="modalQRCode"
+        data-bs-backdrop="static" data-target="false" tabindex="-1" aria-labelledby="modalQRCodeLabel" aria-hidden="false">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" style="max-width: 80vw;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalQRCodeLabel">Absensi</h5>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-5">
+                            <img src="https://i.pinimg.com/originals/60/c1/4a/60c14a43fb4745795b3b358868517e79.png"
+                                style="width: 100%; height: 100%;" />
+                        </div>
+                        <div class="col-sm-7 overflow-auto">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th class="col-sm-2" scope="col">No</th>
+                                        <th class="col-sm-3" scope="col">NIM</th>
+                                        <th class="col-sm-7" scope="col">Nama Lengkap</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <tr class="table-secondary">
+                                        <td>1</td>
+                                        <td>1118000</td>
+                                        <td>John Doe</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>1118001</td>
+                                        <td>John Doen</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" type="button" id="buttonSave"
+                        style="background-color: #33297D;" data-dismiss="modal">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </main>
 
 <script type="text/javascript">

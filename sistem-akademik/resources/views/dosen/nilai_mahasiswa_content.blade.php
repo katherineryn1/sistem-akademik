@@ -10,7 +10,7 @@
                 <label class="col-form-label" style="width: 20px">:</label>
                 <div class="dropdown">
                     <button class="btn btn-primary dropdown-toggle dropdown-toggle-split" type="button" id="dropdownMatakuliah"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 200px;">
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 200px; background-color: #F4F6F8; color: black;">
                         --- Pilih Matakuliah ---
                     </button>
 
@@ -27,7 +27,7 @@
                 <label class="col-form-label" style="width: 20px">:</label>
                 <div class="dropdown">
                     <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownKelas"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 200px;"">
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 200px; background-color: #F4F6F8; color: black;">
                         ------ Pilih Kelas ------
                     </button>
 
@@ -43,7 +43,8 @@
     <div id="presensi-container" class="card" style="margin-top: 20px; padding: 10px 10px 0px 10px; visibility: hidden;">
         <div class="d-flex justify-content-between" style="margin-bottom: 20px;">
             <h4 id="matakuliah-kelas">Rekayasa Perangkat Lunak - Kelas B</h4>
-            <button class="btn btn-primary" type="button" id="buttonQR">Tampilkan QR</button>
+            <button class="btn btn-primary" type="button" id="buttonEditNilai"
+                style="background-color: #33297D;">Edit Nilai</button>
         </div>
 
         <table class="table">
@@ -94,8 +95,6 @@
             </tbody>
         </table>
     </div>
-
-    @yield('absensi_script')
 </main>
 
 <script type="text/javascript">
