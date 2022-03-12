@@ -1,6 +1,6 @@
 <main id="main" class="main container">
     <div class="pagetitle">
-        <h3>Presensi Kelas</h3>
+        <h3 style="color: #33297D; font-weight: bold;">Presensi Kelas</h3>
     </div>
 
     <form>

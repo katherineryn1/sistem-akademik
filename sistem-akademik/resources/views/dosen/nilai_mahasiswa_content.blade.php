@@ -1,6 +1,6 @@
 <main id="main" class="main container">
     <div class="pagetitle">
-        <h3>Nilai Mahasiswa</h3>
+        <h3 style="color: #33297D; font-weight: bold;">Nilai Mahasiswa</h3>
     </div>
 
     <form>
