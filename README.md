@@ -29,9 +29,9 @@
   Laravel is a web application framework with expressive, elegant syntax. We’ve already laid the foundation — freeing you to create without sweating the small things.
 
 ### 🖼️ Dukungan Template
-- [ArchitectUI](https://demo.dashboardpack.com/architectui-vue-free/#/)
+- [Nice Admin](https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/?)
   <br>
-  ArchitectUI is one of the most popular admin dashboard templates ever released. It is used by thousands of developers to create webapps and SaaS totaling 100 million monthly active users.
+  NiceAdmin is a powerful admin and dashboard template based latest version of Bootstrap framework. It provides a clean and intuitive design that is focused on user experience. The custom plugins included has been carefully customized to fit with the overall look of the theme, working seamlessly across browsers, tablets and phones.
 
 ### 🚀 Model Deployment
 - [AWS Lightsail](https://aws.amazon.com/lightsail)
