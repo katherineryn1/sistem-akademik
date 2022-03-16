@@ -1,11 +1,13 @@
 <?php
 namespace App\Entity;
 
+use App\Entity\PengambilanMatakuliah;
+
 class RencanaStudi{
-	private $id;
-	private $semester;
-	private $tahun;
-	public $m_Pengambilan;
+	private int $id;
+	private string $semester;
+	private int $tahun;
+	public PengambilanMatakuliah $pengambilanaMatakuliah;
 
 	function __construct()
 	{

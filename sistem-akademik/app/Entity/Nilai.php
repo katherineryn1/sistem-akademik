@@ -1,17 +1,19 @@
 <?php
 namespace App\Entity;
 
+use App\Entity\Mahasiswa;
+
 class Nilai{
 
-	private $nilai1;
-	private $nilai2;
-	private $nilai3;
-	private $nilai4;
-	private $nilai5;
-	private $nilaiUAS;
-	private $nilaiAkhir;
-	private $index;
-	public $m_Mahasiswa;
+	private float $nilai1;
+	private float $nilai2;
+	private float $nilai3;
+	private float $nilai4;
+	private float $nilai5;
+	private float $nilaiUAS;
+	private float $nilaiAkhir;
+	private string $index;
+	private Mahasiswa $mahasiswa;
 
 	function __construct()
 	{

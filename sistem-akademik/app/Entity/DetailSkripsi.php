@@ -2,11 +2,11 @@
 namespace App\Entity;
 
 class DetailSkripsi{
-	private $id;
-	private $label;
-	private $komentar;
-	private $isAccepted;
-	private $tanggalAccepted;
+	private int $id;
+	private string $label;
+	private string $komentar;
+	private bool $isAccepted;
+	private DateTime $tanggalAccepted;
 
 	function __construct()
 	{

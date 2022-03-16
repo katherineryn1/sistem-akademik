@@ -3,10 +3,10 @@ namespace App\Entity;
 
 class Pengumuman{
 
-	private $id;
-	private $judul;
-	private $keterangan;
-	private $tanggal;
+	private int $id;
+	private string $judul;
+	private string $keterangan;
+	private DateTime $tanggal;
 
 	function __construct()
 	{

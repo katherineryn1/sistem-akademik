@@ -1,18 +1,24 @@
 <?php
 namespace App\Entity;
 
+use App\Entity\Matakuliah;
+use App\Entity\Skripsi;
+use App\Entity\Roster;
+use App\Entity\Dosen;
+
+
 class PengambilanMatakuliah{
 
-	private $id;
-	private $tahun;
-	private $semester;
-	private $kelas;
-	private $jumlahPertemuan;
-	public $m_Matakuliah;
-	public $m_Skripsi;
-	public $m_Nilai;
-	public $m_Roster;
-	public $m_Dosen;
+	private int $id;
+	private int $tahun;
+	private string $semester;
+	private string $kelas;
+	private int $jumlahPertemuan;
+	private Matakuliah $matakuliah;
+	private Skripsi $skripsi;
+	private Nilai $nilai;
+	private Roster $roster;
+	private Dosen $dosen;
 
 	function __construct()
 	{
@@ -22,9 +28,7 @@ class PengambilanMatakuliah{
 	{
 	}
 
-
-	public function hitungKehadiran()
-	{
+	public function hitungKehadiran(){
 	}
 }
 

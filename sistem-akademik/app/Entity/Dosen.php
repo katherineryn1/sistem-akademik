@@ -4,7 +4,6 @@ namespace App\Entity;
 use App\Entity\User;
 
 class Dosen extends User{
-
 	private string $programStudi;
 	private string $bidangIlmu;
 	private string $gelarAkademik;

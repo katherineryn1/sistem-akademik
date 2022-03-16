@@ -1,10 +1,11 @@
 <?php
 namespace App\Entity;
 
-class KehadiranSkripsi{
+use App\Entity\User;
 
-	private $keterangan;
-	public $m_User;
+class Kehadiran{
+	private string $keterangan;
+	public User $user;
 
 	function __construct()
 	{

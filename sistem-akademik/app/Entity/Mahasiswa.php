@@ -1,12 +1,13 @@
 <?php
 namespace App\Entity;
 
-class Mahasiswa extends User{
+use App\Entity\RencanaStudi;
 
-	private $jurusan;
-	private $tahunMasuk;
-	private $tahunLulus;
-	private $RencanaStudi;
+class Mahasiswa extends User{
+	private string $jurusan;
+	private int $tahunMasuk;
+	private int $tahunLulus;
+	private RencanaStudi $rencanaStudi;
 	
 	function __construct()
 	{

@@ -2,12 +2,11 @@
 namespace App\Entity;
 
 class Matakuliah{
-
-	private $kode;
-	private $nama;
-	private $jenis;
-	private $sifat;
-	private $sks;
+	private string $kode;
+	private string $nama;
+	private string $jenis;
+	private string $sifat;
+	private int $sks;
 
 	function __construct()
 	{
