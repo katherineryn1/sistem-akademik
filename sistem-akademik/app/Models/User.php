@@ -8,32 +8,6 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class UserEntity{
-
-	private $nomorInduk;
-	private $nama;
-	private $tanggalLahir;
-	private $tempatLahir;
-	private $jenisKelamin;
-	private $alamat;
-	private $notelepon;
-	private $password;
-	private $email;
-	private $fotoprofil;
-	private $jabatan;
-
-	function __construct()
-	{
-	}
-
-	function __destruct()
-	{
-	}
-
-
-
-}
-
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
