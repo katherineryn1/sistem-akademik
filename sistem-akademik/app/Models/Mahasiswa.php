@@ -7,4 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Mahasiswa extends Model{
     use HasFactory;
+    public function InsertMahasiswa($nama) {
+        return $this->save();
+    }
 }

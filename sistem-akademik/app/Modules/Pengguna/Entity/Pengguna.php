@@ -1,7 +1,7 @@
 <?php 
 namespace App\Entity;
 
-class User {
+class Pengguna {
     private string $nomorInduk;
 	private string $nama;
 	private DateTime $tanggalLahir;
