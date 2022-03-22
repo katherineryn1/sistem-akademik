@@ -69,14 +69,14 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="index.html" title="ProBootstrap:Enlight">Enlight</a>
+            <a class="navbar-brand" href="index.html" title="ProBootstrap:Sia">Sia</a>
           </div>
 
           <div id="navbar-collapse" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
               <li class="active"><a href="index.html">Home</a></li>
               <li><a href="courses.html">Courses</a></li>
-              <li><a href="teachers.html">Login</a></li>
+              <li><a href="{{ route("login")  }} ">Login</a></li>
               <li><a href="events.html">Events</a></li>
               <li class="dropdown">
                 <a href="#" data-toggle="dropdown" class="dropdown-toggle">Pages</a>

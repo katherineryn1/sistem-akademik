@@ -118,9 +118,6 @@ class User extends Authenticatable implements PenggunaPersistence{
            array_push($mapColumn,[$attribute[$i] , $logic[$i], $value[$i]]);
         }
         $allData = $this::where($mapColumn)->get();
-        echo '<pre>';
-        print_r($allData);
-        echo '</pre>';
         return $this->modelToEntity($allData);
     }
 

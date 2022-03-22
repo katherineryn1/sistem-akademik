@@ -51,6 +51,14 @@ class PenggunaController extends Controller{
         echo PenggunaService::update($nama,$password,  $nomorInduk, $email, $tanggalLahir, $tempatLahir,$jenisKelamin, $alamat,$notelepon, $jabatan);
     }
 
+    public function deleteInfo($nomorInduk){
+        if(PenggunaService::delete($nomorInduk) == true){
+            echo "Success Delete";
+        }else{
+            echo "Gagal Delete";
+        }
+    }
+
     public function userInfo($nomorInduk){
         $hasil = PenggunaService::userInfo("nomorInduk", $nomorInduk);
         echo "<pre>";
@@ -60,7 +68,7 @@ class PenggunaController extends Controller{
 
     public function login(Request $request){
         $email = "tes22t@mail.com";
-        $password = "12345678";
+        $password = "newPWD";
         if(PenggunaService::login($email,$password) == true){
             $curr = PenggunaService::userInfo('email',$email);
             $request->session()->put('currentuser', $curr);
@@ -100,11 +108,5 @@ class PenggunaController extends Controller{
         }
     }
 
-    public function deleteInfo($nomorInduk){
-        if(PenggunaService::delete($nomorInduk) == true){
-            echo "Success Delete";
-        }else{
-            echo "Gagal Delete";
-        }
-    }
+
 }
