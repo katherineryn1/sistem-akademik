@@ -175,6 +175,13 @@ class Pengguna {
     }
 
     /**
+     * @param string $password
+     */
+    public function setHashPassword(string $password): void
+    {
+       $this->password =  password_hash($password, PASSWORD_DEFAULT);;
+    }
+    /**
      * @param string $email
      */
     public function setEmail(string $email): void
@@ -196,6 +203,21 @@ class Pengguna {
     public function setJabatan(string $jabatan): void
     {
         $this->jabatan = $jabatan;
+    }
+    public function getArray():array {
+        return [
+            'nomorInduk' => $this->getNomorInduk(),
+            'nama' => $this->getNama(),
+            'email' => $this->getEmail(),
+            'password' => $this->getPassword(),
+            'tanggalLahir' => $this->getTanggalLahir(),
+            'tempatLahir' => $this->getTempatLahir(),
+            'jenisKelamin' => $this->getJenisKelamin(),
+            'alamat' =>  $this->getAlamat(),
+            'notelepon' =>  $this->getNotelepon(),
+            'fotoprofile' => "contoh foto",
+            'jabatan' => $this->getJabatan(),
+        ];
     }
 }
 ?>

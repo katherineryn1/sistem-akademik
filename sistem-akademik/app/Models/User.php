@@ -93,6 +93,7 @@ class User extends Authenticatable implements PenggunaPersistence{
                 $pengguna->setNama($item['nama']);
                 $pengguna->setJabatan($item['jabatan']);
                 $pengguna->setAlamat($item['alamat']);
+                $pengguna->setPassword("");
                 $pengguna->setEmail($item['email']);
                 $pengguna->setFotoprofil([]);
                 $pengguna->setJenisKelamin($item['jenisKelamin']);

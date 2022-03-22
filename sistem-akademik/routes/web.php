@@ -14,15 +14,26 @@ use App\Http\Controllers\PenggunaController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
-Route::get('/cobauser', [PenggunaController::class, 'show']);
-Route::get('/cobainsert', [PenggunaController::class, 'testInsert']);
-Route::get('/cobagetall', [PenggunaController::class, 'testGetAll']);
-Route::get('/cobaupdate', [PenggunaController::class, 'testUpdate']);
-Route::get('/cobadelete', [PenggunaController::class, 'testDelete']);
-Route::get('/cobalogin', [PenggunaController::class, 'testLogin']);
 
+Route::get('/coba', [PenggunaController::class, 'show']);
+
+// Pengguna
+Route::get('/pengguna/{nomorInduk}', [PenggunaController::class, 'userInfo']);
+Route::get('/pengguna/', [PenggunaController::class, 'testGetAll']);
+Route::post('/pengguna/', [PenggunaController::class, 'insert']);
+Route::put('/pengguna/', [PenggunaController::class, 'update']);
+Route::delete('/pengguna/{nomorInduk}', [PenggunaController::class, 'deleteInfo'])->name("delete_pengguna");
+Route::post('/login', [PenggunaController::class, 'login'])->name("login");
+Route::get('/logout', [PenggunaController::class, 'logout'])->name("logout");
+Route::put('/resetpassword', [PenggunaController::class, 'resetPassword'])->name("resetpassword");
+Route::put('/updatepassword', [PenggunaController::class, 'gantiPassword'])->name("updatepassword");
+
+// Pengumuman
+
+
+// Dosen
 Route::get('/dosen/absensi', function () {
     return view('dosen.absensi');
 });

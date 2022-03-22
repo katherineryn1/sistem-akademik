@@ -1,7 +1,7 @@
 <?php
     namespace App\Modules\Pengguna\Service;
     use App\Providers\PenggunaServiceProvider;
-use DateTime;
+    use DateTime;
     use App\Modules\Pengguna\Entity\Pengguna;
     use App\Modules\Pengguna\Persistence\PenggunaPersistence;
 
@@ -15,74 +15,143 @@ use DateTime;
         function __destruct(){
         }
 
-        public  static  function Login(string $email, string  $password): bool {
+        /**
+         * @param string $email
+         * @param string $password
+         * @return bool
+         */
+        public  static  function login(string $email, string  $password): bool {
            $found = self::$pm->getByAttribute( ['email', 'password'] , [$email,$password] , ['=', '='] );
            return count($found) > 0;
         }
 
-        function ResetPassword(string $email){
-
-        }
         /**
          * @return string[]
          */
-        public static function TestService(){
+        public static function testService(){
             return [self::$pm, "hai"];
         }
 
-        public static function InsertTest(string  $nama,string $password):bool {
+        /**
+         * @param string $email
+         * @return int
+         */
+        public static function resetPassword(string $email): int {
+            $found = self::$pm->getByAttribute(['email'], [$email], ['=']);
+            if(count($found) <= 0){
+                return 0;
+            }
+            //Asumsi membuat password baru dengan mengubah password ke password default
+            $defaultPassword = "default12345";
+            $found[0]->setPassword($defaultPassword);
+            if(self::$pm->updateSingle($found[0]) == true){
+                return  1;
+            }else{
+                return  0;
+            }
+        }
 
-            $nowTime = new DateTime();
-            $nowTime->format('Y-m-d H:i:s');    // MySQL datetime format
-            $nowTime->getTimestamp();
+        /**
+         * @param string $email
+         * @param string $password
+         * @return bool
+         */
+        public static function gantiPassword(string $email, string  $newPassword): bool {
+            $found = self::$pm->getByAttribute(['email'], [$email], ['=']);
+            if(count($found) <= 0){
+                return false;
+            }
+            $found[0]->setPassword($newPassword);
+            return self::$pm->updateSingle($found[0]);
+        }
 
+        /**
+         * @param string $nama
+         * @param string $password
+         * @param string $nomorInduk
+         * @param string $email
+         * @param string $tanggalLahir
+         * @param string $tempatLahir
+         * @param string $jenisKelamin
+         * @param string $alamat
+         * @param string $notelepon
+         * @param string $jabatan
+         * @return bool
+         * @throws \Exception
+         */
+        public static function insert(string  $nama,string $password, string $nomorInduk,string $email,
+                                      string $tanggalLahir, string $tempatLahir,string $jenisKelamin, string  $alamat,
+                                      string $notelepon, string $jabatan):bool {
             $newPengguna = new Pengguna();
             $newPengguna->setNama($nama);
-            $newPengguna->setNomorInduk("119002");
-            $newPengguna->setEmail("new22@mail.com");
             $newPengguna->setPassword($password);
-            $newPengguna->setTanggalLahir($nowTime);
-            $newPengguna->setTempatLahir("Indonesia");
-            $newPengguna->setJenisKelamin("L");
-            $newPengguna->setAlamat("Jl Dipatiukut");
-            $newPengguna->setNotelepon("081234567");
-            $newPengguna->setFotoprofil(unpack('C*', 'The quick fox jumped over the lazy brown dog'));
-            $newPengguna->setJabatan("Dosen");
-
+            $newPengguna->setNomorInduk($nomorInduk);
+            $newPengguna->setEmail($email);
+            $newPengguna->setTanggalLahir(new DateTime($tanggalLahir));
+            $newPengguna->setTempatLahir($tempatLahir);
+            $newPengguna->setJenisKelamin($jenisKelamin);
+            $newPengguna->setAlamat($alamat);
+            $newPengguna->setNotelepon($notelepon);
+            $newPengguna->setFotoprofil(unpack('C*', 'Will be remove'));
+            $newPengguna->setJabatan($jabatan);
             return self::$pm->insertSingle($newPengguna);
         }
 
-        public static function UpdateTest(string  $nama,string $password):bool {
-            $nowTime = new DateTime();
-            $nowTime->format('Y-m-d H:i:s');    // MySQL datetime format
-            $nowTime->getTimestamp();
-
+        /**
+         * @param string $nama
+         * @param string $password
+         * @param string $nomorInduk
+         * @param string $email
+         * @param string $tanggalLahir
+         * @param string $tempatLahir
+         * @param string $jenisKelamin
+         * @param string $alamat
+         * @param string $notelepon
+         * @param string $jabatan
+         * @return bool
+         * @throws \Exception
+         */
+        public static function update(string  $nama,string $password, string $nomorInduk,string $email,
+                                      string $tanggalLahir, string $tempatLahir,string $jenisKelamin, string  $alamat,
+                                      string $notelepon, string $jabatan):bool {
             $newPengguna = new Pengguna();
             $newPengguna->setNama($nama);
-            $newPengguna->setNomorInduk("1119002");
-            $newPengguna->setEmail("test@mail.com");
             $newPengguna->setPassword($password);
-            $newPengguna->setTanggalLahir($nowTime);
-            $newPengguna->setTempatLahir("Indonesia");
-            $newPengguna->setJenisKelamin("L");
-            $newPengguna->setAlamat("Jl Dipatiukut");
-            $newPengguna->setNotelepon("081234567");
-            $newPengguna->setFotoprofil(unpack('C*', 'The quick fox jumped over the lazy brown dog'));
-            $newPengguna->setJabatan("Dosen");
+            $newPengguna->setNomorInduk($nomorInduk);
+            $newPengguna->setEmail($email);
+            $newPengguna->setTanggalLahir(new DateTime($tanggalLahir));
+            $newPengguna->setTempatLahir($tempatLahir);
+            $newPengguna->setJenisKelamin($jenisKelamin);
+            $newPengguna->setAlamat($alamat);
+            $newPengguna->setNotelepon($notelepon);
+            $newPengguna->setFotoprofil(unpack('C*', 'Will be remove'));
+            $newPengguna->setJabatan($jabatan);
 
             return self::$pm->updateSingle($newPengguna);
         }
 
-        public static function GetAll():array {
-            return  self::$pm->getAll();
-        }
-
-        public static function DeleteTest(string $nomorInduk):bool {
+        /**
+         * @param string $nomorInduk
+         * @return bool
+         */
+        public static function delete(string $nomorInduk):bool {
             return  self::$pm->deleteSingle($nomorInduk);
         }
 
-        function GantiPassword(){
+        public static function userInfo(string $attribute,string $value): array{
+            $found = self::$pm->getByAttribute([$attribute], [$value], ['=']);
+            if(count($found) <= 0){
+                return [];
+            }
+            $dto = array();
+            foreach ($found as $data) {
+                array_push($dto, $data->getArray());
+            }
+            return $dto;
+        }
 
+        public static function getAll():array {
+            return  self::$pm->getAll();
         }
     }
 ?>
