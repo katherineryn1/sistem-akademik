@@ -18,6 +18,10 @@ Route::get('/', function () {
 });
 Route::get('/cobauser', [PenggunaController::class, 'show']);
 Route::get('/cobainsert', [PenggunaController::class, 'testInsert']);
+Route::get('/cobagetall', [PenggunaController::class, 'testGetAll']);
+Route::get('/cobaupdate', [PenggunaController::class, 'testUpdate']);
+Route::get('/cobadelete', [PenggunaController::class, 'testDelete']);
+Route::get('/cobalogin', [PenggunaController::class, 'testLogin']);
 
 Route::get('/dosen/absensi', function () {
     return view('dosen.absensi');

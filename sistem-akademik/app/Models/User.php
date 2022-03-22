@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use DateTime;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use App\Modules\Pengguna\Entity\Pengguna;
 use App\Modules\Pengguna\Persistence\PenggunaPersistence;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -9,25 +11,26 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use function Symfony\Component\String\length;
 
 
 class User extends Authenticatable implements PenggunaPersistence{
     use HasApiTokens, HasFactory, Notifiable;
 
-    protected $primaryKey = 'nomor_induk';
+    protected $primaryKey = 'nomorInduk';
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'nomor_induk',
-        'name',
+        'nomorInduk',
+        'nama',
         'email',
         'password',
-        'tanggal_lahir',
-        'tempat_lahir' ,
-        'jenis_kelamin',
+        'tanggalLahir',
+        'tempatLahir' ,
+        'jenisKelamin',
         'alamat',
         'notelepon',
         'fotoprofile',
@@ -67,43 +70,72 @@ class User extends Authenticatable implements PenggunaPersistence{
      */
     protected $keyType = 'string';
 
-    public function getAll(): array
-    {
-        // TODO: Implement getAll() method.
-    }
-
-    public function getByAttribute(): array
-    {
-        // TODO: Implement getByAttribute() method.
-    }
-
-    public function insertSingle(Pengguna $pengguna): bool
-    {
-        $hasil = $this->fill([
-            'nomor_induk' => $pengguna->getNomorInduk(),
-            'name' => $pengguna->getNama(),
+    private function entityToModel(Pengguna $pengguna) {
+        return [
+            'nomorInduk' => $pengguna->getNomorInduk(),
+            'nama' => $pengguna->getNama(),
             'email' => $pengguna->getEmail(),
             'password' => $pengguna->getPassword(),
-            'tanggal_lahir' => $pengguna->getTanggalLahir(),
-            'tempat_lahir' => $pengguna->getTempatLahir(),
-            'jenis_kelamin' => $pengguna->getJenisKelamin(),
+            'tanggalLahir' => $pengguna->getTanggalLahir(),
+            'tempatLahir' => $pengguna->getTempatLahir(),
+            'jenisKelamin' => $pengguna->getJenisKelamin(),
             'alamat' =>  $pengguna->getAlamat(),
             'notelepon' =>  $pengguna->getNotelepon(),
             'fotoprofile' => "contoh foto",
             'jabatan' => $pengguna->getJabatan(),
-        ]);
-        $issaved = $hasil->save();
-        echo "hallo dari userr" , $hasil , "--", $issaved;
-        return true;
+        ];
     }
 
-    public function updateSingle(Pengguna $pengguna): bool
-    {
-        // TODO: Implement updateSingle() method.
+    private function modelToEntity($model) {
+        $res =  $model->map(
+            function ($item, $key){
+                $pengguna = new Pengguna();
+                $pengguna->setNama($item['nama']);
+                $pengguna->setJabatan($item['jabatan']);
+                $pengguna->setAlamat($item['alamat']);
+                $pengguna->setEmail($item['email']);
+                $pengguna->setFotoprofil([]);
+                $pengguna->setJenisKelamin($item['jenisKelamin']);
+                $pengguna->setNomorInduk($item['nomorInduk']);
+                $pengguna->setNotelepon($item['notelepon']);
+                $pengguna->setTanggalLahir(new DateTime($item['tanggalLahir']));
+                $pengguna->setTempatLahir($item['tempatLahir']);
+                return $pengguna;
+            });
+        return $res->toArray();
     }
 
-    public function deleteSingle(Pengguna $pengguna): bool
-    {
-        // TODO: Implement deleteSingle() method.
+
+    public function getAll(): array {
+        $allData = $this::all();
+        return $this->modelToEntity($allData);
+    }
+
+    public function getByAttribute(array  $attribute,array  $value , array  $logic): array  {
+        $mapColumn = array();
+        for ($i=0; $i<count($attribute); $i++){
+           array_push($mapColumn,[$attribute[$i] , $logic[$i], $value[$i]]);
+        }
+        $allData = $this::where($mapColumn)->get();
+        echo '<pre>';
+        print_r($allData);
+        echo '</pre>';
+        return $this->modelToEntity($allData);
+    }
+
+    public function insertSingle(Pengguna $pengguna): bool {
+        $data = $this->fill($this->entityToModel($pengguna));
+        return $data ->save();
+    }
+
+    public function updateSingle(Pengguna $pengguna): bool{
+        $data = $this::find($pengguna->getNomorInduk());
+        $data->update($this->entityToModel($pengguna));
+        return $data->save();
+    }
+
+    public function deleteSingle($nomorInduk): bool {
+        $data = $this::find($nomorInduk);
+        return $data->delete();
     }
 }

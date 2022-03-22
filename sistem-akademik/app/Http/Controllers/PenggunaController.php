@@ -15,9 +15,42 @@ class PenggunaController extends Controller{
     }
 
     public function testInsert(){
-        $nama = "alberttest";
+        $nama = "newAlbertUser";
         $password = "12345678";
 
         echo PenggunaService::InsertTest($nama,$password);
+    }
+
+    public function testUpdate(){
+        $nama = "UPDATATATalberttest";
+        $password = "12345678";
+
+        echo PenggunaService::UpdateTest($nama,$password);
+    }
+
+    public function testGetAll(){
+        $hasil = PenggunaService::GetAll();
+        foreach ($hasil as $val){
+            echo "<pre>";
+            print_r((array) $val);
+            echo "</pre>";
+            echo "Nama : {$val->getNama()} <br>";
+        }
+    }
+
+    public function testLogin(){
+        $email = "tes22t@mail.com";
+        $password = "12345678";
+        if(PenggunaService::Login($email,$password) == true){
+            echo "SUccess Login";
+        }else{
+            echo "gagal Login";
+        }
+
+    }
+
+
+    public function testDelete(){
+        echo PenggunaService::DeleteTest("119002");
     }
 }

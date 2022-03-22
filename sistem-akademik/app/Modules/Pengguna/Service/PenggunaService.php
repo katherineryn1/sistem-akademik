@@ -15,11 +15,12 @@ use DateTime;
         function __destruct(){
         }
 
-        function Login(){
-
+        public  static  function Login(string $email, string  $password): bool {
+           $found = self::$pm->getByAttribute( ['email', 'password'] , [$email,$password] , ['=', '='] );
+           return count($found) > 0;
         }
 
-        function ResetPassword(){
+        function ResetPassword(string $email){
 
         }
         /**
@@ -37,6 +38,27 @@ use DateTime;
 
             $newPengguna = new Pengguna();
             $newPengguna->setNama($nama);
+            $newPengguna->setNomorInduk("119002");
+            $newPengguna->setEmail("new22@mail.com");
+            $newPengguna->setPassword($password);
+            $newPengguna->setTanggalLahir($nowTime);
+            $newPengguna->setTempatLahir("Indonesia");
+            $newPengguna->setJenisKelamin("L");
+            $newPengguna->setAlamat("Jl Dipatiukut");
+            $newPengguna->setNotelepon("081234567");
+            $newPengguna->setFotoprofil(unpack('C*', 'The quick fox jumped over the lazy brown dog'));
+            $newPengguna->setJabatan("Dosen");
+
+            return self::$pm->insertSingle($newPengguna);
+        }
+
+        public static function UpdateTest(string  $nama,string $password):bool {
+            $nowTime = new DateTime();
+            $nowTime->format('Y-m-d H:i:s');    // MySQL datetime format
+            $nowTime->getTimestamp();
+
+            $newPengguna = new Pengguna();
+            $newPengguna->setNama($nama);
             $newPengguna->setNomorInduk("1119002");
             $newPengguna->setEmail("test@mail.com");
             $newPengguna->setPassword($password);
@@ -48,7 +70,15 @@ use DateTime;
             $newPengguna->setFotoprofil(unpack('C*', 'The quick fox jumped over the lazy brown dog'));
             $newPengguna->setJabatan("Dosen");
 
-            return self::$pm->insertSingle($newPengguna);
+            return self::$pm->updateSingle($newPengguna);
+        }
+
+        public static function GetAll():array {
+            return  self::$pm->getAll();
+        }
+
+        public static function DeleteTest(string $nomorInduk):bool {
+            return  self::$pm->deleteSingle($nomorInduk);
         }
 
         function GantiPassword(){

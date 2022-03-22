@@ -6,8 +6,8 @@
     interface PenggunaPersistence{
         public  function insertSingle(Pengguna $pengguna): bool ;
         public  function updateSingle(Pengguna $pengguna): bool ;
-        public  function deleteSingle(Pengguna $pengguna): bool ;
+        public  function deleteSingle(string  $nomorInduk): bool ;
         public  function getAll(): array ;
-        public  function getByAttribute(): array;
+        public  function getByAttribute(array  $attribute,array  $value , array  $logic): array;
     }
 ?>
