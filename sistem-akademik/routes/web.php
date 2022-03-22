@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\PenggunaController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/cobauser', [PenggunaController::class, 'show']);
+Route::get('/cobainsert', [PenggunaController::class, 'testInsert']);
 
 Route::get('/dosen/absensi', function () {
     return view('dosen.absensi');

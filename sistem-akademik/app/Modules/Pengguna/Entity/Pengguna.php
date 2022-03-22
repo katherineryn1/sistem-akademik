@@ -13,7 +13,7 @@ class Pengguna {
 	private string $notelepon;
 	private string $password;
 	private string $email;
-	private string $fotoprofil;
+	private array $fotoprofil;
 	private string $jabatan;
 
 	function __construct(){
@@ -95,9 +95,9 @@ class Pengguna {
     }
 
     /**
-     * @return string
+     * @return array
      */
-    public function getFotoprofil(): string
+    public function getFotoprofil(): array
     {
         return $this->fotoprofil;
     }
@@ -183,9 +183,9 @@ class Pengguna {
     }
 
     /**
-     * @param string $fotoprofil
+     * @param array $fotoprofil
      */
-    public function setFotoprofil(string $fotoprofil): void
+    public function setFotoprofil(array $fotoprofil): void
     {
         $this->fotoprofil = $fotoprofil;
     }
