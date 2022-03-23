@@ -15,7 +15,7 @@ use App\Http\Controllers\PengumumanController;
 */
 
 Route::get('/', function () {
-    return view('index');
+    return view('dosen.dashboard');
 });
 
 Route::get('/coba', [PenggunaController::class, 'show']);
@@ -59,3 +59,15 @@ Route::get('/dosen/profil', function () {
 Route::get('/dosen/edit-profil', array('as' => 'edit-profil', function () {
     return view('dosen.edit_profil');
 }));
+
+Route::get('/dosen/tracking-skripsi', function () {
+    return view('dosen.tracking_skripsi');
+});
+
+Route::get('/dosen/tracking-skripsi-id', function () { #nanti dikasih id mhs di route nya
+    return view('dosen.tracking_skripsi_view');
+});
+
+Route::get('/dosen/tracking-skripsi-edit-id', function () { #nanti dikasih id mhs di route nya
+    return view('dosen.tracking_skripsi_edit_komen');
+});
