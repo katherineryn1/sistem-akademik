@@ -15,7 +15,7 @@ use App\Http\Controllers\PengumumanController;
 */
 
 Route::get('/', function () {
-    return view('dosen.dashboard');
+    return view('index');
 });
 
 Route::get('/coba', [PenggunaController::class, 'show']);
@@ -44,6 +44,10 @@ Route::get('/pengumuman/delete/{id}', [PengumumanController::class, 'delete']);
 
 
 // Dosen
+Route::get('/dosen', function () {
+    return view('dosen.dashboard');
+});
+
 Route::get('/dosen/absensi', function () {
     return view('dosen.absensi');
 });
@@ -61,13 +65,18 @@ Route::get('/dosen/edit-profil', array('as' => 'edit-profil', function () {
 }));
 
 Route::get('/dosen/tracking-skripsi', function () {
-    return view('dosen.tracking_skripsi');
+    return view('dosen.tracking_skripsi_home');
+});
+
+Route::get('/dosen/tracking-skripsi-add-mhs-bimbingan', function () { 
+    return view('dosen.tracking_skripsi_add_mhs');
 });
 
 Route::get('/dosen/tracking-skripsi-id', function () { #nanti dikasih id mhs di route nya
-    return view('dosen.tracking_skripsi_view');
+    return view('dosen.tracking_skripsi_mhs');
 });
 
 Route::get('/dosen/tracking-skripsi-edit-id', function () { #nanti dikasih id mhs di route nya
-    return view('dosen.tracking_skripsi_edit_komen');
+    return view('dosen.tracking_skripsi_edit_komentar');
 });
+

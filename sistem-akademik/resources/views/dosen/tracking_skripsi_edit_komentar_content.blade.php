@@ -46,7 +46,7 @@
     </div>
 
     <div class="float-right">
-        <a href="#" class="btn btn-primary">Kirim Komentar</a>
+        <a href="#" class="btn btn-primary" style="background-color: #33297D;">Kirim Komentar</a>
     </div>
 
     <br>
@@ -59,7 +59,7 @@
         <br>
 
         <a href="#" class="btn btn-outline-dark">Setujui Bab 2</a>
-        <a href="#" class="btn btn-primary">Download File Skripsi</a>
+        <a href="#" class="btn btn-primary" style="background-color: #33297D;">Download File Skripsi</a>
     </center>
 
 

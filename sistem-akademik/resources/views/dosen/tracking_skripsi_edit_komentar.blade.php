@@ -10,6 +10,6 @@
     {{-- @yield('sidebar') --}}
     @include('header')
     @include('sidebar')
-    @include('dosen.tracking_skripsi_mhs')
+    @include('dosen.tracking_skripsi_edit_komentar_content')
 </body>
 </html>

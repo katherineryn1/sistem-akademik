@@ -28,7 +28,7 @@
                     Perspiciatis id voluptate blanditiis debitis.</p>
                 <p class="card-text">Milestone: Bab 1</p>
                 <center>
-                    <a href="#" class="btn btn-primary">Download File Skripsi</a>
+                    <a href="#" class="btn btn-primary" style="background-color: #33297D;">Download File Skripsi</a>
                 </center>
             </div>
         </div>
