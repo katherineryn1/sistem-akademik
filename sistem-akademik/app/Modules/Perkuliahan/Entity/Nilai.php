@@ -1,5 +1,5 @@
 <?php
-namespace App\Entity;
+namespace App\Modules\Perkuliahan\Entity;
 
 use App\Entity\Mahasiswa;
 
@@ -26,7 +26,7 @@ class Nilai{
 
 
 	/**
-	 * 
+	 *
 	 * @param bobot1
 	 * @param bobot2
 	 * @param bobot3

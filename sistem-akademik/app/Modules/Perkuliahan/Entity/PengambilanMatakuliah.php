@@ -1,14 +1,11 @@
 <?php
-namespace App\Entity;
+namespace App\Modules\Perkuliahan\Entity;
 
-use App\Entity\Matakuliah;
-use App\Entity\Skripsi;
-use App\Entity\Roster;
-use App\Entity\Dosen;
+use App\Modules\Perkuliahan;
+use App\Modules\Dosen\Entity;
 
 
 class PengambilanMatakuliah{
-
 	private int $id;
 	private int $tahun;
 	private string $semester;

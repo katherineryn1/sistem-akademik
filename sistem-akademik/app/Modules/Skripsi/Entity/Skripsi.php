@@ -2,16 +2,15 @@
 namespace App\Entity;
 
 class Skripsi{
-
 	private $id;
 	private $judul;
 	private $batasAkhir;
 	private $file;
 	private $isTugasAkhir;
 	private $milestone;
-	public $m_User;
+	private $matakuliah;
 	public $m_Detail;
-	
+
 
 	function __construct()
 	{

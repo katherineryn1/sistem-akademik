@@ -1,5 +1,5 @@
 <?php
-namespace App\Entity;
+namespace App\Modules\Perkuliahan\Entity;
 
 use App\Entity\User;
 
