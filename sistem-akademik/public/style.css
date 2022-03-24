@@ -36,6 +36,26 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 500;
 }
 
+.clear-left{
+  clear: left;
+} 
+
+.float-right{
+  float: right;
+}
+
+.edit{
+  color: #33297D;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.delete{
+  color: #E12A2A;  
+  font-weight: 500;
+  text-decoration: none;
+}
+
 .bi-trash-fill{
   color: #E12A2A;
 }
