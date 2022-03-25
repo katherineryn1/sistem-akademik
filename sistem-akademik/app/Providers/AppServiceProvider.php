@@ -23,7 +23,8 @@ class AppServiceProvider extends ServiceProvider
         //Register Service with Persistence Manager
         PenggunaService::$pm = new User();
         PengumumanService::$pm = new PengumumanData();
-        DosenService::$pm =new DosenData();
+        new DosenService(new DosenData());
+        //DosenService::$pm =new DosenData();
     }
 
     /**

@@ -6,11 +6,14 @@ use App\Modules\Dosen\Entity\Dosen;
 use App\Modules\Dosen\Persistence\DosenPersistence;
 use App\Modules\Pengguna\Service\PenggunaService;
 
+class Goodbye {
+    public const LEAVING_MESSAGE = "Thank you for visiting W3Schools.com!";
+}
 class DosenService {
-    public static DosenPersistence $pm;
+    private static DosenPersistence $pm;
 
     function __construct(DosenPersistence $pm){
-        $this->pm = $pm;
+        self::$pm = $pm;
     }
 
     function __destruct(){

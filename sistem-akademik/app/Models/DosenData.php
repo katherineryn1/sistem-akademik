@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class DosenData extends Model implements  DosenPersistence{
     use HasFactory;
+
+    protected $primaryKey = 'nomor_induk';
     /**
      * The attributes that are mass assignable.
      *
