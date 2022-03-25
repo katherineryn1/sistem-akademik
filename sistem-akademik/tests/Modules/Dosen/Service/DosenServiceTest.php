@@ -2,8 +2,6 @@
 
 namespace Tests\Modules\Dosen\Service;
 
-use App\Models\DosenData;
-use App\Models\User;
 use App\Modules\Dosen\Service\DosenService;
 use App\Modules\Pengguna\Service\PenggunaService;
 use Tests\TestCase;
@@ -48,11 +46,13 @@ class DosenServiceTest extends TestCase{
         self::assertEquals(true,$status);
     }
     public function testDosenInfo(){
-        $data = DosenService::userInfo("nomor_induk", "2099002");
+        $data = DosenService::dosenInfo("nomor_induk", "2099002");
         self::assertGreaterThan(0, count($data));
     }
     public function testDelete(){
-        $status = DosenService::delete("2099002");
+        $nomorInduk = "2099002";
+        $status = DosenService::delete($nomorInduk);
         self::assertEquals(true,$status);
+        PenggunaService::delete($nomorInduk);
     }
 }

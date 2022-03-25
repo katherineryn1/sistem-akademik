@@ -6,9 +6,6 @@ use App\Modules\Dosen\Entity\Dosen;
 use App\Modules\Dosen\Persistence\DosenPersistence;
 use App\Modules\Pengguna\Service\PenggunaService;
 
-class Goodbye {
-    public const LEAVING_MESSAGE = "Thank you for visiting W3Schools.com!";
-}
 class DosenService {
     private static DosenPersistence $pm;
 
@@ -43,14 +40,8 @@ class DosenService {
         $newDosen->setStatusIkatanKerja($statusIkatanKerja);
         $newDosen->setStatusDosen($statusDosen);
 
-        try {
-           self::$pm->insertSingle($newDosen);
-        }catch (e $exception){
-            echo $exception;
-            PenggunaService::delete($nomorInduk);
-            return  false;
-        }
-        return true;
+        return  self::$pm->insertSingle($newDosen);
+
     }
 
     /**
@@ -88,7 +79,7 @@ class DosenService {
         return  self::$pm->deleteSingle($nomorInduk);
     }
 
-    public static function userInfo(string $attribute,string $value): array{
+    public static function dosenInfo(string $attribute,string $value): array{
         $found = self::$pm->getByAttribute([$attribute], [$value], ['=']);
         if(count($found) <= 0){
             return [];

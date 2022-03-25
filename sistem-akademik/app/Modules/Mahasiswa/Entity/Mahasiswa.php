@@ -8,7 +8,6 @@ class Mahasiswa extends Pengguna {
 	private string $jurusan;
 	private int $tahunMasuk;
 	private int $tahunLulus;
-	private array $rencanaStudi;
 
 	function __construct()
 	{
@@ -43,14 +42,6 @@ class Mahasiswa extends Pengguna {
     }
 
     /**
-     * @return array
-     */
-    public function getRencanaStudi(): array
-    {
-        return $this->rencanaStudi;
-    }
-
-    /**
      * @param string $jurusan
      */
     public function setJurusan(string $jurusan): void
@@ -72,6 +63,15 @@ class Mahasiswa extends Pengguna {
     public function setTahunLulus(int $tahunLulus): void
     {
         $this->tahunLulus = $tahunLulus;
+    }
+
+    public function getArray():array {
+        return [
+            'nomor_induk' => $this->getNomorInduk(),
+            'jurusan' => $this->getJurusan(),
+            'tahun_masuk' => $this->getTahunMasuk(),
+            'tahun_lulus' => $this->getTahunLulus(),
+        ];
     }
 
 }

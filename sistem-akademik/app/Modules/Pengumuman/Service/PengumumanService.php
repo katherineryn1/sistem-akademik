@@ -5,15 +5,14 @@ use App\Modules\Pengumuman\Entity\Pengumuman;
 use App\Modules\Pengumuman\Persistence\PengumumanPersistence;
 
 class PengumumanService {
-    public static PengumumanPersistence $pm;
+    private static PengumumanPersistence $pm;
 
     function __construct(PengumumanPersistence $pm){
-        $this->pm = $pm;
+        self::$pm = $pm;
     }
 
     function __destruct(){
     }
-
 
     /**
      * @param string $judul
@@ -54,7 +53,11 @@ class PengumumanService {
         return  self::$pm->deleteSingle($id);
     }
 
-
+    /**
+     * @param string $attribute
+     * @param string $value
+     * @return array
+     */
     public static function getPengumumanByInfo(string $attribute,string $value): array{
         $found = self::$pm->getByAttribute([$attribute], [$value], ['=']);
         if(count($found) <= 0){

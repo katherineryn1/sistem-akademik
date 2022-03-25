@@ -6,10 +6,10 @@
     use App\Modules\Pengguna\Persistence\PenggunaPersistence;
 
     class PenggunaService {
-        public static PenggunaPersistence $pm;
+        private static PenggunaPersistence $pm;
 
         function __construct(PenggunaPersistence $pm){
-            $this->pm = $pm;
+            self::$pm = $pm;
         }
 
         function __destruct(){
