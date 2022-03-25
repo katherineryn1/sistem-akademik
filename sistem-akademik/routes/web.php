@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PenggunaController;
 use App\Http\Controllers\PengumumanController;
+use App\Http\Controllers\DosenController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,9 +24,10 @@ Route::get('/coba', [PenggunaController::class, 'show']);
 // Pengguna
 Route::get('/pengguna/{nomorInduk}', [PenggunaController::class, 'userInfo']);
 Route::get('/pengguna/', [PenggunaController::class, 'testGetAll']);
-Route::post('/pengguna/', [PenggunaController::class, 'insert_form']);
-Route::put('/pengguna/', [PenggunaController::class, 'update_form']);
-Route::delete('/pengguna/{nomorInduk}', [PenggunaController::class, 'deleteInfo'])->name("delete_pengguna_form");
+Route::get('/pengguna2/insert', [PenggunaController::class, 'insert']);
+Route::put('/pengguna/', [PenggunaController::class, 'update']);
+Route::delete('/pengguna/{nomorInduk}', [PenggunaController::class, 'delete'])->name("delete_pengguna_form");
+
 
 Route::get('/login', function () {
     return view('pages-login');
@@ -44,6 +46,13 @@ Route::get('/pengumuman/delete/{id}', [PengumumanController::class, 'delete']);
 
 
 // Dosen
+Route::get('/pengguna/{nomorInduk}', [PenggunaController::class, 'userInfo']);
+Route::get('/pengguna/', [PenggunaController::class, 'testGetAll']);
+Route::get('/dosen/insert', [DosenController::class, 'insertNewDosen']);
+Route::put('/dosen/', [PenggunaController::class, 'update_form']);
+Route::delete('/dosen/{nomorInduk}', [PenggunaController::class, 'deleteInfo'])->name("delete_pengguna_form");
+
+
 Route::get('/dosen', function () {
     return view('dosen.dashboard');
 });
@@ -68,7 +77,7 @@ Route::get('/dosen/tracking-skripsi', function () {
     return view('dosen.tracking_skripsi_home');
 });
 
-Route::get('/dosen/tracking-skripsi-add-mhs-bimbingan', function () { 
+Route::get('/dosen/tracking-skripsi-add-mhs-bimbingan', function () {
     return view('dosen.tracking_skripsi_add_mhs');
 });
 

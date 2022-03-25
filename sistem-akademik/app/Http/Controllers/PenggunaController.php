@@ -60,7 +60,7 @@ class PenggunaController extends Controller{
     }
 
     public function userInfo($nomorInduk){
-        $hasil = PenggunaService::userInfo("nomorInduk", $nomorInduk);
+        $hasil = PenggunaService::userInfo("nomor_induk", $nomorInduk);
         echo "<pre>";
         print_r($hasil);
         echo "</pre>";

@@ -15,20 +15,38 @@ class DosenData extends Model implements  DosenPersistence{
      * @var array
      */
     protected $fillable = [
-        'judul',
-        'keterangan',
-        'tanggal',
+        'nomor_induk',
+        'program_studi',
+        'bidang_ilmu',
+        'gelar_akademik',
+        'status_ikatan_kerja',
+        'status_dosen'
     ];
 
+    /**
+     * Indicates if the model's ID is auto-incrementing.
+     *
+     * @var bool
+     */
+    public $incrementing = false;
+
+    /**
+     * The data type of the auto-incrementing ID.
+     *
+     * @var string
+     */
+    protected $keyType = 'string';
     private function modelToEntity($model) {
         $res =  $model->map(
             function ($item, $key){
-                $pengumuman = new Pengumuman();
-                $pengumuman->setId($item['id']);
-                $pengumuman->setTanggal(new DateTime($item['tanggal']));
-                $pengumuman->setKeterangan($item['keterangan']);
-                $pengumuman->setJudul($item['judul']);
-                return $pengumuman;
+                $dosen = new Dosen();
+                $dosen->setNomorInduk($item['nomor_induk']);
+                $dosen->setProgramStudi($item['program_studi']);
+                $dosen->setBidangIlmu($item['bidang_ilmu']);
+                $dosen->setGelarAkademik($item['gelar_akademik']);
+                $dosen->setStatusIkatanKerja($item['status_ikatan_kerja']);
+                $dosen->setStatusDosen($item['status_dosen']);
+                return $dosen;
             });
         return $res->toArray();
     }

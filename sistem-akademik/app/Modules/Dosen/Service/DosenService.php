@@ -1,9 +1,10 @@
 <?php
 namespace App\Modules\Dosen\Service;
 
-
+use DateTime;
 use App\Modules\Dosen\Entity\Dosen;
 use App\Modules\Dosen\Persistence\DosenPersistence;
+use App\Modules\Pengguna\Service\PenggunaService;
 
 class DosenService {
     public static DosenPersistence $pm;
@@ -24,9 +25,13 @@ class DosenService {
      * @param bool $statusDosen
      * @return bool
      */
-    public static function insert(string $nomorInduk,string $programStudi,string $bidangIlmu,
+    public static function insert(string  $nama,string $password, string $nomorInduk,string $email,
+                                  string $tanggalLahir, string $tempatLahir,string $jenisKelamin, string  $alamat,
+                                  string $notelepon, string $jabatan,string $programStudi,string $bidangIlmu,
                                   string $gelarAkademik,string $statusIkatanKerja,bool $statusDosen):bool {
-
+        if(!PenggunaService::insert($nama,$password,  $nomorInduk, $email, $tanggalLahir, $tempatLahir,$jenisKelamin, $alamat,$notelepon, $jabatan)){
+            return false;
+        }
         $newDosen = new Dosen();
         $newDosen->setNomorInduk($nomorInduk);
         $newDosen->setProgramStudi($programStudi);
@@ -34,7 +39,15 @@ class DosenService {
         $newDosen->setGelarAkademik($gelarAkademik);
         $newDosen->setStatusIkatanKerja($statusIkatanKerja);
         $newDosen->setStatusDosen($statusDosen);
-        return self::$pm->insertSingle($newDosen);
+
+        try {
+           self::$pm->insertSingle($newDosen);
+        }catch (e $exception){
+            echo $exception;
+            PenggunaService::delete($nomorInduk);
+            return  false;
+        }
+        return true;
     }
 
     /**

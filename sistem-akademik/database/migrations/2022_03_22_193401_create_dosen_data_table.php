@@ -14,7 +14,14 @@ return new class extends Migration
     public function up()
     {
         Schema::create('dosen_data', function (Blueprint $table) {
-            $table->id();
+            $table->primary('nomor_induk');
+            $table->string('nomor_induk');
+            $table->string("program_studi");
+            $table->string("bidang_ilmu");
+            $table->string("gelar_akademik");
+            $table->string("status_ikatan_kerja");
+            $table->string("status_dosen");
+            $table->foreign('nomor_induk')->references('nomor_induk')->on("users_data");
             $table->timestamps();
         });
     }
@@ -29,3 +36,4 @@ return new class extends Migration
         Schema::dropIfExists('dosen_data');
     }
 };
+

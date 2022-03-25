@@ -99,24 +99,12 @@ class Dosen extends Pengguna {
     }
     public function getArray():array {
         return [
-            'nomorInduk' => $this->getNomorInduk(),
-            'nama' => $this->getNama(),
-            'email' => $this->getEmail(),
-            'password' => $this->getPassword(),
-            'tanggalLahir' => $this->getTanggalLahir(),
-            'tempatLahir' => $this->getTempatLahir(),
-            'jenisKelamin' => $this->getJenisKelamin(),
-            'alamat' =>  $this->getAlamat(),
-            'notelepon' =>  $this->getNotelepon(),
-            'fotoprofile' => "contoh foto",
-            'jabatan' => $this->getJabatan(),
-            'dosen' => [
-                'programStudi' => $this->programStudi,
-                'bidangIlmu' => $this->bidangIlmu,
-                'gelarAkademik' => $this->gelarAkademik,
-                'ikatanKerja' => $this->statusIkatanKerja,
-                'statusDosen' => $this->statusDosen,
-            ]
+            'nomor_induk' => $this->getNomorInduk(),
+            'program_studi' => $this->programStudi,
+            'bidang_ilmu' => $this->bidangIlmu,
+            'gelar_akademik' => $this->gelarAkademik,
+            'status_ikatan_kerja' => $this->statusIkatanKerja,
+            'status_dosen' => $this->statusDosen,
         ];
     }
 }

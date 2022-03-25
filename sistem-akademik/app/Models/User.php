@@ -16,21 +16,27 @@ use function Symfony\Component\String\length;
 
 class User extends Authenticatable implements PenggunaPersistence{
     use HasApiTokens, HasFactory, Notifiable;
+    /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table = 'users_data';
 
-    protected $primaryKey = 'nomorInduk';
+    protected $primaryKey = 'nomor_induk';
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'nomorInduk',
+        'nomor_induk',
         'nama',
         'email',
         'password',
-        'tanggalLahir',
-        'tempatLahir' ,
-        'jenisKelamin',
+        'tanggal_lahir',
+        'tempat_lahir' ,
+        'jenis_kelamin',
         'alamat',
         'notelepon',
         'fotoprofile',
@@ -72,13 +78,13 @@ class User extends Authenticatable implements PenggunaPersistence{
 
     private function entityToModel(Pengguna $pengguna) {
         return [
-            'nomorInduk' => $pengguna->getNomorInduk(),
+            'nomor_induk' => $pengguna->getNomorInduk(),
             'nama' => $pengguna->getNama(),
             'email' => $pengguna->getEmail(),
             'password' => $pengguna->getPassword(),
-            'tanggalLahir' => $pengguna->getTanggalLahir(),
-            'tempatLahir' => $pengguna->getTempatLahir(),
-            'jenisKelamin' => $pengguna->getJenisKelamin(),
+            'tanggal_lahir' => $pengguna->getTanggalLahir(),
+            'tempat_lahir' => $pengguna->getTempatLahir(),
+            'jenis_kelamin' => $pengguna->getJenisKelamin(),
             'alamat' =>  $pengguna->getAlamat(),
             'notelepon' =>  $pengguna->getNotelepon(),
             'fotoprofile' => "contoh foto",
@@ -96,11 +102,11 @@ class User extends Authenticatable implements PenggunaPersistence{
                 $pengguna->setPassword("");
                 $pengguna->setEmail($item['email']);
                 $pengguna->setFotoprofil([]);
-                $pengguna->setJenisKelamin($item['jenisKelamin']);
-                $pengguna->setNomorInduk($item['nomorInduk']);
+                $pengguna->setJenisKelamin($item['jenis_kelamin']);
+                $pengguna->setNomorInduk($item['nomor_induk']);
                 $pengguna->setNotelepon($item['notelepon']);
-                $pengguna->setTanggalLahir(new DateTime($item['tanggalLahir']));
-                $pengguna->setTempatLahir($item['tempatLahir']);
+                $pengguna->setTanggalLahir(new DateTime($item['tanggal_lahir']));
+                $pengguna->setTempatLahir($item['tempat_lahir']);
                 return $pengguna;
             });
         return $res->toArray();

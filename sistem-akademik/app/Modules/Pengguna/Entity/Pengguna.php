@@ -206,13 +206,13 @@ class Pengguna {
     }
     public function getArray():array {
         return [
-            'nomorInduk' => $this->getNomorInduk(),
+            'nomor_induk' => $this->getNomorInduk(),
             'nama' => $this->getNama(),
             'email' => $this->getEmail(),
             'password' => $this->getPassword(),
-            'tanggalLahir' => $this->getTanggalLahir(),
-            'tempatLahir' => $this->getTempatLahir(),
-            'jenisKelamin' => $this->getJenisKelamin(),
+            'tanggal_lahir' => $this->getTanggalLahir(),
+            'tempat_lahir' => $this->getTempatLahir(),
+            'jenis_kelamin' => $this->getJenisKelamin(),
             'alamat' =>  $this->getAlamat(),
             'notelepon' =>  $this->getNotelepon(),
             'fotoprofile' => "contoh foto",
