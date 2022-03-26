@@ -30,6 +30,7 @@ class AppServiceProvider extends ServiceProvider
         new DosenService(new DosenData());
         new MahasiswaService(new MahasiswaData());
         new MatakuliahService(new MatakuliahData());
+        new Ku
     }
 
     /**
