@@ -12,10 +12,10 @@ class PengambilanMatakuliah{
 	private string $kelas;
 	private int $jumlahPertemuan;
 	private Matakuliah $matakuliah;
-	private Skripsi $skripsi;
-	private Nilai $nilai;
-	private Roster $roster;
+	private array $nilai;
+	private array $roster;
 	private Dosen $dosen;
+	private array $mahasiswa;
 
 	function __construct()
 	{
@@ -27,9 +27,20 @@ class PengambilanMatakuliah{
 
 	public function hitungKehadiran(){
 	}
+
+    public function getArray():array {
+        return [
+            'id' => $this->getKode(),
+            'tahun' => $this->getNama(),
+            'semester' => $this->getJenis(),
+            'kelas' => $this->getSifat(),
+            'jumlah_pertemuan' => $this->getSifat(),
+            'matakuliah' => $this->getSifat(),
+            'dosen' => $this->getSifat(),
+            'nilai' => $this->getSifat(),
+            'roster' => $this->getSifat(),
+            'mahasiswa' => $this->getSifat(),
+        ];
+    }
 }
-
-
-
-
 ?>
