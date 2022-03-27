@@ -19,8 +19,8 @@ class KurikulumData extends Model implements KurikulumPersistence{
         'semester',
         'kelas',
         'jumlah_pertemuan',
-        'matakuliah',
-        'dosen',
+        'kode_matakuliah',
+        'nomor_induk_dosen',
     ];
 
     private function modelToEntity($model) {

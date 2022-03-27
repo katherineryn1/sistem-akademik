@@ -13,7 +13,6 @@ class RosterService {
 
     function __destruct(){
     }
-    /// NOT IMPLEMENTED YET
 
     /**
      * @param string $kode
@@ -23,14 +22,13 @@ class RosterService {
      * @param int $sks
      * @return bool
      */
-    public static function insert(string  $kode,string $nama, string $jenis, string $sifat, int $sks):bool {
-        $newMatakuliah = new Matakuliah();
-        $newMatakuliah->setKode($kode);
-        $newMatakuliah->setNama($nama);
-        $newMatakuliah->setJenis($jenis);
-        $newMatakuliah->setSifat($sifat);
-        $newMatakuliah->setSks($sks);
-        return self::$pm->insertSingle($newMatakuliah);
+    public static function insert(DateTime $tanggal, string $jamMulai, string $jamSelesai, string $ruangan):bool {
+        $newRoster = new Roster();
+        $newRoster->setTanggal($tanggal);
+        $newRoster->setJamMulai($jamMulai);
+        $newRoster->setJamSelesai($jamSelesai);
+        $newRoster->setRuangan($ruangan);
+        return self::$pm->insertSingle($newRoster);
     }
 
     /**
@@ -41,21 +39,21 @@ class RosterService {
      * @param int $sks
      * @return bool
      */
-    public static function update(string  $kode,string $nama, string $jenis, string $sifat, int $sks):bool {
-        $newMatakuliah = new Matakuliah();
-        $newMatakuliah->setKode($kode);
-        $newMatakuliah->setNama($nama);
-        $newMatakuliah->setJenis($jenis);
-        $newMatakuliah->setSifat($sifat);
-        $newMatakuliah->setSks($sks);
-        return self::$pm->updateSingle($newMatakuliah);
+    public static function update(int $id, DateTime $tanggal, string $jamMulai, string $jamSelesai, string $ruangan):bool {
+        $newRoster = new Roster();
+        $newRoster->setId($id);
+        $newRoster->setTanggal($tanggal);
+        $newRoster->setJamMulai($jamMulai);
+        $newRoster->setJamSelesai($jamSelesai);
+        $newRoster->setRuangan($ruangan);
+        return self::$pm->updateSingle($newRoster);
     }
 
     /**
      * @param string $id
      * @return bool
      */
-    public static function delete(string $id):bool {
+    public static function delete(int $id):bool {
         return  self::$pm->deleteSingle($id);
     }
 
@@ -64,7 +62,7 @@ class RosterService {
      * @param string $value
      * @return array
      */
-    public static function matakuliahByInfo(string $attribute,string $value): array{
+    public static function rosterByInfo(string $attribute,string $value): array{
         $found = self::$pm->getByAttribute([$attribute], [$value], ['=']);
         if(count($found) <= 0){
             return [];
@@ -74,6 +72,14 @@ class RosterService {
             array_push($dto, $data->getArray());
         }
         return $dto;
+    }
+
+    public static  function generateKehadiran(int $id):array {
+        // Todo: Implement
+    }
+
+    public static  function destroyKehadiran(int $id):array {
+        // Todo: Implement
     }
 
     public static function getAll():array {

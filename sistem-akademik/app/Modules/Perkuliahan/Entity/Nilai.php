@@ -1,7 +1,8 @@
 <?php
 namespace App\Modules\Perkuliahan\Entity;
 
-use App\Entity\Mahasiswa;
+
+use App\Modules\Mahasiswa\Entity\Mahasiswa;
 
 class Nilai{
     private int $id;
@@ -210,10 +211,10 @@ class Nilai{
             'nilai_3' => $this->getNilai3(),
             'nilai_4' => $this->getNilai4(),
             'nilai_5' => $this->getNilai5(),
-            'nilai_uas' => $this->getNilaiUAS(),
+            'nilai_UAS' => $this->getNilaiUAS(),
             'nilai_akhir' => $this->getNilaiAkhir(),
             'index' => $this->getIndex(),
-            'mahasiswa' => $this->getMahasiswa()
+            'nomor_induk' => $this->getMahasiswa()
         ];
     }
 

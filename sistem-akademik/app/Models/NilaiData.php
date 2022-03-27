@@ -9,6 +9,23 @@ use Illuminate\Database\Eloquent\Model;
 
 class NilaiData extends Model implements NilaiPersistence{
     use HasFactory;
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'nilai_1',
+        'nilai_2',
+        'nilai_3',
+        'nilai_4',
+        'nilai_5',
+        'nilai_UAS',
+        'nilai_akhir',
+        'index',
+        'nomor_induk',
+        'id_kurikulumm',
+    ];
 
     public function insertSingle(Nilai $nilai): bool
     {

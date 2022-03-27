@@ -10,6 +10,17 @@ use Illuminate\Database\Eloquent\Model;
 class KehadiranData extends Model implements KehadiranPersistence{
     use HasFactory;
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'keterangan',
+        'pengguna',
+        'id_roster',
+    ];
+
     public function insertSingle(Kehadiran $kehadiran): bool
     {
         // TODO: Implement insertSingle() method.

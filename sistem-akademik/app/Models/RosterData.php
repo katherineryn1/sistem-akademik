@@ -9,7 +9,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class RosterData extends Model implements RosterPersistence {
     use HasFactory;
-
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'tanggal',
+        'jam_mulai',
+        'jam_selesai',
+        'ruangan',
+        'id_kurikulum',
+    ];
     public function insertSingle(Roster $roster): bool
     {
         // TODO: Implement insertSingle() method.

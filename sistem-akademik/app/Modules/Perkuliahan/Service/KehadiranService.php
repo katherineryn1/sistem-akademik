@@ -1,5 +1,7 @@
 <?php
 namespace App\Modules\Perkuliahan\Service;
+use App\Models\User;
+use App\Modules\Pengguna\Entity\Pengguna;
 use App\Modules\Perkuliahan\Persistence\KehadiranPersistence;
 use DateTime;
 use App\Modules\Perkuliahan\Entity\Kehadiran;
@@ -13,49 +15,41 @@ class KehadiranService {
 
     function __destruct(){
     }
-    /// NOT IMPLEMENTED YET
 
     /**
-     * @param string $kode
-     * @param string $nama
-     * @param string $jenis
-     * @param string $sifat
-     * @param int $sks
+     * @param string $keterangan
+     * @param string $nomor_induk
      * @return bool
      */
-    public static function insert(string  $kode,string $nama, string $jenis, string $sifat, int $sks):bool {
-        $newMatakuliah = new Matakuliah();
-        $newMatakuliah->setKode($kode);
-        $newMatakuliah->setNama($nama);
-        $newMatakuliah->setJenis($jenis);
-        $newMatakuliah->setSifat($sifat);
-        $newMatakuliah->setSks($sks);
-        return self::$pm->insertSingle($newMatakuliah);
+    public static function insert(string  $keterangan,string $nomor_induk):bool {
+        $newKehadiran = new Kehadiran();
+        $newKehadiran->setKeterangan($keterangan);
+        $user = new Pengguna();
+        $user->setNomorInduk($nomor_induk);
+        $newKehadiran->setUser($user);
+        return self::$pm->insertSingle($newKehadiran);
     }
 
     /**
-     * @param string $kode
-     * @param string $nama
-     * @param string $jenis
-     * @param string $sifat
-     * @param int $sks
+     * @param string $keterangan
+     * @param string $nomor_induk
      * @return bool
      */
-    public static function update(string  $kode,string $nama, string $jenis, string $sifat, int $sks):bool {
-        $newMatakuliah = new Matakuliah();
-        $newMatakuliah->setKode($kode);
-        $newMatakuliah->setNama($nama);
-        $newMatakuliah->setJenis($jenis);
-        $newMatakuliah->setSifat($sifat);
-        $newMatakuliah->setSks($sks);
-        return self::$pm->updateSingle($newMatakuliah);
+    public static function update(int $id,string  $keterangan,string $nomor_induk):bool {
+        $newKehadiran = new Kehadiran();
+        $newKehadiran->setId($id);
+        $newKehadiran->setKeterangan($keterangan);
+        $user = new Pengguna();
+        $user->setNomorInduk($nomor_induk);
+        $newKehadiran->setUser($user);
+        return self::$pm->updateSingle($newKehadiran);
     }
 
     /**
      * @param string $id
      * @return bool
      */
-    public static function delete(string $id):bool {
+    public static function delete(int $id):bool {
         return  self::$pm->deleteSingle($id);
     }
 
@@ -64,7 +58,7 @@ class KehadiranService {
      * @param string $value
      * @return array
      */
-    public static function matakuliahByInfo(string $attribute,string $value): array{
+    public static function kehadiranByInfo(string $attribute,string $value): array{
         $found = self::$pm->getByAttribute([$attribute], [$value], ['=']);
         if(count($found) <= 0){
             return [];

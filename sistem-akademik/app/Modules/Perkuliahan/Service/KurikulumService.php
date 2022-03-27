@@ -17,8 +17,6 @@ class KurikulumService {
     function __destruct(){
     }
 
-    /// NOT IMPLEMENTED YET
-    ///
     /**
      * @param int $tahun
      * @param string $semester
@@ -32,6 +30,7 @@ class KurikulumService {
                                   string $nomorIndukDosen, string  $kodeMatakuliah):bool {
         $dosen = DosenService::dosenInfo('nomor_induk',$nomorIndukDosen );
         $matakuliah = MatakuliahService::matakuliahByInfo('kode', $kodeMatakuliah);
+
         $newKurikulum = new Kurikulum();
         $newKurikulum->setTahun($tahun);
         $newKurikulum->setSemester($semester);
@@ -40,7 +39,7 @@ class KurikulumService {
         $newKurikulum->setDosen($dosen[0]);
         $newKurikulum->setMatakuliah($matakuliah[0]);
         $newKurikulum->setKelas($kelas);
-        return self::$pm->insertSingle($newKurikulum);
+        return self::$pmKurikulum->insertSingle($newKurikulum);
     }
 
     /**
@@ -51,22 +50,29 @@ class KurikulumService {
      * @param int $sks
      * @return bool
      */
-    public static function update(string  $kode,string $nama, string $jenis, string $sifat, int $sks):bool {
-        $newMatakuliah = new Matakuliah();
-        $newMatakuliah->setKode($kode);
-        $newMatakuliah->setNama($nama);
-        $newMatakuliah->setJenis($jenis);
-        $newMatakuliah->setSifat($sifat);
-        $newMatakuliah->setSks($sks);
-        return self::$pm->updateSingle($newMatakuliah);
+    public static function update(int $id,int  $tahun,string $semester, string $kelas, int $jumlahPertemuan,
+                                  string $nomorIndukDosen, string  $kodeMatakuliah):bool {
+        $dosen = DosenService::dosenInfo('nomor_induk',$nomorIndukDosen );
+        $matakuliah = MatakuliahService::matakuliahByInfo('kode', $kodeMatakuliah);
+
+        $newKurikulum = new Kurikulum();
+        $newKurikulum->setId($id);
+        $newKurikulum->setTahun($tahun);
+        $newKurikulum->setSemester($semester);
+        $newKurikulum->setKelas($kelas);
+        $newKurikulum->setJumlahPertemuan($jumlahPertemuan);
+        $newKurikulum->setDosen($dosen[0]);
+        $newKurikulum->setMatakuliah($matakuliah[0]);
+        $newKurikulum->setKelas($kelas);
+        return self::$pmKurikulum->updateSingle($newKurikulum);
     }
 
     /**
-     * @param string $id
+     * @param int $id
      * @return bool
      */
     public static function delete(int $id):bool {
-        return  self::$pm->deleteSingle($id);
+        return  self::$pmKurikulum->deleteSingle($id);
     }
 
     /**
@@ -74,8 +80,8 @@ class KurikulumService {
      * @param string $value
      * @return array
      */
-    public static function matakuliahByInfo(string $attribute,string $value): array{
-        $found = self::$pm->getByAttribute([$attribute], [$value], ['=']);
+    public static function kurikulumByInfo(string $attribute,string $value): array{
+        $found = self::$pmKurikulum->getByAttribute([$attribute], [$value], ['=']);
         if(count($found) <= 0){
             return [];
         }
@@ -87,7 +93,7 @@ class KurikulumService {
     }
 
     public static function getAll():array {
-        return  self::$pm->getAll();
+        return  self::$pmKurikulum->getAll();
     }
 
     public static  function addDosen(int  $id,string  $nomorInduk):array {
@@ -110,11 +116,19 @@ class KurikulumService {
         // Todo: Implement
     }
 
-    public static  function getNilai(int  $id):array {
+    public static  function generateNilai(int  $id):array {
         // Todo: Implement
     }
 
-    public static  function getRoster(int $id):array {
+    public static  function destroyNilai(int  $id):array {
+        // Todo: Implement
+    }
+
+    public static  function generateRoster(int $id):array {
+        // Todo: Implement
+    }
+
+    public static  function destroyRoster(int $id):array {
         // Todo: Implement
     }
 

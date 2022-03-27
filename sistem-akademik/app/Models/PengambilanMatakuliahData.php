@@ -11,6 +11,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class PengambilanMatakuliahData extends Model implements PengambilanMatakuliahPersistence {
     use HasFactory;
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'nomor_induk',
+        'id_kurikulum',
+    ];
 
     public function insertUserKurikulum(User $nomorInduk, Kurikulum $kurikulum): bool
     {

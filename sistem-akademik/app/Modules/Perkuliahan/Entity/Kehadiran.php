@@ -1,12 +1,12 @@
 <?php
 namespace App\Modules\Perkuliahan\Entity;
 
-use App\Entity\User;
+use App\Modules\Pengguna\Entity\Pengguna;
 
 class Kehadiran{
     private int $id;
 	private string $keterangan;
-	public User $user;
+	private Pengguna $user;
 
 	function __construct()
 	{
@@ -59,7 +59,7 @@ class Kehadiran{
     /**
      * @param User $user
      */
-    public function setUser(User $user): void
+    public function setUser(Pengguna $user): void
     {
         $this->user = $user;
     }
@@ -67,7 +67,7 @@ class Kehadiran{
         return [
             'id' => $this->getId(),
             'keterangan' => $this->getKeterangan(),
-            'user' => $this->getUser(),
+            'pengguna' => $this->getUser(),
         ];
     }
 }
