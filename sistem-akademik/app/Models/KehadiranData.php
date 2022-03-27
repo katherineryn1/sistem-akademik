@@ -21,28 +21,51 @@ class KehadiranData extends Model implements KehadiranPersistence{
         'id_roster',
     ];
 
-    public function insertSingle(Kehadiran $kehadiran): bool
+    private function modelToEntity($model) {
+        $res =  $model->map(
+            function ($item, $key){
+                $kehadiran = new Kehadiran();
+                $kehadiran->setId($item['id']);
+                $kehadiran->setPenggunaByNomorInduk($item['pengguna']);
+                $kehadiran->setKeterangan($item['keterangan']);
+                return $kehadiran;
+            });
+        return $res->toArray();
+    }
+    public function insertSingle(Kehadiran $kehadiran,int $roster): bool
     {
-        // TODO: Implement insertSingle() method.
+        $k = $kehadiran->getArray();
+        $k['id_roster'] = $roster;
+        $data = $this->fill($k);
+        return $data ->save();
     }
 
     public function updateSingle(Kehadiran $kehadiran): bool
     {
-        // TODO: Implement updateSingle() method.
+        $data = $this::find($kehadiran->getId());
+        $data->update($kehadiran->getArray());
+        return $data->save();
     }
 
     public function deleteSingle(string $id): bool
     {
-        // TODO: Implement deleteSingle() method.
+        $data = $this::find($id);
+        return $data->delete();
     }
 
     public function getAll(): array
     {
-        // TODO: Implement getAll() method.
+        $allData = $this::all();
+        return $this->modelToEntity($allData);
     }
 
     public function getByAttribute(array $attribute, array $value, array $logic): array
     {
-        // TODO: Implement getByAttribute() method.
+        $mapColumn = array();
+        for ($i=0; $i<count($attribute); $i++){
+            array_push($mapColumn,[$attribute[$i] , $logic[$i], $value[$i]]);
+        }
+        $allData = $this::where($mapColumn)->get();
+        return $this->modelToEntity($allData);
     }
 }

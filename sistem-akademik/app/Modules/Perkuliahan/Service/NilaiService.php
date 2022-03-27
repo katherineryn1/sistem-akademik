@@ -27,7 +27,7 @@ class NilaiService {
      * @param string $nomor_induk_mahasiswa
      * @return bool
      */
-    public static function insert(float $nilai1, float $nilai2, float $nilai3, float $nilai4, float $nilai5, float $nilaiUAS, float $nilaiAkhir, string $index, string $nomor_induk_mahasiswa):bool {
+    public static function insert(int $kurikulum,float $nilai1, float $nilai2, float $nilai3, float $nilai4, float $nilai5, float $nilaiUAS, float $nilaiAkhir, string $index, string $nomor_induk_mahasiswa):bool {
         $newNilai = new Nilai();
         $newNilai->setNilai1($nilai1);
         $newNilai->setNilai2($nilai2);
@@ -41,7 +41,7 @@ class NilaiService {
         $mhs = new Mahasiswa();
         $mhs->setNomorInduk($nomor_induk_mahasiswa);
         $newNilai->setMahasiswa($mhs);
-        return self::$pm->insertSingle($newNilai);
+        return self::$pm->insertSingle($newNilai,$kurikulum);
     }
 
     /**

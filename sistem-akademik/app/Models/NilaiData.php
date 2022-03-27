@@ -27,28 +27,58 @@ class NilaiData extends Model implements NilaiPersistence{
         'id_kurikulumm',
     ];
 
-    public function insertSingle(Nilai $nilai): bool
+    private function modelToEntity($model) {
+        $res =  $model->map(
+            function ($item, $key){
+                $nilai = new Nilai();
+                $nilai->setId($item['id']);
+                $nilai->setNilai1($item['nilai_1']);
+                $nilai->setNilai2($item['nilai_2']);
+                $nilai->setNilai3($item['nilai_3']);
+                $nilai->setNilai4($item['nilai_4']);
+                $nilai->setNilai5($item['nilai_5']);
+                $nilai->setNilaiUAS($item['nilai_UAS']);
+                $nilai->setNilaiAkhir($item['nilai_akhir']);
+                $nilai->setIndex($item['index']);
+                $nilai->setMahasiswaByNomorInduk($item['nilai_id']);
+                return $nilai;
+            });
+        return $res->toArray();
+    }
+    public function insertSingle(Nilai $nilai,int $kurikulum): bool
     {
-        // TODO: Implement insertSingle() method.
+        $n =  $nilai->getArray();
+        $n['id_kurikulum'] = $kurikulum;
+        $data = $this->fill($n);
+        return $data ->save();
     }
 
     public function updateSingle(Nilai $nilai): bool
     {
-        // TODO: Implement updateSingle() method.
+        $data = $this::find($nilai>getId());
+        $data->update($nilai->getArray());
+        return $data->save();
     }
 
     public function deleteSingle(int $id): bool
     {
-        // TODO: Implement deleteSingle() method.
+        $data = $this::find($id);
+        return $data->delete();
     }
 
     public function getAll(): array
     {
-        // TODO: Implement getAll() method.
+        $allData = $this::all();
+        return $this->modelToEntity($allData);
     }
 
     public function getByAttribute(array $attribute, array $value, array $logic): array
     {
-        // TODO: Implement getByAttribute() method.
+        $mapColumn = array();
+        for ($i=0; $i<count($attribute); $i++){
+            array_push($mapColumn,[$attribute[$i] , $logic[$i], $value[$i]]);
+        }
+        $allData = $this::where($mapColumn)->get();
+        return $this->modelToEntity($allData);
     }
 }

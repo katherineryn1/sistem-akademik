@@ -4,7 +4,7 @@ namespace App\Modules\Perkuliahan\Persistence;
 use App\Modules\Perkuliahan\Entity\Roster;
 
 interface RosterPersistence{
-    public  function insertSingle(Roster $roster): bool ;
+    public  function insertSingle(Roster $roster,int $kurikulum): bool ;
     public  function updateSingle(Roster $roster): bool ;
     public  function deleteSingle(string  $id): bool ;
     public  function getAll(): array ;

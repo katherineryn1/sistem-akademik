@@ -32,8 +32,8 @@ class KurikulumData extends Model implements KurikulumPersistence{
                 $kurikulum->setSemester($item['semester']);
                 $kurikulum->setKelas($item['kelas']);
                 $kurikulum->setJumlahPertemuan($item['jumlah_pertemuan']);
-                $kurikulum->setMatakuliah($item['matakuliah']);
-                $kurikulum->setDosen($item['dosen']);
+                $kurikulum->setMatakuliahByKode($item['kode_matakuliah']);
+                $kurikulum->setDosenByNomorInduk($item['nomor_induk_dosen']);
                 return $kurikulum;
             });
         return $res->toArray();

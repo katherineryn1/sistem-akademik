@@ -21,23 +21,37 @@ class PengambilanMatakuliahData extends Model implements PengambilanMatakuliahPe
         'id_kurikulum',
     ];
 
-    public function insertUserKurikulum(User $nomorInduk, Kurikulum $kurikulum): bool
+    public function insertUserKurikulum(string $nomorInduk,string $kurikulum): bool
     {
-        // TODO: Implement insertUserKurikulum() method.
+        $pMK = array();
+        $pMK['nomor_induk'] = $nomorInduk;
+        $pMK['id_kurikulum'] = $kurikulum;
+        $data = $this->fill($pMK);
+        return $data ->save();
     }
 
-    public function deleteUserKurikulum(User $nomorInduk, Kurikulum $kurikulum): bool
+    public function deleteUserKurikulum(string $nomorInduk, string $kurikulum): bool
     {
-        // TODO: Implement deleteUserKurikulum() method.
+        $allData = $this::where([
+                ['nomor_induk', '=', $nomorInduk->ge],
+                ['id_kurikulum', '=', $kurikulum],
+        ])->get();
+        return $allData->delete();
     }
 
     public function getAll(): array
     {
-        // TODO: Implement getAll() method.
+        $allData = $this::all();
+        return $allData->toArray();
     }
 
     public function getByAttribute(array $attribute, array $value, array $logic): array
     {
-        // TODO: Implement getByAttribute() method.
+        $mapColumn = array();
+        for ($i=0; $i<count($attribute); $i++){
+            array_push($mapColumn,[$attribute[$i] , $logic[$i], $value[$i]]);
+        }
+        $allData = $this::where($mapColumn)->get();
+        return $allData->toArray();
     }
 }

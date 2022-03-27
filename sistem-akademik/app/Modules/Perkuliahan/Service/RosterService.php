@@ -5,7 +5,7 @@ use App\Modules\Perkuliahan\Entity\Roster;
 use App\Modules\Perkuliahan\Persistence\RosterPersistence;
 
 class RosterService {
-    private static NilaiPersistence $pm;
+    private static RosterPersistence $pm;
 
     function __construct(RosterPersistence $pm){
         self::$pm = $pm;
@@ -22,13 +22,13 @@ class RosterService {
      * @param int $sks
      * @return bool
      */
-    public static function insert(DateTime $tanggal, string $jamMulai, string $jamSelesai, string $ruangan):bool {
+    public static function insert(int $kurikulum,DateTime $tanggal, string $jamMulai, string $jamSelesai, string $ruangan):bool {
         $newRoster = new Roster();
         $newRoster->setTanggal($tanggal);
         $newRoster->setJamMulai($jamMulai);
         $newRoster->setJamSelesai($jamSelesai);
         $newRoster->setRuangan($ruangan);
-        return self::$pm->insertSingle($newRoster);
+        return self::$pm->insertSingle($newRoster,$kurikulum);
     }
 
     /**

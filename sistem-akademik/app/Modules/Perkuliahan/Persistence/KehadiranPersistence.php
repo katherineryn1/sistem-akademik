@@ -4,7 +4,7 @@ namespace App\Modules\Perkuliahan\Persistence;
 use App\Modules\Perkuliahan\Entity\Kehadiran;
 
 interface KehadiranPersistence{
-    public  function insertSingle(Kehadiran $kehadiran): bool ;
+    public  function insertSingle(Kehadiran $kehadiran,int $roster): bool ;
     public  function updateSingle(Kehadiran $kehadiran): bool ;
     public  function deleteSingle(string  $id): bool ;
     public  function getAll(): array ;

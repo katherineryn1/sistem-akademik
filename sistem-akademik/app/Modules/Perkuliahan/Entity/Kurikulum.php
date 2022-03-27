@@ -2,7 +2,7 @@
 namespace App\Modules\Perkuliahan\Entity;
 
 use App\Modules\Perkuliahan;
-use App\Modules\Dosen\Entity;
+use App\Modules\Dosen\Entity\Dosen;
 
 
 class Kurikulum{
@@ -122,6 +122,16 @@ class Kurikulum{
     }
 
     /**
+     * @param string kodeMatakuliah
+     */
+    public function setMatakuliahByKode(string $kodeMatakuliah): void
+    {
+        $this->matakuliah = new Matakuliah();
+        $this->matakuliah->setKode($kodeMatakuliah);
+    }
+
+
+    /**
      * @return Dosen
      */
     public function getDosen(): Dosen
@@ -135,6 +145,15 @@ class Kurikulum{
     public function setDosen(Dosen $dosen): void
     {
         $this->dosen = $dosen;
+    }
+
+    /**
+     * @param Dosen $dosen
+     */
+    public function setDosenByNomorInduk(string $nomorInduk): void
+    {
+        $this->dosen = new Dosen();
+        $this->dosen->setNomorInduk($nomorInduk);
     }
 
     /**
@@ -195,8 +214,8 @@ class Kurikulum{
             'semester' => $this->getSemester(),
             'kelas' => $this->getKelas(),
             'jumlah_pertemuan' => $this->getJumlahPertemuan(),
-            'kode_matakuliah' => $this->getMatakuliah(),
-            'nomor_induk_dosen' => $this->getDosen(),
+            'kode_matakuliah' => ($this->getMatakuliah())->getKode(),
+            'nomor_induk_dosen' => ($this->getDosen())->getNomorInduk(),
             'nilai' => $this->getNilai(),
             'roster' => $this->getRoster(),
             'mahasiswa' => $this->getMahasiswa(),

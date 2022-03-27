@@ -1,9 +1,7 @@
 <?php
 namespace App\Modules\Perkuliahan\Service;
-use App\Models\User;
 use App\Modules\Pengguna\Entity\Pengguna;
 use App\Modules\Perkuliahan\Persistence\KehadiranPersistence;
-use DateTime;
 use App\Modules\Perkuliahan\Entity\Kehadiran;
 
 class KehadiranService {
@@ -21,13 +19,13 @@ class KehadiranService {
      * @param string $nomor_induk
      * @return bool
      */
-    public static function insert(string  $keterangan,string $nomor_induk):bool {
+    public static function insert(string  $keterangan,string $nomor_induk, int $roster):bool {
         $newKehadiran = new Kehadiran();
         $newKehadiran->setKeterangan($keterangan);
         $user = new Pengguna();
         $user->setNomorInduk($nomor_induk);
-        $newKehadiran->setUser($user);
-        return self::$pm->insertSingle($newKehadiran);
+        $newKehadiran->setPengguna($user);
+        return self::$pm->insertSingle($newKehadiran,$roster);
     }
 
     /**
@@ -41,7 +39,7 @@ class KehadiranService {
         $newKehadiran->setKeterangan($keterangan);
         $user = new Pengguna();
         $user->setNomorInduk($nomor_induk);
-        $newKehadiran->setUser($user);
+        $newKehadiran->setPengguna($user);
         return self::$pm->updateSingle($newKehadiran);
     }
 

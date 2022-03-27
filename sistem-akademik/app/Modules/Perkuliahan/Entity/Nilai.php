@@ -184,7 +184,14 @@ class Nilai{
         $this->mahasiswa = $mahasiswa;
     }
 
-
+    /**
+     * @param string $nomorInduk
+     */
+    public function setMahasiswaByNomorInduk(Mahasiswa $nomorInduk): void
+    {
+        $this->mahasiswa = new Mahasiswa();
+        $this->mahasiswa->setNomorInduk($nomorInduk);
+    }
 
 	/**
 	 *
