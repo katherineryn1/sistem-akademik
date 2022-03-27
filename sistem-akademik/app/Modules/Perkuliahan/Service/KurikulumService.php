@@ -1,9 +1,8 @@
 <?php
 namespace App\Modules\Perkuliahan\Service;
 use App\Modules\Dosen\Service\DosenService;
-use DateTime;
 use App\Modules\Perkuliahan\Entity\Kurikulum;
-use App\Modules\Perkuliahan\Persistence\MatakuliahPersistence;
+use App\Modules\Perkuliahan\Persistence\KurikulumPersistence;
 
 class KurikulumService {
     private static KurikulumPersistence $pm;

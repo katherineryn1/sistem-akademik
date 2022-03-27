@@ -1,7 +1,7 @@
 <?php
 namespace App\Modules\Perkuliahan\Entity;
 
-class Roster{
+class PengambilanMatakuliah{
     private $tanggal;
     private $jamMulai;
     private $jamSelesai;
