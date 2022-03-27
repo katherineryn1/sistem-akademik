@@ -3,17 +3,22 @@ namespace App\Modules\Perkuliahan\Service;
 use App\Modules\Dosen\Service\DosenService;
 use App\Modules\Perkuliahan\Entity\Kurikulum;
 use App\Modules\Perkuliahan\Persistence\KurikulumPersistence;
+use App\Modules\Perkuliahan\Persistence\PengambilanMatakuliahPersistence;
 
 class KurikulumService {
-    private static KurikulumPersistence $pm;
+    private static KurikulumPersistence $pmKurikulum;
+    private static PengambilanMatakuliahPersistence $pmPengambilanMK;
 
-    function __construct(KurikulumPersistence $pm){
-        self::$pm = $pm;
+    function __construct(KurikulumPersistence $pmKurikulum ,PengambilanMatakuliahPersistence $pmPengambilanMK){
+        self::$pmPengambilanMK = $pmPengambilanMK;
+        self::$pmKurikulum = $pmKurikulum;
     }
 
     function __destruct(){
     }
 
+    /// NOT IMPLEMENTED YET
+    ///
     /**
      * @param int $tahun
      * @param string $semester
@@ -27,7 +32,6 @@ class KurikulumService {
                                   string $nomorIndukDosen, string  $kodeMatakuliah):bool {
         $dosen = DosenService::dosenInfo('nomor_induk',$nomorIndukDosen );
         $matakuliah = MatakuliahService::matakuliahByInfo('kode', $kodeMatakuliah);
-
         $newKurikulum = new Kurikulum();
         $newKurikulum->setTahun($tahun);
         $newKurikulum->setSemester($semester);

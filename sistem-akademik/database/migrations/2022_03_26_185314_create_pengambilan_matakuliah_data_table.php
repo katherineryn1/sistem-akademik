@@ -15,6 +15,10 @@ return new class extends Migration
     {
         Schema::create('pengambilan_matakuliah_data', function (Blueprint $table) {
             $table->id();
+            $table->string('nomor_induk');
+            $table->bigInteger('id_kurikulum',false,true);
+            $table->foreign('id_kurikulum')->references('id')->on("kurikulum_data");
+            $table->foreign('nomor_induk')->references('nomor_induk')->on("users_data");
             $table->timestamps();
         });
     }

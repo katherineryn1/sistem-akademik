@@ -2,27 +2,24 @@
 
 namespace App\Models;
 
+use App\Modules\Perkuliahan\Entity\Kurikulum;
 use App\Modules\Perkuliahan\Entity\PengambilanMatakuliah;
 use App\Modules\Perkuliahan\Persistence\PengambilanMatakuliahPersistence;
+use App\Modules\Perkuliahan\Persistence\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class PengambilanMatakuliahData extends Model implements PengambilanMatakuliahPersistence {
     use HasFactory;
 
-    public function insertSingle(PengambilanMatakuliah $pengambilanMK): bool
+    public function insertUserKurikulum(User $nomorInduk, Kurikulum $kurikulum): bool
     {
-        // TODO: Implement insertSingle() method.
+        // TODO: Implement insertUserKurikulum() method.
     }
 
-    public function updateSingle(PengambilanMatakuliah $pengambilanMK): bool
+    public function deleteUserKurikulum(User $nomorInduk, Kurikulum $kurikulum): bool
     {
-        // TODO: Implement updateSingle() method.
-    }
-
-    public function deleteSingle(int $id): bool
-    {
-        // TODO: Implement deleteSingle() method.
+        // TODO: Implement deleteUserKurikulum() method.
     }
 
     public function getAll(): array

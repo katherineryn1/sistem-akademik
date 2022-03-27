@@ -15,6 +15,11 @@ return new class extends Migration
     {
         Schema::create('kehadiran_data', function (Blueprint $table) {
             $table->id();
+            $table->string("keterangan");
+            $table->string("pengguna");
+            $table->bigInteger("id_roster",false,true);
+            $table->foreign('pengguna')->references('nomor_induk')->on("users_data");
+            $table->foreign('id_roster')->references('id')->on("roster_data");
             $table->timestamps();
         });
     }
