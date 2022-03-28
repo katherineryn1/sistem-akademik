@@ -32,11 +32,11 @@ class RosterService {
     }
 
     /**
-     * @param string $kode
-     * @param string $nama
-     * @param string $jenis
-     * @param string $sifat
-     * @param int $sks
+     * @param int $id
+     * @param DateTime $tanggal
+     * @param string $jamMulai
+     * @param string $jamSelesai
+     * @param string $ruangan
      * @return bool
      */
     public static function update(int $id, DateTime $tanggal, string $jamMulai, string $jamSelesai, string $ruangan):bool {
@@ -83,7 +83,15 @@ class RosterService {
     }
 
     public static function getAll():array {
-        return  self::$pm->getAll();
+        $found = self::$pm->getAll();
+        if(count($found) <= 0){
+            return [];
+        }
+        $dto = array();
+        foreach ($found as $data) {
+            array_push($dto, $data->getArray());
+        }
+        return $dto;
     }
 }
 ?>

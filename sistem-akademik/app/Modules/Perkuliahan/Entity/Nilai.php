@@ -5,15 +5,15 @@ namespace App\Modules\Perkuliahan\Entity;
 use App\Modules\Mahasiswa\Entity\Mahasiswa;
 
 class Nilai{
-    private int $id;
-	private float $nilai1;
-	private float $nilai2;
-	private float $nilai3;
-	private float $nilai4;
-	private float $nilai5;
-	private float $nilaiUAS;
-	private float $nilaiAkhir;
-	private string $index;
+    private int $id = -1;
+	private float $nilai1 = 0;
+	private float $nilai2 = 0;
+	private float $nilai3 = 0;
+	private float $nilai4 = 0;
+	private float $nilai5 = 0;
+	private float $nilaiUAS = 0;
+	private float $nilaiAkhir = 0;
+	private string $index = "";
 	private Mahasiswa $mahasiswa;
 
 	function __construct()
@@ -187,7 +187,7 @@ class Nilai{
     /**
      * @param string $nomorInduk
      */
-    public function setMahasiswaByNomorInduk(Mahasiswa $nomorInduk): void
+    public function setMahasiswaByNomorInduk(string $nomorInduk): void
     {
         $this->mahasiswa = new Mahasiswa();
         $this->mahasiswa->setNomorInduk($nomorInduk);
@@ -221,7 +221,7 @@ class Nilai{
             'nilai_UAS' => $this->getNilaiUAS(),
             'nilai_akhir' => $this->getNilaiAkhir(),
             'index' => $this->getIndex(),
-            'nomor_induk' => $this->getMahasiswa()
+            'nomor_induk' => $this->getMahasiswa()->getNomorInduk(),
         ];
     }
 

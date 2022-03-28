@@ -36,8 +36,8 @@ class KurikulumService {
         $newKurikulum->setSemester($semester);
         $newKurikulum->setKelas($kelas);
         $newKurikulum->setJumlahPertemuan($jumlahPertemuan);
-        $newKurikulum->setDosen($dosen[0]);
-        $newKurikulum->setMatakuliah($matakuliah[0]);
+        $newKurikulum->setDosenByNomorInduk($nomorIndukDosen);
+        $newKurikulum->setMatakuliahByKode($kodeMatakuliah);
         $newKurikulum->setKelas($kelas);
         return self::$pmKurikulum->insertSingle($newKurikulum);
     }
@@ -61,8 +61,8 @@ class KurikulumService {
         $newKurikulum->setSemester($semester);
         $newKurikulum->setKelas($kelas);
         $newKurikulum->setJumlahPertemuan($jumlahPertemuan);
-        $newKurikulum->setDosen($dosen[0]);
-        $newKurikulum->setMatakuliah($matakuliah[0]);
+        $newKurikulum->setDosenByNomorInduk($nomorIndukDosen);
+        $newKurikulum->setMatakuliahByKode($kodeMatakuliah);
         $newKurikulum->setKelas($kelas);
         return self::$pmKurikulum->updateSingle($newKurikulum);
     }
@@ -93,7 +93,15 @@ class KurikulumService {
     }
 
     public static function getAll():array {
-        return  self::$pmKurikulum->getAll();
+        $found = self::$pmKurikulum->getAll();
+        if(count($found) <= 0){
+            return [];
+        }
+        $dto = array();
+        foreach ($found as $data) {
+            array_push($dto, $data->getArray());
+        }
+        return  $dto;
     }
 
     public static  function addDosen(int  $id,string  $nomorInduk):array {

@@ -6,16 +6,16 @@ use App\Modules\Dosen\Entity\Dosen;
 
 
 class Kurikulum{
-	private int $id;
-	private int $tahun;
-	private string $semester;
-	private string $kelas;
-	private int $jumlahPertemuan;
-	private Matakuliah $matakuliah;
+	private int $id = -1;
+	private int $tahun = 0;
+	private string $semester = "" ;
+	private string $kelas = "";
+	private int $jumlahPertemuan = 0;
+	private Matakuliah $matakuliah ;
     private Dosen $dosen;
-	private array $nilai;
-	private array $roster;
-	private array $mahasiswa;
+	private array $nilai = [];
+	private array $roster = [];
+	private array $mahasiswa = [];
 
 	function __construct()
 	{
@@ -216,9 +216,6 @@ class Kurikulum{
             'jumlah_pertemuan' => $this->getJumlahPertemuan(),
             'kode_matakuliah' => ($this->getMatakuliah())->getKode(),
             'nomor_induk_dosen' => ($this->getDosen())->getNomorInduk(),
-            'nilai' => $this->getNilai(),
-            'roster' => $this->getRoster(),
-            'mahasiswa' => $this->getMahasiswa(),
         ];
     }
 }

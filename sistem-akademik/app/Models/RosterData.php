@@ -6,6 +6,7 @@ use App\Modules\Perkuliahan\Entity\Roster;
 use App\Modules\Perkuliahan\Persistence\RosterPersistence;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use DateTime;
 
 class RosterData extends Model implements RosterPersistence {
     use HasFactory;
@@ -30,7 +31,7 @@ class RosterData extends Model implements RosterPersistence {
                 $roster->setJamMulai($item['jam_mulai']);
                 $roster->setJamSelesai($item['jam_selesai']);
                 $roster->setRuangan($item['ruangan']);
-                $roster->setTanggal($item['tanggal']);
+                $roster->setTanggal(new DateTime($item['tanggal']));
                 return $roster;
             });
         return $res->toArray();
@@ -40,7 +41,7 @@ class RosterData extends Model implements RosterPersistence {
     {
         $kur = $roster->getArray();
         $kur['id_kurikulum'] = $kurikulum;
-        $data = $this->fill();
+        $data = $this->fill($kur);
         return $data ->save();
     }
 

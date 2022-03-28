@@ -3,12 +3,12 @@ namespace App\Modules\Perkuliahan\Entity;
 
 use DateTime;
 class Roster{
-    private int $id;
+    private int $id = -1;
 	private DateTime $tanggal;
-	private string $jamMulai;
-	private string $jamSelesai;
-	private string  $ruangan;
-	private array $kehadiran;
+	private string $jamMulai = "";
+	private string $jamSelesai = "";
+	private string  $ruangan = "";
+	private array $kehadiran =[];
 
 	function __construct()
 	{

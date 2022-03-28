@@ -151,7 +151,15 @@
         }
 
         public static function getAll():array {
-            return  self::$pm->getAll();
+            $found =self::$pm->getAll();
+            if(count($found) <= 0){
+                return [];
+            }
+            $dto = array();
+            foreach ($found as $data) {
+                array_push($dto, $data->getArray());
+            }
+            return $dto;
         }
     }
 ?>

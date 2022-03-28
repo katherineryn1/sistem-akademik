@@ -22,6 +22,7 @@ use App\Modules\Perkuliahan\Service\KehadiranService;
 use App\Modules\Perkuliahan\Service\KurikulumService;
 use App\Modules\Perkuliahan\Service\MatakuliahService;
 use App\Modules\Perkuliahan\Service\NilaiService;
+use App\Modules\Perkuliahan\Service\RosterService;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -42,7 +43,7 @@ class AppServiceProvider extends ServiceProvider
         new KurikulumService(new KurikulumData(), new PengambilanMatakuliahData());
         new NilaiService(new NilaiData());
         new KehadiranService(new KehadiranData());
-        new Roster(new RosterData());
+        new RosterService(new RosterData());
     }
 
     /**

@@ -24,7 +24,7 @@ class NilaiData extends Model implements NilaiPersistence{
         'nilai_akhir',
         'index',
         'nomor_induk',
-        'id_kurikulumm',
+        'id_kurikulum',
     ];
 
     private function modelToEntity($model) {
@@ -40,7 +40,7 @@ class NilaiData extends Model implements NilaiPersistence{
                 $nilai->setNilaiUAS($item['nilai_UAS']);
                 $nilai->setNilaiAkhir($item['nilai_akhir']);
                 $nilai->setIndex($item['index']);
-                $nilai->setMahasiswaByNomorInduk($item['nilai_id']);
+                $nilai->setMahasiswaByNomorInduk($item['nomor_induk']);
                 return $nilai;
             });
         return $res->toArray();
@@ -55,7 +55,7 @@ class NilaiData extends Model implements NilaiPersistence{
 
     public function updateSingle(Nilai $nilai): bool
     {
-        $data = $this::find($nilai>getId());
+        $data = $this::find($nilai->getId());
         $data->update($nilai->getArray());
         return $data->save();
     }
