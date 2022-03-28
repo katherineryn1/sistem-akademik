@@ -7,10 +7,10 @@ use App\Modules\Dosen\Persistence\DosenPersistence;
 use App\Modules\Pengguna\Service\PenggunaService;
 
 class DosenService {
-    public static DosenPersistence $pm;
+    private static DosenPersistence $pm;
 
     function __construct(DosenPersistence $pm){
-        $this->pm = $pm;
+        self::$pm = $pm;
     }
 
     function __destruct(){
@@ -40,14 +40,8 @@ class DosenService {
         $newDosen->setStatusIkatanKerja($statusIkatanKerja);
         $newDosen->setStatusDosen($statusDosen);
 
-        try {
-           self::$pm->insertSingle($newDosen);
-        }catch (e $exception){
-            echo $exception;
-            PenggunaService::delete($nomorInduk);
-            return  false;
-        }
-        return true;
+        return  self::$pm->insertSingle($newDosen);
+
     }
 
     /**
@@ -85,7 +79,7 @@ class DosenService {
         return  self::$pm->deleteSingle($nomorInduk);
     }
 
-    public static function userInfo(string $attribute,string $value): array{
+    public static function dosenInfo(string $attribute,string $value): array{
         $found = self::$pm->getByAttribute([$attribute], [$value], ['=']);
         if(count($found) <= 0){
             return [];
@@ -98,7 +92,15 @@ class DosenService {
     }
 
     public static function getAll():array {
-        return  self::$pm->getAll();
+        $found =  self::$pm->getAll();
+        if(count($found) <= 0){
+            return [];
+        }
+        $dto = array();
+        foreach ($found as $data) {
+            array_push($dto, $data->getArray());
+        }
+        return $dto;
     }
 
 

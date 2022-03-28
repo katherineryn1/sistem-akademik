@@ -98,7 +98,15 @@ class Matakuliah{
         $this->sks = $sks;
     }
 
-
+    public function getArray():array {
+        return [
+            'kode' => $this->getKode(),
+            'nama' => $this->getNama(),
+            'jenis' => $this->getJenis(),
+            'sifat' => $this->getSifat(),
+            'sks' => $this->getSks(),
+        ];
+    }
 
 }
 

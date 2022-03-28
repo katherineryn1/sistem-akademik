@@ -112,6 +112,11 @@
       <path value="$PROJECT_DIR$/sistem-akademik/vendor/sebastian/comparator" />
       <path value="$PROJECT_DIR$/sistem-akademik/vendor/sebastian/cli-parser" />
       <path value="$PROJECT_DIR$/sistem-akademik/vendor/sebastian/object-enumerator" />
+      <path value="$PROJECT_DIR$/sistem-akademik/vendor/laravel/ui" />
+      <path value="$PROJECT_DIR$/sistem-akademik/vendor/symfony/debug" />
+      <path value="$PROJECT_DIR$/sistem-akademik/vendor/barryvdh/laravel-debugbar" />
+      <path value="$PROJECT_DIR$/sistem-akademik/vendor/maximebf/debugbar" />
+      <path value="$PROJECT_DIR$/sistem-akademik/vendor/asm89/stack-cors" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.4" />

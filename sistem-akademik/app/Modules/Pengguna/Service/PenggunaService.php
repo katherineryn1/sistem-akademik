@@ -6,10 +6,10 @@
     use App\Modules\Pengguna\Persistence\PenggunaPersistence;
 
     class PenggunaService {
-        public static PenggunaPersistence $pm;
+        private static PenggunaPersistence $pm;
 
         function __construct(PenggunaPersistence $pm){
-            $this->pm = $pm;
+            self::$pm = $pm;
         }
 
         function __destruct(){
@@ -151,7 +151,15 @@
         }
 
         public static function getAll():array {
-            return  self::$pm->getAll();
+            $found =self::$pm->getAll();
+            if(count($found) <= 0){
+                return [];
+            }
+            $dto = array();
+            foreach ($found as $data) {
+                array_push($dto, $data->getArray());
+            }
+            return $dto;
         }
     }
 ?>

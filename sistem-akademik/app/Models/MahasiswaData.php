@@ -2,14 +2,13 @@
 
 namespace App\Models;
 
-use App\Modules\Dosen\Entity\Dosen;
-use App\Modules\Dosen\Persistence\DosenPersistence;
+use App\Modules\Mahasiswa\Entity\Mahasiswa;
+use App\Modules\Mahasiswa\Persistence\MahasiswaPersistence;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class DosenData extends Model implements  DosenPersistence{
+class MahasiswaData extends Model implements MahasiswaPersistence{
     use HasFactory;
-
     protected $primaryKey = 'nomor_induk';
     /**
      * The attributes that are mass assignable.
@@ -18,11 +17,9 @@ class DosenData extends Model implements  DosenPersistence{
      */
     protected $fillable = [
         'nomor_induk',
-        'program_studi',
-        'bidang_ilmu',
-        'gelar_akademik',
-        'status_ikatan_kerja',
-        'status_dosen'
+        'jurusan',
+        'tahun_masuk',
+        'tahun_lulus',
     ];
 
     /**
@@ -38,28 +35,27 @@ class DosenData extends Model implements  DosenPersistence{
      * @var string
      */
     protected $keyType = 'string';
+
     private function modelToEntity($model) {
         $res =  $model->map(
             function ($item, $key){
-                $dosen = new Dosen();
-                $dosen->setNomorInduk($item['nomor_induk']);
-                $dosen->setProgramStudi($item['program_studi']);
-                $dosen->setBidangIlmu($item['bidang_ilmu']);
-                $dosen->setGelarAkademik($item['gelar_akademik']);
-                $dosen->setStatusIkatanKerja($item['status_ikatan_kerja']);
-                $dosen->setStatusDosen($item['status_dosen']);
-                return $dosen;
+                $mahasiswa = new Mahasiswa();
+                $mahasiswa->setNomorInduk($item['nomor_induk']);
+                $mahasiswa->setJurusan($item['jurusan']);
+                $mahasiswa->setTahunMasuk($item['tahun_masuk']);
+                $mahasiswa->setTahunLulus($item['tahun_lulus']);
+                return $mahasiswa;
             });
         return $res->toArray();
     }
-    public function insertSingle(Dosen $dosen): bool {
-        $data = $this->fill($dosen->getArray());
+    public function insertSingle(Mahasiswa $mahasiswa): bool {
+        $data = $this->fill($mahasiswa->getArray());
         return $data ->save();
     }
 
-    public function updateSingle(Dosen $dosen): bool{
-        $data = $this::find($dosen->getNomorInduk());
-        $data->update($dosen->getArray());
+    public function updateSingle(Mahasiswa $mahasiswa): bool{
+        $data = $this::find($mahasiswa->getNomorInduk());
+        $data->update($mahasiswa->getArray());
         return $data->save();
     }
 

@@ -1,0 +1,80 @@
+<?php
+
+namespace Tests\Modules\Perkuliahan\Service;
+
+use App\Modules\Perkuliahan\Service\KurikulumService;
+use Tests\TestCase;
+
+class KurikulumServiceTest extends TestCase
+{
+    public function testInsert(){
+        $tahun = 2020 ;
+        $semester = "Ganjil" ;
+        $kelas = 'A';
+        $jumlahPertemuan = 10;
+        $nomorIndukDosen = "2099002";
+        $kodeMatakuliah  = "IF-001";
+        $res = KurikulumService::insert($tahun,$semester, $kelas,$jumlahPertemuan,$nomorIndukDosen,$kodeMatakuliah);
+        self::assertEquals(true,$res);
+    }
+
+
+    public function testGetAll() {
+        $data = KurikulumService::getAll();
+        print_r($data);
+        self::assertGreaterThan(0, count($data));
+
+    }
+
+    public function testKurikulumByInfo() {
+        $data = KurikulumService::kurikulumByInfo("tahun", "2020");
+        self::assertGreaterThan(0, count($data));
+    }
+
+    public function testUpdate() {
+        $data = KurikulumService::kurikulumByInfo("tahun", "2020");
+        self::assertGreaterThan(0, count($data));
+
+        $id = 1;
+        $tahun = 2020 ;
+        $semester = "Genap" ;
+        $kelas = 'A';
+        $jumlahPertemuan = 10;
+        $nomorIndukDosen = "2099002";
+        $kodeMatakuliah  = "IF-001";
+        $res = KurikulumService::update($id, $tahun,$semester, $kelas,$jumlahPertemuan,$nomorIndukDosen,$kodeMatakuliah);
+        self::assertEquals(true,$res);
+    }
+
+    public function testAddDosen() {
+
+    }
+
+    public function testGetMahasiswa() {
+
+    }
+
+    public function testAddMahasiswa() {
+
+    }
+
+    public function testRemoveMahasiswa()
+    {
+
+    }
+
+    public function testDelete(){
+        $id = 1;
+        $tahun = 2020 ;
+        $semester = "Genap" ;
+        $kelas = 'A';
+        $jumlahPertemuan = 10;
+        $nomorIndukDosen = "2099002";
+        $kodeMatakuliah  = "IF-001";
+        $res = KurikulumService::update($id, $tahun,$semester, $kelas,$jumlahPertemuan,$nomorIndukDosen,$kodeMatakuliah);
+        self::assertEquals(true,$res);
+    }
+
+
+
+}
