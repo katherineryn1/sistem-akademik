@@ -9,7 +9,7 @@
 <body>
     {{-- @yield('sidebar') --}}
     @include('header')
-    @include('sidebar')
+    @include('dosen.sidebar')
     @include('dosen.akademik')
     @include('dosen.pengumuman')
 </body>

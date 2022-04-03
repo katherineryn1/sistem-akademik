@@ -89,3 +89,7 @@ Route::get('/dosen/tracking-skripsi-edit-id', function () { #nanti dikasih id mh
     return view('dosen.tracking_skripsi_edit_komentar');
 });
 
+// Mahasiswa
+Route::get('/mahasiswa', function () {
+    return view('mahasiswa.dashboard');
+});
