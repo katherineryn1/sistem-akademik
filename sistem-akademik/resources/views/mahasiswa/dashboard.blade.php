@@ -9,7 +9,8 @@
 <body>
     {{-- @yield('sidebar') --}}
     @include('header')
-    @include('dosen.sidebar')
-    @include('dosen.tracking_skripsi_mhs_content')
+    @include('mahasiswa.sidebar')
+    @include('mahasiswa.akademik')
+    @include('mahasiswa.pengumuman')
 </body>
 </html>

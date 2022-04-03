@@ -45,7 +45,7 @@
       <li class="nav-heading">Pengaturan</li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="{{ url('/dosen/edit-profil') }}">
+        <a class="nav-link collapsed" href="{{ url('/edit-profil') }}">
           <i class="bi bi-gear"></i>
           <span>Edit Profil</span>
         </a>
