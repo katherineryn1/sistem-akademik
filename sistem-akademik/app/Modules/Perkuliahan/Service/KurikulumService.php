@@ -1,17 +1,17 @@
 <?php
 namespace App\Modules\Perkuliahan\Service;
+use App\Modules\Common\MatakuliahBuilder;
 use App\Modules\Dosen\Service\DosenService;
 use App\Modules\Perkuliahan\Entity\Kurikulum;
 use App\Modules\Perkuliahan\Persistence\KurikulumPersistence;
 use App\Modules\Perkuliahan\Persistence\PengambilanMatakuliahPersistence;
+use phpDocumentor\Reflection\Types\This;
 
 class KurikulumService {
-    private static KurikulumPersistence $pmKurikulum;
-    private static PengambilanMatakuliahPersistence $pmPengambilanMK;
+    private static KurikulumPersistence $pm;
 
-    function __construct(KurikulumPersistence $pmKurikulum ,PengambilanMatakuliahPersistence $pmPengambilanMK){
-        self::$pmPengambilanMK = $pmPengambilanMK;
-        self::$pmKurikulum = $pmKurikulum;
+    function __construct(KurikulumPersistence $pm){
+        self::$pm = $pm;
     }
 
     function __destruct(){
@@ -22,38 +22,32 @@ class KurikulumService {
      * @param string $semester
      * @param string $kelas
      * @param int $jumlahPertemuan
-     * @param string $nomorInduk
      * @param string $kodeMatakuliah
      * @return bool
      */
     public static function insert(int  $tahun,string $semester, string $kelas, int $jumlahPertemuan,
-                                  string $nomorIndukDosen, string  $kodeMatakuliah):bool {
-        $dosen = DosenService::dosenInfo('nomor_induk',$nomorIndukDosen );
-        $matakuliah = MatakuliahService::matakuliahByInfo('kode', $kodeMatakuliah);
-
+                                   string  $kodeMatakuliah):bool {
         $newKurikulum = new Kurikulum();
         $newKurikulum->setTahun($tahun);
         $newKurikulum->setSemester($semester);
         $newKurikulum->setKelas($kelas);
         $newKurikulum->setJumlahPertemuan($jumlahPertemuan);
-        $newKurikulum->setDosenByNomorInduk($nomorIndukDosen);
-        $newKurikulum->setMatakuliahByKode($kodeMatakuliah);
+        $newKurikulum->setMatakuliah(MatakuliahBuilder::setKode($kodeMatakuliah)::get());
         $newKurikulum->setKelas($kelas);
-        return self::$pmKurikulum->insertSingle($newKurikulum);
+        return self::$pm->insertSingle($newKurikulum);
     }
 
     /**
-     * @param string $kode
-     * @param string $nama
-     * @param string $jenis
-     * @param string $sifat
-     * @param int $sks
+     * @param int $id
+     * @param int $tahun
+     * @param string $semester
+     * @param string $kelas
+     * @param int $jumlahPertemuan
+     * @param string $kodeMatakuliah
      * @return bool
      */
     public static function update(int $id,int  $tahun,string $semester, string $kelas, int $jumlahPertemuan,
-                                  string $nomorIndukDosen, string  $kodeMatakuliah):bool {
-        $dosen = DosenService::dosenInfo('nomor_induk',$nomorIndukDosen );
-        $matakuliah = MatakuliahService::matakuliahByInfo('kode', $kodeMatakuliah);
+                                  string  $kodeMatakuliah):bool {
 
         $newKurikulum = new Kurikulum();
         $newKurikulum->setId($id);
@@ -61,10 +55,9 @@ class KurikulumService {
         $newKurikulum->setSemester($semester);
         $newKurikulum->setKelas($kelas);
         $newKurikulum->setJumlahPertemuan($jumlahPertemuan);
-        $newKurikulum->setDosenByNomorInduk($nomorIndukDosen);
-        $newKurikulum->setMatakuliahByKode($kodeMatakuliah);
+        $newKurikulum->setMatakuliah(MatakuliahBuilder::setKode($kodeMatakuliah)::get());
         $newKurikulum->setKelas($kelas);
-        return self::$pmKurikulum->updateSingle($newKurikulum);
+        return self::$pm->updateSingle($newKurikulum);
     }
 
     /**
@@ -72,7 +65,7 @@ class KurikulumService {
      * @return bool
      */
     public static function delete(int $id):bool {
-        return  self::$pmKurikulum->deleteSingle($id);
+        return  self::$pm->deleteSingle($id);
     }
 
     /**
@@ -81,7 +74,24 @@ class KurikulumService {
      * @return array
      */
     public static function kurikulumByInfo(string $attribute,string $value): array{
-        $found = self::$pmKurikulum->getByAttribute([$attribute], [$value], ['=']);
+        $found = self::$pm->getByAttribute([$attribute], [$value], ['=']);
+        if(count($found) <= 0){
+            return [];
+        }
+        $dto = array();
+        foreach ($found as $data) {
+            array_push($dto, $data->getArray());
+        }
+        return $dto;
+    }
+
+    /**
+     * @param string $attribute
+     * @param string $value
+     * @return array
+     */
+    public static function kurikulumByTahunSemester(string $attribute,string $value): array{
+        $found = self::$pm->getByAttribute([$attribute], [$value], ['=']);
         if(count($found) <= 0){
             return [];
         }
@@ -93,7 +103,7 @@ class KurikulumService {
     }
 
     public static function getAll():array {
-        $found = self::$pmKurikulum->getAll();
+        $found = self::$pm->getAll();
         if(count($found) <= 0){
             return [];
         }
@@ -104,13 +114,16 @@ class KurikulumService {
         return  $dto;
     }
 
-    public static  function addDosen(int  $id,string  $nomorInduk):array {
+    public static  function addDosen(int  $idKurikulum,string  $nomorInduk):bool {
+        return self::$pmPengambilanMK->insertUserKurikulum($nomorInduk,$idKurikulum);
         // Todo: Implement
     }
 
-    public static  function removeDosen(int  $id,string $nomorInduk):array {
+    public static  function removeDosen(int  $id,string $nomorInduk):bool {
+
         // Todo: Implement
     }
+
 
     public static  function getMahasiswa(string  $id):array {
         // Todo: Implement

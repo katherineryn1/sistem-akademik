@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Modules\Perkuliahan\Entity\Nilai;
+use App\Modules\Perkuliahan\Entity\PengambilanMatakuliah;
 use App\Modules\Perkuliahan\Persistence\NilaiPersistence;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -23,8 +24,7 @@ class NilaiData extends Model implements NilaiPersistence{
         'nilai_UAS',
         'nilai_akhir',
         'index',
-        'nomor_induk',
-        'id_kurikulum',
+        'pengambilan_matakuliah',
     ];
 
     private function modelToEntity($model) {
@@ -40,7 +40,9 @@ class NilaiData extends Model implements NilaiPersistence{
                 $nilai->setNilaiUAS($item['nilai_UAS']);
                 $nilai->setNilaiAkhir($item['nilai_akhir']);
                 $nilai->setIndex($item['index']);
-                $nilai->setMahasiswaByNomorInduk($item['nomor_induk']);
+                $pMK = new  PengambilanMatakuliah();
+                $pMK->setId($item['pengambilan_matakuliah']);
+                $nilai->setPengambilanMatakuliah($pMK);
                 return $nilai;
             });
         return $res->toArray();

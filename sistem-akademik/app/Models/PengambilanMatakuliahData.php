@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Modules\Common\PenggunaBuilder;
 use App\Modules\Perkuliahan\Entity\Kurikulum;
 use App\Modules\Perkuliahan\Entity\PengambilanMatakuliah;
 use App\Modules\Perkuliahan\Persistence\PengambilanMatakuliahPersistence;
@@ -18,40 +19,44 @@ class PengambilanMatakuliahData extends Model implements PengambilanMatakuliahPe
      */
     protected $fillable = [
         'nomor_induk',
+        'posisi_ambil',
         'id_kurikulum',
     ];
 
-    public function insertUserKurikulum(string $nomorInduk,string $kurikulum): bool
-    {
-        $pMK = array();
-        $pMK['nomor_induk'] = $nomorInduk;
-        $pMK['id_kurikulum'] = $kurikulum;
-        $data = $this->fill($pMK);
+    private function modelToEntity($model) {
+        $res =  $model->map(
+            function ($item, $key){
+                $pengambilanMK = new PengambilanMatakuliah();
+                $pengambilanMK->setId($item['id']);
+                $pengambilanMK->setPengguna(PenggunaBuilder::setNomorInduk($item['nomor_induk'])::get());
+                $pengambilanMK->setPosisiAmbil($item['posisi_ambil']);
+                return $pengambilanMK;
+            });
+        return $res->toArray();
+    }
+    public function insertSingle(PengambilanMatakuliah $pengambilanMatakuliah, string $kurikulum): bool {
+        $tempArr = $pengambilanMatakuliah->getArray();
+        $tempArr['id_kurikulum'] = $kurikulum;
+        $data = $this->fill($tempArr);
         return $data ->save();
     }
 
-    public function deleteUserKurikulum(string $nomorInduk, string $kurikulum): bool
-    {
-        $allData = $this::where([
-                ['nomor_induk', '=', $nomorInduk->ge],
-                ['id_kurikulum', '=', $kurikulum],
-        ])->get();
-        return $allData->delete();
+    public function deleteSingle(int $id): bool {
+        $data = $this::find($id);
+        return $data->delete();
     }
 
-    public function getAll(): array
-    {
+    public function getAll(): array {
         $allData = $this::all();
-        return $allData->toArray();
+        return $this->modelToEntity($allData);
     }
 
-    public function getByAttribute(array $attribute, array $value, array $logic): array
-    {
+    public function getByAttribute(array $attribute, array $value, array $logic): array {
         $mapColumn = array();
         for ($i=0; $i<count($attribute); $i++){
             array_push($mapColumn,[$attribute[$i] , $logic[$i], $value[$i]]);
         }
         $allData = $this::where($mapColumn)->get();
-        return $allData->toArray();
+        return $this->modelToEntity($allData);
     }
 }

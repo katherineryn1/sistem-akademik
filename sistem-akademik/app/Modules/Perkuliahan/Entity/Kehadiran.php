@@ -6,7 +6,7 @@ use App\Modules\Pengguna\Entity\Pengguna;
 class Kehadiran{
     private int $id = -1 ;
 	private string $keterangan = "";
-	private Pengguna $pengguna;
+	private PengambilanMatakuliah $pengguna;
 
 	function __construct()
 	{
@@ -49,34 +49,28 @@ class Kehadiran{
     }
 
     /**
-     * @return Pengguna
+     * @return PengambilanMatakuliah
      */
-    public function getPengguna(): Pengguna
+    public function getPengguna(): PengambilanMatakuliah
     {
         return $this->pengguna;
     }
 
     /**
-     * @param Pengguna $pengguna
+     * @param PengambilanMatakuliah $pengguna
      */
-    public function setPengguna(Pengguna $pengguna): void
+    public function setPengguna(PengambilanMatakuliah $pengguna): void
     {
         $this->pengguna = $pengguna;
     }
 
-    /**
-     * @param string $user
-     */
-    public function setPenggunaByNomorInduk(string $nomorInduk): void
-    {
-        $this->pengguna = new Pengguna();
-        $this->pengguna->setNomorInduk($nomorInduk);
-    }
+
+
     public function getArray():array {
         return [
             'id' => $this->getId(),
             'keterangan' => $this->getKeterangan(),
-            'pengguna' => $this->getPengguna()->getNomorInduk(),
+            'id_pengambilan_matakuliah' => $this->getPengguna()->getId(),
         ];
     }
 }

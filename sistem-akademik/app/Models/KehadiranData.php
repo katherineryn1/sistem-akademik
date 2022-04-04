@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use App\Modules\Common\PengambilanMatakuliahBuilder;
 use App\Modules\Perkuliahan\Entity\Kehadiran;
 use App\Modules\Perkuliahan\Persistence\KehadiranPersistence;
+use App\Modules\Perkuliahan\Service\PengambilanMatakuliahService;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -17,7 +19,7 @@ class KehadiranData extends Model implements KehadiranPersistence{
      */
     protected $fillable = [
         'keterangan',
-        'pengguna',
+        'id_pengambilan_matakuliah',
         'id_roster',
     ];
 
@@ -26,7 +28,7 @@ class KehadiranData extends Model implements KehadiranPersistence{
             function ($item, $key){
                 $kehadiran = new Kehadiran();
                 $kehadiran->setId($item['id']);
-                $kehadiran->setPenggunaByNomorInduk($item['pengguna']);
+                $kehadiran->setPengguna(PengambilanMatakuliahBuilder::setId($item['id_pengambilan_matakuliah'])::get());
                 $kehadiran->setKeterangan($item['keterangan']);
                 return $kehadiran;
             });

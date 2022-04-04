@@ -15,11 +15,11 @@ class RosterService {
     }
 
     /**
-     * @param string $kode
-     * @param string $nama
-     * @param string $jenis
-     * @param string $sifat
-     * @param int $sks
+     * @param int $kurikulum
+     * @param DateTime $tanggal
+     * @param string $jamMulai
+     * @param string $jamSelesai
+     * @param string $ruangan
      * @return bool
      */
     public static function insert(int $kurikulum,DateTime $tanggal, string $jamMulai, string $jamSelesai, string $ruangan):bool {

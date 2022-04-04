@@ -12,9 +12,8 @@ class KurikulumServiceTest extends TestCase
         $semester = "Ganjil" ;
         $kelas = 'A';
         $jumlahPertemuan = 10;
-        $nomorIndukDosen = "2099002";
         $kodeMatakuliah  = "IF-001";
-        $res = KurikulumService::insert($tahun,$semester, $kelas,$jumlahPertemuan,$nomorIndukDosen,$kodeMatakuliah);
+        $res = KurikulumService::insert($tahun,$semester, $kelas,$jumlahPertemuan,$kodeMatakuliah);
         self::assertEquals(true,$res);
     }
 
@@ -35,14 +34,14 @@ class KurikulumServiceTest extends TestCase
         $data = KurikulumService::kurikulumByInfo("tahun", "2020");
         self::assertGreaterThan(0, count($data));
 
-        $id = 1;
+        $id = $data[0]["id"];
         $tahun = 2020 ;
         $semester = "Genap" ;
         $kelas = 'A';
         $jumlahPertemuan = 10;
         $nomorIndukDosen = "2099002";
         $kodeMatakuliah  = "IF-001";
-        $res = KurikulumService::update($id, $tahun,$semester, $kelas,$jumlahPertemuan,$nomorIndukDosen,$kodeMatakuliah);
+        $res = KurikulumService::update($id, $tahun,$semester, $kelas,$jumlahPertemuan,$kodeMatakuliah);
         self::assertEquals(true,$res);
     }
 
@@ -64,14 +63,10 @@ class KurikulumServiceTest extends TestCase
     }
 
     public function testDelete(){
-        $id = 1;
-        $tahun = 2020 ;
-        $semester = "Genap" ;
-        $kelas = 'A';
-        $jumlahPertemuan = 10;
-        $nomorIndukDosen = "2099002";
-        $kodeMatakuliah  = "IF-001";
-        $res = KurikulumService::update($id, $tahun,$semester, $kelas,$jumlahPertemuan,$nomorIndukDosen,$kodeMatakuliah);
+        $data = KurikulumService::kurikulumByInfo("tahun", "2020");
+        self::assertGreaterThan(0, count($data));
+        $id = $data[0]["id"];
+        $res = KurikulumService::delete($id);
         self::assertEquals(true,$res);
     }
 

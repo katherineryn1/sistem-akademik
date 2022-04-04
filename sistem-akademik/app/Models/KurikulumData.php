@@ -20,7 +20,6 @@ class KurikulumData extends Model implements KurikulumPersistence{
         'kelas',
         'jumlah_pertemuan',
         'kode_matakuliah',
-        'nomor_induk_dosen',
     ];
 
     private function modelToEntity($model) {
@@ -33,7 +32,6 @@ class KurikulumData extends Model implements KurikulumPersistence{
                 $kurikulum->setKelas($item['kelas']);
                 $kurikulum->setJumlahPertemuan($item['jumlah_pertemuan']);
                 $kurikulum->setMatakuliahByKode($item['kode_matakuliah']);
-                $kurikulum->setDosenByNomorInduk($item['nomor_induk_dosen']);
                 return $kurikulum;
             });
         return $res->toArray();

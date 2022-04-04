@@ -1,6 +1,8 @@
 <?php
 namespace App\Modules\Perkuliahan\Service;
+use App\Modules\Common\PengambilanMatakuliahBuilder;
 use App\Modules\Pengguna\Entity\Pengguna;
+use App\Modules\Perkuliahan\Entity\PengambilanMatakuliah;
 use App\Modules\Perkuliahan\Persistence\KehadiranPersistence;
 use App\Modules\Perkuliahan\Entity\Kehadiran;
 
@@ -16,31 +18,29 @@ class KehadiranService {
 
     /**
      * @param string $keterangan
-     * @param string $nomor_induk
+     * @param int $id_pengambilan_mk
+     * @param int $roster
      * @return bool
      */
-    public static function insert(string  $keterangan,string $nomor_induk, int $roster):bool {
+    public static function insert(string  $keterangan,int $id_pengambilan_mk, int $roster):bool {
         $newKehadiran = new Kehadiran();
         $newKehadiran->setKeterangan($keterangan);
-        $user = new Pengguna();
-        $user->setNomorInduk($nomor_induk);
-        $newKehadiran->setPengguna($user);
+        $newKehadiran->setPengguna(PengambilanMatakuliahBuilder::setId($id_pengambilan_mk)::get());
         return self::$pm->insertSingle($newKehadiran,$roster);
     }
 
     /**
+     * @param int $id
      * @param string $keterangan
-     * @param string $nomor_induk
+     * @param int $id_pengambilan_mk
      * @return bool
      */
-    public static function update(int $id,string  $keterangan,string $nomor_induk):bool {
-        $newKehadiran = new Kehadiran();
-        $newKehadiran->setId($id);
-        $newKehadiran->setKeterangan($keterangan);
-        $user = new Pengguna();
-        $user->setNomorInduk($nomor_induk);
-        $newKehadiran->setPengguna($user);
-        return self::$pm->updateSingle($newKehadiran);
+    public static function update(int $id,string  $keterangan,int $id_pengambilan_mk):bool {
+        $updateKehadiran = new Kehadiran();
+        $updateKehadiran->setId($id);
+        $updateKehadiran->setKeterangan($keterangan);
+        $updateKehadiran->setPengguna(PengambilanMatakuliahBuilder::setId($id_pengambilan_mk)::get());
+        return self::$pm->updateSingle($updateKehadiran);
     }
 
     /**
