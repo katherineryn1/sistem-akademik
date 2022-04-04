@@ -17,11 +17,13 @@ use App\Modules\Dosen\Service\DosenService;
 use App\Modules\Mahasiswa\Service\MahasiswaService;
 use App\Modules\Pengguna\Service\PenggunaService;
 use App\Modules\Pengumuman\Service\PengumumanService;
+use App\Modules\Perkuliahan\Entity\PengambilanMatakuliah;
 use App\Modules\Perkuliahan\Entity\Roster;
 use App\Modules\Perkuliahan\Service\KehadiranService;
 use App\Modules\Perkuliahan\Service\KurikulumService;
 use App\Modules\Perkuliahan\Service\MatakuliahService;
 use App\Modules\Perkuliahan\Service\NilaiService;
+use App\Modules\Perkuliahan\Service\PengambilanMatakuliahService;
 use App\Modules\Perkuliahan\Service\RosterService;
 use Illuminate\Support\ServiceProvider;
 
@@ -44,6 +46,7 @@ class AppServiceProvider extends ServiceProvider
         new NilaiService(new NilaiData());
         new KehadiranService(new KehadiranData());
         new RosterService(new RosterData());
+        new PengambilanMatakuliahService(new PengambilanMatakuliahData());
     }
 
     /**

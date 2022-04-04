@@ -1,5 +1,6 @@
 <?php
 namespace App\Modules\Perkuliahan\Service;
+use App\Modules\Common\PengambilanMatakuliahBuilder;
 use App\Modules\Mahasiswa\Entity\Mahasiswa;
 use DateTime;
 use App\Modules\Perkuliahan\Entity\Nilai;
@@ -16,6 +17,7 @@ class NilaiService {
     }
 
     /**
+     * @param int $kurikulum
      * @param float $nilai1
      * @param float $nilai2
      * @param float $nilai3
@@ -24,10 +26,10 @@ class NilaiService {
      * @param float $nilaiUAS
      * @param float $nilaiAkhir
      * @param string $index
-     * @param string $nomor_induk_mahasiswa
+     * @param string $pengambilan_mk
      * @return bool
      */
-    public static function insert(int $kurikulum,float $nilai1, float $nilai2, float $nilai3, float $nilai4, float $nilai5, float $nilaiUAS, float $nilaiAkhir, string $index, string $nomor_induk_mahasiswa):bool {
+    public static function insert(int $kurikulum,float $nilai1, float $nilai2, float $nilai3, float $nilai4, float $nilai5, float $nilaiUAS, float $nilaiAkhir, string $index, string $pengambilan_mk):bool {
         $newNilai = new Nilai();
         $newNilai->setNilai1($nilai1);
         $newNilai->setNilai2($nilai2);
@@ -37,10 +39,7 @@ class NilaiService {
         $newNilai->setNilaiUAS($nilaiUAS);
         $newNilai->setNilaiAkhir($nilaiAkhir);
         $newNilai->setIndex($index);
-
-        $mhs = new Mahasiswa();
-        $mhs->setNomorInduk($nomor_induk_mahasiswa);
-        $newNilai->setMahasiswa($mhs);
+        $newNilai->setPengambilanMatakuliah(PengambilanMatakuliahBuilder::setId($pengambilan_mk)::get());
         return self::$pm->insertSingle($newNilai,$kurikulum);
     }
 
@@ -57,22 +56,19 @@ class NilaiService {
      * @param string $nomor_induk_mahasiswa
      * @return bool
      */
-    public static function update(int $id,float $nilai1, float $nilai2, float $nilai3, float $nilai4, float $nilai5, float $nilaiUAS, float $nilaiAkhir, string $index, string $nomor_induk_mahasiswa):bool {
-        $newNilai = new Nilai();
-        $newNilai->setId($id);
-        $newNilai->setNilai1($nilai1);
-        $newNilai->setNilai2($nilai2);
-        $newNilai->setNilai3($nilai3);
-        $newNilai->setNilai4($nilai4);
-        $newNilai->setNilai5($nilai5);
-        $newNilai->setNilaiUAS($nilaiUAS);
-        $newNilai->setNilaiAkhir($nilaiAkhir);
-        $newNilai->setIndex($index);
-
-        $mhs = new Mahasiswa();
-        $mhs->setNomorInduk($nomor_induk_mahasiswa);
-        $newNilai->setMahasiswa($mhs);
-        return self::$pm->updateSingle($newNilai);
+    public static function update(int $id,float $nilai1, float $nilai2, float $nilai3, float $nilai4, float $nilai5, float $nilaiUAS, float $nilaiAkhir, string $index,string $pengambilan_mk):bool {
+        $updateNilai = new Nilai();
+        $updateNilai->setId($id);
+        $updateNilai->setNilai1($nilai1);
+        $updateNilai->setNilai2($nilai2);
+        $updateNilai->setNilai3($nilai3);
+        $updateNilai->setNilai4($nilai4);
+        $updateNilai->setNilai5($nilai5);
+        $updateNilai->setNilaiUAS($nilaiUAS);
+        $updateNilai->setNilaiAkhir($nilaiAkhir);
+        $updateNilai->setIndex($index);
+        $updateNilai->setPengambilanMatakuliah(PengambilanMatakuliahBuilder::setId($pengambilan_mk)::get());
+        return self::$pm->updateSingle($updateNilai);
     }
 
     /**

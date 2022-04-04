@@ -12,10 +12,9 @@ class Kurikulum{
 	private string $kelas = "";
 	private int $jumlahPertemuan = 0;
 	private Matakuliah $matakuliah ;
-    private Dosen $dosen;
-	private array $nilai = [];
+    private array $nilai = [];
 	private array $roster = [];
-	private array $mahasiswa = [];
+	private array $pengambilanMatakuliah = [];
 
 	function __construct()
 	{
@@ -130,32 +129,6 @@ class Kurikulum{
         $this->matakuliah->setKode($kodeMatakuliah);
     }
 
-
-    /**
-     * @return Dosen
-     */
-    public function getDosen(): Dosen
-    {
-        return $this->dosen;
-    }
-
-    /**
-     * @param Dosen $dosen
-     */
-    public function setDosen(Dosen $dosen): void
-    {
-        $this->dosen = $dosen;
-    }
-
-    /**
-     * @param Dosen $dosen
-     */
-    public function setDosenByNomorInduk(string $nomorInduk): void
-    {
-        $this->dosen = new Dosen();
-        $this->dosen->setNomorInduk($nomorInduk);
-    }
-
     /**
      * @return array
      */
@@ -191,18 +164,19 @@ class Kurikulum{
     /**
      * @return array
      */
-    public function getMahasiswa(): array
+    public function getPengambilanMatakuliah(): array
     {
-        return $this->mahasiswa;
+        return $this->pengambilanMatakuliah;
     }
 
     /**
-     * @param array $mahasiswa
+     * @param array $pengambilanMatakuliah
      */
-    public function setMahasiswa(array $mahasiswa): void
+    public function setPengambilanMatakuliah(array $pengambilanMatakuliah): void
     {
-        $this->mahasiswa = $mahasiswa;
+        $this->pengambilanMatakuliah = $pengambilanMatakuliah;
     }
+
 
 	public function hitungKehadiran(){
 	}
@@ -215,7 +189,6 @@ class Kurikulum{
             'kelas' => $this->getKelas(),
             'jumlah_pertemuan' => $this->getJumlahPertemuan(),
             'kode_matakuliah' => ($this->getMatakuliah())->getKode(),
-            'nomor_induk_dosen' => ($this->getDosen())->getNomorInduk(),
         ];
     }
 }

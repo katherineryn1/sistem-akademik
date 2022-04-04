@@ -102,6 +102,10 @@ class MahasiswaService {
         // Todo : Implementation
     }
 
+    public static function setRencanaStudi(string $nomorInduk){
+        // Todo : Implementation
+    }
+
     public static function getTranscript(string $nomorInduk){
         // Todo : Implementation
     }
@@ -111,6 +115,10 @@ class MahasiswaService {
     }
 
     public static function getJadwalMatakuliah(string $nomorInduk){
+        // Todo : Implementation
+    }
+
+    public static function getKehadiran(string $nomorInduk){
         // Todo : Implementation
     }
 }
