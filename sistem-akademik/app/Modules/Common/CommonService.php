@@ -4,7 +4,6 @@
 namespace App\Modules\Common;
 
 
-class CommonService
-{
+class CommonService{
 
 }
