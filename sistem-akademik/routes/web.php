@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DaakController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PenggunaController;
 use App\Http\Controllers\PengumumanController;
@@ -43,7 +44,7 @@ Route::get('/mahasiswa/profile',[]);
 
 
 // DAAK
-Route::get('/daak', []);
+Route::get('/daak',  [DaakController::class, 'dashboard']);
 Route::get('/daak/jadwal-kuliah',[]);
 Route::get('/daak/matakuliah-kurikulum',[]);
 Route::get('/daak/jadwal-ujian',[]);

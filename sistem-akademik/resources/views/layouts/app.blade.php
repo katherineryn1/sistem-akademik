@@ -10,7 +10,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('bootstrap-icons.css') }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
 
-    <title>Sistem Informasi Akademik</title>
+    <title> @yield('title') - SIA</title>
 </head>
 <body>
       <!-- ======= Header ======= -->
@@ -32,7 +32,7 @@
       </ul>
     </nav><!-- End Icons Navigation -->
   </header><!-- End Header -->
-
   @yield('sidebar')
+  @yield('content')
 </body>
 </html>
