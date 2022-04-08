@@ -93,6 +93,7 @@ Route::get('/dosen/tracking-skripsi-edit-id', function () { #nanti dikasih id mh
 Route::get('/mahasiswa', function () {
     return view('mahasiswa.dashboard');
 });
+
 Route::get('/dosen/jadwal-mengajar', function () {
     return view('dosen.jadwal_mengajar');
 });
