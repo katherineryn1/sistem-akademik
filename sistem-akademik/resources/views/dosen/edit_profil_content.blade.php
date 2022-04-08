@@ -1,4 +1,4 @@
-<main id="main" class="main container">
+<main id="main" class="main container" style="width: auto;">
     <div class="pagetitle">
         <h3 style="color: #33297D; font-weight: bold;">Edit Profil</h3>
     </div>
@@ -11,7 +11,7 @@
                 <div class="col-sm-3">
                     <label for="textboxEmail" class="col-form-label">Email</label>
                 </div>
-                <label class="col-form-label">:</label>
+                <label class="col-form-label" style="width: auto;">:</label>
                 <div class="col-sm-4">
                     <input type="email" class="form-control" id="textboxEmail">
                 </div>
@@ -30,7 +30,7 @@
                 <div class="col-sm-3">
                     <label for="textboxPasswordLama" class="col-form-label">Password lama</label>
                 </div>
-                <label class="col-form-label">:</label>
+                <label class="col-form-label" style="width: auto;">:</label>
                 <div class="col-sm-4">
                     <input type="password" class="form-control" id="textboxPasswordLama">
                 </div>
@@ -40,7 +40,7 @@
                 <div class="col-sm-3">
                     <label for="textboxPasswordBaru" class="col-form-label">Password baru</label>
                 </div>
-                <label class="col-form-label">:</label>
+                <label class="col-form-label" style="width: auto;">:</label>
                 <div class="col-sm-4">
                     <input type="password" class="form-control" id="textboxPasswordBaru">
                 </div>
@@ -50,7 +50,7 @@
                 <div class="col-sm-3">
                     <label for="textboxKonfirmasi" class="col-form-label">Konfirmasi password baru</label>
                 </div>
-                <label class="col-form-label">:</label>
+                <label class="col-form-label" style="width: auto;">:</label>
                 <div class="col-sm-4">
                     <input type="password" class="form-control" id="textboxKonfirmasi">
                 </div>
