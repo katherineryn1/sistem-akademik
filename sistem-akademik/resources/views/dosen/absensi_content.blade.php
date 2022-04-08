@@ -1,14 +1,14 @@
-<main id="main" class="main container">
+<main id="main" class="main container" style="width: auto;">
     <div class="pagetitle">
         <h3 style="color: #33297D; font-weight: bold;">Presensi Kelas</h3>
     </div>
 
     <form>
-        <div class="card" style="padding: 5px; width: 365px;">
+        <div class="card" style="padding: 5px; width: 390px;">
             <div class="form-group row" style="margin: 5px;">
                 <label for="dropdownMatakuliah" class="col-form-label" style="width: 120px">Mata Kuliah</label>
                 <label class="col-form-label" style="width: 20px">:</label>
-                <div class="dropdown">
+                <div class="dropdown" style="width: auto;">
                     <button class="btn btn-secondary dropdown-toggle dropdown-toggle-split" type="button" id="dropdownMatakuliah"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 200px; background-color: #F4F6F8; color: black;">
                         --- Pilih Matakuliah ---
@@ -25,7 +25,7 @@
             <div class="form-group row" style="margin: 5px;">
                 <label for="dropdownKelas" class="col-form-label" style="width: 120px">Kelas</label>
                 <label class="col-form-label" style="width: 20px">:</label>
-                <div class="dropdown">
+                <div class="dropdown" style="width: auto;">
                     <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownKelas"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 200px; background-color: #F4F6F8; color: black;">
                         ------ Pilih Kelas ------
