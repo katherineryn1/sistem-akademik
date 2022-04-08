@@ -1,6 +1,7 @@
 <?php
 namespace App\Modules\Dosen\Service;
 
+use App\Modules\Perkuliahan\Service\KurikulumService;
 use DateTime;
 use App\Modules\Dosen\Entity\Dosen;
 use App\Modules\Dosen\Persistence\DosenPersistence;
@@ -102,6 +103,31 @@ class DosenService {
         }
         return $dto;
     }
+
+    public static function getRekapMengajar(string $nomorInduk){
+        // Todo : Implementation
+    }
+
+    public static function setRencanaMengajar(string $nomorInduk){
+        // Todo : Implementation
+    }
+
+    public static function getBimbinganSkripsi(string $nomorInduk){
+        // Todo : Implementation
+    }
+
+    public static function getJadwalMengajar(string $nomorInduk){
+        // Todo : Implementation
+    }
+
+    public static function getKehadiranMmengajar(string $nomorInduk){
+        // Todo : Implementation
+    }
+
+    public static function lakukanAbsensi(string $nomorInduk){
+        // Todo : Implementation
+    }
+
 
 
 }

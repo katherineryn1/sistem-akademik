@@ -4,6 +4,7 @@ namespace Tests\Modules\Perkuliahan\Service;
 
 use App\Modules\Pengguna\Service\PenggunaService;
 use App\Modules\Perkuliahan\Service\KehadiranService;
+use App\Modules\Perkuliahan\Service\PengambilanMatakuliahService;
 use App\Modules\Perkuliahan\Service\RosterService;
 use Tests\TestCase;
 
@@ -13,12 +14,12 @@ class KehadiranServiceTest extends TestCase
     public function testInsert() {
         $dataRoster = RosterService::getAll();
         self::assertGreaterThan(0, count($dataRoster));
-        $dataPengguna = PenggunaService::getAll();
-        self::assertGreaterThan(0, count($dataPengguna));
+        $dataPengambilanMK = PengambilanMatakuliahService::getAll();
+        self::assertGreaterThan(0, count($dataPengambilanMK));
+        $ambilMK = $dataPengambilanMK[0]['id'];
         $keterangan = "Sakit" ;
-        $nomor_induk = $dataPengguna[0]['nomor_induk']  ;
         $roster = $dataRoster[0]['id'];
-        $hasilInsert =  KehadiranService::insert($keterangan,$nomor_induk,$roster);
+        $hasilInsert =  KehadiranService::insert($keterangan,$ambilMK ,$roster);
         self::assertEquals(true,$hasilInsert);
     }
 
@@ -34,8 +35,8 @@ class KehadiranServiceTest extends TestCase
         self::assertGreaterThan(0, count($dataKehadiran));
         $id = $dataKehadiran[0]['id'];
         $keterangan = "Izin"  ;
-        $nomor_induk = $dataKehadiran[0]['pengguna']  ;
-        $hasilUpdate =  KehadiranService::update($id,$keterangan,$nomor_induk);
+        $ambil_mk = $dataKehadiran[0]['id_pengambilan_matakuliah']  ;
+        $hasilUpdate =  KehadiranService::update($id,$keterangan,$ambil_mk);
         self::assertEquals(true,$hasilUpdate);
     }
 

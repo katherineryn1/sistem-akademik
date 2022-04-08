@@ -9,7 +9,7 @@
 <body>
     {{-- @yield('sidebar') --}}
     @include('header')
-    @include('sidebar')
+    @include('dosen.sidebar')
     @include('dosen.tracking_skripsi_add_mhs_content')
 </body>
 </html>

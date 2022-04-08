@@ -14,7 +14,7 @@ class Nilai{
 	private float $nilaiUAS = 0;
 	private float $nilaiAkhir = 0;
 	private string $index = "";
-	private Mahasiswa $mahasiswa;
+	private PengambilanMatakuliah $pengambilanMatakuliah;
 
 	function __construct()
 	{
@@ -169,29 +169,22 @@ class Nilai{
     }
 
     /**
-     * @return Mahasiswa
+     * @return PengambilanMatakuliah
      */
-    public function getMahasiswa(): Mahasiswa
+    public function getPengambilanMatakuliah(): PengambilanMatakuliah
     {
-        return $this->mahasiswa;
+        return $this->pengambilanMatakuliah;
     }
 
     /**
-     * @param Mahasiswa $mahasiswa
+     * @param PengambilanMatakuliah $pengambilanMatakuliah
      */
-    public function setMahasiswa(Mahasiswa $mahasiswa): void
+    public function setPengambilanMatakuliah(PengambilanMatakuliah $pengambilanMatakuliah): void
     {
-        $this->mahasiswa = $mahasiswa;
+        $this->pengambilanMatakuliah = $pengambilanMatakuliah;
     }
 
-    /**
-     * @param string $nomorInduk
-     */
-    public function setMahasiswaByNomorInduk(string $nomorInduk): void
-    {
-        $this->mahasiswa = new Mahasiswa();
-        $this->mahasiswa->setNomorInduk($nomorInduk);
-    }
+
 
 	/**
 	 *
@@ -206,8 +199,7 @@ class Nilai{
 	{
 	}
 
-	public function konvertNAkeIndex()
-	{
+	public function konvertNAkeIndex()	{
 	}
 
     public function getArray():array {
@@ -221,7 +213,7 @@ class Nilai{
             'nilai_UAS' => $this->getNilaiUAS(),
             'nilai_akhir' => $this->getNilaiAkhir(),
             'index' => $this->getIndex(),
-            'nomor_induk' => $this->getMahasiswa()->getNomorInduk(),
+            'pengambilan_matakuliah' => $this->getPengambilanMatakuliah()->getId(),
         ];
     }
 

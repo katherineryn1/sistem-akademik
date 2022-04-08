@@ -20,8 +20,6 @@ return new class extends Migration
             $table->string("kelas");
             $table->integer("jumlah_pertemuan");
             $table->string("kode_matakuliah");
-            $table->string("nomor_induk_dosen");
-            $table->foreign('nomor_induk_dosen')->references('nomor_induk')->on("dosen_data");
             $table->foreign('kode_matakuliah')->references('kode')->on("matakuliah_data");
             $table->timestamps();
         });

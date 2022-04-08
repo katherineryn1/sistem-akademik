@@ -5,14 +5,15 @@ namespace Tests\Modules\Perkuliahan\Service;
 use App\Modules\Mahasiswa\Service\MahasiswaService;
 use App\Modules\Perkuliahan\Service\KurikulumService;
 use App\Modules\Perkuliahan\Service\NilaiService;
+use App\Modules\Perkuliahan\Service\PengambilanMatakuliahService;
 use Tests\TestCase;
 
 class NilaiServiceTest extends TestCase{
     public function testInsert() {
         $dataKurikulum = KurikulumService::getAll();
         self::assertGreaterThan(0, count($dataKurikulum));
-        $dataMahasiswa = MahasiswaService::getAll();
-        self::assertGreaterThan(0, count($dataKurikulum));
+        $dataPengambilanMK = PengambilanMatakuliahService::getAll();
+        self::assertGreaterThan(0, count($dataPengambilanMK));
         $kurikulum =$dataKurikulum[0]['id'];
         $nilai1 = 100;
         $nilai2 =100;
@@ -22,8 +23,8 @@ class NilaiServiceTest extends TestCase{
         $nilaiUAS = 80;
         $nilaiAkhir = 81;
         $index= 'A';
-        $nomor_induk_mahasiswa = $dataMahasiswa[0]['nomor_induk'];
-        $hasilInsert = NilaiService::insert($kurikulum,$nilai1, $nilai2,$nilai3,$nilai4,$nilai5, $nilaiUAS,$nilaiAkhir,$index,$nomor_induk_mahasiswa);
+        $pengambilanMK = $dataPengambilanMK[0]['id'];
+        $hasilInsert = NilaiService::insert($kurikulum,$nilai1, $nilai2,$nilai3,$nilai4,$nilai5, $nilaiUAS,$nilaiAkhir,$index,$pengambilanMK);
         self::assertEquals(true,$hasilInsert);
     }
 
@@ -35,6 +36,8 @@ class NilaiServiceTest extends TestCase{
     public function testUpdate() {
         $hasil = NilaiService::getAll();
         self::assertGreaterThan(0, count($hasil));
+        $dataPengambilanMK = PengambilanMatakuliahService::getAll();
+        self::assertGreaterThan(0, count($dataPengambilanMK));
         $id = $hasil[0]['id'];
         $nilai1 = 0;
         $nilai2 =0;
@@ -44,14 +47,16 @@ class NilaiServiceTest extends TestCase{
         $nilaiUAS =0;
         $nilaiAkhir = 0;
         $index= '';
-        $nomor_induk_mahasiswa = $hasil[0]['nomor_induk'];
-        $hasilUpdate= NilaiService::update($id, $nilai1, $nilai2,$nilai3,$nilai4,$nilai5, $nilaiUAS,$nilaiAkhir,$index,$nomor_induk_mahasiswa);
+        $pengambilanMK = $dataPengambilanMK[0]['id'];
+        $hasilUpdate= NilaiService::update($id, $nilai1, $nilai2,$nilai3,$nilai4,$nilai5, $nilaiUAS,$nilaiAkhir,$index,$pengambilanMK);
         self::assertEquals(true,$hasilUpdate);
     }
 
     public function testNilaiByInfo() {
-        $nomorInduk = "19999001";
-        $hasil = NilaiService::nilaiByInfo("nomor_induk" , $nomorInduk );
+        $dataPengambilanMK = PengambilanMatakuliahService::getAll();
+        self::assertGreaterThan(0, count($dataPengambilanMK));
+        $ambilMK = $dataPengambilanMK[0]['id'];
+        $hasil = NilaiService::nilaiByInfo("pengambilan_matakuliah" , $ambilMK );
         self::assertGreaterThan(0, count($hasil));
     }
 

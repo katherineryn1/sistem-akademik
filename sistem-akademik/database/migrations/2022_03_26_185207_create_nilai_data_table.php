@@ -23,10 +23,8 @@ return new class extends Migration
             $table->float("nilai_UAS");
             $table->float("nilai_akhir");
             $table->string("index");
-            $table->string("nomor_induk");
-            $table->foreign('nomor_induk')->references('nomor_induk')->on("mahasiswa_data");
-            $table->bigInteger("id_kurikulum",false,true);
-            $table->foreign('id_kurikulum')->references('id')->on("kurikulum_data");
+            $table->bigInteger("pengambilan_matakuliah",false,true);
+            $table->foreign('pengambilan_matakuliah')->references('id')->on("pengambilan_matakuliah_data");
             $table->timestamps();
         });
     }
