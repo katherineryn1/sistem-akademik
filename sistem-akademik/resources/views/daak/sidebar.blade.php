@@ -13,21 +13,21 @@
       </li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href=#>
+        <a class="nav-link collapsed" href="{{ url('/daak/jadwal-kuliah') }}">
           <i class="bi bi-calendar"></i>
           <span>Jadwal Kuliah</span>
         </a>
       </li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="$">
+        <a class="nav-link collapsed" href="{{ url('/daak/matakuliah-kurikulum') }}">
           <i class="bi bi-qr-code"></i>
           <span>Matakuliah & Kurikulum</span>
         </a>
       </li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#">
+        <a class="nav-link collapsed" href="{{ url('/daak/pengumuman') }}">
           <i class="bi bi-card-list"></i>
           <span>Pengumuman</span>
         </a>
@@ -36,7 +36,7 @@
       <li class="nav-heading">Pengaturan</li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="{{ url('/dosen/edit-profil') }}">
+        <a class="nav-link collapsed" href="{{ url('/daak/mahasiswa') }}">
           <i class="bi bi-gear"></i>
           <span>Akun Mahasiswa</span>
         </a>
@@ -44,14 +44,14 @@
 
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="{{ url('/dosen/edit-profil') }}">
+        <a class="nav-link collapsed" href="{{ url('/daak/dosen') }}">
             <i class="bi bi-gear"></i>
             <span>Akun Dosen</span>
         </a>
       </li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="{{ url('/dosen/edit-profil') }}">
+        <a class="nav-link collapsed" href="{{ url('/daak/pengguna') }}">
             <i class="bi bi-gear"></i>
             <span>Akun Pengguna</span>
         </a>

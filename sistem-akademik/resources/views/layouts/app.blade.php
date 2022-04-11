@@ -9,7 +9,19 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('bootstrap.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('bootstrap-icons.css') }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
-
+    <style>
+        .form-horizontal .control-label::after{
+            content:":";
+            color:black;
+            font-weight:bold;
+            float:right;
+            margin-right:10px;
+        }
+        a,  svg {
+            display: inline-block;
+            vertical-align: middle;
+        }
+    </style>
     <title> @yield('title') - SIA</title>
 </head>
 <body>
@@ -34,5 +46,6 @@
   </header><!-- End Header -->
   @yield('sidebar')
   @yield('content')
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
 </html>

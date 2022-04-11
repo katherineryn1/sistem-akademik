@@ -6,10 +6,8 @@
 @endsection
 
 @section('content')
-
     @include('dosen.sidebar')
     @include('dosen.akademik')
-    <h1>{{ $name  }}</h1>
     @include('dosen.pengumuman')
 @endsection
 

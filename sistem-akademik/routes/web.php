@@ -45,12 +45,13 @@ Route::get('/mahasiswa/profile',[]);
 
 // DAAK
 Route::get('/daak',  [DaakController::class, 'dashboard']);
-Route::get('/daak/jadwal-kuliah',[]);
-Route::get('/daak/matakuliah-kurikulum',[]);
-Route::get('/daak/jadwal-ujian',[]);
-Route::get('/daak/pengumuman',[]);
-Route::get('/daak/mahasiswa',[]);
-Route::get('/daak/dosen',[]);
+Route::get('/daak/jadwal-kuliah',[DaakController::class, 'jadwalKuliah']);
+Route::get('/daak/matakuliah-kurikulum',[DaakController::class, 'matakuliahKurikulum']);
+Route::get('/daak/jadwal-ujian',[DaakController::class, 'jadwalKuliah']);
+Route::get('/daak/pengumuman',[DaakController::class, 'pengumuman']);
+Route::get('/daak/mahasiswa',[DaakController::class, 'akunMahasiswa']);
+Route::get('/daak/dosen',[DaakController::class, 'akunDosen']);
+Route::get('/daak/pengguna',[DaakController::class, 'akunPengguna']);
 
 // Global
 Route::put('v1/reset-password', [PenggunaController::class, 'resetPassword'])->name("resetpassword_form");
