@@ -1,12 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 
 class DaakController extends Controller{
     public function dashboard(){
-        return view('daak.dashboard', ['page_title' => 'Dashboard']);
+//        session();
+          return view('daak.dashboard', ['page_title' => 'Dashboard']);
     }
 
     public function jadwalKuliah(){
@@ -26,7 +26,24 @@ class DaakController extends Controller{
     }
 
     public function akunDosen(){
-        return view('daak.dosen', ['page_title' => 'Daak Dosen']);
+        $data = array(
+            array( "id" => 1,
+                "nama" => "Brandon Jacob",
+                "type" => "Designer",
+                  "age" =>   28,
+                "dummy" => "Designer"),
+            array( "id" => 2,
+                "nama" => "Brandon Jacob",
+                "type" => "Designer",
+                "age" =>   28,
+                "dummy" => "Designer"),
+            array( "id" => 3,
+                "nama" => "Brandon Jacob",
+                "type" => "Designer",
+                "age" =>   28,
+                "dummy" => "Designer")
+        );
+        return view('daak.dosen', ['page_title' => 'Daak Dosen','data' => $data]);
     }
 
     public function akunPengguna(){

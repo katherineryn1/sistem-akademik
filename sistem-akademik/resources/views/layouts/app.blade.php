@@ -21,6 +21,12 @@
             display: inline-block;
             vertical-align: middle;
         }
+        .nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+            color: #33297D;
+            background-color: white;
+        }
+
+
     </style>
     <title> @yield('title') - SIA</title>
 </head>

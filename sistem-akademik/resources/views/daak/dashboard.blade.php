@@ -1,15 +1,15 @@
 @extends('layouts.app')
-@section('title', 'DaaK Page Title')
+@section('title', $page_title)
 
 @section('sidebar')
     @include('daak.sidebar')
 @endsection
-
-@section('content')
-    @include('dosen.sidebar')
-    @include('dosen.akademik')
-    @include('dosen.pengumuman')
-@endsection
+{{--ada jam , waktu total dari semua data --}}
+{{--@section('content')--}}
+{{--    @include('dosen.sidebar')--}}
+{{--    @include('dosen.akademik')--}}
+{{--    @include('dosen.pengumuman')--}}
+{{--@endsection--}}
 
 
 

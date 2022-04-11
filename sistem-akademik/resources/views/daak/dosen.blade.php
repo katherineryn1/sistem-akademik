@@ -7,6 +7,8 @@
 
 @section('content')
     <main id="main" class="main">
+        <div id="alertsSection">
+        </div>
         <div class="pagetitle">
             <h1>Konfigurasi Akun Dosen</h1>
         </div>
@@ -16,9 +18,10 @@
                 <div class="row mb-3 form-horizontal">
                     <label for="inputFilterJurusan" class="col-sm-3 col-form-label control-label">Jurusan</label>
                     <div class="col-sm-9">
-                        <select id="inputFilterJurusan" class="form-select">
+                        <select onchange="filterRedirect(this,'/daak/dosen?jurusan=')" id="inputFilterJurusan" class="form-select">
                             <option selected="">--Pilih Jurusan--</option>
-                            <option>Teknik Informatika</option>
+                            <option value="Teknik Informatika">Teknik Informatika</option>
+                            <option value="Sistem Informasi">Sistem Informasi</option>
                         </select>
                     </div>
                 </div>
@@ -33,51 +36,58 @@
                         <a href="#" class="btn btn-primary">Tambah Dosen</a>
                     </div>
                 </div>
-                <!-- Table with hoverable rows -->
-                <table class="table table-hover align-middle">
-                    <thead>
-                    <tr>
-                        <th scope="col">Nomor Induk</th>
-                        <th scope="col">Nama</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">No Telepon</th>
-                        <th scope="col">Jenis Kelamin</th>
-                        <th scope="col">Program Studi</th>
-                        <th scope="col">Bidang Ilmu</th>
-                        <th scope="col">Status Ikatan Kerja</th>
-                        <th scope="col">Status Dosen</th>
-                        <th scope="col">Action</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Brandon Jacob</td>
-                        <td>Designer</td>
-                        <td>28</td>
-                        <td>2016-05-25</td>
-                        <td>Designer</td>
-                        <td>Designer</td>
-                        <td>Designer</td>
-                        <td>Designer</td>
-                        <td>
-                            <a href="{{ url("/daak/pengguna/1/edit") }}" class="btn btn-warning" >
-                                <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" fill="currentColor" class="bi bi-trash3"  viewBox="0 0 16 16">
-                                    <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-                                    <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
-                                </svg>
-                            </a>
-                            <button onclick="updateHapusDosenModal('1119000')" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modal-confirmation-delete">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="1rem" height="1rem" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
-                                <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
-                            </svg>
-                            </button>
-                        </td>
-                    </tr>
-                   </tbody>
-                </table>
-                <!-- End Table with hoverable rows -->
 
+                <div class="table-responsive">
+                    <!-- Table with hoverable rows -->
+                    <table class="table table-hover align-middle" id="tableData">
+                        <thead>
+                        <tr>
+                            <th scope="col">Nomor Induk</th>
+                            <th scope="col">Nama</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">No Telepon</th>
+                            <th scope="col">Jenis Kelamin</th>
+                            <th scope="col">Program Studi</th>
+                            <th scope="col">Bidang Ilmu</th>
+                            <th scope="col">Status Ikatan Kerja</th>
+                            <th scope="col">Status Dosen</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach ($data as $dosen)
+                            <tr>
+                                <th scope="row">{{ $dosen['id'] }}</th>
+                                <td>{{ $dosen['nama'] }}</td>
+                                <td>{{ $dosen['type'] }}</td>
+                                <td>{{ $dosen['age'] }}</td>
+                                <td>{{ $dosen['dummy']}}</td>
+                                <td>{{ $dosen['dummy']}}</td>
+                                <td>{{ $dosen['dummy']}}</td>
+                                <td>{{ $dosen['dummy']}}</td>
+                                <td>{{ $dosen['dummy']}}</td>
+                                <td>
+                                    <a href="{{ url("/daak/pengguna/{$dosen['id']}/edit") }}" class="btn btn-warning" >
+                                        <i width="1rem" height="1rem" fill="currentColor" class="bi bi-pencil-square"></i>
+                                    </a>
+                                    <button onclick="modalConfirmDeletion({{ $dosen['id'] }})" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modal-confirmation-delete">
+                                        <i width="1rem" height="1rem" fill="currentColor" class="bi bi-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        @endforeach
+                       </tbody>
+                    </table>
+                    <!-- End Table with hoverable rows -->
+                    <div id="pageNavPosition" class="pager-nav d-flex justify-content-center">
+                    </div>
+                    <script>
+                        let pager = new Pager('tableData', 10);
+                        pager.init();
+                        pager.showPageNav('pager', 'pageNavPosition');
+                        pager.showPage(1);
+                    </script>
+                </div>
             </div>
         </div>
         <div class="card">
@@ -204,10 +214,7 @@
                 <!-- End Horizontal Form -->
             </div>
         </div>
-        <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            Launch demo modal
-        </button>
+
         <!-- Modal -->
         <div class="modal fade" id="modal-confirmation-delete" tabindex="-1" aria-labelledby="modal-confirmation-deleteLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -218,35 +225,18 @@
                     </div>
                     <form method="post"  class="row g-3 needs-validation was-validated" novalidate>
                         @method('DELETE')
-                        <div class="modal-body" id="modal-body-hapus-dosen">
+                        <div class="modal-body" id="modal-body-delete">
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                            <button type="submit" class="btn btn-danger" id="btnHapusDosenConfirm" disabled>Hapus</button>
+                            <button type="submit" class="btn btn-danger" id="btnDeleteConfirm" disabled>Hapus</button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
         <script>
-            const modalHapusDosen = document.getElementById("modal-body-hapus-dosen");
-            const btnHapusDosenConfirm = document.getElementById("btnHapusDosenConfirm");
-            function updateHapusDosenModal(idDeleteVal = -1) {
-                modalHapusDosen.innerHTML = `
-                <label for="validationCustom02" class="form-label">Tuliskan kembali <code>${idDeleteVal}</code> untuk konfirmasi :</label>
-                <input onkeyup="checkInputEnableButtonSubmit(this,${idDeleteVal})" autocomplete="off" type="text" class="form-control was-validated" name="nomor_induk" placeholder="${idDeleteVal}" required>
-                <div class="valid-feedback">
-                    Tuliskan <code>${idDeleteVal}</code>
-                </div>
-                `;
-            }
-            function checkInputEnableButtonSubmit(el,valueCheck = -1) {
-                if(el.value == valueCheck){
-                    btnHapusDosenConfirm.disabled = false;
-                }else{
-                    btnHapusDosenConfirm.disabled = true;
-                }
-            }
+            scanAlertsURL();
         </script>
     </main>
 @endsection
