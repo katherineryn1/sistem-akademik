@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 class DosenController extends Controller
 {
     public  function  insertNewDosen(){
-
         $nama = "Test Dosen";
         $password = "12345678";
         $nomorInduk = "2099002";

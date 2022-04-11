@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DaakController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PenggunaController;
 use App\Http\Controllers\PengumumanController;
@@ -15,47 +16,94 @@ use App\Http\Controllers\DosenController;
 |
 */
 
+// Landing Page
 Route::get('/', function () {
     return view('index');
 });
 
+// Coba Router dan controller + View
 Route::get('/coba', [PenggunaController::class, 'show']);
 
-// Pengguna
-Route::get('/pengguna/{nomorInduk}', [PenggunaController::class, 'userInfo']);
-Route::get('/pengguna/', [PenggunaController::class, 'testGetAll']);
-Route::get('/pengguna2/insert', [PenggunaController::class, 'insert']);
-Route::put('/pengguna/', [PenggunaController::class, 'update']);
-Route::delete('/pengguna/{nomorInduk}', [PenggunaController::class, 'delete'])->name("delete_pengguna_form");
-
-
+// Login
 Route::get('/login', function () {
     return view('pages-login');
 })->name("login");
 Route::post('/login', [PenggunaController::class, 'login'])->name("login_form");
-
 Route::get('/logout', [PenggunaController::class, 'logout'])->name("logout_form");
-Route::put('/resetpassword', [PenggunaController::class, 'resetPassword'])->name("resetpassword_form");
-Route::put('/updatepassword', [PenggunaController::class, 'gantiPassword'])->name("updatepassword_form");
 
-// Pengumuman
-Route::get('/pengumuman/', [PengumumanController::class, 'testGetAll']);
-Route::get('/pengumuman/insert', [PengumumanController::class, 'insert']);
-Route::get('/pengumuman/update', [PengumumanController::class, 'update']);
-Route::get('/pengumuman/delete/{id}', [PengumumanController::class, 'delete']);
 
+// Mahasiswa
+Route::get('/mahasiswa', function () {
+    return view('mahasiswa.dashboard');
+});
+Route::get('/mahasiswa/jadwal-kuliah',[]);
+Route::get('/mahasiswa/transkrip-nilai',[]);
+Route::get('/mahasiswa/tracking-skripsi',[]);
+Route::get('/mahasiswa/transaksi-keuangan',[]);
+Route::get('/mahasiswa/profile',[]);
+
+
+// DAAK
+Route::get('/daak',  [DaakController::class, 'dashboard']);
+Route::get('/daak/jadwal-kuliah',[DaakController::class, 'jadwalKuliah']);
+Route::get('/daak/matakuliah-kurikulum',[DaakController::class, 'matakuliahKurikulum']);
+Route::get('/daak/jadwal-ujian',[DaakController::class, 'jadwalKuliah']);
+Route::get('/daak/pengumuman',[DaakController::class, 'pengumuman']);
+Route::get('/daak/mahasiswa',[DaakController::class, 'akunMahasiswa']);
+Route::get('/daak/dosen',[DaakController::class, 'akunDosen']);
+Route::get('/daak/pengguna',[DaakController::class, 'akunPengguna']);
+
+// Global
+Route::put('v1/reset-password', [PenggunaController::class, 'resetPassword'])->name("resetpassword_form");
+Route::put('v1/update-password', [PenggunaController::class, 'gantiPassword'])->name("updatepassword_form");
+
+Route::get('v1/pengguna/{nomorInduk}', [PenggunaController::class, 'userInfo']);
+Route::get('v1/pengguna/', [PenggunaController::class, 'testGetAll']);
+Route::post('v1/pengguna', [PenggunaController::class, 'insert']);
+Route::put('v1/pengguna/{nomorInduk}', [PenggunaController::class, 'update']);
+Route::delete('v1/pengguna/{nomorInduk}', [PenggunaController::class, 'delete']);
+
+Route::get('v1/dosen/{nomorInduk}', []);
+Route::get('v1/dosen', []);
+Route::post('v1/dosen', []);
+Route::put('v1/dosen/{nomorInduk}', []);
+Route::delete('v1/dosen/{nomorInduk}', []);
+
+Route::get('v1/mahasiswa/{nomorInduk}', []);
+Route::get('v1/mahasiswa', []);
+Route::post('v1/mahasiswa', []);
+Route::put('v1/mahasiswa/{nomorInduk}', []);
+Route::delete('v1/mahasiswa/{nomorInduk}', []);
+
+Route::get('v1/pengumuman', [PengumumanController::class, 'testGetAll']);
+Route::post('v1/pengumuman', [PengumumanController::class, 'insert']);
+Route::put('v1/pengumuman/{id}', [PengumumanController::class, 'update']);
+Route::delete('v1/pengumuman/{id}', [PengumumanController::class, 'delete']);
+
+Route::get('v1/matakuliah/{kode}', []);
+Route::get('v1/matakuliah', []);
+Route::post('v1/matakuliah', []);
+Route::put('v1/matakuliah/{kode}', []);
+Route::delete('v1/matakuliah/{kode}', []);
+
+Route::get('v1/kurikulum/{id}', []);
+Route::get('v1/kurikulum', []);
+Route::post('v1/kurikulum', []);
+Route::put('v1/kurikulum/{id}', []);
+Route::delete('v1/kurikulum/{id}', []);
+
+Route::get('v1/jadwal/{id}', []);
+Route::get('v1/jadwal', []);
+Route::post('v1/jadwal', []);
+Route::put('v1/jadwal/{id}', []);
+Route::delete('v1/jadwal/{id}', []);
 
 // Dosen
-Route::get('/pengguna/{nomorInduk}', [PenggunaController::class, 'userInfo']);
-Route::get('/pengguna/', [PenggunaController::class, 'testGetAll']);
-Route::get('/dosen/insert', [DosenController::class, 'insertNewDosen']);
-Route::put('/dosen/', [PenggunaController::class, 'update_form']);
-Route::delete('/dosen/{nomorInduk}', [PenggunaController::class, 'deleteInfo'])->name("delete_pengguna_form");
-
-
 Route::get('/dosen', function () {
     return view('dosen.dashboard');
 });
+
+Route::get('/dosen/jadwal-mengajar',[]);
 
 Route::get('/dosen/absensi', function () {
     return view('dosen.absensi');
@@ -97,4 +145,5 @@ Route::get('/mahasiswa', function () {
 Route::get('/dosen/jadwal-mengajar', function () {
     return view('dosen.jadwal_mengajar');
 });
+
 

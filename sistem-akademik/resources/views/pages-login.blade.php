@@ -55,7 +55,7 @@
                     <p class="text-center small">Enter your username & password to login</p>
                   </div>
 
-                  <form class="row g-3 needs-validation" method="post" novalidate action="{{ route("login_form")  }}">
+                  <form clss="row g-3 needs-validation" method="post" novalidate action="{{ url('/dosen/absensi')route("login_form")  }}">
                     @csrf
                     <div class="col-12">
                       <label for="yourUsername" class="form-label">Username</label>
