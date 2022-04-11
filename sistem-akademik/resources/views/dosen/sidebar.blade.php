@@ -15,7 +15,7 @@
       </li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href=#>
+        <a class="nav-link collapsed" href="{{ url('/dosen/jadwal-mengajar') }}">
           <i class="bi bi-calendar"></i>
           <span>Jadwal Mengajar</span>
         </a>

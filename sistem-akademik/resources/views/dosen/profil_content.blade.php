@@ -1,4 +1,4 @@
-<main id="main" class="main container">
+<main id="main" class="main container" style="width: auto;">
     <div class="pagetitle">
         <h3 style="color: #33297D; font-weight: bold;">Profil</h3>
     </div>
