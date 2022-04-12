@@ -5,7 +5,6 @@ use Illuminate\Http\Request;
 
 class DaakController extends Controller{
     public function dashboard(){
-//        session();
           return view('daak.dashboard', ['page_title' => 'Dashboard']);
     }
 
@@ -93,7 +92,7 @@ class DaakController extends Controller{
         return view('daak.mahasiswa', ['page_title' => 'Daak Mahasiswa','data' => $data]);
     }
 
-    public function akunDosen(){
+    public function akunDosen(Request $request){
         $data = array(
             array( "id" => 1,
                 "nama" => "Brandon Jacob",
@@ -111,6 +110,7 @@ class DaakController extends Controller{
                 "age" =>   28,
                 "dummy" => "Designer")
         );
+        $request->session()->flash('errors', [ ['type' => "danger" , 'message' => "Hallo error dari controller"] ]);
         return view('daak.dosen', ['page_title' => 'Daak Dosen','data' => $data]);
     }
 

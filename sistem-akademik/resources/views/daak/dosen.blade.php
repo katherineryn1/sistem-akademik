@@ -5,13 +5,17 @@
     @include('daak.sidebar')
 @endsection
 
+
+
 @section('content')
     <main id="main" class="main">
         <div id="alertsSection">
+            @include('layouts.errors-msg')
         </div>
         <div class="pagetitle">
-            <h1>Konfigurasi Akun Dosen</h1>
+            <h1>Konfigurasi Akun sDosen</h1>
         </div>
+
 
         <div class="card" style="max-width: 35rem;">
             <div class="card-body">
@@ -235,8 +239,5 @@
                 </div>
             </div>
         </div>
-        <script>
-            scanAlertsURL();
-        </script>
     </main>
 @endsection

@@ -8,6 +8,7 @@
 @section('content')
     <main id="main" class="main">
         <div id="alertsSection">
+            @include('layouts.errors-msg')
         </div>
         <div class="pagetitle">
             <h1>Layanan Jadwal Kuliah</h1>
@@ -170,9 +171,6 @@
                 </div>
             </div>
         </div>
-        <script>
-            scanAlertsURL();
-        </script>
     </main>
 @endsection
 

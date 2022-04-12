@@ -8,6 +8,7 @@
 @section('content')
     <main id="main" class="main">
         <div id="alertsSection">
+            @include('layouts.errors-msg')
         </div>
         <div class="pagetitle">
             <h1>Layanan Matakuliah - Kurikulum</h1>

@@ -64,11 +64,13 @@
         font-size: 18px;
     }
 </style>
+
+
 @section('content')
     <main id="main" class="main">
         <div id="alertsSection">
+            @include('layouts.errors-msg')
         </div>
-
         <!------ Include the above in your HEAD tag ---------->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
         <div class="row">
