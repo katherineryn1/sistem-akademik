@@ -10,8 +10,8 @@ class Roster{
 	private string  $ruangan = "";
 	private array $kehadiran =[];
 
-	function __construct()
-	{
+	function __construct(){
+	    $this->setTanggal(new DateTime());
 	}
 
 	function __destruct()

@@ -16,8 +16,8 @@ class Kurikulum{
 	private array $roster = [];
 	private array $pengambilanMatakuliah = [];
 
-	function __construct()
-	{
+	function __construct(){
+	    $this->setMatakuliah(new Matakuliah());
 	}
 
 	function __destruct()

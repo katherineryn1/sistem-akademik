@@ -30,6 +30,7 @@ class NilaiServiceTest extends TestCase{
 
     public function testGetAll() {
         $hasil = NilaiService::getAll();
+        print_r($hasil);
         self::assertGreaterThan(0, count($hasil));
     }
 

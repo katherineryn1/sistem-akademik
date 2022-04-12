@@ -1,6 +1,7 @@
 <?php
 namespace App\Modules\Mahasiswa\Service;
 
+use App\Modules\Mahasiswa\Helper\MahasiswaAdapter;
 use DateTime;
 use App\Modules\Mahasiswa\Entity\Mahasiswa;
 use App\Modules\Mahasiswa\Persistence\MahasiswaPersistence;
@@ -50,13 +51,12 @@ class MahasiswaService {
 
     /**
      * @param string $nomorInduk
-     * @param string $jabatan
      * @param string $jurusan
      * @param int $tahunMasuk
      * @param int $tahunLulus
      * @return bool
      */
-    public static function update(string $nomorInduk, string $jabatan,string $jurusan, int $tahunMasuk, int $tahunLulus):bool {
+    public static function update(string $nomorInduk,string $jurusan, int $tahunMasuk, int $tahunLulus):bool {
         $newMahasiswa = new Mahasiswa();
         $newMahasiswa->setNomorInduk($nomorInduk);
         $newMahasiswa->setJurusan($jurusan);
@@ -79,11 +79,7 @@ class MahasiswaService {
         if(count($found) <= 0){
             return [];
         }
-        $dto = array();
-        foreach ($found as $data) {
-            array_push($dto, $data->getArray());
-        }
-        return $dto;
+        return MahasiswaAdapter::ArrayEntitiesToDictionaries($found);
     }
 
     public static function getAll():array {
@@ -91,11 +87,7 @@ class MahasiswaService {
         if(count($found) <= 0){
             return [];
         }
-        $dto = array();
-        foreach ($found as $data) {
-            array_push($dto, $data->getArray());
-        }
-        return $dto;
+        return MahasiswaAdapter::ArrayEntitiesToDictionaries($found);
     }
 
     public static function getRencanaStudi(string $nomorInduk){

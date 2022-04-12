@@ -4,19 +4,20 @@ namespace App\Modules\Pengguna\Entity;
 use DateTime;
 
 class Pengguna {
-    private string $nomorInduk;
-	private string $nama;
+    private string $nomorInduk = "";
+	private string $nama = "";
 	private DateTime $tanggalLahir;
-	private string $tempatLahir;
-	private string $jenisKelamin;
-	private string $alamat;
-	private string $notelepon;
-	private string $password;
-	private string $email;
-	private array $fotoprofil;
-	private string $jabatan;
+	private string $tempatLahir = "";
+	private string $jenisKelamin = "";
+	private string $alamat = "";
+	private string $notelepon = "";
+	private string $password = "";
+	private string $email = "";
+	private string $fotoprofil = "";
+	private string $jabatan = "";
 
 	function __construct(){
+	    $this->setTanggalLahir(new DateTime());
 	}
 
 	function __destruct(){
@@ -97,7 +98,7 @@ class Pengguna {
     /**
      * @return array
      */
-    public function getFotoprofil(): array
+    public function getFotoprofil(): string
     {
         return $this->fotoprofil;
     }
@@ -192,7 +193,7 @@ class Pengguna {
     /**
      * @param array $fotoprofil
      */
-    public function setFotoprofil(array $fotoprofil): void
+    public function setFotoprofil(string $fotoprofil): void
     {
         $this->fotoprofil = $fotoprofil;
     }
@@ -203,21 +204,6 @@ class Pengguna {
     public function setJabatan(string $jabatan): void
     {
         $this->jabatan = $jabatan;
-    }
-    public function getArray():array {
-        return [
-            'nomor_induk' => $this->getNomorInduk(),
-            'nama' => $this->getNama(),
-            'email' => $this->getEmail(),
-            'password' => $this->getPassword(),
-            'tanggal_lahir' => $this->getTanggalLahir(),
-            'tempat_lahir' => $this->getTempatLahir(),
-            'jenis_kelamin' => $this->getJenisKelamin(),
-            'alamat' =>  $this->getAlamat(),
-            'notelepon' =>  $this->getNotelepon(),
-            'fotoprofile' => "contoh foto",
-            'jabatan' => $this->getJabatan(),
-        ];
     }
 }
 ?>

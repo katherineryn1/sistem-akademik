@@ -26,6 +26,7 @@ class PengambilanMatakuliahServiceTest extends TestCase
 
     public function testGetAll()  {
         $hasil = PengambilanMatakuliahService::getAll();
+        print_r($hasil);
         self::assertGreaterThan(0, count($hasil));
     }
 

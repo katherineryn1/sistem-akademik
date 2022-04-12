@@ -20,6 +20,7 @@ class MatakuliahServiceTest extends TestCase
 
     public function testMatakuliahByInfo() {
         $data = MatakuliahService::matakuliahByInfo("kode", "IF-001");
+        print_r($data);
         self::assertGreaterThan(0, count($data));
     }
 

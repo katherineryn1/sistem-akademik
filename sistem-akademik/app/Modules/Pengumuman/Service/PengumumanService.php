@@ -1,5 +1,6 @@
 <?php
 namespace App\Modules\Pengumuman\Service;
+use App\Modules\Pengumuman\Helper\PengumumanAdapter;
 use DateTime;
 use App\Modules\Pengumuman\Entity\Pengumuman;
 use App\Modules\Pengumuman\Persistence\PengumumanPersistence;
@@ -63,11 +64,7 @@ class PengumumanService {
         if(count($found) <= 0){
             return [];
         }
-        $dto = array();
-        foreach ($found as $data) {
-            array_push($dto, $data->getArray());
-        }
-        return $dto;
+        return PengumumanAdapter::ArrayEntitiesToDictionaries($found);
     }
 
     public static function getAll():array {
@@ -75,11 +72,7 @@ class PengumumanService {
         if(count($found) <= 0){
             return [];
         }
-        $dto = array();
-        foreach ($found as $data) {
-            array_push($dto, $data->getArray());
-        }
-        return $dto;
+        return PengumumanAdapter::ArrayEntitiesToDictionaries($found);
     }
 }
 ?>

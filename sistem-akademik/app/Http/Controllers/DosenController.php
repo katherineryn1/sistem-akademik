@@ -5,8 +5,7 @@ namespace App\Http\Controllers;
 use App\Modules\Dosen\Service\DosenService;
 use Illuminate\Http\Request;
 
-class DosenController extends Controller
-{
+class DosenController extends Controller{
     public  function  insertNewDosen(){
         $nama = "Test Dosen";
         $password = "12345678";

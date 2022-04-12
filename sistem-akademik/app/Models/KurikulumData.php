@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Modules\Perkuliahan\Entity\Kurikulum;
+use App\Modules\Perkuliahan\Helper\KurikulumAdapter;
 use App\Modules\Perkuliahan\Persistence\KurikulumPersistence;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -23,28 +24,17 @@ class KurikulumData extends Model implements KurikulumPersistence{
     ];
 
     private function modelToEntity($model) {
-        $res =  $model->map(
-            function ($item, $key){
-                $kurikulum = new Kurikulum();
-                $kurikulum->setId($item['id']);
-                $kurikulum->setTahun($item['tahun']);
-                $kurikulum->setSemester($item['semester']);
-                $kurikulum->setKelas($item['kelas']);
-                $kurikulum->setJumlahPertemuan($item['jumlah_pertemuan']);
-                $kurikulum->setMatakuliahByKode($item['kode_matakuliah']);
-                return $kurikulum;
-            });
-        return $res->toArray();
+        return KurikulumAdapter::ArrayDictionariesToEntities($model->toArray());
     }
     public function insertSingle(Kurikulum $kurikulum): bool
     {
-        $data = $this->fill($kurikulum->getArray());
+        $data = $this->fill(KurikulumAdapter::EntityToDictionary($kurikulum));
         return $data ->save();
     }
 
     public function updateSingle(Kurikulum $kurikulum): bool  {
         $data = $this::find($kurikulum->getId());
-        $data->update($kurikulum->getArray());
+        $data->update(KurikulumAdapter::EntityToDictionary($kurikulum));
         return $data->save();
     }
 

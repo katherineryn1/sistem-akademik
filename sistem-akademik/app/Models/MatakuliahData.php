@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Modules\Perkuliahan\Entity\Matakuliah;
+use App\Modules\Perkuliahan\Helper\MatakuliahAdapter;
 use App\Modules\Perkuliahan\Persistence\MatakuliahPersistence;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -38,28 +39,18 @@ class MatakuliahData extends Model implements MatakuliahPersistence{
     protected $keyType = 'string';
 
     private function modelToEntity($model) {
-        $res =  $model->map(
-            function ($item, $key){
-                $matakuliah = new Matakuliah();
-                $matakuliah->setKode($item['kode']);
-                $matakuliah->setJenis($item['jenis']);
-                $matakuliah->setNama($item['nama']);
-                $matakuliah->setSifat($item['sifat']);
-                $matakuliah->setSks($item['sks']);
-                return $matakuliah;
-            });
-        return $res->toArray();
+        return MatakuliahAdapter::ArrayDictionariesToEntities($model->toArray());
     }
 
     public function insertSingle(Matakuliah $matakuliah): bool {
-        $data = $this->fill($matakuliah->getArray());
+        $data = $this->fill(MatakuliahAdapter::EntityToDictionary($matakuliah));
         return $data ->save();
     }
 
     public function updateSingle(Matakuliah $matakuliah): bool
     {
         $data = $this::find($matakuliah->getKode());
-        $data->update($matakuliah->getArray());
+        $data->update(MatakuliahAdapter::EntityToDictionary($matakuliah));
         return $data->save();
     }
 

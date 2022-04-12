@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Modules\Common;
+namespace App\Modules\Perkuliahan\Helper;
 
 
 use App\Modules\Perkuliahan\Entity\Kurikulum;

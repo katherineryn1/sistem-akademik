@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Modules\Common;
+namespace App\Modules\Pengumuman\Helper;
 
 
 use App\Modules\Pengumuman\Entity\Pengumuman;

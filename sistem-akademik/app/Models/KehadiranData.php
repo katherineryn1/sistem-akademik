@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Modules\Common\PengambilanMatakuliahBuilder;
 use App\Modules\Perkuliahan\Entity\Kehadiran;
+use App\Modules\Perkuliahan\Helper\KehadiranAdapter;
 use App\Modules\Perkuliahan\Persistence\KehadiranPersistence;
 use App\Modules\Perkuliahan\Service\PengambilanMatakuliahService;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -24,19 +25,11 @@ class KehadiranData extends Model implements KehadiranPersistence{
     ];
 
     private function modelToEntity($model) {
-        $res =  $model->map(
-            function ($item, $key){
-                $kehadiran = new Kehadiran();
-                $kehadiran->setId($item['id']);
-                $kehadiran->setPengguna(PengambilanMatakuliahBuilder::setId($item['id_pengambilan_matakuliah'])::get());
-                $kehadiran->setKeterangan($item['keterangan']);
-                return $kehadiran;
-            });
-        return $res->toArray();
+        return KehadiranAdapter::ArrayDictionariesToEntities($model->toArray());
     }
     public function insertSingle(Kehadiran $kehadiran,int $roster): bool
     {
-        $k = $kehadiran->getArray();
+        $k = KehadiranAdapter::EntityToDictionary($kehadiran);
         $k['id_roster'] = $roster;
         $data = $this->fill($k);
         return $data ->save();
@@ -45,7 +38,7 @@ class KehadiranData extends Model implements KehadiranPersistence{
     public function updateSingle(Kehadiran $kehadiran): bool
     {
         $data = $this::find($kehadiran->getId());
-        $data->update($kehadiran->getArray());
+        $data->update(KehadiranAdapter::EntityToDictionary($kehadiran));
         return $data->save();
     }
 

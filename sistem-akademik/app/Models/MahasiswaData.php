@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Modules\Mahasiswa\Entity\Mahasiswa;
+use App\Modules\Mahasiswa\Helper\MahasiswaAdapter;
 use App\Modules\Mahasiswa\Persistence\MahasiswaPersistence;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -37,25 +38,16 @@ class MahasiswaData extends Model implements MahasiswaPersistence{
     protected $keyType = 'string';
 
     private function modelToEntity($model) {
-        $res =  $model->map(
-            function ($item, $key){
-                $mahasiswa = new Mahasiswa();
-                $mahasiswa->setNomorInduk($item['nomor_induk']);
-                $mahasiswa->setJurusan($item['jurusan']);
-                $mahasiswa->setTahunMasuk($item['tahun_masuk']);
-                $mahasiswa->setTahunLulus($item['tahun_lulus']);
-                return $mahasiswa;
-            });
-        return $res->toArray();
+        return MahasiswaAdapter::ArrayDictionariesToEntities($model->toArray());
     }
     public function insertSingle(Mahasiswa $mahasiswa): bool {
-        $data = $this->fill($mahasiswa->getArray());
+        $data = $this->fill(MahasiswaAdapter::EntityToDictionary($mahasiswa));
         return $data ->save();
     }
 
     public function updateSingle(Mahasiswa $mahasiswa): bool{
         $data = $this::find($mahasiswa->getNomorInduk());
-        $data->update($mahasiswa->getArray());
+        $data->update(MahasiswaAdapter::EntityToDictionary($mahasiswa));
         return $data->save();
     }
 

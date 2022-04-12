@@ -8,8 +8,8 @@ class Kehadiran{
 	private string $keterangan = "";
 	private PengambilanMatakuliah $pengguna;
 
-	function __construct()
-	{
+	function __construct(){
+	    $this->setPengguna(new PengambilanMatakuliah());
 	}
 
 	function __destruct()

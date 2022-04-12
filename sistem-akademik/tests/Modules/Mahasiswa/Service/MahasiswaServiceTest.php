@@ -31,17 +31,17 @@ class MahasiswaServiceTest extends TestCase
     public function testGetAll()
     {
         $hasil = MahasiswaService::getAll();
+        print_r($hasil);
         self::assertGreaterThan(0, count($hasil));
     }
 
     public function testUpdate()
     {
         $nomorInduk = "19999001";
-        $jabatan = "Mahasiswa";
         $jurusan = "Teknik Informatika";
         $tahunMasuk = 2019;
         $tahunLulus = 2023;
-        $hasil = MahasiswaService::update( $nomorInduk, $jabatan, $jurusan, $tahunMasuk,$tahunLulus);
+        $hasil = MahasiswaService::update( $nomorInduk, $jurusan, $tahunMasuk,$tahunLulus);
         self::assertEquals(true,$hasil);
     }
 
