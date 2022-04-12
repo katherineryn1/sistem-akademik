@@ -10,19 +10,87 @@ class DaakController extends Controller{
     }
 
     public function jadwalKuliah(){
-        return view('daak.jadwal-kuliah', ['page_title' => 'Dashboard']);
+        $data = array(
+            array( "id" => 1,
+                "nama" => "Brandon Jacob",
+                "type" => "Designer",
+                "age" =>   28,
+                "dummy" => "Designer"),
+            array( "id" => 2,
+                "nama" => "Brandon Jacob",
+                "type" => "Designer",
+                "age" =>   28,
+                "dummy" => "Designer"),
+            array( "id" => 3,
+                "nama" => "Brandon Jacob",
+                "type" => "Designer",
+                "age" =>   28,
+                "dummy" => "Designer")
+        );
+        return view('daak.jadwal-kuliah', ['page_title' => 'Dashboard' , 'data' => $data]);
     }
 
     public function matakuliahKurikulum(){
-        return view('daak.mahasiswa', ['page_title' => 'Matakuliah Kurikulum']);
+        $data = array(
+            array( "id" => 1,
+                "nama" => "Brandon Jacob",
+                "type" => "Designer",
+                "age" =>   28,
+                "dummy" => "Designer"),
+            array( "id" => 2,
+                "nama" => "Brandon Jacob",
+                "type" => "Designer",
+                "age" =>   28,
+                "dummy" => "Designer"),
+            array( "id" => 3,
+                "nama" => "Brandon Jacob",
+                "type" => "Designer",
+                "age" =>   28,
+                "dummy" => "Designer")
+        );
+        return view('daak.matakuliah-kurikulum', ['page_title' => 'Matakuliah Kurikulum', 'data_matakuliah' => $data, 'data_kurikulum' => $data]);
     }
 
     public function pengumuman(){
-        return view('daak.pengumuman', ['page_title' => 'Pengumuman']);
+        $data = array(
+            array( "id" => 1,
+                "nama" => "Brandon Jacob",
+                "type" => "Designer",
+                "age" =>   28,
+                "dummy" => "Designer"),
+            array( "id" => 2,
+                "nama" => "Brandon Jacob",
+                "type" => "Designer",
+                "age" =>   28,
+                "dummy" => "Designer"),
+            array( "id" => 3,
+                "nama" => "Brandon Jacob",
+                "type" => "Designer",
+                "age" =>   28,
+                "dummy" => "Designer")
+        );
+        return view('daak.pengumuman', ['page_title' => 'Pengumuman' , 'data' => $data]);
     }
 
     public function akunMahasiswa(){
-        return view('daak.mahasiswa', ['page_title' => 'Daak Mahasiswa']);
+        $data = array(
+            array( "id" => 1,
+                "nama" => "Brandon Jacob",
+                "type" => "Designer",
+                "age" =>   28,
+                "dummy" => "Designer"),
+            array( "id" => 2,
+                "nama" => "Brandon Jacob",
+                "type" => "Designer",
+                "age" =>   28,
+                "dummy" => "Designer"),
+            array( "id" => 3,
+                "nama" => "Brandon Jacob",
+                "type" => "Designer",
+                "age" =>   28,
+                "dummy" => "Designer")
+        );
+        return view('daak.mahasiswa', ['page_title' => 'Daak Mahasiswa','data' => $data]);
     }
 
     public function akunDosen(){
@@ -47,7 +115,24 @@ class DaakController extends Controller{
     }
 
     public function akunPengguna(){
-        return view('daak.pengguna', ['page_title' => 'Daak Pengguna']);
+        $data = array(
+            array( "id" => 1,
+                "nama" => "Brandon Jacob",
+                "type" => "Designer",
+                "age" =>   28,
+                "dummy" => "Designer"),
+            array( "id" => 2,
+                "nama" => "Brandon Jacob",
+                "type" => "Designer",
+                "age" =>   28,
+                "dummy" => "Designer"),
+            array( "id" => 3,
+                "nama" => "Brandon Jacob",
+                "type" => "Designer",
+                "age" =>   28,
+                "dummy" => "Designer")
+        );
+        return view('daak.pengguna', ['page_title' => 'Daak Pengguna','data' => $data]);
     }
 
 }
