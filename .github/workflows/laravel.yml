@@ -21,7 +21,7 @@ jobs:
       run: php -r "file_exists('.env') || copy('.env.example', '.env');"
     - name: Install Dependencies
       working-directory: ./sistem-akademik
-      run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+      run: composer install --prefer-dist --no-progress
     - name: Generate key
       working-directory: ./sistem-akademik
       run: php artisan key:generate
