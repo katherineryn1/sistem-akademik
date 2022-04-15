@@ -22,6 +22,7 @@ jobs:
     - name: Install Dependencies
       run: composer install --prefer-dist --no-progress
     - name: Prepare Laravel Application
+      working-directory: /home/runner/work/sistem-akademik/sistem-akademik
       run: |
         php -r "file_exists('.env') || copy('.env.example', '.env');"
         php artisan key:generate
