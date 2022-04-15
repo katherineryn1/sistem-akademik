@@ -58,7 +58,7 @@ Route::put('v1/reset-password', [PenggunaController::class, 'resetPassword'])->n
 Route::put('v1/update-password', [PenggunaController::class, 'gantiPassword'])->name("updatepassword_form");
 
 Route::get('v1/pengguna/{nomorInduk}', [PenggunaController::class, 'userInfo']);
-Route::get('v1/pengguna/', [PenggunaController::class, 'testGetAll']);
+Route::get('v1/pengguna', [PenggunaController::class, 'getAll']);
 Route::post('v1/pengguna', [PenggunaController::class, 'insert']);
 Route::put('v1/pengguna/{nomorInduk}', [PenggunaController::class, 'update']);
 Route::delete('v1/pengguna/{nomorInduk}', [PenggunaController::class, 'delete']);

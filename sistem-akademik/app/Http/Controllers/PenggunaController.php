@@ -12,7 +12,7 @@ class PenggunaController extends Controller{
 //            'user' => User::findOrFail($id)
 //        ]);
     }
-    public function testGetAll(){
+    public function getAll(){
         $hasil = PenggunaService::getAll();
         foreach ($hasil as $val){
             echo "<pre>";
@@ -22,18 +22,39 @@ class PenggunaController extends Controller{
         }
     }
 
-    public function insert(){
-        $nama = "newUser";
-        $password = "12345678";
-        $nomorInduk = "19999002";
-        $email = "newUser@gmail.com";
-        $tanggalLahir = "10/16/2003";
-        $tempatLahir= "Bali";
-        $jenisKelamin ="L";
-        $alamat ="Dipatiukur";
-        $notelepon ="086537956";
-        $jabatan ="Mahasiswa";
-        echo PenggunaService::insert($nama,$password,  $nomorInduk, $email, $tanggalLahir, $tempatLahir,$jenisKelamin, $alamat,$notelepon, $jabatan);
+    public function insert(Request $request){
+        $input = $request->collect();
+
+        if ($request->hasFile('inputFotoProfile')) {
+            $request->session()->flash('errors', [ ['type' => "danger" , 'message' => "Gagal Menambah Pengguna"] ]);
+            return back();
+        }
+        $nama = $input['inputNama'];
+        $password = $input['inputPassword'];
+        $nomorInduk = $input['inputNomorInduk'];
+        $email = $input['inputEmail'];
+        $tanggalLahir = $input['inputTanggalLahir'];
+        $tempatLahir = $input['inputTempatLahir'];
+        $jenisKelamin = $input['inputJenisKelamin'];
+        $alamat = $input['inputAlamat'];
+        $notelepon = $input['inputNoTelp'];
+        $jabatan = $input['inputTipePengguna'];
+
+        if ($request->hasFile('inputFotoProfile')) {
+            $file = $request->file('photo');
+            $path = $request->photo->store('inputFotoProfile');
+
+        }
+
+        $hasil = PenggunaService::insert($nama,$password,  $nomorInduk, $email, $tanggalLahir,
+            $tempatLahir,$jenisKelamin, $alamat,$notelepon, $jabatan);
+
+        if($hasil == false){
+            $request->session()->flash('errors', [ ['type' => "danger" , 'message' => "Gagal Menambah Pengguna"] ]);
+        }else{
+            $request->session()->flash('errors', [ ['type' => "success" , 'message' => "Success Menambah Pengguna"] ]);
+        }
+        //return back();
     }
 
     public function update(){

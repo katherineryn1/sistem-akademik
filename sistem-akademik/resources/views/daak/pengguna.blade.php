@@ -93,7 +93,8 @@
                 <h5 class="card-title">Tambah Pengguna</h5>
 
                 <!-- Horizontal Form -->
-                <form action=""  method="post" enctype='multipart/form-data'>
+                <form action="{{ url("/v1/pengguna")  }}"  method="post" enctype='multipart/form-data'>
+                    @csrf
                     <div class="row mb-3 form-horizontal">
                         <h5 class="card-subtitle mb-2 text-muted">Form Pengguna</h5>
                         <hr>
