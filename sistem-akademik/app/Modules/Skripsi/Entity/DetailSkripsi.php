@@ -1,5 +1,5 @@
 <?php 
-namespace App\Entity;
+namespace App\Modules\Skripsi\Entity;
 
 class DetailSkripsi{
 	private int $id;
