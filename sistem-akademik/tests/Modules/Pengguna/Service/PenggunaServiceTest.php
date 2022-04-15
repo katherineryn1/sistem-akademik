@@ -22,8 +22,9 @@ class PenggunaServiceTest extends TestCase{
                                     $tempatLahir,$jenisKelamin, $alamat,$notelepon, $jabatan);
         self::assertEquals(true,$hasil);
     }
-    public function testLogin($password = "12345678" ) {
+    public function testLogin() {
         $email = "newUser@test.com";
+        $password = "12345678";
         $this->assertEquals(true,PenggunaService::login($email,$password));
     }
 
@@ -64,6 +65,7 @@ class PenggunaServiceTest extends TestCase{
 
     public function testGetAll(){
         $hasil = PenggunaService::getAll();
+        print_r($hasil);
         self::assertGreaterThan(0, count($hasil));
     }
 

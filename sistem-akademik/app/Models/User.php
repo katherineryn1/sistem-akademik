@@ -2,17 +2,14 @@
 
 namespace App\Models;
 
+use App\Modules\Pengguna\Helper\PenggunaAdapter;
 use DateTime;
-use Illuminate\Database\Eloquent\Casts\Attribute;
 use App\Modules\Pengguna\Entity\Pengguna;
 use App\Modules\Pengguna\Persistence\PenggunaPersistence;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Facades\Log;
 use Laravel\Sanctum\HasApiTokens;
-use function Symfony\Component\String\length;
 
 
 class User extends Authenticatable implements PenggunaPersistence{
@@ -77,42 +74,9 @@ class User extends Authenticatable implements PenggunaPersistence{
      */
     protected $keyType = 'string';
 
-    private function entityToModel(Pengguna $pengguna) {
-        return [
-            'nomor_induk' => $pengguna->getNomorInduk(),
-            'nama' => $pengguna->getNama(),
-            'email' => $pengguna->getEmail(),
-            'password' => $pengguna->getPassword(),
-            'tanggal_lahir' => $pengguna->getTanggalLahir(),
-            'tempat_lahir' => $pengguna->getTempatLahir(),
-            'jenis_kelamin' => $pengguna->getJenisKelamin(),
-            'alamat' =>  $pengguna->getAlamat(),
-            'notelepon' =>  $pengguna->getNotelepon(),
-            'fotoprofile' => "contoh foto",
-            'jabatan' => $pengguna->getJabatan(),
-        ];
-    }
-
     private function modelToEntity($model) {
-        $res =  $model->map(
-            function ($item, $key){
-                $pengguna = new Pengguna();
-                $pengguna->setNama($item['nama']);
-                $pengguna->setJabatan($item['jabatan']);
-                $pengguna->setAlamat($item['alamat']);
-                $pengguna->setPassword("");
-                $pengguna->setEmail($item['email']);
-                $pengguna->setFotoprofil([]);
-                $pengguna->setJenisKelamin($item['jenis_kelamin']);
-                $pengguna->setNomorInduk($item['nomor_induk']);
-                $pengguna->setNotelepon($item['notelepon']);
-                $pengguna->setTanggalLahir(new DateTime($item['tanggal_lahir']));
-                $pengguna->setTempatLahir($item['tempat_lahir']);
-                return $pengguna;
-            });
-        return $res->toArray();
+        return PenggunaAdapter::ArrayDictionariesToEntities($model->toArray());
     }
-
 
     public function getAll(): array {
         $allData = $this::all();
@@ -129,12 +93,11 @@ class User extends Authenticatable implements PenggunaPersistence{
     }
 
     public function insertSingle(Pengguna $pengguna): bool {
-        $data = $this->fill($this->entityToModel($pengguna));
+        $data = $this->fill(PenggunaAdapter::EntityToDictionary($pengguna));
         $res  = false;
         try {
             $res  = $data ->save();
         }catch (\Throwable $e){
-            //Log::error("Insert User:" . $e);
             return  false;
         }
         return $res;
@@ -142,7 +105,7 @@ class User extends Authenticatable implements PenggunaPersistence{
 
     public function updateSingle(Pengguna $pengguna): bool{
         $data = $this::find($pengguna->getNomorInduk());
-        $data->update($this->entityToModel($pengguna));
+        $data->update(PenggunaAdapter::EntityToDictionary($pengguna));
         return $data->save();
     }
 
@@ -151,3 +114,28 @@ class User extends Authenticatable implements PenggunaPersistence{
         return $data->delete();
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Modules\Perkuliahan\Entity\Roster;
+use App\Modules\Perkuliahan\Helper\RosterAdapter;
 use App\Modules\Perkuliahan\Persistence\RosterPersistence;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -24,22 +25,12 @@ class RosterData extends Model implements RosterPersistence {
     ];
 
     private function modelToEntity($model) {
-        $res =  $model->map(
-            function ($item, $key){
-                $roster = new Roster();
-                $roster->setId($item['id']);
-                $roster->setJamMulai($item['jam_mulai']);
-                $roster->setJamSelesai($item['jam_selesai']);
-                $roster->setRuangan($item['ruangan']);
-                $roster->setTanggal(new DateTime($item['tanggal']));
-                return $roster;
-            });
-        return $res->toArray();
+        return RosterAdapter::ArrayDictionariesToEntities($model->toArray());
     }
 
     public function insertSingle(Roster $roster,int $kurikulum): bool
     {
-        $kur = $roster->getArray();
+        $kur = RosterAdapter::EntityToDictionary($roster);
         $kur['id_kurikulum'] = $kurikulum;
         $data = $this->fill($kur);
         return $data ->save();
@@ -48,7 +39,7 @@ class RosterData extends Model implements RosterPersistence {
     public function updateSingle(Roster $roster): bool
     {
         $data = $this::find($roster->getId());
-        $data->update($roster->getArray());
+        $data->update(RosterAdapter::EntityToDictionary($roster));
         return $data->save();
     }
 

@@ -3,6 +3,7 @@ namespace App\Modules\Perkuliahan\Service;
 use App\Modules\Common\PengambilanMatakuliahBuilder;
 use App\Modules\Pengguna\Entity\Pengguna;
 use App\Modules\Perkuliahan\Entity\PengambilanMatakuliah;
+use App\Modules\Perkuliahan\Helper\KehadiranAdapter;
 use App\Modules\Perkuliahan\Persistence\KehadiranPersistence;
 use App\Modules\Perkuliahan\Entity\Kehadiran;
 
@@ -61,11 +62,7 @@ class KehadiranService {
         if(count($found) <= 0){
             return [];
         }
-        $dto = array();
-        foreach ($found as $data) {
-            array_push($dto, $data->getArray());
-        }
-        return $dto;
+        return KehadiranAdapter::ArrayEntitiesToDictionaries($found);
     }
 
     public static function getAll():array {
@@ -73,11 +70,7 @@ class KehadiranService {
         if(count($found) <= 0){
             return [];
         }
-        $dto = array();
-        foreach ($found as $data) {
-            array_push($dto, $data->getArray());
-        }
-        return $dto;
+        return KehadiranAdapter::ArrayEntitiesToDictionaries($found);
     }
 }
 ?>

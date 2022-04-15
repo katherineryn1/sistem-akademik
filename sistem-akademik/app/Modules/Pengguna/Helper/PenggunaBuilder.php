@@ -1,7 +1,5 @@
 <?php
-
-
-namespace App\Modules\Common;
+namespace App\Modules\Pengguna\Helper;
 
 
 use App\Modules\Pengguna\Entity\Pengguna;

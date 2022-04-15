@@ -32,6 +32,7 @@ class DosenServiceTest extends TestCase{
     }
     public function testGetAll(){
         $data = DosenService::getAll();
+        print_r($data);
         self::assertGreaterThan(0, count($data));
     }
     public function testUpdate(){

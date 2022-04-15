@@ -1,7 +1,9 @@
 <?php
 namespace App\Modules\Perkuliahan\Service;
-use App\Modules\Common\PengambilanMatakuliahBuilder;
-use App\Modules\Mahasiswa\Entity\Mahasiswa;
+
+
+use App\Modules\Perkuliahan\Helper\NilaiAdapter;
+use App\Modules\Perkuliahan\Helper\PengambilanMatakuliahBuilder;
 use DateTime;
 use App\Modules\Perkuliahan\Entity\Nilai;
 use App\Modules\Perkuliahan\Persistence\NilaiPersistence;
@@ -89,11 +91,7 @@ class NilaiService {
         if(count($found) <= 0){
             return [];
         }
-        $dto = array();
-        foreach ($found as $data) {
-            array_push($dto, $data->getArray());
-        }
-        return $dto;
+        return NilaiAdapter::ArrayEntitiesToDictionaries($found);
     }
 
     public static function getAll():array {
@@ -101,11 +99,7 @@ class NilaiService {
         if(count($found) <= 0){
             return [];
         }
-        $dto = array();
-        foreach ($found as $data) {
-            array_push($dto, $data->getArray());
-        }
-        return $dto;
+        return NilaiAdapter::ArrayEntitiesToDictionaries($found);
     }
 }
 ?>

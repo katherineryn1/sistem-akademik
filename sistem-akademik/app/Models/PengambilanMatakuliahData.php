@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Modules\Common\PenggunaBuilder;
 use App\Modules\Perkuliahan\Entity\Kurikulum;
 use App\Modules\Perkuliahan\Entity\PengambilanMatakuliah;
+use App\Modules\Perkuliahan\Helper\PengambilanMatakuliahAdapter;
 use App\Modules\Perkuliahan\Persistence\PengambilanMatakuliahPersistence;
 use App\Modules\Perkuliahan\Persistence\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -24,18 +25,10 @@ class PengambilanMatakuliahData extends Model implements PengambilanMatakuliahPe
     ];
 
     private function modelToEntity($model) {
-        $res =  $model->map(
-            function ($item, $key){
-                $pengambilanMK = new PengambilanMatakuliah();
-                $pengambilanMK->setId($item['id']);
-                $pengambilanMK->setPengguna(PenggunaBuilder::setNomorInduk($item['nomor_induk'])::get());
-                $pengambilanMK->setPosisiAmbil($item['posisi_ambil']);
-                return $pengambilanMK;
-            });
-        return $res->toArray();
+        return PengambilanMatakuliahAdapter::ArrayDictionariesToEntities($model->toArray());
     }
     public function insertSingle(PengambilanMatakuliah $pengambilanMatakuliah, string $kurikulum): bool {
-        $tempArr = $pengambilanMatakuliah->getArray();
+        $tempArr = PengambilanMatakuliahAdapter::EntityToDictionary($pengambilanMatakuliah);
         $tempArr['id_kurikulum'] = $kurikulum;
         $data = $this->fill($tempArr);
         return $data ->save();
@@ -48,6 +41,7 @@ class PengambilanMatakuliahData extends Model implements PengambilanMatakuliahPe
 
     public function getAll(): array {
         $allData = $this::all();
+        print_r($allData);
         return $this->modelToEntity($allData);
     }
 

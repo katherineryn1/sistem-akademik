@@ -35,7 +35,7 @@ Route::get('/logout', [PenggunaController::class, 'logout'])->name("logout_form"
 // Mahasiswa
 Route::get('/mahasiswa', function () {
     return view('mahasiswa.dashboard');
-});
+})->middleware();
 Route::get('/mahasiswa/jadwal-kuliah',[]);
 Route::get('/mahasiswa/transkrip-nilai',[]);
 Route::get('/mahasiswa/tracking-skripsi',[]);

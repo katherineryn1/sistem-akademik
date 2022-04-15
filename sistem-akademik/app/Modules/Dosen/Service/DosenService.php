@@ -1,6 +1,7 @@
 <?php
 namespace App\Modules\Dosen\Service;
 
+use App\Modules\Dosen\Helper\DosenAdapter;
 use App\Modules\Perkuliahan\Service\KurikulumService;
 use DateTime;
 use App\Modules\Dosen\Entity\Dosen;
@@ -85,11 +86,7 @@ class DosenService {
         if(count($found) <= 0){
             return [];
         }
-        $dto = array();
-        foreach ($found as $data) {
-            array_push($dto, $data->getArray());
-        }
-        return $dto;
+        return DosenAdapter::ArrayEntitiesToDictionaries($found);
     }
 
     public static function getAll():array {
@@ -97,11 +94,7 @@ class DosenService {
         if(count($found) <= 0){
             return [];
         }
-        $dto = array();
-        foreach ($found as $data) {
-            array_push($dto, $data->getArray());
-        }
-        return $dto;
+        return DosenAdapter::ArrayEntitiesToDictionaries($found);
     }
 
     public static function getRekapMengajar(string $nomorInduk){

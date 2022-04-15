@@ -4,8 +4,11 @@
 namespace App\Modules\Perkuliahan\Service;
 
 
-use App\Modules\Common\PenggunaBuilder;
+
+
+use App\Modules\Pengguna\Helper\PenggunaBuilder;
 use App\Modules\Perkuliahan\Entity\PengambilanMatakuliah;
+use App\Modules\Perkuliahan\Helper\PengambilanMatakuliahAdapter;
 use App\Modules\Perkuliahan\Persistence\PengambilanMatakuliahPersistence;
 
 class PengambilanMatakuliahService{
@@ -48,11 +51,7 @@ class PengambilanMatakuliahService{
         if(count($found) <= 0){
             return [];
         }
-        $dto = array();
-        foreach ($found as $data) {
-            array_push($dto, $data->getArray());
-        }
-        return $dto;
+        return PengambilanMatakuliahAdapter::ArrayEntitiesToDictionaries($found);
     }
 
     public static function getAll():array {
@@ -60,11 +59,7 @@ class PengambilanMatakuliahService{
         if(count($found) <= 0){
             return [];
         }
-        $dto = array();
-        foreach ($found as $data) {
-            array_push($dto, $data->getArray());
-        }
-        return $dto;
+        return PengambilanMatakuliahAdapter::ArrayEntitiesToDictionaries($found);
     }
 
 }

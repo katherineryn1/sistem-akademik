@@ -1,11 +1,11 @@
 <?php
 namespace App\Modules\Perkuliahan\Service;
-use App\Modules\Common\MatakuliahBuilder;
-use App\Modules\Dosen\Service\DosenService;
+
 use App\Modules\Perkuliahan\Entity\Kurikulum;
+use App\Modules\Perkuliahan\Helper\KurikulumAdapter;
+use App\Modules\Perkuliahan\Helper\MatakuliahBuilder;
 use App\Modules\Perkuliahan\Persistence\KurikulumPersistence;
-use App\Modules\Perkuliahan\Persistence\PengambilanMatakuliahPersistence;
-use phpDocumentor\Reflection\Types\This;
+
 
 class KurikulumService {
     private static KurikulumPersistence $pm;
@@ -78,11 +78,7 @@ class KurikulumService {
         if(count($found) <= 0){
             return [];
         }
-        $dto = array();
-        foreach ($found as $data) {
-            array_push($dto, $data->getArray());
-        }
-        return $dto;
+        return KurikulumAdapter::ArrayEntitiesToDictionaries($found);
     }
 
     /**
@@ -95,11 +91,7 @@ class KurikulumService {
         if(count($found) <= 0){
             return [];
         }
-        $dto = array();
-        foreach ($found as $data) {
-            array_push($dto, $data->getArray());
-        }
-        return $dto;
+        return KurikulumAdapter::ArrayEntitiesToDictionaries($found);
     }
 
     public static function getAll():array {
@@ -107,11 +99,7 @@ class KurikulumService {
         if(count($found) <= 0){
             return [];
         }
-        $dto = array();
-        foreach ($found as $data) {
-            array_push($dto, $data->getArray());
-        }
-        return  $dto;
+        return KurikulumAdapter::ArrayEntitiesToDictionaries($found);
     }
 
     public static  function addDosen(int  $idKurikulum,string  $nomorInduk):bool {

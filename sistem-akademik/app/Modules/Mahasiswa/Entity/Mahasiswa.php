@@ -5,12 +5,12 @@ namespace App\Modules\Mahasiswa\Entity;
 use App\Modules\Pengguna\Entity\Pengguna;
 
 class Mahasiswa extends Pengguna {
-	private string $jurusan;
-	private int $tahunMasuk;
-	private int $tahunLulus;
+	private string $jurusan = "";
+	private int $tahunMasuk = 0;
+	private int $tahunLulus = 0;
 
-	function __construct()
-	{
+	function __construct(){
+        parent::__construct();
 	}
 
 	function __destruct()
@@ -63,15 +63,6 @@ class Mahasiswa extends Pengguna {
     public function setTahunLulus(int $tahunLulus): void
     {
         $this->tahunLulus = $tahunLulus;
-    }
-
-    public function getArray():array {
-        return [
-            'nomor_induk' => $this->getNomorInduk(),
-            'jurusan' => $this->getJurusan(),
-            'tahun_masuk' => $this->getTahunMasuk(),
-            'tahun_lulus' => $this->getTahunLulus(),
-        ];
     }
 
 }

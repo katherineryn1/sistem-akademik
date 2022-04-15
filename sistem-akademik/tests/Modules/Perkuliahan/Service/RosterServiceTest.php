@@ -24,6 +24,7 @@ class RosterServiceTest extends TestCase
     }
     public function testGetAll() {
         $hasil = RosterService::getAll();
+        print_r($hasil);
         self::assertGreaterThan(0, count($hasil));
     }
 

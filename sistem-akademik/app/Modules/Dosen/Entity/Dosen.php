@@ -5,14 +5,14 @@ use App\Entity\User;
 use App\Modules\Pengguna\Entity\Pengguna;
 
 class Dosen extends Pengguna {
-	private string $programStudi;
-	private string $bidangIlmu;
-	private string $gelarAkademik;
-	private string $statusIkatanKerja;
-	private bool $statusDosen;
+	private string $programStudi = "";
+	private string $bidangIlmu = "";
+	private string $gelarAkademik = "";
+	private string $statusIkatanKerja = "";
+	private bool $statusDosen = false;
 
-	function __construct()
-	{
+	function __construct(){
+	    parent::__construct();
 	}
 
 	function __destruct()
@@ -97,17 +97,5 @@ class Dosen extends Pengguna {
     {
         $this->statusDosen = $statusDosen;
     }
-    public function getArray():array {
-        return [
-            'nomor_induk' => $this->getNomorInduk(),
-            'program_studi' => $this->programStudi,
-            'bidang_ilmu' => $this->bidangIlmu,
-            'gelar_akademik' => $this->gelarAkademik,
-            'status_ikatan_kerja' => $this->statusIkatanKerja,
-            'status_dosen' => $this->statusDosen,
-        ];
-    }
 }
-
-
 ?>

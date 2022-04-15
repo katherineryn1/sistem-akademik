@@ -84,15 +84,6 @@ class Pengumuman{
         $this->tanggal = $tanggal;
     }
 
-
-    public function getArray():array {
-        return [
-            'id' => $this->getId(),
-            'judul' => $this->getJudul(),
-            'keterangan' => $this->getKeterangan(),
-            'tanggal' => $this->getTanggal(),
-        ];
-    }
 }
 ?>
 

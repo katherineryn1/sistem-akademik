@@ -21,7 +21,7 @@
 
       <li class="nav-item">
         <a class="nav-link " href="{{ url('/daak/matakuliah-kurikulum') }}">
-          <i class="bi bi-qr-code"></i>
+          <i style="color: inherit" class="bi bi-qr-code"></i>
           <span>Matakuliah & Kurikulum</span>
         </a>
       </li>
@@ -67,7 +67,7 @@
     <script>
         const navItemsElems = document.getElementsByClassName("nav-link");
         for (const i of navItemsElems){
-            if(window.location.href == i.getAttribute("href")){
+            if(window.location.href.split('?')[0] == i.getAttribute("href")){
                 i.classList.add("active");
                 break;
             }

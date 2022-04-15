@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Modules\Perkuliahan\Entity\Nilai;
 use App\Modules\Perkuliahan\Entity\PengambilanMatakuliah;
+use App\Modules\Perkuliahan\Helper\NilaiAdapter;
 use App\Modules\Perkuliahan\Persistence\NilaiPersistence;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -28,28 +29,11 @@ class NilaiData extends Model implements NilaiPersistence{
     ];
 
     private function modelToEntity($model) {
-        $res =  $model->map(
-            function ($item, $key){
-                $nilai = new Nilai();
-                $nilai->setId($item['id']);
-                $nilai->setNilai1($item['nilai_1']);
-                $nilai->setNilai2($item['nilai_2']);
-                $nilai->setNilai3($item['nilai_3']);
-                $nilai->setNilai4($item['nilai_4']);
-                $nilai->setNilai5($item['nilai_5']);
-                $nilai->setNilaiUAS($item['nilai_UAS']);
-                $nilai->setNilaiAkhir($item['nilai_akhir']);
-                $nilai->setIndex($item['index']);
-                $pMK = new  PengambilanMatakuliah();
-                $pMK->setId($item['pengambilan_matakuliah']);
-                $nilai->setPengambilanMatakuliah($pMK);
-                return $nilai;
-            });
-        return $res->toArray();
+        return NilaiAdapter::ArrayDictionariesToEntities($model->toArray());
     }
     public function insertSingle(Nilai $nilai,int $kurikulum): bool
     {
-        $n =  $nilai->getArray();
+        $n = NilaiAdapter::EntityToDictionary($nilai);
         $n['id_kurikulum'] = $kurikulum;
         $data = $this->fill($n);
         return $data ->save();
@@ -58,7 +42,7 @@ class NilaiData extends Model implements NilaiPersistence{
     public function updateSingle(Nilai $nilai): bool
     {
         $data = $this::find($nilai->getId());
-        $data->update($nilai->getArray());
+        $data->update(NilaiAdapter::EntityToDictionary($nilai));
         return $data->save();
     }
 

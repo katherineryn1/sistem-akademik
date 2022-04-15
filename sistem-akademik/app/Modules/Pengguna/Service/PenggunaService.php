@@ -1,5 +1,6 @@
 <?php
     namespace App\Modules\Pengguna\Service;
+    use App\Modules\Pengguna\Helper\PenggunaAdapter;
     use App\Providers\PenggunaServiceProvider;
     use DateTime;
     use App\Modules\Pengguna\Entity\Pengguna;
@@ -92,7 +93,7 @@
             $newPengguna->setJenisKelamin($jenisKelamin);
             $newPengguna->setAlamat($alamat);
             $newPengguna->setNotelepon($notelepon);
-            $newPengguna->setFotoprofil(unpack('C*', 'Will be remove'));
+            $newPengguna->setFotoprofil("");
             $newPengguna->setJabatan($jabatan);
             return self::$pm->insertSingle($newPengguna);
         }
@@ -124,7 +125,7 @@
             $newPengguna->setJenisKelamin($jenisKelamin);
             $newPengguna->setAlamat($alamat);
             $newPengguna->setNotelepon($notelepon);
-            $newPengguna->setFotoprofil(unpack('C*', 'Will be remove'));
+            $newPengguna->setFotoprofil("");
             $newPengguna->setJabatan($jabatan);
 
             return self::$pm->updateSingle($newPengguna);
@@ -143,23 +144,15 @@
             if(count($found) <= 0){
                 return [];
             }
-            $dto = array();
-            foreach ($found as $data) {
-                array_push($dto, $data->getArray());
-            }
-            return $dto;
+            return PenggunaAdapter::ArrayEntitiesToDictionaries($found);
         }
 
         public static function getAll():array {
-            $found =self::$pm->getAll();
+            $found = self::$pm->getAll();
             if(count($found) <= 0){
                 return [];
             }
-            $dto = array();
-            foreach ($found as $data) {
-                array_push($dto, $data->getArray());
-            }
-            return $dto;
+            return PenggunaAdapter::ArrayEntitiesToDictionaries($found);
         }
     }
 ?>

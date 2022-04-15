@@ -16,8 +16,8 @@ class Nilai{
 	private string $index = "";
 	private PengambilanMatakuliah $pengambilanMatakuliah;
 
-	function __construct()
-	{
+	function __construct(){
+	    $this->setPengambilanMatakuliah(new PengambilanMatakuliah());
 	}
 
 	function __destruct()

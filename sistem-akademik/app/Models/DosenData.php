@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Modules\Dosen\Entity\Dosen;
+use App\Modules\Dosen\Helper\DosenAdapter;
 use App\Modules\Dosen\Persistence\DosenPersistence;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -39,27 +40,16 @@ class DosenData extends Model implements  DosenPersistence{
      */
     protected $keyType = 'string';
     private function modelToEntity($model) {
-        $res =  $model->map(
-            function ($item, $key){
-                $dosen = new Dosen();
-                $dosen->setNomorInduk($item['nomor_induk']);
-                $dosen->setProgramStudi($item['program_studi']);
-                $dosen->setBidangIlmu($item['bidang_ilmu']);
-                $dosen->setGelarAkademik($item['gelar_akademik']);
-                $dosen->setStatusIkatanKerja($item['status_ikatan_kerja']);
-                $dosen->setStatusDosen($item['status_dosen']);
-                return $dosen;
-            });
-        return $res->toArray();
+        return DosenAdapter::ArrayDictionariesToEntities($model->toArray());
     }
     public function insertSingle(Dosen $dosen): bool {
-        $data = $this->fill($dosen->getArray());
+        $data = $this->fill(DosenAdapter::EntityToDictionary($dosen));
         return $data ->save();
     }
 
     public function updateSingle(Dosen $dosen): bool{
         $data = $this::find($dosen->getNomorInduk());
-        $data->update($dosen->getArray());
+        $data->update(DosenAdapter::EntityToDictionary($dosen));
         return $data->save();
     }
 

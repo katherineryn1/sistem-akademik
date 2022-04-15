@@ -1,5 +1,6 @@
 <?php
 namespace App\Modules\Perkuliahan\Service;
+use App\Modules\Perkuliahan\Helper\RosterAdapter;
 use DateTime;
 use App\Modules\Perkuliahan\Entity\Roster;
 use App\Modules\Perkuliahan\Persistence\RosterPersistence;
@@ -67,11 +68,7 @@ class RosterService {
         if(count($found) <= 0){
             return [];
         }
-        $dto = array();
-        foreach ($found as $data) {
-            array_push($dto, $data->getArray());
-        }
-        return $dto;
+        return RosterAdapter::ArrayEntitiesToDictionaries($found);
     }
 
     public static  function generateKehadiran(int $id):array {
@@ -87,11 +84,7 @@ class RosterService {
         if(count($found) <= 0){
             return [];
         }
-        $dto = array();
-        foreach ($found as $data) {
-            array_push($dto, $data->getArray());
-        }
-        return $dto;
+        return RosterAdapter::ArrayEntitiesToDictionaries($found);
     }
 }
 ?>

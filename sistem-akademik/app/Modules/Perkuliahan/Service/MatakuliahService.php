@@ -1,5 +1,6 @@
 <?php
 namespace App\Modules\Perkuliahan\Service;
+use App\Modules\Perkuliahan\Helper\MatakuliahAdapter;
 use DateTime;
 use App\Modules\Perkuliahan\Entity\Matakuliah;
 use App\Modules\Perkuliahan\Persistence\MatakuliahPersistence;
@@ -68,11 +69,7 @@ class MatakuliahService {
         if(count($found) <= 0){
             return [];
         }
-        $dto = array();
-        foreach ($found as $data) {
-            array_push($dto, $data->getArray());
-        }
-        return $dto;
+        return MatakuliahAdapter::ArrayEntitiesToDictionaries($found);
     }
 
     public static function getAll():array {
@@ -80,11 +77,7 @@ class MatakuliahService {
         if(count($found) <= 0){
             return [];
         }
-        $dto = array();
-        foreach ($found as $data) {
-            array_push($dto, $data->getArray());
-        }
-        return $dto;
+        return MatakuliahAdapter::ArrayEntitiesToDictionaries($found);
     }
 }
 ?>
