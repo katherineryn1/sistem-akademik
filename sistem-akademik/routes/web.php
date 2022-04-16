@@ -103,7 +103,7 @@ Route::get('/dosen', function () {
     return view('dosen.dashboard');
 });
 
-Route::get('/dosen/jadwal-mengajar',[]);
+Route::get('/dosen/jadwal-mengajar', [DosenController::class, 'getJadwalMengajar']);
 
 Route::get('/dosen/absensi', function () {
     return view('dosen.absensi');
@@ -140,10 +140,6 @@ Route::get('/dosen/tracking-skripsi-edit-id', function () { #nanti dikasih id mh
 // Mahasiswa
 Route::get('/mahasiswa', function () {
     return view('mahasiswa.dashboard');
-});
-
-Route::get('/dosen/jadwal-mengajar', function () {
-    return view('dosen.jadwal_mengajar');
 });
 
 
