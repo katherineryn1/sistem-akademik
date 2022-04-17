@@ -105,9 +105,14 @@ Route::get('/dosen', function () {
 
 Route::get('/dosen/jadwal-mengajar', [DosenController::class, 'getJadwalMengajar']);
 
-Route::get('/dosen/absensi', function () {
-    return view('dosen.absensi');
-});
+// Route::get('/dosen/absensi', function () {
+//     return view('dosen.absensi');
+// });
+Route::get('/dosen/absensi', [DosenController::class, 'getKehadiranMengajar']);
+Route::get('/dosen/absensi/kelas/{id}', [DosenController::class, 'getKehadiranKelas']);
+Route::get('/dosen/absensi/tanggal/{id}', [DosenController::class, 'getKehadiranTanggal']);
+Route::get('/dosen/absensi/roster/{id_roster}/{id_kurikulum}', [DosenController::class, 'getRosterKehadiran']);
+Route::get('/dosen/absensi/roster/{id_roster}/{id_kurikulum}/{status}', [DosenController::class, 'getKehadiranMahasiswaByStatus']);
 
 Route::get('/dosen/nilai-mahasiswa', function () {
     return view('dosen.nilai_mahasiswa');
