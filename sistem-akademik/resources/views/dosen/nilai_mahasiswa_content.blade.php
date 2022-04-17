@@ -4,20 +4,22 @@
     </div>
 
     <form>
-        <div class="card" style="padding: 5px; width: 390px;">
+        <div class="card" style="padding: 5px; width: 540px;">
             <div class="form-group row" style="margin: 5px;">
                 <label for="dropdownMatakuliah" class="col-form-label" style="width: 120px">Mata Kuliah</label>
                 <label class="col-form-label" style="width: 20px">:</label>
                 <div class="dropdown" style="width: auto;">
-                    <button class="btn btn-primary dropdown-toggle dropdown-toggle-split" type="button" id="dropdownMatakuliah"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 200px; background-color: #F4F6F8; color: black;">
+                    <button class="btn btn-secondary dropdown-toggle dropdown-toggle-split" type="button" id="dropdownMatakuliah"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                        style="width: 350px; background-color: #F4F6F8; color: black;">
                         --- Pilih Matakuliah ---
                     </button>
 
                     <div id="dropdown-matakuliah" class="dropdown-menu" aria-labelledby="dropdownMatakuliah">
-                        <a class="dropdown-item" href="#"> Kalkulus I </a>
-                        <a class="dropdown-item" href="#"> Kalkulus II </a>
-                        <a class="dropdown-item" href="#"> Matematika </a>
+                        @foreach ($matakuliah as $m)
+                            <a id="{{ $m->kode_matkul }}" class="dropdown-item"
+                                href="#" style="width: 350px;">{{ $m->nama }}</a>
+                        @endforeach
                     </div>
                 </div>
             </div>
@@ -27,23 +29,22 @@
                 <label class="col-form-label" style="width: 20px">:</label>
                 <div class="dropdown" style="width: auto;">
                     <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownKelas"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 200px; background-color: #F4F6F8; color: black;">
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                        style="width: 350px; background-color: #F4F6F8; color: black;">
                         ------ Pilih Kelas ------
                     </button>
 
                     <div id="dropdown-kelas" class="dropdown-menu" aria-labelledby="dropdownKelas">
-                        <a class="dropdown-item" href="#"> Kelas A </a>
-                        <a class="dropdown-item" href="#"> Kelas B </a>
                     </div>
                 </div>
             </div>
         </div>
     </form>
 
-    <div id="presensi-container" class="card" style="margin-top: 20px; padding: 10px 10px 0px 10px; visibility: hidden;">
+    <div id="nilai-mahasiswa-container" class="card" style="margin-top: 20px; padding: 10px 10px 0px 10px; visibility: hidden;">
         <div class="d-flex justify-content-between" style="margin-bottom: 20px;">
-            <h4 id="matakuliah-kelas">Rekayasa Perangkat Lunak - Kelas B</h4>
-            <button class="btn btn-primary" type="button" id="buttonEditNilai"
+            <h5 id="matakuliah-kelas">Rekayasa Perangkat Lunak - Kelas B</h5>
+            <button class="btn btn-primary" type="button" id="buttonEditNilai" onclick="javascript:resetModal()"
                 style="background-color: #33297D;" data-toggle="modal" data-target="#modalEditNilai">Edit Nilai</button>
         </div>
 
@@ -64,7 +65,7 @@
                 </tr>
             </thead>
 
-            <tbody>
+            <tbody id="tabel-nilai-mahasiswa">
                 <tr class="table-secondary">
                     <td>1</td>
                     <td>1118000</td>
@@ -110,13 +111,11 @@
                         <label class="col-form-label" style="width: 20px">:</label>
                         <div class="dropdown" style="width: auto;">
                             <button class="btn btn-secondary dropdown-toggle dropdown-toggle-split" type="button" id="dropdownNIM"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 200px; background-color: #F4F6F8; color: black;">
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 350px; background-color: #F4F6F8; color: black;">
                                 --- Pilih Mahasiswa ---
                             </button>
 
-                            <div id="dropdown-nim" class="dropdown-menu" aria-labelledby="dropdownNIM">
-                                <a class="dropdown-item" href="#"> 1118000 - John Doe </a>
-                                <a class="dropdown-item" href="#"> 1118001 - John Doen </a>
+                            <div id="dropdown-nim-nama" class="dropdown-menu" aria-labelledby="dropdownNIM">
                             </div>
                         </div>
                     </div>
@@ -133,7 +132,7 @@
                             </tr>
                         </thead>
 
-                        <tbody>
+                        <tbody id="tabel-modal-nilai-mahasiswa">
                             <tr class="table-secondary">
                                 <td>
                                     <input type="text" class="form-control is-invalid" id="form-n1" placeholder="-" required id="form-nilai-n1">
@@ -185,48 +184,199 @@
 </main>
 
 <script type="text/javascript">
-var matakuliah_selected = "";
-var kelas_selected = "";
-var mahasiswa_selected = "";
+var matakuliah_id = -1;
+var matakuliah_name = "";
+var kelas_id = -1;
+var kelas_name = "";
+
+var mahasiswa_nim = -1;
+var mahasiswa_name = "";
+
+var arr_nim_nama = [];
+var arr_id_nilai = [];
+
+var id_nilai_mahasiswa = -1;
 
 $('#dropdown-matakuliah a').click(function() {
+    resetKelas();
+
     $('#dropdownMatakuliah').html($(this).text());
-    matakuliah_selected = $(this).text();
-    checkData();
+    matakuliah_id = $(this).attr('id');
+    matakuliah_name = $(this).text();
+    $.get('/dosen/nilai-mahasiswa/kelas/' + matakuliah_id)
+        .done(function (response) {
+            var html_string = "";
+            response.forEach(element => {
+                html_string += '<a id="' + element['id_kurikulum']
+                    + '" class="dropdown-item" href="#" onclick="javascript:selectKelas(this)" style="width: 350px;">'
+                    + element['kelas'] + '</a>';
+            });
+            $('#dropdown-kelas').append(html_string);
+        });
 });
 
-$('#dropdown-kelas a').click(function() {
-    $('#dropdownKelas').html($(this).text());
-    kelas_selected = $(this).text();
-    checkData();
-});
+function selectKelas(item) {
+    $('#dropdownKelas').html(item.text);
+    kelas_id = item.id;
+    kelas_name = item.text;
+    $.get('/dosen/nilai-mahasiswa/' + kelas_id)
+        .done(function (response) {
+            $('#nilai-mahasiswa-container').css('visibility', 'visible');
+            $('#matakuliah-kelas').text(matakuliah_name + " " + kelas_name);
+            $('#dropdown-nim-nama .dropdown-item').remove();
+            arr_nim_nama = [];
+            arr_id_nilai = [];
 
-$('#dropdown-nim a').click(function() {
-    $('#dropdownNIM').html($(this).text());
-    mahasiswa_selected = $(this).text();
-    getMahasiswaGrade();
-});
+            $('#tabel-nilai-mahasiswa tr').remove();
+            var html_string = "";
+            var counter = 1;
+            response.forEach(element => {
+                var str = createHtmlTagForTable(element, counter);
+                html_string += str;
+                counter++;
+
+                arr_nim_nama.push(element['nim'] + ' - ' + element['nama']);
+                arr_id_nilai.push(element['id_nilai']);
+            });
+
+            $('#tabel-nilai-mahasiswa').append(html_string);
+            setModal();
+        });
+}
 
 $('#buttonSave').click(function() {
+    if (id_nilai_mahasiswa != -1) {
+        // Simpan nilai baru
+
+        // Lalu perbarui tabel nilai
+        $.get('/dosen/nilai-mahasiswa/' + kelas_id)
+        .done(function (response) {
+            $('#tabel-nilai-mahasiswa tr').remove();
+            var html_string = "";
+            var counter = 1;
+            response.forEach(element => {
+                var str = createHtmlTagForTable(element, counter);
+                html_string += str;
+                counter++;
+            });
+            $('#tabel-nilai-mahasiswa').append(html_string);
+        });
+    }
     resetModal();
 });
 
-function checkData() {
-    if (matakuliah_selected != "" && kelas_selected != "") {
-        $('#presensi-container').css('visibility', 'visible');
-        $('#matakuliah-kelas').text(matakuliah_selected + " " + kelas_selected);
-    }
-};
-
-function getMahasiswaGrade() {
-    if (mahasiswa_selected != "") {
-        $('#input-table-nilai').css('visibility', 'visible');
-    }
+function resetKelas() {
+    kelas_id = -1;
+    kelas_name = "";
+    $('#dropdownKelas').html('------ Pilih Kelas ------');
+    $('#dropdown-kelas .dropdown-item').remove();
 }
 
 function resetModal() {
-    mahasiswa_selected = "";
+    id_nilai_mahasiswa = -1;
     $('#dropdownNIM').html("--- Pilih Mahasiswa ---");
     $('#input-table-nilai').css('visibility', 'hidden');
+}
+
+function createHtmlTagForTable(element, counter) {
+    if (counter % 2 == 1) {
+        var str = '<tr class="table-secondary"><td>';
+    } else {
+        var str = '<tr><td>';
+    }
+
+    str += counter + '</td><td>' + element['nim'] + '</td><td>' + element['nama'] + '</td><td>';
+
+    if (element['n1'] == -1) {
+        str += '-</td><td>';
+    } else {
+        str += element['n1'] + '</td><td>';
+    }
+
+    if (element['n2'] == -1) {
+        str += '-</td><td>';
+    } else {
+        str += element['n2'] + '</td><td>';
+    }
+
+    if (element['n3'] == -1) {
+        str += '-</td><td>';
+    } else {
+        str += element['n3'] + '</td><td>';
+    }
+
+    if (element['n4'] == -1) {
+        str += '-</td><td>';
+    } else {
+        str += element['n4'] + '</td><td>';
+    }
+
+    if (element['n5'] == -1) {
+        str += '-</td><td>';
+    } else {
+        str += element['n5'] + '</td><td>';
+    }
+
+    if (element['na'] == -1) {
+        str += '-</td><td>';
+    } else {
+        str += element['na'] + '</td><td>';
+    }
+
+    if (element['nUAS'] == -1) {
+        str += '-</td><td>';
+    } else {
+        str += element['nUAS'] + '</td><td>';
+    }
+
+    str += element['index'] + '</td>';
+    return str;
+}
+
+function setModal() {
+    var html_string = "";
+
+    for (let i = 0; i < arr_id_nilai.length; i++) {
+        var str = '<a id="' + arr_id_nilai[i] + '" class="dropdown-item" href="#" onclick="javascript:selectMahasiswa(this)" style="width: 350px;">' +
+            arr_nim_nama[i] + '</a>';
+        html_string += str;
+    }
+
+    $('#dropdown-nim-nama').append(html_string);
+}
+
+function selectMahasiswa(item) {
+    $('#dropdownNIM').html(item.text);
+    id_nilai_mahasiswa = item.id;
+    $.get('/dosen/nilai-mahasiswa/mahasiswa/' + item.id)
+        .done(function (response) {
+            $('#modalEditNilai #form-n1').val('');
+            $('#modalEditNilai #form-n2').val('');
+            $('#modalEditNilai #form-n3').val('');
+            $('#modalEditNilai #form-n4').val('');
+            $('#modalEditNilai #form-n5').val('');
+            $('#modalEditNilai #form-uas').val('');
+
+            if (response['n1'] != -1) {
+                $('#modalEditNilai #form-n1').val(response['n1']);
+            }
+            if (response['n2'] != -1) {
+                $('#modalEditNilai #form-n2').val(response['n2']);
+            }
+            if (response['n3'] != -1) {
+                $('#modalEditNilai #form-n3').val(response['n3']);
+            }
+            if (response['n4'] != -1) {
+                $('#modalEditNilai #form-n4').val(response['n4']);
+            }
+            if (response['n5'] != -1) {
+                $('#modalEditNilai #form-n5').val(response['n5']);
+            }
+            if (response['nUAS'] != -1) {
+                $('#modalEditNilai #form-uas').val(response['nUAS']);
+            }
+
+            $('#input-table-nilai').css('visibility', 'visible');
+        });
 }
 </script>

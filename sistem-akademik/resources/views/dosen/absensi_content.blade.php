@@ -4,20 +4,22 @@
     </div>
 
     <form>
-        <div class="card" style="padding: 5px; width: 390px;">
+        <div class="card" style="padding: 5px; width: 540px;">
             <div class="form-group row" style="margin: 5px;">
                 <label for="dropdownMatakuliah" class="col-form-label" style="width: 120px">Mata Kuliah</label>
                 <label class="col-form-label" style="width: 20px">:</label>
                 <div class="dropdown" style="width: auto;">
                     <button class="btn btn-secondary dropdown-toggle dropdown-toggle-split" type="button" id="dropdownMatakuliah"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 200px; background-color: #F4F6F8; color: black;">
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                        style="width: 350px; background-color: #F4F6F8; color: black;">
                         --- Pilih Matakuliah ---
                     </button>
 
                     <div id="dropdown-matakuliah" class="dropdown-menu" aria-labelledby="dropdownMatakuliah">
-                        <a class="dropdown-item" href="#"> Kalkulus I </a>
-                        <a class="dropdown-item" href="#"> Kalkulus II </a>
-                        <a class="dropdown-item" href="#"> Matematika </a>
+                        @foreach ($matakuliah as $m)
+                            <a id="{{ $m->kode_matkul }}" class="dropdown-item"
+                                href="#" style="width: 350px;">{{ $m->nama }}</a>
+                        @endforeach
                     </div>
                 </div>
             </div>
@@ -27,13 +29,27 @@
                 <label class="col-form-label" style="width: 20px">:</label>
                 <div class="dropdown" style="width: auto;">
                     <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownKelas"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 200px; background-color: #F4F6F8; color: black;">
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                        style="width: 350px; background-color: #F4F6F8; color: black;">
                         ------ Pilih Kelas ------
                     </button>
 
                     <div id="dropdown-kelas" class="dropdown-menu" aria-labelledby="dropdownKelas">
-                        <a class="dropdown-item" href="#"> Kelas A </a>
-                        <a class="dropdown-item" href="#"> Kelas B </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group row" style="margin: 5px;">
+                <label for="dropdownTanggal" class="col-form-label" style="width: 120px">Kelas</label>
+                <label class="col-form-label" style="width: 20px">:</label>
+                <div class="dropdown" style="width: auto;">
+                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownTanggal"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                        style="width: 350px; background-color: #F4F6F8; color: black;">
+                        ---- Pilih Tanggal ----
+                    </button>
+
+                    <div id="dropdown-tanggal" class="dropdown-menu" aria-labelledby="dropdownTanggal">
                     </div>
                 </div>
             </div>
@@ -42,8 +58,8 @@
 
     <div id="presensi-container" class="card" style="margin-top: 20px; padding: 10px 10px 0px 10px; visibility: hidden;">
         <div class="d-flex justify-content-between" style="margin-bottom: 20px;">
-            <h4 id="matakuliah-kelas">Rekayasa Perangkat Lunak - Kelas B</h4>
-            <button class="btn btn-primary" type="button" id="buttonQR"
+            <h5 id="matakuliah-kelas">Rekayasa Perangkat Lunak - Kelas B</h5>
+            <button class="btn btn-primary" type="button" id="buttonQR" onclick="javascript:showQRCode()"
                 style="background-color: #33297D;" data-toggle="modal" data-target="#modalQRCode">Tampilkan QR</button>
         </div>
 
@@ -60,7 +76,7 @@
                 </tr>
             </thead>
 
-            <tbody>
+            <tbody id="tabel-presensi-body">
                 <tr class="table-secondary">
                     <td>1</td>
                     <td>1118000</td>
@@ -129,7 +145,7 @@
                                     </tr>
                                 </thead>
 
-                                <tbody>
+                                <tbody id="tabel-qr-code">
                                     <tr class="table-secondary">
                                         <td>1</td>
                                         <td>1118000</td>
@@ -155,25 +171,145 @@
 </main>
 
 <script type="text/javascript">
-var matakuliah_selected = "";
-var kelas_selected = "";
+var matakuliah_id = -1;
+var matakuliah_name = "";
+var kelas_id = -1;
+var kelas_name = "";
+var tanggal_id = -1;
+var tanggal_name = "";
 
 $('#dropdown-matakuliah a').click(function() {
+    resetKelas();
+    resetTanggal();
+
     $('#dropdownMatakuliah').html($(this).text());
-    matakuliah_selected = $(this).text();
-    checkData();
+    matakuliah_id = $(this).attr('id');
+    matakuliah_name = $(this).text();
+    $.get('/dosen/absensi/kelas/' + matakuliah_id)
+        .done(function (response) {
+            var html_string = "";
+            response.forEach(element => {
+                html_string += '<a id="' + element['id_kurikulum']
+                    + '" class="dropdown-item" href="#" onclick="javascript:selectKelas(this)" style="width: 350px;">'
+                    + element['kelas'] + '</a>';
+            });
+            $('#dropdown-kelas').append(html_string);
+        });
 });
 
-$('#dropdown-kelas a').click(function() {
-    $('#dropdownKelas').html($(this).text());
-    kelas_selected = $(this).text();
-    checkData();
-});
+function selectKelas(item) {
+    resetTanggal();
 
-function checkData() {
-    if (matakuliah_selected != "" && kelas_selected != "") {
-        $('#presensi-container').css('visibility', 'visible');
-        $('#matakuliah-kelas').text(matakuliah_selected + " " + kelas_selected);
-    }
-};
+    $('#dropdownKelas').html(item.text);
+    kelas_id = item.id;
+    kelas_name = item.text;
+    $.get('/dosen/absensi/tanggal/' + kelas_id)
+        .done(function (response) {
+            var html_string = "";
+            response.forEach(element => {
+                html_string += '<a id="' + element['id_roster']
+                    + '" class="dropdown-item" href="#" onclick="javascript:selectTanggal(this)" style="width: 350px;">'
+                    + element['tanggal'] + '</a>';
+            });
+            $('#dropdown-tanggal').append(html_string);
+        });
+}
+
+function selectTanggal(item) {
+    $('#dropdownTanggal').html(item.text);
+    tanggal_id = item.id;
+    tanggal_name = item.text;
+    $.get('/dosen/absensi/roster/' + tanggal_id + '/' + kelas_id)
+        .done(function (response) {
+            $('#matakuliah-kelas').text(matakuliah_name + ' - ' + kelas_name);
+            $('#presensi-container').css('visibility', 'visible');
+
+            resetTabelPresensi();
+            var counter = 1;
+            response.forEach(element => {
+                if (counter % 2 == 1) {
+                    var html_string = '<tr id="' + element['id_kehadiran'] + '" class="table-secondary"><td>';
+                }
+                else {
+                    var html_string = '<tr id="' + element['id_kehadiran'] + '"><td>';
+                }
+
+                html_string += counter + '</td><td>' + element['nim'] + '</td><td>' + element['nama'] +
+                    '</td><td class="text-center"><input class="form-check-input" type="radio" name="' +
+                    element['nim'] + '" id="hadir"';
+                if (element['keterangan'] == 'Hadir') {
+                    html_string += 'checked';
+                }
+
+                html_string += '></td><td class="text-center"><input class="form-check-input" type="radio" name="' +
+                    element['nim'] + '" id="sakit"';
+                if (element['keterangan'] == 'Sakit') {
+                    html_string += 'checked';
+                }
+
+                html_string += '></td><td class="text-center"><input class="form-check-input" type="radio" name="' +
+                    element['nim'] + '" id="izin"';
+                if (element['keterangan'] == 'Izin') {
+                    html_string += 'checked';
+                }
+
+                html_string += '></td><td class="text-center"><input class="form-check-input" type="radio" name="' +
+                    element['nim'] + '" id="alpha"';
+                if (element['keterangan'] == 'Alpha') {
+                    html_string += 'checked';
+                }
+
+                html_string += '></td></tr>';
+
+                counter++;
+                $('#tabel-presensi-body').append(html_string);
+            });
+        });
+}
+
+function resetKelas() {
+    kelas_id = -1;
+    kelas_name = "";
+    $('#dropdownKelas').html('------ Pilih Kelas ------');
+    $('#dropdown-kelas .dropdown-item').remove();
+}
+
+function resetTanggal() {
+    tanggal_id = -1;
+    tanggal_name = "";
+    $('#dropdownTanggal').html('---- Pilih Tanggal ----');
+    $('#dropdown-tanggal .dropdown-item').remove();
+}
+
+function resetTabelPresensi() {
+    $('#tabel-presensi-body tr').remove();
+}
+
+function showQRCode() {
+    // Get QR Code...
+    resetTabelQR(); // secara interval
+}
+
+function resetTabelQR() {
+    $('#tabel-qr-code tr').remove();
+
+    $.get('/dosen/absensi/roster/' + tanggal_id + '/' + kelas_id + '/' + 'Hadir')
+        .done(function (response) {
+            var counter = 1;
+            response.forEach(element => {
+                if (counter % 2 == 1) {
+                    var html_string = '<tr id="' + element['id_kehadiran'] + '" class="table-secondary"><td>';
+                }
+                else {
+                    var html_string = '<tr id="' + element['id_kehadiran'] + '"><td>';
+                }
+
+                html_string += counter + '</td><td>' + element['nim'] +
+                    '</td><td>' + element['nama'] + '</td></tr>';
+
+                counter++;
+                $('#tabel-qr-code').append(html_string);
+            });
+        });
+}
 </script>

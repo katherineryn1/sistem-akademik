@@ -103,15 +103,18 @@ Route::get('/dosen', function () {
     return view('dosen.dashboard');
 });
 
-Route::get('/dosen/jadwal-mengajar',[]);
+Route::get('/dosen/jadwal-mengajar', [DosenController::class, 'getJadwalMengajar']);
 
-Route::get('/dosen/absensi', function () {
-    return view('dosen.absensi');
-});
+Route::get('/dosen/absensi', [DosenController::class, 'getKehadiranMengajar']);
+Route::get('/dosen/absensi/kelas/{id}', [DosenController::class, 'getKelasMatakuliah']);
+Route::get('/dosen/absensi/tanggal/{id}', [DosenController::class, 'getTanggalKurikulum']);
+Route::get('/dosen/absensi/roster/{id_roster}/{id_kurikulum}', [DosenController::class, 'getKehadiranMahasiswa']);
+Route::get('/dosen/absensi/roster/{id_roster}/{id_kurikulum}/{status}', [DosenController::class, 'getKehadiranMahasiswaByStatus']);
 
-Route::get('/dosen/nilai-mahasiswa', function () {
-    return view('dosen.nilai_mahasiswa');
-});
+Route::get('/dosen/nilai-mahasiswa', [DosenController::class, 'getNilaiMahasiswa']);
+Route::get('/dosen/nilai-mahasiswa/kelas/{id}', [DosenController::class, 'getKelasMatakuliah']);
+Route::get('/dosen/nilai-mahasiswa/{id_kurikulum}', [DosenController::class, 'getListNilaiMahasiswa']);
+Route::get('/dosen/nilai-mahasiswa/mahasiswa/{id_nilai}', [DosenController::class, 'getNilaiMahasiswaByIdNilai']);
 
 Route::get('/dosen/profil', function () {
     return view('dosen.profil');
@@ -140,10 +143,6 @@ Route::get('/dosen/tracking-skripsi-edit-id', function () { #nanti dikasih id mh
 // Mahasiswa
 Route::get('/mahasiswa', function () {
     return view('mahasiswa.dashboard');
-});
-
-Route::get('/dosen/jadwal-mengajar', function () {
-    return view('dosen.jadwal_mengajar');
 });
 
 
