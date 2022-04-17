@@ -58,7 +58,7 @@
 
     <div id="presensi-container" class="card" style="margin-top: 20px; padding: 10px 10px 0px 10px; visibility: hidden;">
         <div class="d-flex justify-content-between" style="margin-bottom: 20px;">
-            <h4 id="matakuliah-kelas">Rekayasa Perangkat Lunak - Kelas B</h4>
+            <h5 id="matakuliah-kelas">Rekayasa Perangkat Lunak - Kelas B</h5>
             <button class="btn btn-primary" type="button" id="buttonQR" onclick="javascript:showQRCode()"
                 style="background-color: #33297D;" data-toggle="modal" data-target="#modalQRCode">Tampilkan QR</button>
         </div>

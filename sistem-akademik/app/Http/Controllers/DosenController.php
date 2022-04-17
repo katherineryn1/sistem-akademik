@@ -126,20 +126,7 @@ class DosenController extends Controller{
         ]);
     }
 
-    public function getKehadiranKelas($id) {
-        $nik = request('nik', 111001);
-        return $this->getKelasMatakuliah($nik, $id);
-    }
-
-    public function getKehadiranTanggal($id) {
-        return $this->getTanggalKurikulum($id);
-    }
-
-    public function getRosterKehadiran($id_roster, $id_kurikulum) {
-        return $this->getKehadiranMahasiswa($id_roster, $id_kurikulum);
-    }
-
-    function getMatakuliah($nik) {
+    public function getMatakuliah($nik) {
         // $data = DB::table('pengambilan_matakuliah_data')
         //     ->join('kurikulum_data', 'kurikulum_data.id', '=', 'pengambilan_matakuliah_data.id_kurikulum')
         //     ->join('matakuliah_data', 'matakuliah_data.kode', '=', 'kurikulum_data.kode_matakuliah')
@@ -161,7 +148,8 @@ class DosenController extends Controller{
         return $data;
     }
 
-    function getKelasMatakuliah($nik, $kode) {
+    public function getKelasMatakuliah($kode) {
+        $nik = request('nik', 111001);
         // $data = DB::table('pengambilan_matakuliah_data')
         //     ->join('kurikulum_data', 'kurikulum_data.id', '=', 'pengambilan_matakuliah_data.id_kurikulum')
         //     ->where('pengambilan_matakuliah_data.nomor_induk', '=', $nik)
@@ -183,7 +171,7 @@ class DosenController extends Controller{
         return $data;
     }
 
-    function getTanggalKurikulum($id_kurikulum) {
+    public function getTanggalKurikulum($id_kurikulum) {
         // $data = DB::table('roster_data')
         //     ->where('id_kurikulum', '=', $id_kurikulum)
         //     ->select('tanggal', 'id as id_roster')
@@ -203,12 +191,12 @@ class DosenController extends Controller{
         return $data;
     }
 
-    function getKehadiranMahasiswa($id_roster, $id_kurikulum) {
-        // $dataSize = DB::table('kehadiran_data')
+    public function getKehadiranMahasiswa($id_roster, $id_kurikulum) {
+        // $data_size = DB::table('kehadiran_data')
         //     ->where('id_roster', '=', $id_roster)
         //     ->count();
 
-        // if ($dataSize == 0) {
+        // if ($data_size == 0) {
         //     // Belum ada data kehadiran -> isi dulu mahasiswanya
         //     $fill_kehadiran_data = DB::table('pengambilan_matakuliah_data')
         //         ->where('id_kurikulum', '=', $id_kurikulum)
@@ -217,9 +205,9 @@ class DosenController extends Controller{
         //         ->get();
 
         //     $insert_data = array();
-        //     foreach ($fill_kehadiran_data as $data) {
+        //     foreach ($fill_kehadiran_data as $fill) {
         //         $data = new stdClass();
-        //         $data->id_pengambilan_matakuliah = $data->id;
+        //         $data->id_pengambilan_matakuliah = $fill->id;
         //         $data->keterangan = 'Alpha';
         //         $data->id_roster = $id_roster;
         //         array_push($insert_data, $data);
@@ -276,6 +264,132 @@ class DosenController extends Controller{
         $khd1->nama = 'Jhon Doe';
 
         $data = [$khd1];
+        return $data;
+    }
+
+    public function getNilaiMahasiswa() {
+        $nik = request('nik', 111001);
+        $arr_matakuliah = $this->getMatakuliah($nik);
+
+        return view('dosen.nilai_mahasiswa', [
+            'matakuliah' => $arr_matakuliah,
+        ]);
+    }
+
+    public function getListNilaiMahasiswa($id_kurikulum) {
+        // $data_size = DB::table('nilai_data as a')
+        //     ->join('pengambilan_matakuliah_data as b', 'b.id', '=', 'a.pengambilan_matakuliah')
+        //     ->where('b.id_kurikulum', '=', $id_kurikulum)
+        //     ->count();
+
+        // if ($data_size == 0) {
+        //     // Belum ada data mahasiswa di nilai_data -> isi dulu
+        //     $fill_nilai_data = DB::table('pengambilan_matakuliah_data')
+        //         ->where('id_kurikulum', '=', $id_kurikulum)
+        //         ->where('posisi_ambil', '=', 'Mahasiswa')
+        //         ->select('id')
+        //         ->get();
+
+        //     $insert_data = array();
+        //     foreach ($fill_nilai_data as $fill) {
+        //         $data = new stdClass();
+        //         $data->nilai_1 = -1;
+        //         $data->nilai_2 = -1;
+        //         $data->nilai_3 = -1;
+        //         $data->nilai_4 = -1;
+        //         $data->nilai_5 = -1;
+        //         $data->nilai_UAS = -1;
+        //         $data->nilai_akhir = -1;
+        //         $data->index = '-';
+        //         $data->pengambilan_matakuliah = $fill->id;
+        //         array_push($insert_data, $data);
+        //     }
+        // }
+
+        // $data = DB::table('nilai_data as a')
+        //     ->join('pengambilan_matakuliah_data as b', 'b.id', '=', 'a.pengambilan_matakuliah')
+        //     ->join('users_data as c', 'c.nomor_induk', '=', 'b.nomor_induk')
+        //     ->where('b.id_kurikulum', '=', $id_kurikulum)
+        //     ->select('a.id as id_nilai', 'b.nomor_induk as nim', 'c.nama as nama', 'a.nilai_1 as n1', 'a.nilai_2 as n2',
+        //         'a.nilai_3 as n3', 'a.nilai_4 as n4', 'a.nilai_5 as n5', 'a.nilai_UAS as nUAS', 'a.nilai_akhir as na', 'a.index as index')
+        //     ->get();
+
+        // Mock
+        $mhs1 = new stdClass();
+        $mhs1->id_nilai = 1;
+        $mhs1->nim = 1118001;
+        $mhs1->nama = 'Jhon Doe';
+        $mhs1->n1 = 70;
+        $mhs1->n2 = 75;
+        $mhs1->n3 = -1;
+        $mhs1->n4 = -1;
+        $mhs1->n5 = -1;
+        $mhs1->nUAS = -1;
+        $mhs1->na = -1;
+        $mhs1->index = '-';
+
+        $mhs2 = new stdClass();
+        $mhs2->id_nilai = 2;
+        $mhs2->nim = 1118002;
+        $mhs2->nama = 'Jhon Doen';
+        $mhs2->n1 = 80;
+        $mhs2->n2 = -1;
+        $mhs2->n3 = -1;
+        $mhs2->n4 = -1;
+        $mhs2->n5 = -1;
+        $mhs2->nUAS = -1;
+        $mhs2->na = -1;
+        $mhs2->index = '-';
+
+        $mhs3 = new stdClass();
+        $mhs3->id_nilai = 3;
+        $mhs3->nim = 1118003;
+        $mhs3->nama = 'Jhon Doer';
+        $mhs3->n1 = 100;
+        $mhs3->n2 = 90;
+        $mhs3->n3 = -1;
+        $mhs3->n4 = -1;
+        $mhs3->n5 = -1;
+        $mhs3->nUAS = -1;
+        $mhs3->na = -1;
+        $mhs3->index = '-';
+
+        $data = [$mhs1, $mhs2, $mhs3];
+        return $data;
+    }
+
+    public function getNilaiMahasiswaByIdNilai($id_nilai) {
+        // $data = DB::table('nilai_data as a')
+        //     ->where('a.id', '=', $id_nilai)
+        //     ->select('a.id as id_nilai', 'a.nilai_1 as n1', 'a.nilai_2 as n2', 'a.nilai_3 as n3',
+        //        'a.nilai_4 as n4', 'a.nilai_5 as n5', 'a.nilai_UAS as nUAS', 'a.nilai_akhir as na', 'a.index as index')
+        //     ->first();
+
+        // Mock
+        $mhs = new stdClass();
+        $mhs->id_nilai = $id_nilai;
+        switch($id_nilai) {
+            case(1):
+                $mhs->n1 = 70;
+                $mhs->n2 = 75;
+                break;
+            case(2):
+                $mhs->n1 = 80;
+                $mhs->n2 = -1;
+                break;
+            default:
+                $mhs->n1 = 100;
+                $mhs->n2 = 90;
+                break;
+        }
+        $mhs->n3 = -1;
+        $mhs->n4 = -1;
+        $mhs->n5 = -1;
+        $mhs->nUAS = -1;
+        $mhs->na = -1;
+        $mhs->index = '-';
+
+        $data = $mhs;
         return $data;
     }
 
