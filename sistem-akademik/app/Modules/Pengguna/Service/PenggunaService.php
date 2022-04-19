@@ -77,12 +77,13 @@
          * @param string $alamat
          * @param string $notelepon
          * @param string $jabatan
+         * @param string $fotoprofile
          * @return bool
          * @throws \Exception
          */
         public static function insert(string  $nama,string $password, string $nomorInduk,string $email,
                                       string $tanggalLahir, string $tempatLahir,string $jenisKelamin, string  $alamat,
-                                      string $notelepon, string $jabatan):bool {
+                                      string $notelepon, string $jabatan, string $fotoprofile):bool {
             $newPengguna = new Pengguna();
             $newPengguna->setNama($nama);
             $newPengguna->setPassword($password);
@@ -95,6 +96,7 @@
             $newPengguna->setNotelepon($notelepon);
             $newPengguna->setFotoprofil("");
             $newPengguna->setJabatan($jabatan);
+            $newPengguna->setFotoprofil($fotoprofile);
             return self::$pm->insertSingle($newPengguna);
         }
 

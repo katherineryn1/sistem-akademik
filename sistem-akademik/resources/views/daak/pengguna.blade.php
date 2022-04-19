@@ -91,9 +91,17 @@
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title">Tambah Pengguna</h5>
-
+                @if (!is_array($errors))
+                    @foreach ($errors->all() as $error)
+                        <div class="alert alert-danger bg-danger text-light border-0 alert-dismissible fade show" role="alert">
+                            {{ $error  }}
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    @endforeach
+                @endif
                 <!-- Horizontal Form -->
-                <form action=""  method="post" enctype='multipart/form-data'>
+                <form action="{{ url("/v1/pengguna")  }}"  method="post" enctype='multipart/form-data'>
+                    @csrf
                     <div class="row mb-3 form-horizontal">
                         <h5 class="card-subtitle mb-2 text-muted">Form Pengguna</h5>
                         <hr>
@@ -160,7 +168,7 @@
                     <div class="row mb-3 form-horizontal">
                         <label for="inputNoTelp" class="col-sm-2 col-form-label control-label">Nomor Telepon</label>
                         <div class="col-sm-10 ">
-                            <input type="text" class="form-control" id="inputNoTelp" name="inputNoTelp" required>
+                            <input type="text" class="form-control" id="inputNoTelp" name="inputNoTelp" >
                         </div>
                     </div>
                     <div class="row mb-3 form-horizontal">

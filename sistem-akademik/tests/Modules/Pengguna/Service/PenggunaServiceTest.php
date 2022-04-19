@@ -19,7 +19,7 @@ class PenggunaServiceTest extends TestCase{
         $notelepon ="086537956";
         $jabatan ="DAAK";
         $hasil = PenggunaService::insert($nama,$password,  $nomorInduk, $email, $tanggalLahir,
-                                    $tempatLahir,$jenisKelamin, $alamat,$notelepon, $jabatan);
+                                    $tempatLahir,$jenisKelamin, $alamat,$notelepon, $jabatan, "");
         self::assertEquals(true,$hasil);
     }
     public function testLogin() {
