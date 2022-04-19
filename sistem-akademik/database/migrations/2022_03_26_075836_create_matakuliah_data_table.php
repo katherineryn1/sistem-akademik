@@ -17,8 +17,8 @@ return new class extends Migration
             $table->primary('kode');
             $table->string('kode');
             $table->string('nama');
-            $table->string("jenis");
-            $table->string("sifat");
+            $table->integer("jenis"); // 0 = Umum; 1 = Keilmuan Keterampilan; 2 = Pengembangan Kepribadian; 3 = Keahlian Berkarya
+            $table->integer("sifat"); // 0 = Wajib; 1 = Pilihan
             $table->integer("sks");
             $table->timestamps();
         });

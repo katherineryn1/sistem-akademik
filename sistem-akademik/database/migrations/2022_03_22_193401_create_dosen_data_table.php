@@ -19,8 +19,8 @@ return new class extends Migration
             $table->string("program_studi");
             $table->string("bidang_ilmu");
             $table->string("gelar_akademik");
-            $table->string("status_ikatan_kerja");
-            $table->string("status_dosen");
+            $table->integer("status_ikatan_kerja"); // 0 = Dosen Tetap; 1 = Dosen Tidak Tetap / Honorer
+            $table->integer("status_dosen");  // 0 = Aktif; 1 = Tidak aktif
             $table->foreign('nomor_induk')->references('nomor_induk')->on("users_data");
             $table->timestamps();
         });

@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('kurikulum_data', function (Blueprint $table) {
             $table->id();
             $table->integer('tahun');
-            $table->string("semester");
-            $table->string("kelas");
+            $table->integer("semester"); // 0 = Ganjil; 1 = Genap
+            $table->string("kelas")->nullable();
             $table->integer("jumlah_pertemuan");
             $table->string("kode_matakuliah");
             $table->foreign('kode_matakuliah')->references('kode')->on("matakuliah_data");

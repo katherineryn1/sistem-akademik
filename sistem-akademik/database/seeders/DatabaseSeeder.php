@@ -14,6 +14,17 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        $this->call([
+            UsersDataSeeder::class,
+            PengumumanDataSeeder::class,
+            DosenDataSeeder::class,
+            MahasiswaDataSeeder::class,
+            MatakuliahDataSeeder::class,
+            KurikulumDataSeeder::class,
+            PengambilanMatakuliahDataSeeder::class,
+            RosterDataSeeder::class,
+            KehadiranDataSeeder::class,
+            NilaiDataSeeder::class
+        ]);
     }
 }

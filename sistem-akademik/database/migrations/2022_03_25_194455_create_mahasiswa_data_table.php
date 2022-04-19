@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('nomor_induk');
             $table->string("jurusan");
             $table->integer("tahun_masuk");
-            $table->integer("tahun_lulus");
+            $table->integer("tahun_lulus")->nullable();
             $table->foreign('nomor_induk')->references('nomor_induk')->on("users_data");
             $table->timestamps();
         });
