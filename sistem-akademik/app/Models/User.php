@@ -36,8 +36,8 @@ class User extends Authenticatable implements PenggunaPersistence{
         'tempat_lahir' ,
         'jenis_kelamin',
         'alamat',
-        'notelepon',
-        'fotoprofile',
+        'no_telepon',
+        'foto_profile',
         'jabatan'
     ];
 

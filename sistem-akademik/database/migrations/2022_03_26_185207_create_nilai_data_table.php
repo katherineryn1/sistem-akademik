@@ -16,11 +16,11 @@ return new class extends Migration
         Schema::create('nilai_data', function (Blueprint $table) {
             $table->id();
             $table->float("nilai_1");
-            $table->float("nilai_2");
-            $table->float("nilai_3");
-            $table->float("nilai_4");
-            $table->float("nilai_5");
-            $table->float("nilai_UAS");
+            $table->float("nilai_2")->nullable();
+            $table->float("nilai_3")->nullable();
+            $table->float("nilai_4")->nullable();
+            $table->float("nilai_5")->nullable();
+            $table->float("nilai_UAS")->nullable();
             $table->float("nilai_akhir");
             $table->string("index");
             $table->bigInteger("pengambilan_matakuliah",false,true);

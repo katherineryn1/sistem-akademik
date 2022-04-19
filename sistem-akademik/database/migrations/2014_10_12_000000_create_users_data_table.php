@@ -17,16 +17,16 @@ return new class extends Migration
             $table->primary('nomor_induk');
             $table->string('nomor_induk');
             $table->string('nama');
-            $table->string('email')->unique();
+            $table->string('email');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->dateTime('tanggal_lahir');
+            $table->date('tanggal_lahir');
             $table->string("tempat_lahir");
-            $table->string("jenis_kelamin");
+            $table->integer("jenis_kelamin"); // 0 = Laki-laki; 1 = Perempuan
             $table->string("alamat");
-            $table->string("notelepon");
-            $table->binary("fotoprofile");
-            $table->string("jabatan");
+            $table->string("no_telepon");
+            $table->binary("foto_profile")->nullable();
+            $table->integer("jabatan"); // 0 = Dosen; 1 = Mahasiswa
             $table->rememberToken();
             $table->timestamps();
         });

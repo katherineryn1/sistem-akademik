@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('pengumuman_data', function (Blueprint $table) {
             $table->id();
             $table->string('judul');
-            $table->string('keterangan');
-            $table->dateTime('tanggal');
+            $table->string('keterangan', 1000);
+            $table->date('tanggal');
             $table->timestamps();
         });
     }

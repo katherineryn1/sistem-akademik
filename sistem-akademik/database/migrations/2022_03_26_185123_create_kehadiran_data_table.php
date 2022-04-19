@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('kehadiran_data', function (Blueprint $table) {
             $table->id();
-            $table->string("keterangan");
+            $table->integer("keterangan"); // 0 = Hadir; 1 = Izin; 2 = Sakit; 3 = Alpha
             $table->bigInteger("id_pengambilan_matakuliah",false,true);
             $table->bigInteger("id_roster",false,true);
             $table->foreign('id_pengambilan_matakuliah')->references('id')->on("pengambilan_matakuliah_data");
