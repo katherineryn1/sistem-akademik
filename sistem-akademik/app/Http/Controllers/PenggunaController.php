@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Modules\Pengguna\Service\PenggunaService;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class PenggunaController extends Controller{
     public function show(){
@@ -23,38 +26,48 @@ class PenggunaController extends Controller{
     }
 
     public function insert(Request $request){
-        $input = $request->collect();
-
-        if ($request->hasFile('inputFotoProfile')) {
-            $request->session()->flash('errors', [ ['type' => "danger" , 'message' => "Gagal Menambah Pengguna"] ]);
+        $input = $request->validate([
+            'inputNama' => ['required'],
+            'inputPassword' => ['required'],
+            'inputNomorInduk' => ['required', 'unique:users_data,nomor_induk'],
+            'inputEmail' => ['required' , 'unique:users_data,email'],
+            'inputTanggalLahir' => ['required'],
+            'inputTempatLahir' => ['required'],
+            'inputJenisKelamin' => ['required'],
+            'inputAlamat' => ['required'],
+            'inputNoTelp' => ['required'],
+            'inputTipePengguna' => ['required'],
+        ]);
+        if (!$request->hasFile('inputFotoProfile')) {
+            $request->session()->flash('errors', [ ['type' => "danger" , 'message' => "Gagal Menambah Pengguna - Foto tidak diterima"] ]);
             return back();
         }
-        $nama = $input['inputNama'];
-        $password = $input['inputPassword'];
-        $nomorInduk = $input['inputNomorInduk'];
-        $email = $input['inputEmail'];
-        $tanggalLahir = $input['inputTanggalLahir'];
-        $tempatLahir = $input['inputTempatLahir'];
-        $jenisKelamin = $input['inputJenisKelamin'];
-        $alamat = $input['inputAlamat'];
-        $notelepon = $input['inputNoTelp'];
-        $jabatan = $input['inputTipePengguna'];
 
-        if ($request->hasFile('inputFotoProfile')) {
-            $file = $request->file('photo');
-            $path = $request->photo->store('inputFotoProfile');
-
+        $file = $request->file('inputFotoProfile');
+        $photoProfileDir = $file->store('profile', 'public');
+        if($photoProfileDir == false){
+            $request->session()->flash('errors', [ ['type' => "danger" , 'message' => "Gagal Menambah Pengguna - Foto gagal disimpan"] ]);
+            return back();
         }
 
-        $hasil = PenggunaService::insert($nama,$password,  $nomorInduk, $email, $tanggalLahir,
-            $tempatLahir,$jenisKelamin, $alamat,$notelepon, $jabatan);
+        $hasil = PenggunaService::insert($input['inputNama'],
+                                        $input['inputPassword'],
+                                        $input['inputNomorInduk'],
+                                        $input['inputEmail'],
+                                        $input['inputTanggalLahir'],
+                                        $input['inputTempatLahir'],
+                                        $input['inputJenisKelamin'],
+                                        $input['inputAlamat'],
+                                        $input['inputNoTelp'],
+                                        $input['inputTipePengguna'],
+                                        $photoProfileDir);
 
         if($hasil == false){
             $request->session()->flash('errors', [ ['type' => "danger" , 'message' => "Gagal Menambah Pengguna"] ]);
         }else{
             $request->session()->flash('errors', [ ['type' => "success" , 'message' => "Success Menambah Pengguna"] ]);
         }
-        //return back();
+        return back();
     }
 
     public function update(){
