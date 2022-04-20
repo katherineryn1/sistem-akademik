@@ -202,7 +202,7 @@ class DosenController extends Controller{
 
     public function getKehadiranMahasiswa($id_roster, $id_kurikulum) {
         $data_size = DB::table('kehadiran_data as a')
-            ->join('pengambilan_matakuliah_data as b', 'b.id_kurikulum', '=', 'a.id_kurikulum')
+            ->join('pengambilan_matakuliah_data as b', 'b.id', '=', 'a.id_pengambilan_matakuliah')
             ->where('a.id_roster', '=', $id_roster)
             ->where('b.posisi_ambil', '=', 1)
             ->count();

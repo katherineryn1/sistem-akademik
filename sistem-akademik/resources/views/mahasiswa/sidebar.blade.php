@@ -8,14 +8,14 @@
       <li class="nav-heading">Layanan Akademik</li>
 
       <li class="nav-item">
-        <a class="nav-link " href="{{ url('/') }}">
+        <a class="nav-link " href="{{ url('/mahasiswa') }}">
           <i class="bi bi-grid"></i>
           <span>Dashboard</span>
         </a>
       </li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="{{ url('/mhs/tracking-skripsi') }}">
+        <a class="nav-link collapsed" href="{{ url('/mahasiswa/tracking-skripsi') }}">
           <i class="bi bi-mortarboard"></i>
           <span>Tracking Skripsi</span>
         </a>
