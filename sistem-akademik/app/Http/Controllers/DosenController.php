@@ -313,8 +313,10 @@ class DosenController extends Controller{
                 $data->nilai_akhir = -1;
                 $data->index = '-';
                 $data->pengambilan_matakuliah = $fill->id;
-                array_push($insert_data, $data);
+                array_push($insert_data, (array)$data);
             }
+
+            DB::table('nilai_data')->insert((array) $insert_data);
         }
 
         $data = DB::table('nilai_data as a')
