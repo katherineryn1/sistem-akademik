@@ -75,7 +75,7 @@ class PengambilanMatakuliahDataSeeder extends Seeder
         ]);
         DB::table('pengambilan_matakuliah_data')->insert([
             'nomor_induk'   => '1118002',
-            'posisi_ambil'  => 2,
+            'posisi_ambil'  => 1,
             'id_kurikulum'  => 3
         ]);
     }
