@@ -40,7 +40,7 @@
             </div>
 
             <div class="form-group row" style="margin: 5px;">
-                <label for="dropdownTanggal" class="col-form-label" style="width: 120px">Kelas</label>
+                <label for="dropdownTanggal" class="col-form-label" style="width: 120px">Tanggal</label>
                 <label class="col-form-label" style="width: 20px">:</label>
                 <div class="dropdown" style="width: auto;">
                     <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownTanggal"
