@@ -219,10 +219,10 @@ class DosenController extends Controller{
                 $data->id_pengambilan_matakuliah = $fill->id;
                 $data->keterangan = 3;
                 $data->id_roster = $id_roster;
-                array_push($insert_data, $data);
+                array_push($insert_data, (array)$data);
             }
 
-            DB::table('kehadiran_data')->insert($insert_data);
+            DB::table('kehadiran_data')->insert((array) $insert_data);
         }
 
         $data = DB::table('kehadiran_data as a')
