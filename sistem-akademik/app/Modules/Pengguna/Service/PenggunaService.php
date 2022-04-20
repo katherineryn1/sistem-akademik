@@ -94,7 +94,6 @@
             $newPengguna->setJenisKelamin($jenisKelamin);
             $newPengguna->setAlamat($alamat);
             $newPengguna->setNotelepon($notelepon);
-            $newPengguna->setFotoprofil("");
             $newPengguna->setJabatan($jabatan);
             $newPengguna->setFotoprofil($fotoprofile);
             return self::$pm->insertSingle($newPengguna);

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Modules\Pengguna\Service\PenggunaService;
 use Illuminate\Http\Request;
 
 class DaakController extends Controller{
@@ -115,23 +116,7 @@ class DaakController extends Controller{
     }
 
     public function akunPengguna(){
-        $data = array(
-            array( "id" => 1,
-                "nama" => "Brandon Jacob",
-                "type" => "Designer",
-                "age" =>   28,
-                "dummy" => "Designer"),
-            array( "id" => 2,
-                "nama" => "Brandon Jacob",
-                "type" => "Designer",
-                "age" =>   28,
-                "dummy" => "Designer"),
-            array( "id" => 3,
-                "nama" => "Brandon Jacob",
-                "type" => "Designer",
-                "age" =>   28,
-                "dummy" => "Designer")
-        );
+        $data = PenggunaService::getAll();
         return view('daak.pengguna', ['page_title' => 'Daak Pengguna','data' => $data]);
     }
 

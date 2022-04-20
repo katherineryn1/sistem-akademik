@@ -36,7 +36,7 @@ class User extends Authenticatable implements PenggunaPersistence{
         'tempat_lahir' ,
         'jenis_kelamin',
         'alamat',
-        'no_telepon',
+        'notelepon',
         'foto_profile',
         'jabatan'
     ];
@@ -94,12 +94,10 @@ class User extends Authenticatable implements PenggunaPersistence{
 
     public function insertSingle(Pengguna $pengguna): bool {
         $data = $this->fill(PenggunaAdapter::EntityToDictionary($pengguna));
-        $res  = false;
-        try {
-            $res  = $data ->save();
-        }catch (\Throwable $e){
-            return  false;
-        }
+
+        print_r(PenggunaAdapter::EntityToDictionary($pengguna));
+
+        $res  = $data ->save();
         return $res;
     }
 

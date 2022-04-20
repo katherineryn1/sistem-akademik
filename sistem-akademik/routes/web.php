@@ -61,7 +61,7 @@ Route::get('v1/pengguna/{nomorInduk}', [PenggunaController::class, 'userInfo']);
 Route::get('v1/pengguna', [PenggunaController::class, 'getAll']);
 Route::post('v1/pengguna', [PenggunaController::class, 'insert']);
 Route::put('v1/pengguna/{nomorInduk}', [PenggunaController::class, 'update']);
-Route::delete('v1/pengguna/{nomorInduk}', [PenggunaController::class, 'delete']);
+Route::delete('v1/pengguna', [PenggunaController::class, 'delete']);
 
 Route::get('v1/dosen/{nomorInduk}', []);
 Route::get('v1/dosen', []);

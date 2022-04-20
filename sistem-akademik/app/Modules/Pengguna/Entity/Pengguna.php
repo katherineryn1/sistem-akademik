@@ -96,7 +96,7 @@ class Pengguna {
     }
 
     /**
-     * @return array
+     * @return string
      */
     public function getFotoprofil(): string
     {
