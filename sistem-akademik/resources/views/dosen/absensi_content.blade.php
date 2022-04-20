@@ -237,25 +237,25 @@ function selectTanggal(item) {
                 html_string += counter + '</td><td>' + element['nim'] + '</td><td>' + element['nama'] +
                     '</td><td class="text-center"><input class="form-check-input" type="radio" name="' +
                     element['nim'] + '" id="hadir"';
-                if (element['keterangan'] == 'Hadir') {
+                if (element['keterangan'] == 0) {
                     html_string += 'checked';
                 }
 
                 html_string += '></td><td class="text-center"><input class="form-check-input" type="radio" name="' +
                     element['nim'] + '" id="sakit"';
-                if (element['keterangan'] == 'Sakit') {
+                if (element['keterangan'] == 2) {
                     html_string += 'checked';
                 }
 
                 html_string += '></td><td class="text-center"><input class="form-check-input" type="radio" name="' +
                     element['nim'] + '" id="izin"';
-                if (element['keterangan'] == 'Izin') {
+                if (element['keterangan'] == 1) {
                     html_string += 'checked';
                 }
 
                 html_string += '></td><td class="text-center"><input class="form-check-input" type="radio" name="' +
                     element['nim'] + '" id="alpha"';
-                if (element['keterangan'] == 'Alpha') {
+                if (element['keterangan'] == 3) {
                     html_string += 'checked';
                 }
 
@@ -293,7 +293,7 @@ function showQRCode() {
 function resetTabelQR() {
     $('#tabel-qr-code tr').remove();
 
-    $.get('/dosen/absensi/roster/' + tanggal_id + '/' + kelas_id + '/' + 'Hadir')
+    $.get('/dosen/absensi/roster/' + tanggal_id + '/' + kelas_id + '/' + 0)
         .done(function (response) {
             var counter = 1;
             response.forEach(element => {

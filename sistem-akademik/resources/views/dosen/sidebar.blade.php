@@ -8,7 +8,7 @@
       <li class="nav-heading">Layanan Akademik</li>
 
       <li class="nav-item">
-        <a class="nav-link " href="{{ url('/') }}">
+        <a class="nav-link " href="{{ url('/dosen') }}">
           <i class="bi bi-grid"></i>
           <span>Dashboard</span>
         </a>
