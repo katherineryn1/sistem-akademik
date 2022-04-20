@@ -57,18 +57,18 @@
                         <tbody>
                         @foreach ($data as $pengguna)
                             <tr>
-                                <th scope="row">{{ $pengguna['id'] }}</th>
+                                <th scope="row">{{ $pengguna['nomor_induk'] }}</th>
                                 <td>{{ $pengguna['nama'] }}</td>
-                                <td>{{ $pengguna['type'] }}</td>
-                                <td>{{ $pengguna['age'] }}</td>
-                                <td>{{ $pengguna['dummy']}}</td>
-                                <td>{{ $pengguna['dummy']}}</td>
-                                <td>{{ $pengguna['dummy']}}</td>
+                                <td>{{ $pengguna['email'] }}</td>
+                                <td>{{ $pengguna['notelepon'] }}</td>
+                                <td>{{ $pengguna['jenis_kelamin']}}</td>
+                                <td>{{ $pengguna['jabatan']}}</td>
+                                <td>{{ $pengguna['alamat']}}</td>
                                 <td>
-                                    <a href="{{ url("/daak/pengguna/{$pengguna['id']}/edit") }}" class="btn btn-warning" >
+                                    <a href="{{ url("/daak/pengguna/{$pengguna['nomor_induk']}/edit") }}" class="btn btn-warning" >
                                         <i width="1rem" height="1rem" fill="currentColor" class="bi bi-pencil-square"></i>
                                     </a>
-                                    <button onclick="modalConfirmDeletion({{ $pengguna['id'] }})" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modal-confirmation-delete">
+                                    <button onclick="modalConfirmDeletion({{ $pengguna['nomor_induk'] }})" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modal-confirmation-delete">
                                         <i width="1rem" height="1rem" fill="currentColor" class="bi bi-trash"></i>
                                     </button>
                                 </td>
@@ -205,7 +205,8 @@
                         <h5 class="modal-title">Hapus Pengguns</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <form method="post"  class="row g-3 needs-validation was-validated" novalidate>
+                    <form action="{{ url("/v1/pengguna")  }}" method="post"   class="row g-3 needs-validation was-validated" novalidate>
+                        @csrf
                         @method('DELETE')
                         <div class="modal-body" id="modal-body-delete">
                         </div>

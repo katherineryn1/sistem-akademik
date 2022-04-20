@@ -55,12 +55,11 @@
                     <p class="text-center small">Enter your username & password to login</p>
                   </div>
 
-                  <form clss="row g-3 needs-validation" method="post" novalidate action="{{ url('/dosen/absensi')route("login_form")  }}">
+                  <form clss="row g-3 needs-validation" method="post" novalidate action="{{ route("login_form")  }}">
                     @csrf
                     <div class="col-12">
-                      <label for="yourUsername" class="form-label">Username</label>
+                      <label for="yourUsername" class="form-label">Nomor Induk</label>
                       <div class="input-group has-validation">
-                        <span class="input-group-text" id="inputGroupPrepend">@</span>
                         <input type="text" name="username" class="form-control" id="yourUsername" required>
                         <div class="invalid-feedback">Please enter your username.</div>
                       </div>
@@ -81,8 +80,8 @@
                     <div class="col-12">
                       <button class="btn btn-primary w-100" type="submit">Login</button>
                     </div>
-                    <div class="col-12">
-                      <p class="small mb-0">Don't have account? <a href="pages-register.html">Create an account</a></p>
+                        <div class="col-12">
+                      <p class="small mb-0">Forget Account ? <a href="pages-register.html">Reset Password</a></p>
                     </div>
                   </form>
 

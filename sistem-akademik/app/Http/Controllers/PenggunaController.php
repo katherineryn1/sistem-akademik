@@ -132,6 +132,18 @@ class PenggunaController extends Controller{
         }
     }
 
+    public function delete(Request $request){
+        $input = $request->validate([
+            'nomor_induk' => ['required'],
+        ]);
+        if(PenggunaService::delete($input['nomor_induk']) == false){
+            $request->session()->flash('errors', [ ['type' => "danger" , 'message' => "Gagal Hapus Pengguna"] ]);
+        }else{
+            $request->session()->flash('errors', [ ['type' => "success" , 'message' => "Success Hapus Pengguna"] ]);
+        }
+        return back();
+    }
+
     public function gantiPassword(){
         $email = "tes22t@mail.com";
         $password = 'newPWD';

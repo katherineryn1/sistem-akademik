@@ -20,7 +20,7 @@ class PenggunaAdapter implements CommonAdapter {
             'jenis_kelamin' => $object->getJenisKelamin(),
             'alamat' =>  $object->getAlamat(),
             'notelepon' =>  $object->getNotelepon(),
-            'fotoprofile' => $object->getFotoprofil(),
+            'foto_profile' => $object->getFotoprofil(),
             'jabatan' => $object->getJabatan(),
         ];
     }
@@ -33,7 +33,7 @@ class PenggunaAdapter implements CommonAdapter {
         $pengguna->setAlamat($object['alamat']);
         $pengguna->setPassword("");
         $pengguna->setEmail($object['email']);
-        $pengguna->setFotoprofil($object['fotoprofile']);
+        $pengguna->setFotoprofil($object['foto_profile']);
         $pengguna->setJenisKelamin($object['jenis_kelamin']);
         $pengguna->setNotelepon($object['notelepon']);
         $pengguna->setTanggalLahir(new DateTime($object['tanggal_lahir']));
