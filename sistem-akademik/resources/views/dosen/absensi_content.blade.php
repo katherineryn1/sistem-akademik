@@ -116,7 +116,7 @@
         </table>
 
         <div class="d-flex justify-content-end" style="margin-bottom: 20px;">
-            <button class="btn btn-primary" type="button" id="buttonSimpan"
+            <button class="btn btn-primary" type="button" id="buttonSimpan" onclick="javascript:buttonSave()"
                 style="background-color: #33297D;">Simpan</button>
         </div>
     </div>
@@ -178,6 +178,9 @@ var kelas_name = "";
 var tanggal_id = -1;
 var tanggal_name = "";
 
+var interval_id = 0;
+var data_length = 0;
+
 $('#dropdown-matakuliah a').click(function() {
     resetKelas();
     resetTanggal();
@@ -219,6 +222,10 @@ function selectTanggal(item) {
     $('#dropdownTanggal').html(item.text);
     tanggal_id = item.id;
     tanggal_name = item.text;
+    updateTabelPresensi();
+}
+
+function updateTabelPresensi() {
     $.get('/dosen/absensi/roster/' + tanggal_id + '/' + kelas_id)
         .done(function (response) {
             $('#matakuliah-kelas').text(matakuliah_name + ' - ' + kelas_name);
@@ -236,25 +243,25 @@ function selectTanggal(item) {
 
                 html_string += counter + '</td><td>' + element['nim'] + '</td><td>' + element['nama'] +
                     '</td><td class="text-center"><input class="form-check-input" type="radio" name="' +
-                    element['nim'] + '" id="hadir"';
+                    element['nim'] + '" id="hadir" val="0"';
                 if (element['keterangan'] == 0) {
                     html_string += 'checked';
                 }
 
                 html_string += '></td><td class="text-center"><input class="form-check-input" type="radio" name="' +
-                    element['nim'] + '" id="sakit"';
+                    element['nim'] + '" id="sakit" val="2"';
                 if (element['keterangan'] == 2) {
                     html_string += 'checked';
                 }
 
                 html_string += '></td><td class="text-center"><input class="form-check-input" type="radio" name="' +
-                    element['nim'] + '" id="izin"';
+                    element['nim'] + '" id="izin" val="1"';
                 if (element['keterangan'] == 1) {
                     html_string += 'checked';
                 }
 
                 html_string += '></td><td class="text-center"><input class="form-check-input" type="radio" name="' +
-                    element['nim'] + '" id="alpha"';
+                    element['nim'] + '" id="alpha" val="3"';
                 if (element['keterangan'] == 3) {
                     html_string += 'checked';
                 }
@@ -287,7 +294,21 @@ function resetTabelPresensi() {
 
 function showQRCode() {
     // Get QR Code...
-    resetTabelQR(); // secara interval
+
+    resetTabelQR();
+    interval_id = setInterval(() => {
+        $.get('/dosen/absensi/roster/' + tanggal_id + '/' + kelas_id + '/' + 0)
+        .done(function (response) {
+            if (data_length != response.length) {
+                resetTabelQR();
+                updateTabelPresensi();
+            }
+
+            if ($('#modalQRCode').css('display') == 'none') {
+                clearInterval(interval_id);
+            }
+        });
+    }, 3000);
 }
 
 function resetTabelQR() {
@@ -310,6 +331,47 @@ function resetTabelQR() {
                 counter++;
                 $('#tabel-qr-code').append(html_string);
             });
+            data_length = response.length;
         });
+}
+
+function buttonSave() {
+    var arr_id_kehadiran = [];
+    var arr_keterangan = [];
+    $('#tabel-presensi-body tr').each(function() {
+        var id_kehadiran = $(this).attr('id');
+        arr_id_kehadiran.push(id_kehadiran);
+    });
+    $('input:checked').each(function() {
+        var keterangan = parseInt($(this).attr('val'));
+        arr_keterangan.push(keterangan);
+    });
+
+    var data = {};
+    for (let i = 0; i < arr_id_kehadiran.length; i++) {
+        data[arr_id_kehadiran[i]] = arr_keterangan[i];
+    }
+
+    $.ajax({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        type: "POST",
+        url: "/dosen/absensi/update",
+        data: data,
+        success: function(data) {
+            if (data == 'Success') {
+                alert('Update successful.');
+            } else if (data == 'Failed') {
+                alert('Update data failed, please try again later.');
+            } else {
+                alert('Unexpected error, please reload.');
+                console.log(data);
+            }
+        },
+        error: (error) => {
+            console.log(JSON.stringify(error));
+        },
+    });
 }
 </script>

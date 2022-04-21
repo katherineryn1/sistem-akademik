@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use stdClass;
 use App\Modules\Dosen\Service\DosenService;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -276,6 +277,23 @@ class DosenController extends Controller{
 
         // $data = [$khd1];
         return $data;
+    }
+
+    public function updateKehadiranMahasiswa(Request $request) {
+        DB::beginTransaction();
+        try {
+            $data = $request->all();
+            foreach ($data as $key => $value) {
+                $sql_statement = "UPDATE kehadiran_data SET keterangan = {$value} WHERE id = {$key}";
+                DB::update($sql_statement);
+            }
+
+            DB::commit();
+            return 'Success';
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return 'Failed';
+        }
     }
 
     public function getNilaiMahasiswa() {
