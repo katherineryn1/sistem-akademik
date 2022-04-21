@@ -163,7 +163,7 @@
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-primary" type="button" id="buttonSave"
-                        style="background-color: #33297D;" data-dismiss="modal">Save</button>
+                        style="background-color: #33297D;" data-dismiss="modal">Simpan</button>
                 </div>
             </div>
         </div>
@@ -193,7 +193,7 @@ $('#dropdown-matakuliah a').click(function() {
             var html_string = "";
             response.forEach(element => {
                 html_string += '<a id="' + element['id_kurikulum']
-                    + '" class="dropdown-item" href="#" onclick="javascript:selectKelas(this)" style="width: 350px;">'
+                    + '" class="dropdown-item" href="#" onclick="javascript:selectKelas(this)" style="width: 350px;"> Kelas '
                     + element['kelas'] + '</a>';
             });
             $('#dropdown-kelas').append(html_string);
