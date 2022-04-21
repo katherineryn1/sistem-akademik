@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use stdClass;
 use App\Modules\Dosen\Service\DosenService;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -278,6 +279,23 @@ class DosenController extends Controller{
         return $data;
     }
 
+    public function updateKehadiranMahasiswa(Request $request) {
+        DB::beginTransaction();
+        try {
+            $data = $request->all();
+            foreach ($data as $key => $value) {
+                $sql_statement = "UPDATE `kehadiran_data` SET `keterangan` = {$value} WHERE `id` = {$key}";
+                DB::update($sql_statement);
+            }
+
+            DB::commit();
+            return 'Success';
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return 'Failed';
+        }
+    }
+
     public function getNilaiMahasiswa() {
         $nik = request('nik', 10171);
         $arr_matakuliah = $this->getMatakuliah($nik);
@@ -404,6 +422,23 @@ class DosenController extends Controller{
 
         // $data = $mhs;
         return $data;
+    }
+
+    public function updateNilaiMahasiswa(Request $request, $id_nilai) {
+        DB::beginTransaction();
+        try {
+            $arr_nilai = $request->nilai;
+            $na = $request->nilai_akhir;
+            $index = $request->index;
+
+            $sql_statement = "UPDATE `nilai_data` SET `nilai_1` = {$arr_nilai[0]}, `nilai_2` = {$arr_nilai[1]}, `nilai_3` = {$arr_nilai[2]}, `nilai_4` = {$arr_nilai[3]}, `nilai_5` = {$arr_nilai[4]}, `nilai_UAS` = {$arr_nilai[5]}, `nilai_akhir` = {$na}, `index` = '{$index}' WHERE `id` = $id_nilai";
+            DB::update($sql_statement);
+            DB::commit();
+            return 'Success';
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return 'Failed';
+        }
     }
 
     public function  addMatakuliah(){

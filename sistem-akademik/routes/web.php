@@ -110,11 +110,13 @@ Route::get('/dosen/absensi/kelas/{id}', [DosenController::class, 'getKelasMataku
 Route::get('/dosen/absensi/tanggal/{id}', [DosenController::class, 'getTanggalKurikulum']);
 Route::get('/dosen/absensi/roster/{id_roster}/{id_kurikulum}', [DosenController::class, 'getKehadiranMahasiswa']);
 Route::get('/dosen/absensi/roster/{id_roster}/{id_kurikulum}/{status}', [DosenController::class, 'getKehadiranMahasiswaByStatus']);
+Route::post('/dosen/absensi/update', [DosenController::class, 'updateKehadiranMahasiswa']);
 
 Route::get('/dosen/nilai-mahasiswa', [DosenController::class, 'getNilaiMahasiswa']);
 Route::get('/dosen/nilai-mahasiswa/kelas/{id}', [DosenController::class, 'getKelasMatakuliah']);
 Route::get('/dosen/nilai-mahasiswa/{id_kurikulum}', [DosenController::class, 'getListNilaiMahasiswa']);
 Route::get('/dosen/nilai-mahasiswa/mahasiswa/{id_nilai}', [DosenController::class, 'getNilaiMahasiswaByIdNilai']);
+Route::post('/dosen/nilai-mahasiswa/update/{id_nilai}', [DosenController::class, 'updateNilaiMahasiswa']);
 
 Route::get('/dosen/profil', function () {
     return view('dosen.profil');
