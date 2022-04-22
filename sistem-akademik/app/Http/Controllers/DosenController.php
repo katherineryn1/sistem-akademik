@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use stdClass;
 use App\Modules\Dosen\Service\DosenService;
+use App\Modules\Skripsi\Service\SkripsiService;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -455,5 +456,12 @@ class DosenController extends Controller{
 
     public function validasiSkripsi(){
         //  Todo: Implement
+    }
+
+    public function tolakMahasiswaSkripsi($id){
+        // $obj = new SkripsiService();
+        // $mahasiswa = $obj->delete($id);
+
+        // return redirect('/dosen');
     }
 }
