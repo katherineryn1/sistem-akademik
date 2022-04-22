@@ -9,6 +9,8 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
+use function PHPSTORM_META\map;
+
 class DosenController extends Controller{
     public function  insertNewDosen(){
         $nama = "Test Dosen";
@@ -38,30 +40,54 @@ class DosenController extends Controller{
     }
 
     public function  getJadwalMengajar(){
+        $data = $this->getDataJadwalMengajar(0);
+        // dd($data);
+
+        return view('dosen.jadwal_mengajar', $data);
+    }
+
+    public function getDataJadwalMengajar($week) {
         $nik = request('nik', 10171);
         $arr_id_kurikulum = $this->getIdKurikulum($nik);
 
-        $now = Carbon::now();
+        $now = $this->getDayBasedWeek($week);
         $start = $now->startOfWeek(Carbon::SUNDAY);
-        $now = Carbon::now();
+        $now = $this->getDayBasedWeek($week);
         $end = $now->endOfWeek(Carbon::SATURDAY);
-        $week = "{$start->day} - {$end->day} {$start->format('F')} {$start->year}";
-        $day_today = $start->day;
+        $week = "{$start->day} - {$end->day} {$end->format('F')} {$end->year}";
 
-        $arr_jadwal_mengajar = $this->getJadwal($arr_id_kurikulum, $start, $end);
-        for ($i = 0; $i < count($arr_jadwal_mengajar); $i++) {
-            $mulai = explode(':', $arr_jadwal_mengajar[$i]->jam_mulai);
+        $data_jadwal_mengajar = $this->getJadwal($arr_id_kurikulum, $start, $end);
+        $arr_jadwal_mengajar = array();
+        for ($i = 0; $i < count($data_jadwal_mengajar); $i++) {
+            $mulai = explode(':', $data_jadwal_mengajar[$i]->jam_mulai);
             $mulai = (int)$mulai[0] + ((int)$mulai[1]/60);
-            $selesai = explode(':', $arr_jadwal_mengajar[$i]->jam_selesai);
+            $selesai = explode(':', $data_jadwal_mengajar[$i]->jam_selesai);
             $selesai = (int)$selesai[0] + ((int)$selesai[1]/60);
 
-            $tanggal = Carbon::createFromFormat('Y-m-d', $arr_jadwal_mengajar[$i]->tanggal);
+            $tanggal = Carbon::createFromFormat('Y-m-d', $data_jadwal_mengajar[$i]->tanggal);
             $string_tanggal = "{$tanggal->dayOfWeek}-{$mulai}";
             $lama_mengajar = $selesai - $mulai;
-            $arr_jadwal_mengajar[$i]->string_tanggal = $string_tanggal;
-            $arr_jadwal_mengajar[$i]->lama_mengajar = $lama_mengajar;
-            $arr_jadwal_mengajar[$i]->mulai = $mulai;
-            $arr_jadwal_mengajar[$i]->selesai = $selesai;
+
+            $jadwal = [
+                'tanggal' => $data_jadwal_mengajar[$i]->tanggal,
+                'jam_mulai' => $data_jadwal_mengajar[$i]->jam_mulai,
+                'jam_selesai' => $data_jadwal_mengajar[$i]->jam_selesai,
+                'ruangan' => $data_jadwal_mengajar[$i]->ruangan,
+                'nama' => $data_jadwal_mengajar[$i]->nama,
+                'string_tanggal' => $string_tanggal,
+                'lama_mengajar' => $lama_mengajar,
+                'mulai' => $mulai,
+                'selesai' => $selesai,
+            ];
+            array_push($arr_jadwal_mengajar, $jadwal);
+        }
+
+        $arr_tanggal = array();
+        $arr_short_day_name = ['Sun', 'Mon', 'Tue', 'Wed', 'Thr', 'Fri', 'Sat'];
+        for ($i = 0; $i < 7; $i++) {
+            $str = strval($arr_short_day_name[$i]) . " " . strval($start->day);
+            array_push($arr_tanggal, $str);
+            $start->addDay();
         }
 
         $arr_jadwal = array();
@@ -69,12 +95,12 @@ class DosenController extends Controller{
             array_push($arr_jadwal, array(1, 1, 1, 1, 1, 1, 1));
         }
 
-        return view('dosen.jadwal_mengajar', [
+        return [
             'week' => $week,
-            'day_today' => $day_today,
             'jadwal_mengajar' => $arr_jadwal_mengajar,
             'jadwal' => $arr_jadwal,
-        ]);
+            'tanggal' => $arr_tanggal,
+        ];
     }
 
     function getIdKurikulum($nik) {
@@ -90,6 +116,14 @@ class DosenController extends Controller{
         // Mock
         // $data = ['123556', '123456'];
         return $data;
+    }
+
+    function getDayBasedWeek($week) {
+        if ($week == 0) {
+            return Carbon::now();
+        } else {
+            return Carbon::now()->addDays($week*7);
+        }
     }
 
     function getJadwal($arr_id_kurikulum, $start_date, $end_date) {
