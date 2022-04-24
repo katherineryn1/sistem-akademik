@@ -3,7 +3,7 @@ namespace App\Modules\Skripsi\Persistence;
 
 use App\Modules\Skripsi\Entity\Skripsi;
 
-interface MahasiswaPersistence{
+interface SkripsiPersistence{
     public  function insertSingle(Skripsi $skripsi): bool ;
     public  function updateSingle(Skripsi $skripsi): bool ;
     public  function deleteSingle(string  $skripsi): bool ;

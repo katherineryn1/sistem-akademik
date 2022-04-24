@@ -14,29 +14,29 @@
             </tr>
         </thead>
         <tbody>
-            {{-- @if (count($mahasiswa) == 0)
+            @if (count($skripsi) == 0)
                 <tr>
                     <td colspan="5" style="text-align: center"> Tidak ada data</td>
                 </tr>
                 <tr>
-            @endif --}}
-            @foreach ($mahasiswa as $mhs)
+            @endif
+            @foreach ($skripsi as $s)
                 <tr>
                     <th scope="row">
-                        {{ $mhs->id }}
+                        {{ $s->id }}
                     </th>
                     <td>
-                        {{ $mhs->nim }}
+                        {{ $s->nim }}
                     </td>
                     <td>
-                        {{ $mhs->nama }}
+                        {{ $s->nama }}
                     </td>
                     <td>
-                        {{ $mhs->judul }}
+                        {{ $s->judul }}
                     </td>
                     <td>
                         <a href="#" class="btn btn-primary" style="background-color: #33297D;">Terima</a>
-                        <form action="/tolakMhs/{{ $mhs->nim }}" method="POST">
+                        <form action="/tolakMhs/{{ $s->nim }}" method="POST">
                             {{ csrf_field() }}
                             {{ method_field('DELETE') }}
                             <a href="#" class="btn btn-outline-danger">Tolak</a>

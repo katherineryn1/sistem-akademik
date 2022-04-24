@@ -127,9 +127,12 @@ Route::get('/dosen/edit-profil', array('as' => 'edit-profil', function () {
     return view('dosen.edit_profil');
 }));
 
-Route::get('/dosen/tracking-skripsi', function () {
-    return view('dosen.tracking_skripsi_home');
-});
+// Route::get('/dosen/tracking-skripsi', function () {
+//     return view('dosen.tracking_skripsi_home');
+// });
+
+Route::get('/dosen/tracking-skripsi', [DosenController::class, 'bimbinganSkripsi']);
+
 
 Route::get('/dosen/tracking-skripsi-add-mhs-bimbingan', function () {
     return view('dosen.tracking_skripsi_add_mhs');

@@ -3,15 +3,10 @@ namespace App\Modules\Skripsi\Service;
 
 use App\Modules\Dosen\Service\DosenService;
 use App\Modules\Skripsi\Entity\Skripsi;
-use App\Modules\Perkuliahan\Persistence\DetailSkripsiPersistence;
-use App\Modules\Perkuliahan\Persistence\SkripsiPersistence;
+use App\Modules\Skripsi\Persistence\DetailSkripsiPersistence;
+use App\Modules\Skripsi\Persistence\SkripsiPersistence;
 
 class SkripsiService {
-    // public function delete($id){
-    //     $data = Skripsi::findOrFail($id);
-    //     $data->delete();
-    // }
-
     private static SkripsiPersistence $pm;
 
     function __construct(SkripsiPersistence $pm){
@@ -33,10 +28,19 @@ class SkripsiService {
     * @return bool
     */
 
-    public static function insert(string $id, string $judul, string $batasAkhir, string $file, bool $isTugasAkhir, string $milestone, string $matakuliah):bool{
+    public static function insert(string $id, string $judul):bool{
         $newSkripsi = new Skripsi();
+        $newSkripsi->setId($id);
+        $newSkripsi->setJudul($judul);
+        return self::$pm->insertSingle($newSkripsi);
+    }
 
-
+    /**
+    * @param string $id
+    * @return bool
+    */
+    public static function delete(string $id):bool {
+        return  self::$pm->deleteSingle($id);
     }
 }
 

@@ -19,34 +19,42 @@
             </tr>
         </thead>
         <tbody>
+            {{-- @if (count($skripsi) == 0)
+                <tr>
+                    <td colspan="5" style="text-align: center"> Tidak ada data</td>
+                </tr>
+                <tr>
+            @endif --}}
+            @foreach ($skripsi as $s)
             <tr>
-                <th scope="row">1</th>
-                <td>1118000</td>
-                <td>Lorem Ipsum</td>
-                <td>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nemo unde placeat accusantium velit,
-                    commodi deleniti, molestiae libero delectus</td>
-                <td>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nemo unde placeat accusantium velit,
-                    commodi deleniti, molestiae libero delectus</td>
-                <td>Bab 2</td>
+                <th scope="row">
+                    {{ $s->id }}
+                </th>
+                <td>
+                    {{ $s->nim }}
+                </td>
+                <td>
+                    {{ $s->nama }}
+                </td>
+                <td>
+                    {{ $s->judul }}
+                </td>
+                <td>
+                    {{ $s->komentar }}
+                </td>
+                <td>
+                    {{ $s->milestone }}
+                </td>
                 <td>
                     <a href="{{ url('/dosen/tracking-skripsi-id') }}" class="btn btn-primary" style="background-color: #33297D;">Detail</a>
-                    <a href="#" class="btn btn-outline-danger">Hapus</a>
+                    <form action="/hapusMhs/{{ $s->nim }}" method="POST">
+                        {{ csrf_field() }}
+                        {{ method_field('DELETE') }}
+                        <a href="#" class="btn btn-outline-danger">Hapus</a>
+                    </form>
                 </td>
             </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td>1118000</td>
-                <td>Lorem Ipsum</td>
-                <td>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nemo unde placeat accusantium velit,
-                    commodi deleniti, molestiae libero delectus</td>
-                <td>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nemo unde placeat accusantium velit,
-                    commodi deleniti, molestiae libero delectus</td>
-                <td>Bab 3</td>
-                <td>
-                    <a href="{{ url('/dosen/tracking-skripsi-id') }}" class="btn btn-primary btn-block" style="background-color: #33297D;">Detail</a>
-                    <a href="#" class="btn btn-outline-danger btn-block">Hapus</a>
-                </td>
-            </tr>
+            @endforeach
         </tbody>
     </table>
 </main>
