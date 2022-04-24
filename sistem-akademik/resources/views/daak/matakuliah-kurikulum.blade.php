@@ -9,6 +9,7 @@
     <main id="main" class="main">
         <div id="alertsSection">
             @include('layouts.errors-msg')
+            @include('layouts.erros-default')
         </div>
         <div class="pagetitle">
             <h1>Layanan Matakuliah - Kurikulum</h1>
@@ -39,16 +40,17 @@
                         <tbody>
                         @foreach ($data_matakuliah as $matakuliah)
                             <tr>
-                                <th scope="row">{{ $matakuliah['id'] }}</th>
+                                <th scope="row">{{ $matakuliah['kode'] }}</th>
                                 <td>{{ $matakuliah['nama'] }}</td>
-                                <td>{{ $matakuliah['type'] }}</td>
-                                <td>{{ $matakuliah['type'] }}</td>
-                                <td>{{ $matakuliah['age'] }}</td>
+                                <td>{{ $matakuliah['jenis'] }}</td>
+                                <td>{{ $matakuliah['sifat'] }}</td>
+                                <td>{{ $matakuliah['sks'] }}</td>
                                 <td>
-                                    <a href="{{ url("/daak/matakuliah/{$matakuliah['id']}/edit") }}" class="btn btn-warning" >
+                                    <a href="{{ url("/daak/matakuliah/{$matakuliah['kode']}") }}" class="btn btn-warning" >
                                         <i width="1rem" height="1rem" fill="currentColor" class="bi bi-pencil-square"></i>
                                     </a>
-                                    <button onclick="modalConfirmDeletion({{ $matakuliah['id'] }})" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modal-confirmation-delete">
+                                    <button onclick="modalConfirmDeletion('{{ $matakuliah['kode'] }}', 'kode' , 'modal-matakuliah-body-delete', 'btnDeleteMatakuliahConfirm' )"
+                                            class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modal-matakuliah-confirmation-delete">
                                         <i width="1rem" height="1rem" fill="currentColor" class="bi bi-trash"></i>
                                     </button>
                                 </td>
@@ -96,16 +98,17 @@
                         @foreach ($data_kurikulum as $kurikulum)
                             <tr>
                                 <th scope="row">{{ $kurikulum['id'] }}</th>
-                                <td>{{ $kurikulum['nama'] }}</td>
-                                <td>{{ $kurikulum['type'] }}</td>
-                                <td>{{ $kurikulum['type'] }}</td>
-                                <td>{{ $kurikulum['age'] }}</td>
-                                <td>{{ $kurikulum['age'] }}</td>
+                                <td>{{ $kurikulum['kode_matakuliah'] }}</td>
+                                <td>{{ $kurikulum['tahun'] }}</td>
+                                <td>{{ $kurikulum['semester'] }}</td>
+                                <td>{{ $kurikulum['kelas'] }}</td>
+                                <td>{{ $kurikulum['jumlah_pertemuan'] }}</td>
                                 <td>
-                                    <a href="{{ url("/daak/matakuliah/{$kurikulum['id']}/edit") }}" class="btn btn-warning" >
+                                    <a href="{{ url("/daak/kurikulum/{$kurikulum['id']}") }}" class="btn btn-warning" >
                                         <i width="1rem" height="1rem" fill="currentColor" class="bi bi-pencil-square"></i>
                                     </a>
-                                    <button onclick="modalConfirmDeletion({{ $kurikulum['id'] }})" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modal-confirmation-delete">
+                                    <button onclick="modalConfirmDeletion('{{ $kurikulum['id'] }}',  'id', 'modal-kurikulum-body-delete', 'btnDeleteKurikulumConfirm' )"
+                                            class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modal-kurikulum-confirmation-delete">
                                         <i width="1rem" height="1rem" fill="currentColor" class="bi bi-trash"></i>
                                     </button>
                                 </td>
@@ -130,7 +133,8 @@
             <div class="card-body">
                 <h5 class="card-title">Buat Matakuliah</h5>
                 <!-- Horizontal Form -->
-                <form action=""  method="post" enctype='multipart/form-data'>
+                <form action="{{ url("v1/matakuliah")  }}"  method="post" enctype='multipart/form-data'>
+                    @csrf
                     <div class="row mb-3 form-horizontal">
                         <h5 class="card-subtitle mb-2 text-muted">Form Matakuliah</h5>
                         <hr>
@@ -154,6 +158,12 @@
                         </div>
                     </div>
                     <div class="row mb-3 form-horizontal">
+                        <label for="inputSifat" class="col-sm-2 col-form-label control-label">Sifat</label>
+                        <div class="col-sm-10 ">
+                            <input type="text" class="form-control" id="inputSifat" name="inputSifat" required>
+                        </div>
+                    </div>
+                    <div class="row mb-3 form-horizontal">
                         <label for="inputSKS" class="col-sm-2 col-form-label control-label">SKS</label>
                         <div class="col-sm-10 ">
                             <input type="number" class="form-control" id="inputSKS" name="inputSKS" required>
@@ -172,7 +182,8 @@
             <div class="card-body">
                 <h5 class="card-title">Buat Kurikulum</h5>
                 <!-- Horizontal Form -->
-                <form action=""  method="post" enctype='multipart/form-data'>
+                <form action="{{ url("v1/kurikulum")  }}" method="post" enctype='multipart/form-data'>
+                    @csrf
                     <div class="row mb-3 form-horizontal">
                         <h5 class="card-subtitle mb-2 text-muted">Form Kurikulum</h5>
                         <hr>
@@ -217,20 +228,41 @@
         </div>
 
         <!-- Modal -->
-        <div class="modal fade" id="modal-confirmation-delete" tabindex="-1" aria-labelledby="modal-confirmation-deleteLabel" aria-hidden="true">
+        <div class="modal fade" id="modal-matakuliah-confirmation-delete" tabindex="-1" aria-labelledby="modal-confirmation-deleteLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Hapus Data</h5>
+                        <h5 class="modal-title">Hapus Matakuliah Data</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <form method="post"  class="row g-3 needs-validation was-validated" novalidate>
+                    <form action="{{ url("v1/matakuliah")  }}"  method="post"  class="row g-3 needs-validation was-validated" novalidate>
+                        @csrf
                         @method('DELETE')
-                        <div class="modal-body" id="modal-body-delete">
+                        <div class="modal-body" id="modal-matakuliah-body-delete">
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                            <button type="submit" class="btn btn-danger" id="btnDeleteConfirm" disabled>Hapus</button>
+                            <button type="submit" class="btn btn-danger" id="btnDeleteMatakuliahConfirm" disabled>Hapus</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="modal-kurikulum-confirmation-delete" tabindex="-1" aria-labelledby="modal-confirmation-deleteLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Hapus Kurikulum Data</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form action="{{ url("v1/kurikulum")  }}"  method="post"  class="row g-3 needs-validation was-validated" novalidate>
+                        @csrf
+                        @method('DELETE')
+                        <div class="modal-body" id="modal-kurikulum-body-delete">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                            <button type="submit" class="btn btn-danger" id="btnDeleteKurikulumConfirm" disabled>Hapus</button>
                         </div>
                     </form>
                 </div>
