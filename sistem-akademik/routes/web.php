@@ -7,6 +7,7 @@ use App\Http\Controllers\DosenController;
 use App\Http\Controllers\MatakuliahController;
 use App\Http\Controllers\PengumumanController;
 use App\Http\Controllers\KurikulumController;
+use App\Http\Controllers\RosterController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -101,11 +102,11 @@ Route::post('v1/kurikulum',  [KurikulumController::class, 'insert']);
 Route::put('v1/kurikulum/{id}',  [KurikulumController::class, 'update']);
 Route::delete('v1/kurikulum',  [KurikulumController::class, 'delete']);
 
-Route::get('v1/jadwal/{id}', []);
-Route::get('v1/jadwal', []);
-Route::post('v1/jadwal', []);
-Route::put('v1/jadwal/{id}', []);
-Route::delete('v1/jadwal/{id}', []);
+Route::get('v1/jadwal/{id}', [RosterController::class, 'getAll']);
+Route::get('v1/jadwal', [RosterController::class, 'jadwalInfo']);
+Route::post('v1/jadwal', [RosterController::class, 'insert']);
+Route::put('v1/jadwal/{id}', [RosterController::class, 'update']);
+Route::delete('v1/jadwal', [RosterController::class, 'delete']);
 
 // Dosen
 Route::get('/dosen', function () {

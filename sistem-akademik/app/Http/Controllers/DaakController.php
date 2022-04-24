@@ -16,8 +16,20 @@ class DaakController extends Controller{
     }
 
     public function jadwalKuliah(){
-        $data =  RosterService::getAll();
-        return view('daak.jadwal-kuliah', ['page_title' => 'Dashboard' , 'data' => $data]);
+        $dataKurikulum = KurikulumService::getAll();
+
+        $tempData = array();
+        foreach ($dataKurikulum as $kur){
+            $resJadwal = RosterService::rosterByInfo("id_kurikulum",$kur['id']);
+            if(count($resJadwal) == 0){
+                continue;
+            }
+            $tempData[$kur['id']] = array();
+            $tempData[$kur['id']]['kurikulum'] = $kur;
+            $tempData[$kur['id']]['jadwal'] = $resJadwal;
+        }
+
+        return view('daak.jadwal-kuliah', ['page_title' => 'Dashboard' , 'data' => $tempData]);
     }
 
     public function matakuliahKurikulum(){
