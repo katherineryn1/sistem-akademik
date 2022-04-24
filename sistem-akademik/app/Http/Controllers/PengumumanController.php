@@ -16,15 +16,22 @@ class PengumumanController extends Controller{
         }
     }
 
-    public function insert(){
-        $judul= "Pengumuman Peserta NSOP Test";
-        $keterangan = "Diberitahukan kelas A dipindahkan ke hari Jumat";
-        $tanggal = "10/10/2021";
-        if(PengumumanService::insert($judul,$keterangan, $tanggal)){
-         echo "Berhasil Insert";
+    public function insert(Request $request){
+        $input = $request->validate([
+            'inputJudul' => ['required'],
+            'inputKeterangan' => ['required'],
+            'inputTanggal' => ['required'],
+        ]);
+
+        $hasil = PengumumanService::insert( $input['inputJudul'],
+                                            $input['inputKeterangan'],
+                                            $input['inputTanggal']);
+        if($hasil == false){
+            $request->session()->flash('errors', [ ['type' => "danger" , 'message' => "Gagal Menambah Pengumuman"] ]);
         }else{
-            echo "Tidak berhasil insert";
+            $request->session()->flash('errors', [ ['type' => "success" , 'message' => "Success Menambah Pengumuman"] ]);
         }
+        return back();
     }
 
     public function update(){
@@ -40,11 +47,17 @@ class PengumumanController extends Controller{
         }
     }
 
-    public function delete($id){
-        if(PengumumanService::delete($id) == true){
-            echo "Success Delete";
+    public function delete(Request $request){
+        $input = $request->validate([
+            'id' => ['required'],
+        ]);
+
+        $hasil = PengumumanService::delete($input['id']);
+        if($hasil == false){
+            $request->session()->flash('errors', [ ['type' => "danger" , 'message' => "Gagal Menghapus Pengumuman"] ]);
         }else{
-            echo "Gagal Delete";
+            $request->session()->flash('errors', [ ['type' => "success" , 'message' => "Success Menghapus Pengumuman"] ]);
         }
+        return back();
     }
 }

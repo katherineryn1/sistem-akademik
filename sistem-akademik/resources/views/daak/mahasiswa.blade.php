@@ -91,7 +91,7 @@
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title">Tambah Mahasiswa</h5>
-
+                @include('layouts.erros-default')
                 <!-- Horizontal Form -->
                 <form action="{{ url("v1/mahasiswa")  }}"  method="post" enctype='multipart/form-data'>
                     @csrf
