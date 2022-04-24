@@ -111,6 +111,11 @@ class User extends Authenticatable implements PenggunaPersistence{
         $data = $this::find($nomorInduk);
         return $data->delete();
     }
+
+    public function getInByAttribute(string $attribute, array $value): array    {
+        $allData = $this::whereIn($attribute, $value)->get();
+        return $this->modelToEntity($allData);
+    }
 }
 
 
