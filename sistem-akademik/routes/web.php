@@ -104,6 +104,7 @@ Route::get('/dosen', function () {
 });
 
 Route::get('/dosen/jadwal-mengajar', [DosenController::class, 'getJadwalMengajar']);
+Route::get('/dosen/jadwal-mengajar/{week}', [DosenController::class, 'getDataJadwalMengajar']);
 
 Route::get('/dosen/absensi', [DosenController::class, 'getKehadiranMengajar']);
 Route::get('/dosen/absensi/kelas/{id}', [DosenController::class, 'getKelasMatakuliah']);
