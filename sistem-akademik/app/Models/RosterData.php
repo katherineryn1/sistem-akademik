@@ -32,8 +32,8 @@ class RosterData extends Model implements RosterPersistence {
     {
         $kur = RosterAdapter::EntityToDictionary($roster);
         $kur['id_kurikulum'] = $kurikulum;
-        $data = $this->fill($kur);
-        return $data ->save();
+        $data = $this->create($kur);
+        return $data->save();
     }
 
     public function updateSingle(Roster $roster): bool

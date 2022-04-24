@@ -4,6 +4,7 @@ use App\Modules\Perkuliahan\Helper\RosterAdapter;
 use DateTime;
 use App\Modules\Perkuliahan\Entity\Roster;
 use App\Modules\Perkuliahan\Persistence\RosterPersistence;
+use Illuminate\Support\Facades\Log;
 
 class RosterService {
     private static RosterPersistence $pm;
