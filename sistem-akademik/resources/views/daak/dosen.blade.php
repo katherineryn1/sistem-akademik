@@ -61,20 +61,20 @@
                         <tbody>
                         @foreach ($data as $dosen)
                             <tr>
-                                <th scope="row">{{ $dosen['id'] }}</th>
+                                <th scope="row">{{ $dosen['nomor_induk'] }}</th>
                                 <td>{{ $dosen['nama'] }}</td>
-                                <td>{{ $dosen['type'] }}</td>
-                                <td>{{ $dosen['age'] }}</td>
-                                <td>{{ $dosen['dummy']}}</td>
-                                <td>{{ $dosen['dummy']}}</td>
-                                <td>{{ $dosen['dummy']}}</td>
-                                <td>{{ $dosen['dummy']}}</td>
-                                <td>{{ $dosen['dummy']}}</td>
+                                <td>{{ $dosen['email'] }}</td>
+                                <td>{{ $dosen['notelepon'] }}</td>
+                                <td>{{ $dosen['jenis_kelamin']}}</td>
+                                <td>{{ $dosen['program_studi']}}</td>
+                                <td>{{ $dosen['bidang_ilmu']}}</td>
+                                <td>{{ $dosen['status_ikatan_kerja']}}</td>
+                                <td>{{ $dosen['status_dosen']}}</td>
                                 <td>
-                                    <a href="{{ url("/daak/pengguna/{$dosen['id']}/edit") }}" class="btn btn-warning" >
+                                    <a href="{{ url("/daak/dosen/{$dosen['nomor_induk']}") }}" class="btn btn-warning" >
                                         <i width="1rem" height="1rem" fill="currentColor" class="bi bi-pencil-square"></i>
                                     </a>
-                                    <button onclick="modalConfirmDeletion({{ $dosen['id'] }})" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modal-confirmation-delete">
+                                    <button onclick="modalConfirmDeletion({{ $dosen['nomor_induk'] }})" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modal-confirmation-delete">
                                         <i width="1rem" height="1rem" fill="currentColor" class="bi bi-trash"></i>
                                     </button>
                                 </td>
@@ -97,9 +97,10 @@
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title">Tambah Dosen</h5>
-
+                @include('layouts.erros-default')
                 <!-- Horizontal Form -->
-                <form action=""  method="post" enctype='multipart/form-data'>
+                <form action="{{ url("v1/dosen")  }}"  method="post" enctype='multipart/form-data'>
+                    @csrf
                     <div class="row mb-3 form-horizontal">
                         <h5 class="card-subtitle mb-2 text-muted">Form Pengguna</h5>
                         <hr>
@@ -183,7 +184,7 @@
                     <div class="row mb-3 form-horizontal">
                         <label for="inputProgramStudi" class="col-sm-2 col-form-label control-label">Program Studi</label>
                         <div class="col-sm-10 ">
-                            <input type="text" class="form-control" id="inputProgramStudi" required>
+                            <input type="text" class="form-control" id="inputProgramStudi" name="inputProgramStudi" required>
                         </div>
                     </div>
                    <div class="row mb-3 form-horizontal">
@@ -195,7 +196,7 @@
                     <div class="row mb-3 form-horizontal">
                         <label for="inputGelarAkademik" class="col-sm-2 col-form-label control-label">Gelar Akademik</label>
                         <div class="col-sm-10 ">
-                            <input type="text" class="form-control" id="inputGelarAkademik" required>
+                            <input type="text" class="form-control" id="inputGelarAkademik" name="inputGelarAkademik" required>
                         </div>
                     </div>
                     <div class="row mb-3 form-horizontal">
@@ -227,7 +228,8 @@
                         <h5 class="modal-title">Hapus Dosen</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <form method="post"  class="row g-3 needs-validation was-validated" novalidate>
+                    <form action="{{ url("v1/dosen")  }}" method="post"  class="row g-3 needs-validation was-validated" novalidate>
+                        @csrf
                         @method('DELETE')
                         <div class="modal-body" id="modal-body-delete">
                         </div>

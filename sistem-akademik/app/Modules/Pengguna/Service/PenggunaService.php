@@ -148,6 +148,14 @@
             return PenggunaAdapter::ArrayEntitiesToDictionaries($found);
         }
 
+        public static function usersInfo(string $attribute,array $value): array{
+            $found = self::$pm->getInByAttribute($attribute,$value);
+            if(count($found) <= 0){
+                return [];
+            }
+            return PenggunaAdapter::ArrayEntitiesToDictionaries($found);
+        }
+
         public static function getAll():array {
             $found = self::$pm->getAll();
             if(count($found) <= 0){

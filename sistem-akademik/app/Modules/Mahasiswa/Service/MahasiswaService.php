@@ -2,6 +2,7 @@
 namespace App\Modules\Mahasiswa\Service;
 
 use App\Modules\Mahasiswa\Helper\MahasiswaAdapter;
+use App\Modules\Pengguna\Helper\PenggunaAdapter;
 use DateTime;
 use App\Modules\Mahasiswa\Entity\Mahasiswa;
 use App\Modules\Mahasiswa\Persistence\MahasiswaPersistence;
@@ -36,8 +37,8 @@ class MahasiswaService {
      */
     public static function insert(string  $nama,string $password, string $nomorInduk,string $email,
                                   string $tanggalLahir, string $tempatLahir,string $jenisKelamin, string  $alamat,
-                                  string $notelepon, string $jabatan,string $jurusan, int $tahunMasuk, int $tahunLulus):bool {
-        if(!PenggunaService::insert($nama,$password,  $nomorInduk, $email, $tanggalLahir, $tempatLahir,$jenisKelamin, $alamat,$notelepon, $jabatan)){
+                                  string $notelepon, string $jabatan,string $fotoProfile,string $jurusan, int $tahunMasuk, int $tahunLulus):bool {
+        if(!PenggunaService::insert($nama,$password,  $nomorInduk, $email, $tanggalLahir, $tempatLahir,$jenisKelamin, $alamat,$notelepon, $jabatan,$fotoProfile)){
             return false;
         }
         $newMahasiswa = new Mahasiswa();
@@ -87,7 +88,8 @@ class MahasiswaService {
         if(count($found) <= 0){
             return [];
         }
-        return MahasiswaAdapter::ArrayEntitiesToDictionaries($found);
+        $arrMhs = MahasiswaAdapter::ArrayEntitiesToDictionaries($found);
+        return  PenggunaAdapter::ArrayInjectPenggunaDictionary($arrMhs);
     }
 
     public static function getRencanaStudi(string $nomorInduk){

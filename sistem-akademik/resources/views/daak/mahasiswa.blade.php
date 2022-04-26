@@ -56,19 +56,19 @@
                         <tbody>
                         @foreach ($data as $mahasiswa)
                             <tr>
-                                <th scope="row">{{ $mahasiswa['id'] }}</th>
+                                <th scope="row">{{ $mahasiswa['nomor_induk'] }}</th>
                                 <td>{{ $mahasiswa['nama'] }}</td>
-                                <td>{{ $mahasiswa['type'] }}</td>
-                                <td>{{ $mahasiswa['age'] }}</td>
-                                <td>{{ $mahasiswa['dummy']}}</td>
-                                <td>{{ $mahasiswa['dummy']}}</td>
-                                <td>{{ $mahasiswa['dummy']}}</td>
-                                <td>{{ $mahasiswa['dummy']}}</td>
+                                <td>{{ $mahasiswa['email'] }}</td>
+                                <td>{{ $mahasiswa['notelepon'] }}</td>
+                                <td>{{ $mahasiswa['jenis_kelamin']}}</td>
+                                <td>{{ $mahasiswa['jurusan']}}</td>
+                                <td>{{ $mahasiswa['tahun_masuk']}}</td>
+                                <td>{{ $mahasiswa['tahun_lulus']}}</td>
                                 <td>
-                                    <a href="{{ url("/daak/pengguna/{$mahasiswa['id']}/edit") }}" class="btn btn-warning" >
+                                    <a href="{{ url("/daak/mahasiswa/{$mahasiswa['nomor_induk']}") }}" class="btn btn-warning" >
                                         <i width="1rem" height="1rem" fill="currentColor" class="bi bi-pencil-square"></i>
                                     </a>
-                                    <button onclick="modalConfirmDeletion({{ $mahasiswa['id'] }})" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modal-confirmation-delete">
+                                    <button onclick="modalConfirmDeletion({{ $mahasiswa['nomor_induk'] }})" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modal-confirmation-delete">
                                         <i width="1rem" height="1rem" fill="currentColor" class="bi bi-trash"></i>
                                     </button>
                                 </td>
@@ -91,9 +91,10 @@
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title">Tambah Mahasiswa</h5>
-
+                @include('layouts.erros-default')
                 <!-- Horizontal Form -->
-                <form action=""  method="post" enctype='multipart/form-data'>
+                <form action="{{ url("v1/mahasiswa")  }}"  method="post" enctype='multipart/form-data'>
+                    @csrf
                     <div class="row mb-3 form-horizontal">
                         <h5 class="card-subtitle mb-2 text-muted">Form Pengguna</h5>
                         <hr>
@@ -209,7 +210,8 @@
                         <h5 class="modal-title">Hapus Mahasiswa</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <form method="post"  class="row g-3 needs-validation was-validated" novalidate>
+                    <form action="{{ url("v1/mahasiswa")  }}" method="post"  class="row g-3 needs-validation was-validated" novalidate>
+                        @csrf
                         @method('DELETE')
                         <div class="modal-body" id="modal-body-delete">
                         </div>

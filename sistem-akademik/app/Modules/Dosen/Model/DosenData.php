@@ -1,15 +1,16 @@
 <?php
 
-namespace App\Models;
+namespace App\Modules\Dosen\Model;
 
-use App\Modules\Mahasiswa\Entity\Mahasiswa;
-use App\Modules\Mahasiswa\Helper\MahasiswaAdapter;
-use App\Modules\Mahasiswa\Persistence\MahasiswaPersistence;
+use App\Modules\Dosen\Entity\Dosen;
+use App\Modules\Dosen\Helper\DosenAdapter;
+use App\Modules\Dosen\Persistence\DosenPersistence;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class MahasiswaData extends Model implements MahasiswaPersistence{
+class DosenData extends Model implements  DosenPersistence{
     use HasFactory;
+
     protected $primaryKey = 'nomor_induk';
     /**
      * The attributes that are mass assignable.
@@ -18,9 +19,11 @@ class MahasiswaData extends Model implements MahasiswaPersistence{
      */
     protected $fillable = [
         'nomor_induk',
-        'jurusan',
-        'tahun_masuk',
-        'tahun_lulus',
+        'program_studi',
+        'bidang_ilmu',
+        'gelar_akademik',
+        'status_ikatan_kerja',
+        'status_dosen'
     ];
 
     /**
@@ -36,18 +39,17 @@ class MahasiswaData extends Model implements MahasiswaPersistence{
      * @var string
      */
     protected $keyType = 'string';
-
     private function modelToEntity($model) {
-        return MahasiswaAdapter::ArrayDictionariesToEntities($model->toArray());
+        return DosenAdapter::ArrayDictionariesToEntities($model->toArray());
     }
-    public function insertSingle(Mahasiswa $mahasiswa): bool {
-        $data = $this->fill(MahasiswaAdapter::EntityToDictionary($mahasiswa));
+    public function insertSingle(Dosen $dosen): bool {
+        $data = $this->fill(DosenAdapter::EntityToDictionary($dosen));
         return $data ->save();
     }
 
-    public function updateSingle(Mahasiswa $mahasiswa): bool{
-        $data = $this::find($mahasiswa->getNomorInduk());
-        $data->update(MahasiswaAdapter::EntityToDictionary($mahasiswa));
+    public function updateSingle(Dosen $dosen): bool{
+        $data = $this::find($dosen->getNomorInduk());
+        $data->update(DosenAdapter::EntityToDictionary($dosen));
         return $data->save();
     }
 

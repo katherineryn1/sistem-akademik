@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Modules\Perkuliahan\Model;
 
 use App\Modules\Common\PenggunaBuilder;
 use App\Modules\Perkuliahan\Entity\Kurikulum;

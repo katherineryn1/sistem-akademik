@@ -17,15 +17,16 @@ class RosterService {
 
     /**
      * @param int $kurikulum
-     * @param DateTime $tanggal
+     * @param string $tanggal
      * @param string $jamMulai
      * @param string $jamSelesai
      * @param string $ruangan
      * @return bool
+     * @throws \Exception
      */
-    public static function insert(int $kurikulum,DateTime $tanggal, string $jamMulai, string $jamSelesai, string $ruangan):bool {
+    public static function insert(int $kurikulum,string $tanggal, string $jamMulai, string $jamSelesai, string $ruangan):bool {
         $newRoster = new Roster();
-        $newRoster->setTanggal($tanggal);
+        $newRoster->setTanggal(new DateTime($tanggal));
         $newRoster->setJamMulai($jamMulai);
         $newRoster->setJamSelesai($jamSelesai);
         $newRoster->setRuangan($ruangan);

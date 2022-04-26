@@ -33,32 +33,35 @@
                             <th scope="col">Jam Mulai</th>
                             <th scope="col">Jam Selesai</th>
                             <th scope="col">Ruangan</th>
-                            <th scope="col">Kurikulum</th>
-                            <th scope="col">Kode MK</th>
                             <th scope="col">Tipe Jadwal</th>
                             <th scope="col">Action</th>
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach ($data as $roster)
+                        {{-- https://codepen.io/n3k1t/pen/OJMGgyq--}}
+                        @foreach ($data as $key => $roster)
                             <tr>
-                                <th scope="row">{{ $roster['id'] }}</th>
-                                <td>{{ $roster['nama'] }}</td>
-                                <td>{{ $roster['type'] }}</td>
-                                <td>{{ $roster['age'] }}</td>
-                                <td>{{ $roster['nama'] }}</td>
-                                <td>{{ $roster['type'] }}</td>
-                                <td>{{ $roster['age'] }}</td>
-                                <td>{{ $roster['age'] }}</td>
-                                <td>
-                                    <a href="{{ url("/daak/pengumuman/{$roster['id']}/edit") }}" class="btn btn-warning" >
-                                        <i width="1rem" height="1rem" fill="currentColor" class="bi bi-pencil-square"></i>
-                                    </a>
-                                    <button onclick="modalConfirmDeletion({{ $roster['id'] }})" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modal-confirmation-delete">
-                                        <i width="1rem" height="1rem" fill="currentColor" class="bi bi-trash"></i>
-                                    </button>
-                                </td>
+                                <td scope="row" colspan="7"><b>Kurikulum Info: ({{ $roster['kurikulum']['id'] }}) {{ $roster['kurikulum']['kode_matakuliah'] }} {{ $roster['kurikulum']['kelas'] }}
+                                        {{ $roster['kurikulum']['semester'] }} {{ $roster['kurikulum']['tahun'] }} </b></td>
                             </tr>
+                            @foreach($roster['jadwal'] as $jadwal)
+                                <tr>
+                                    <th scope="row" >{{ $jadwal['id'] }}</th>
+                                    <td>{{ $jadwal['tanggal']->format('Y-M-d') }}</td>
+                                    <td>{{ $jadwal['jam_mulai'] }}</td>
+                                    <td>{{ $jadwal['jam_selesai'] }}</td>
+                                    <td>{{ $jadwal['ruangan'] }}</td>
+                                    <td>Regular</td>
+                                    <td>
+                                        <a href="{{ url("/daak/jadwal-kuliah/{$jadwal['id']}/edit") }}" class="btn btn-warning" >
+                                            <i width="1rem" height="1rem" fill="currentColor" class="bi bi-pencil-square"></i>
+                                        </a>
+                                        <button onclick="modalConfirmDeletion({{ $jadwal['id'] }}, 'id')" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modal-confirmation-delete">
+                                            <i width="1rem" height="1rem" fill="currentColor" class="bi bi-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            @endforeach
                         @endforeach
                         </tbody>
                     </table>
@@ -79,7 +82,8 @@
                 <h5 class="card-title">Buat Jadwal Kuliah</h5>
 
                 <!-- Horizontal Form -->
-                <form action=""  method="post" enctype='multipart/form-data'>
+                <form action="{{ url("v1/jadwal") }}"  method="post" enctype='multipart/form-data'>
+                    @csrf
                     <div class="row mb-3 form-horizontal">
                         <h5 class="card-subtitle mb-2 text-muted">Form Jadwal Kuliah</h5>
                         <hr>
@@ -93,12 +97,13 @@
                     <div class="row mb-3 form-horizontal">
                         <label for="inputKurikulum" class="col-sm-2 col-form-label control-label">Kurikulum MK</label>
                         <div class="col-sm-10 ">
-                            <select  id="inputKurikulum" class="form-select" name="inputKurikulum" required>
-                                <option selected="">--Pilih Kurikulum MK--</option>
-                                <option value="1">1 - IF-201 - Struktur Data</option>
-                                <option value="2">2 - IF-301 - RPL</option>
-                                <option value="3">3 - IF-101 - Algoritma</option>
-                            </select>
+{{--                            <select  id="inputKurikulum" class="form-select" name="inputKurikulum" required>--}}
+{{--                                <option selected="">--Pilih Kurikulum MK--</option>--}}
+{{--                                <option value="1">1 - IF-201 - Struktur Data</option>--}}
+{{--                                <option value="2">2 - IF-301 - RPL</option>--}}
+{{--                                <option value="3">3 - IF-101 - Algoritma</option>--}}
+{{--                            </select>--}}
+                            <input type="text" class="form-control" id="inputKurikulum" name="inputKurikulum" required>
                         </div>
                     </div>
                     <div class="row mb-3 form-horizontal">
@@ -156,10 +161,11 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Hapus Pengumuman</h5>
+                        <h5 class="modal-title">Hapus Jadwal</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <form method="post"  class="row g-3 needs-validation was-validated" novalidate>
+                    <form action="{{ url("v1/jadwal") }}" method="post"  class="row g-3 needs-validation was-validated" novalidate>
+                        @csrf
                         @method('DELETE')
                         <div class="modal-body" id="modal-body-delete">
                         </div>

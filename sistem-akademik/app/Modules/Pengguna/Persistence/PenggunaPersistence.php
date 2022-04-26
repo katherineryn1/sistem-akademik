@@ -9,5 +9,6 @@
         public  function deleteSingle(string  $nomorInduk): bool ;
         public  function getAll(): array ;
         public  function getByAttribute(array  $attribute,array  $value , array  $logic): array;
+        public  function getInByAttribute(string  $attribute,array  $value): array;
     }
 ?>

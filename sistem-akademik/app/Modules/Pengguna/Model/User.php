@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Modules\Pengguna\Model;
 
 use App\Modules\Pengguna\Helper\PenggunaAdapter;
 use DateTime;
@@ -110,6 +110,11 @@ class User extends Authenticatable implements PenggunaPersistence{
     public function deleteSingle($nomorInduk): bool {
         $data = $this::find($nomorInduk);
         return $data->delete();
+    }
+
+    public function getInByAttribute(string $attribute, array $value): array    {
+        $allData = $this::whereIn($attribute, $value)->get();
+        return $this->modelToEntity($allData);
     }
 }
 
