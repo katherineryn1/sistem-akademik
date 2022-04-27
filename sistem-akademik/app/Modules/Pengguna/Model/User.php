@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Modules\Pengguna\Model;
 
 use App\Modules\Pengguna\Helper\PenggunaAdapter;
 use DateTime;

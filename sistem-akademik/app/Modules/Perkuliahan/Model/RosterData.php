@@ -1,44 +1,45 @@
 <?php
 
-namespace App\Models;
+namespace App\Modules\Perkuliahan\Model;
 
-use App\Modules\Common\PengambilanMatakuliahBuilder;
-use App\Modules\Perkuliahan\Entity\Kehadiran;
-use App\Modules\Perkuliahan\Helper\KehadiranAdapter;
-use App\Modules\Perkuliahan\Persistence\KehadiranPersistence;
-use App\Modules\Perkuliahan\Service\PengambilanMatakuliahService;
+use App\Modules\Perkuliahan\Entity\Roster;
+use App\Modules\Perkuliahan\Helper\RosterAdapter;
+use App\Modules\Perkuliahan\Persistence\RosterPersistence;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use DateTime;
 
-class KehadiranData extends Model implements KehadiranPersistence{
+class RosterData extends Model implements RosterPersistence {
     use HasFactory;
-
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'keterangan',
-        'id_pengambilan_matakuliah',
-        'id_roster',
+        'tanggal',
+        'jam_mulai',
+        'jam_selesai',
+        'ruangan',
+        'id_kurikulum',
     ];
 
     private function modelToEntity($model) {
-        return KehadiranAdapter::ArrayDictionariesToEntities($model->toArray());
-    }
-    public function insertSingle(Kehadiran $kehadiran,int $roster): bool
-    {
-        $k = KehadiranAdapter::EntityToDictionary($kehadiran);
-        $k['id_roster'] = $roster;
-        $data = $this->fill($k);
-        return $data ->save();
+        return RosterAdapter::ArrayDictionariesToEntities($model->toArray());
     }
 
-    public function updateSingle(Kehadiran $kehadiran): bool
+    public function insertSingle(Roster $roster,int $kurikulum): bool
     {
-        $data = $this::find($kehadiran->getId());
-        $data->update(KehadiranAdapter::EntityToDictionary($kehadiran));
+        $kur = RosterAdapter::EntityToDictionary($roster);
+        $kur['id_kurikulum'] = $kurikulum;
+        $data = $this->create($kur);
+        return $data->save();
+    }
+
+    public function updateSingle(Roster $roster): bool
+    {
+        $data = $this::find($roster->getId());
+        $data->update(RosterAdapter::EntityToDictionary($roster));
         return $data->save();
     }
 

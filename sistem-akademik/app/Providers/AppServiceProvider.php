@@ -2,29 +2,28 @@
 
 namespace App\Providers;
 
-use App\Models\DosenData;
-use App\Models\KehadiranData;
-use App\Models\KurikulumData;
-use App\Models\MahasiswaData;
-use App\Models\MatakuliahData;
-use App\Models\NilaiData;
-use App\Models\PengambilanMatakuliahData;
-use App\Models\PengumumanData;
-use App\Models\PengumumanORM;
-use App\Models\RosterData;
-use App\Models\User;
+use App\Modules\Dosen\Model\DosenData;
+use App\Modules\Perkuliahan\Model\KehadiranData;
+use App\Modules\Perkuliahan\Model\KurikulumData;
+use App\Modules\Mahasiswa\Model\MahasiswaData;
+use App\Modules\Perkuliahan\Model\MatakuliahData;
+use App\Modules\Perkuliahan\Model\NilaiData;
+use App\Modules\Perkuliahan\Model\PengambilanMatakuliahData;
+use App\Modules\Pengumuman\Model\PengumumanData;
+use App\Modules\Perkuliahan\Model\RosterData;
+use App\Modules\Pengguna\Model\User;
+
 use App\Modules\Dosen\Service\DosenService;
 use App\Modules\Mahasiswa\Service\MahasiswaService;
 use App\Modules\Pengguna\Service\PenggunaService;
 use App\Modules\Pengumuman\Service\PengumumanService;
-use App\Modules\Perkuliahan\Entity\PengambilanMatakuliah;
-use App\Modules\Perkuliahan\Entity\Roster;
 use App\Modules\Perkuliahan\Service\KehadiranService;
 use App\Modules\Perkuliahan\Service\KurikulumService;
 use App\Modules\Perkuliahan\Service\MatakuliahService;
 use App\Modules\Perkuliahan\Service\NilaiService;
 use App\Modules\Perkuliahan\Service\PengambilanMatakuliahService;
 use App\Modules\Perkuliahan\Service\RosterService;
+
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
