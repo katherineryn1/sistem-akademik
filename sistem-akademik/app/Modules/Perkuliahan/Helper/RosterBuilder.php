@@ -6,7 +6,7 @@ namespace App\Modules\Perkuliahan\Helper;
 
 use App\Modules\Perkuliahan\Entity\Roster;
 
-class RosterBuilder{
+final class RosterBuilder{
     private static Roster $roster;
 
     public static function setId(int $id){

@@ -4,7 +4,7 @@ namespace App\Modules\Perkuliahan\Helper;
 
 use App\Modules\Perkuliahan\Entity\Kehadiran;
 
-class KehadiranBuilder{
+final class KehadiranBuilder{
     private static Kehadiran $kehadiran;
 
     public static function setId(int $id){

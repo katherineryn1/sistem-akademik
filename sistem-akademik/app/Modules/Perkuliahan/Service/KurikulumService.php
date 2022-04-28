@@ -103,42 +103,51 @@ class KurikulumService {
     }
 
     public static  function addDosen(int  $idKurikulum,string  $nomorInduk):bool {
-        return self::$pmPengambilanMK->insertUserKurikulum($nomorInduk,$idKurikulum);
+        //return self::$pm->insertUserKurikulum($nomorInduk,$idKurikulum);
         // Todo: Implement
+        return  false;
     }
 
     public static  function removeDosen(int  $id,string $nomorInduk):bool {
 
         // Todo: Implement
+        return  false;
     }
 
 
     public static  function getMahasiswa(string  $id):array {
         // Todo: Implement
+        return  [];
     }
 
     public static  function addMahasiswa(int  $id,string  $nomorInduk):array {
         // Todo: Implement
+        return  [];
     }
 
     public static  function removeMahasiswa(int  $id,string $nomorInduk):array {
         // Todo: Implement
+        return  [];
     }
 
     public static  function generateNilai(int  $id):array {
         // Todo: Implement
+        return  [];
     }
 
     public static  function destroyNilai(int  $id):array {
         // Todo: Implement
+        return  [];
     }
 
     public static  function generateRoster(int $id):array {
         // Todo: Implement
+        return  [];
     }
 
     public static  function destroyRoster(int $id):array {
         // Todo: Implement
+        return  [];
     }
 
 }

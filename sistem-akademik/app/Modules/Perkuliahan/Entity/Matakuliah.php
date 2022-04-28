@@ -109,9 +109,4 @@ class Matakuliah{
     }
 
 }
-
-
-
 ?>
-
-

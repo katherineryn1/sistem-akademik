@@ -5,7 +5,7 @@ namespace App\Modules\Perkuliahan\Helper;
 
 
 use App\Modules\Common\CommonAdapter;
-use App\Modules\Common\PengambilanMatakuliahBuilder;
+use App\Modules\Perkuliahan\Helper\PengambilanMatakuliahBuilder;
 use App\Modules\Perkuliahan\Entity\Kehadiran;
 
 class KehadiranAdapter implements CommonAdapter{

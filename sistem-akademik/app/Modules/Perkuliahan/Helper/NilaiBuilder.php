@@ -6,7 +6,7 @@ namespace App\Modules\Perkuliahan\Helper;
 
 use App\Modules\Perkuliahan\Entity\Nilai;
 
-class NilaiBuilder{
+final class NilaiBuilder{
     private static Nilai $nilai;
 
     public static function setId(int $id){
