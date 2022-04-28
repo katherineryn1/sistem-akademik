@@ -17,7 +17,8 @@ jobs:
         working-directory: ./sistem-akademik
     steps:
       - uses: actions/checkout@v2
-
+      - name: Copy .env
+        run: ls -l
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
