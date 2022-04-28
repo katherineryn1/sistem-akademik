@@ -54,6 +54,10 @@
       <excludeFolder url="file://$MODULE_DIR$/sistem-akademik/vendor/phpdocumentor/type-resolver" />
       <excludeFolder url="file://$MODULE_DIR$/sistem-akademik/vendor/phpoption/phpoption" />
       <excludeFolder url="file://$MODULE_DIR$/sistem-akademik/vendor/phpspec/prophecy" />
+      <excludeFolder url="file://$MODULE_DIR$/sistem-akademik/vendor/phpstan/extension-installer" />
+      <excludeFolder url="file://$MODULE_DIR$/sistem-akademik/vendor/phpstan/phpstan" />
+      <excludeFolder url="file://$MODULE_DIR$/sistem-akademik/vendor/phpstan/phpstan-deprecation-rules" />
+      <excludeFolder url="file://$MODULE_DIR$/sistem-akademik/vendor/phpstan/phpstan-phpunit" />
       <excludeFolder url="file://$MODULE_DIR$/sistem-akademik/vendor/phpunit/php-code-coverage" />
       <excludeFolder url="file://$MODULE_DIR$/sistem-akademik/vendor/phpunit/php-file-iterator" />
       <excludeFolder url="file://$MODULE_DIR$/sistem-akademik/vendor/phpunit/php-invoker" />

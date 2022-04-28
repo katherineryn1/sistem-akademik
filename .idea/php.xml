@@ -117,6 +117,10 @@
       <path value="$PROJECT_DIR$/sistem-akademik/vendor/barryvdh/laravel-debugbar" />
       <path value="$PROJECT_DIR$/sistem-akademik/vendor/maximebf/debugbar" />
       <path value="$PROJECT_DIR$/sistem-akademik/vendor/asm89/stack-cors" />
+      <path value="$PROJECT_DIR$/sistem-akademik/vendor/phpstan/phpstan-phpunit" />
+      <path value="$PROJECT_DIR$/sistem-akademik/vendor/phpstan/phpstan-deprecation-rules" />
+      <path value="$PROJECT_DIR$/sistem-akademik/vendor/phpstan/phpstan" />
+      <path value="$PROJECT_DIR$/sistem-akademik/vendor/phpstan/extension-installer" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.4" />
