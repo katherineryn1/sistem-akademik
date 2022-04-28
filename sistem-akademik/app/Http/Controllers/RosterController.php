@@ -15,27 +15,27 @@ class RosterController extends Controller{
             'inputJamSelesai' => ['required'],
             'inputRuangan' => ['required'],
         ]);
-        $tempTanggal = $input['inputTanggal'];
-        $hasil = true;
-        for($i=0; $i<$input['inputRotasi'] && $hasil==true; $i++){
+        $tempTanggal = [$input['inputTanggal']];
+        for($i=0; $i<$input['inputRotasi']; $i++){
+            $dateStart = strtotime($tempTanggal[$i]);
+            $dateEnd = strtotime("+1 week", $dateStart);
+            array_push($tempTanggal,date('Y-m-d', $dateEnd));
+        }
+
+        foreach ($tempTanggal as $week){
+            echo  $week . "<br>";
             $hasil = RosterService::insert(
                 $input['inputKurikulum'],
-                $tempTanggal,
+                $week,
                 $input['inputJamMulai'],
                 $input['inputJamSelesai'],
                 $input['inputRuangan']);
 
-            $start_date = $tempTanggal;
-            $dateStart = strtotime($start_date);
-            $dateEnd = strtotime("+7 day", $dateStart);
-            $tempTanggal = date('Y-m-d', $dateEnd);
-
-        }
-
-        if($hasil == false){
-            $request->session()->flash('errors', [ ['type' => "danger" , 'message' => "Gagal Menambah Jadwal"] ]);
-        }else{
-            $request->session()->flash('errors', [ ['type' => "success" , 'message' => "Success Menambah Jadwal"] ]);
+            if($hasil == false){
+                $request->session()->flash('errors', [ ['type' => "danger" , 'message' => "Gagal Menambah Jadwal"] ]);
+            }else{
+                $request->session()->flash('errors', [ ['type' => "success" , 'message' => "Success Menambah Jadwal"] ]);
+            }
         }
         return back();
     }
