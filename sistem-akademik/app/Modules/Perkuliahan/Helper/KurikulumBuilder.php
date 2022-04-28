@@ -6,7 +6,7 @@ namespace App\Modules\Perkuliahan\Helper;
 
 use App\Modules\Perkuliahan\Entity\Kurikulum;
 
-class KurikulumBuilder{
+final class KurikulumBuilder{
     private static Kurikulum $kurikulum;
 
     public static function setId(int $id){

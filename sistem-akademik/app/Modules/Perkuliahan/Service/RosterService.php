@@ -75,10 +75,12 @@ class RosterService {
 
     public static  function generateKehadiran(int $id):array {
         // Todo: Implement
+        return  [];
     }
 
     public static  function destroyKehadiran(int $id):array {
         // Todo: Implement
+        return  [];
     }
 
     public static function getAll():array {

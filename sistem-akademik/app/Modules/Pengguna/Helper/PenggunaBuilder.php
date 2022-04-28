@@ -4,7 +4,7 @@ namespace App\Modules\Pengguna\Helper;
 
 use App\Modules\Pengguna\Entity\Pengguna;
 
-class PenggunaBuilder{
+final class PenggunaBuilder{
     private static Pengguna $pengguna;
 
     public static function setNomorInduk(string $nomorInduk){

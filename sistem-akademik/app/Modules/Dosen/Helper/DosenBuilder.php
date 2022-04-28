@@ -6,7 +6,7 @@ namespace App\Modules\Dosen\Helper;
 
 use App\Modules\Dosen\Entity\Dosen;
 
-class DosenBuilder{
+final class DosenBuilder{
     private static Dosen $dosen;
 
     public static function setNomorInduk(string $nomorInduk){

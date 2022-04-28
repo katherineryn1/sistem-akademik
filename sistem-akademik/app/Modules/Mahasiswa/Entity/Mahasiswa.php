@@ -69,5 +69,3 @@ class Mahasiswa extends Pengguna {
 
 
 ?>
-
-

@@ -1,8 +1,6 @@
 <?php
 namespace App\Modules\Perkuliahan\Service;
-use App\Modules\Common\PengambilanMatakuliahBuilder;
-use App\Modules\Pengguna\Entity\Pengguna;
-use App\Modules\Perkuliahan\Entity\PengambilanMatakuliah;
+use App\Modules\Perkuliahan\Helper\PengambilanMatakuliahBuilder;
 use App\Modules\Perkuliahan\Helper\KehadiranAdapter;
 use App\Modules\Perkuliahan\Persistence\KehadiranPersistence;
 use App\Modules\Perkuliahan\Entity\Kehadiran;
