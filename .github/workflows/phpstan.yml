@@ -40,8 +40,10 @@ jobs:
       - name: Run artisan key:generate
         run: php artisan key:generate
 
-      - name: Run PHPStan
-        run: ./vendor/bin/phpstan --error-format=github
-
       - name: Run Unit Test
         run: ./vendor/bin/phpunit
+
+      - name: Run PHPStan
+        run: ./vendor/bin/phpstan analyse app --error-format=github
+
+ 
