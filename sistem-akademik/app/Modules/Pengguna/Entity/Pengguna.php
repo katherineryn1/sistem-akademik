@@ -191,7 +191,7 @@ class Pengguna {
     }
 
     /**
-     * @param array $fotoprofil
+     * @param string $fotoprofil
      */
     public function setFotoprofil(string $fotoprofil): void
     {

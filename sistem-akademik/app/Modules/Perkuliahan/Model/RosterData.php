@@ -8,6 +8,7 @@ use App\Modules\Perkuliahan\Persistence\RosterPersistence;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use DateTime;
+use ArrayAccess;
 
 class RosterData extends Model implements RosterPersistence {
     use HasFactory;

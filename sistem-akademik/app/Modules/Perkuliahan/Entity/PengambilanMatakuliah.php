@@ -11,7 +11,6 @@ class PengambilanMatakuliah{
 
     /**
      * PengambilanMatakuliah constructor.
-     * @param int $id
      */
     public function __construct(){
         $this->setPengguna(new Pengguna());

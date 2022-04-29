@@ -48,18 +48,13 @@ class DosenService {
     }
 
     /**
-     * @param string $nama
-     * @param string $password
      * @param string $nomorInduk
-     * @param string $email
-     * @param string $tanggalLahir
-     * @param string $tempatLahir
-     * @param string $jenisKelamin
-     * @param string $alamat
-     * @param string $notelepon
-     * @param string $jabatan
+     * @param string $programStudi
+     * @param string $bidangIlmu
+     * @param string $gelarAkademik
+     * @param string $statusIkatanKerja
+     * @param bool $statusDosen
      * @return bool
-     * @throws \Exception
      */
     public static function update(string $nomorInduk,string $programStudi,string $bidangIlmu,
                                   string $gelarAkademik,string $statusIkatanKerja,bool $statusDosen):bool {

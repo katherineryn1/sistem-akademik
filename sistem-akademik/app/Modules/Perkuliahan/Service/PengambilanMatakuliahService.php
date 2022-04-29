@@ -22,8 +22,9 @@ class PengambilanMatakuliahService{
     }
 
     /**
-     * @param string $nomor_induk
+     * @param string $nomorInduk
      * @param string $posisiAmbil
+     * @param int $kurikulum
      * @return bool
      */
     public static function insert(string  $nomorInduk,string $posisiAmbil,int $kurikulum):bool {

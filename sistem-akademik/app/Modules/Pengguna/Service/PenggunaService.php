@@ -54,7 +54,7 @@
 
         /**
          * @param string $email
-         * @param string $password
+         * @param string $newPassword
          * @return bool
          */
         public static function gantiPassword(string $email, string  $newPassword): bool {

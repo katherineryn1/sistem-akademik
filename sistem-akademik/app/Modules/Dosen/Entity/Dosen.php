@@ -52,7 +52,7 @@ class Dosen extends Pengguna {
     }
 
     /**
-     * @return string
+     * @return bool
      */
     public function  getStatusDosen(): bool {
         return  $this->statusDosen;

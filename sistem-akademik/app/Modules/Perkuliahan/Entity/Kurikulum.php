@@ -121,7 +121,7 @@ class Kurikulum{
     }
 
     /**
-     * @param string kodeMatakuliah
+     * @param string $kodeMatakuliah
      */
     public function setMatakuliahByKode(string $kodeMatakuliah): void
     {

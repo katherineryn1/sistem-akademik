@@ -55,7 +55,7 @@ class NilaiService {
      * @param float $nilaiUAS
      * @param float $nilaiAkhir
      * @param string $index
-     * @param string $nomor_induk_mahasiswa
+     * @param string $pengambilan_mk
      * @return bool
      */
     public static function update(int $id,float $nilai1, float $nilai2, float $nilai3, float $nilai4, float $nilai5, float $nilaiUAS, float $nilaiAkhir, string $index,string $pengambilan_mk):bool {
