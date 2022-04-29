@@ -1,6 +1,7 @@
 <?php
 namespace App\Modules\Pengguna\Helper;
 
+use App\Modules\Pengguna\Entity\Jabatan;
 use App\Modules\Pengguna\Service\PenggunaService;
 use DateTime;
 use App\Modules\Common\CommonAdapter;
@@ -30,7 +31,7 @@ class PenggunaAdapter implements CommonAdapter {
         $pengguna = new Pengguna();
         $pengguna->setNomorInduk($object['nomor_induk']);
         $pengguna->setNama($object['nama']);
-        $pengguna->setJabatan($object['jabatan']);
+        $pengguna->setJabatan(Jabatan::getEnumBy($object['jabatan']));
         $pengguna->setAlamat($object['alamat']);
         $pengguna->setPassword("");
         $pengguna->setEmail($object['email']);

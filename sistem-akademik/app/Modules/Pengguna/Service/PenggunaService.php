@@ -1,6 +1,7 @@
 <?php
     namespace App\Modules\Pengguna\Service;
-    use App\Modules\Pengguna\Helper\PenggunaAdapter;
+    use App\Modules\Pengguna\Entity\Jabatan;
+use App\Modules\Pengguna\Helper\PenggunaAdapter;
     use App\Providers\PenggunaServiceProvider;
     use DateTime;
     use App\Modules\Pengguna\Entity\Pengguna;
@@ -94,7 +95,7 @@
             $newPengguna->setJenisKelamin($jenisKelamin);
             $newPengguna->setAlamat($alamat);
             $newPengguna->setNotelepon($notelepon);
-            $newPengguna->setJabatan($jabatan);
+            $newPengguna->setJabatan(Jabatan::getEnumBy($jabatan));
             $newPengguna->setFotoprofil($fotoprofile);
             return self::$pm->insertSingle($newPengguna);
         }
@@ -127,7 +128,7 @@
             $newPengguna->setAlamat($alamat);
             $newPengguna->setNotelepon($notelepon);
             $newPengguna->setFotoprofil("");
-            $newPengguna->setJabatan($jabatan);
+            $newPengguna->setJabatan(Jabatan::getEnumBy($jabatan));
 
             return self::$pm->updateSingle($newPengguna);
         }

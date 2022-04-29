@@ -14,10 +14,11 @@ class Pengguna {
 	private string $password = "";
 	private string $email = "";
 	private string $fotoprofil = "";
-	private string $jabatan = "";
+	private Jabatan $jabatan;
 
 	function __construct(){
 	    $this->setTanggalLahir(new DateTime());
+	    $this->setJabatan(new Jabatan());
 	}
 
 	function __destruct(){
@@ -104,9 +105,9 @@ class Pengguna {
     }
 
     /**
-     * @return string
+     * @return Jabatan
      */
-    public function getJabatan(): string
+    public function getJabatan(): Jabatan
     {
         return $this->jabatan;
     }
@@ -199,9 +200,9 @@ class Pengguna {
     }
 
     /**
-    * @param string $jabatan
-    */
-    public function setJabatan(string $jabatan): void
+     * @param Jabatan $jabatan
+     */
+    public function setJabatan(Jabatan $jabatan): void
     {
         $this->jabatan = $jabatan;
     }
