@@ -62,7 +62,7 @@
                                 <td>{{ $pengguna['email'] }}</td>
                                 <td>{{ $pengguna['notelepon'] }}</td>
                                 <td>{{ $pengguna['jenis_kelamin']}}</td>
-                                <td>{{ $pengguna['jabatan']}}</td>
+                                <td>{{ $pengguna['jabatan']->getString()}}</td>
                                 <td>{{ $pengguna['alamat']}}</td>
                                 <td>
                                     <a href="{{ url("/daak/pengguna/{$pengguna['nomor_induk']}") }}" class="btn btn-warning" >

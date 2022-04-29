@@ -4,9 +4,9 @@ namespace App\Modules\Pengguna\Entity;
 use ReflectionClass;
 
 class Jabatan{
-    public const  DAAK = [ "string" => "daak" , "int" => 1 ];
-    public const  DOSEN = [ "string" => "dosen" , "int" => 2 ];
-    public const  MAHASISWA = [ "string" => "mahasiswa" , "int" => 3 ];
+    public const  DAAK = [ "string" => "Daak" , "int" => 1 ];
+    public const  DOSEN = [ "string" => "Dosen" , "int" => 2 ];
+    public const  MAHASISWA = [ "string" => "Mahasiswa" , "int" => 3 ];
     private const DEFAULT = [ "string" => "" , "int" => 0 ];
 
     private $value = self::DEFAULT;
@@ -33,6 +33,11 @@ class Jabatan{
         }
         $this->value = $jabatan;
     }
+    private static function createInstance(array $jabatan):Jabatan {
+        $newJabatan = new Jabatan();
+        $newJabatan->set($jabatan);
+        return $newJabatan;
+    }
     protected static function getEnumByString(string $str): array {
 
         $oClass = new ReflectionClass(__CLASS__);
@@ -55,13 +60,13 @@ class Jabatan{
         return self::DEFAULT;
     }
 
-    public static function getEnumBy($data): array {
+    public static function getEnumBy($data): Jabatan {
         if(is_string($data)){
-            return  self::getEnumByString($data);
+            return  self::createInstance(self::getEnumByString($data));
         }
         if(is_numeric($data)){
-            return  self::getEnumByInt($data);
+            return  self::createInstance(self::getEnumByInt($data));
         }
-        return  self::DEFAULT;
+        return  self::createInstance(self::DEFAULT);
     }
 }?>
