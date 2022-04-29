@@ -186,6 +186,9 @@
                         <button type="reset" class="btn btn-secondary">Batal</button>
                     </div>
                 </form>
+                <script>
+                    setYearLimitDate("inputTanggalLahir", -12);
+                </script>
                 <!-- End Horizontal Form -->
             </div>
         </div>
