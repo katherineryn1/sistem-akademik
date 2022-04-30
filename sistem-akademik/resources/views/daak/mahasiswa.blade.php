@@ -60,7 +60,7 @@
                                 <td>{{ $mahasiswa['nama'] }}</td>
                                 <td>{{ $mahasiswa['email'] }}</td>
                                 <td>{{ $mahasiswa['notelepon'] }}</td>
-                                <td>{{ $mahasiswa['jenis_kelamin']}}</td>
+                                <td>{{ $mahasiswa['jenis_kelamin']->getString()}}</td>
                                 <td>{{ $mahasiswa['jurusan']}}</td>
                                 <td>{{ $mahasiswa['tahun_masuk']}}</td>
                                 <td>{{ $mahasiswa['tahun_lulus']}}</td>
@@ -139,15 +139,15 @@
                         <legend class="col-form-label col-sm-2 pt-0">Jenis Kelamin</legend>
                         <div class="col-sm-10">
                             <div class="col-3">
-                                <input class="form-check-input" type="radio" name="inputJenisKelamin" id="inputJKPria" value="Pria">
+                                <input class="form-check-input" type="radio" name="inputJenisKelamin" id="inputJKPria" value="Laki-Laki">
                                 <label class="form-check-label" for="inputJKPria">
-                                    Pria
+                                    Laki-Laki
                                 </label>
                             </div>
                             <div class="col-3">
-                                <input class="form-check-input" type="radio" name="inputJenisKelamin" id="inputJKWanita" value="Wanita">
+                                <input class="form-check-input" type="radio" name="inputJenisKelamin" id="inputJKWanita" value="Perempuan">
                                 <label class="form-check-label" for="inputJKWanita">
-                                    Wanita
+                                    Perempuan
                                 </label>
                             </div>
                         </div>

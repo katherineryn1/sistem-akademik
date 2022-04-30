@@ -95,8 +95,9 @@ class User extends Authenticatable implements PenggunaPersistence{
     public function insertSingle(Pengguna $pengguna): bool {
         $penggunaArr = PenggunaAdapter::EntityToDictionary($pengguna);
         $penggunaArr['jabatan'] = $penggunaArr['jabatan']->getInt();
-        $data = $this->fill($penggunaArr);
+        $penggunaArr['jenis_kelamin'] = $penggunaArr['jenis_kelamin']->getInt();
 
+        $data = $this->fill($penggunaArr);
         $res  = $data ->save();
         return $res;
     }
@@ -105,6 +106,7 @@ class User extends Authenticatable implements PenggunaPersistence{
         $data = $this::find($pengguna->getNomorInduk());
         $penggunaArr = PenggunaAdapter::EntityToDictionary($pengguna);
         $penggunaArr['jabatan'] = $penggunaArr['jabatan']->getInt();
+        $penggunaArr['jenis_kelamin'] = $penggunaArr['jenis_kelamin']->getInt();
 
         $data->update($penggunaArr);
         return $data->save();

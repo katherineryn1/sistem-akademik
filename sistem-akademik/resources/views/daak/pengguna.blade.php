@@ -61,7 +61,7 @@
                                 <td>{{ $pengguna['nama'] }}</td>
                                 <td>{{ $pengguna['email'] }}</td>
                                 <td>{{ $pengguna['notelepon'] }}</td>
-                                <td>{{ $pengguna['jenis_kelamin']}}</td>
+                                <td>{{ $pengguna['jenis_kelamin']->getString()}}</td>
                                 <td>{{ $pengguna['jabatan']->getString()}}</td>
                                 <td>{{ $pengguna['alamat']}}</td>
                                 <td>
@@ -139,15 +139,15 @@
                         <legend class="col-form-label col-sm-2 pt-0">Jenis Kelamin</legend>
                         <div class="col-sm-10">
                             <div class="col-3">
-                                <input class="form-check-input" type="radio" name="inputJenisKelamin" id="inputJKPria" value="Pria">
+                                <input class="form-check-input" type="radio" name="inputJenisKelamin" id="inputJKPria" value="Laki-Laki">
                                 <label class="form-check-label" for="inputJKPria">
-                                    Pria
+                                    Laki-Laki
                                 </label>
                             </div>
                             <div class="col-3">
-                                <input class="form-check-input" type="radio" name="inputJenisKelamin" id="inputJKWanita" value="Wanita" required>
+                                <input class="form-check-input" type="radio" name="inputJenisKelamin" id="inputJKWanita" value="Perempuan" required>
                                 <label class="form-check-label" for="inputJKWanita">
-                                    Wanita
+                                    Perempuan
                                 </label>
                             </div>
                         </div>

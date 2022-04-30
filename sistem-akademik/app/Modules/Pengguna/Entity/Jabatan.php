@@ -43,7 +43,7 @@ class Jabatan{
         $oClass = new ReflectionClass(__CLASS__);
         $str = strtolower($str);
         foreach ($oClass->getConstants() as $key=>$val){
-            if($val['string'] == $str){
+            if(strtolower($val['string']) == $str){
                 return $val;
             }
         }

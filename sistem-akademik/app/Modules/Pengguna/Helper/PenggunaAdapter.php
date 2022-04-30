@@ -2,6 +2,7 @@
 namespace App\Modules\Pengguna\Helper;
 
 use App\Modules\Pengguna\Entity\Jabatan;
+use App\Modules\Pengguna\Entity\JenisKelamin;
 use App\Modules\Pengguna\Service\PenggunaService;
 use DateTime;
 use App\Modules\Common\CommonAdapter;
@@ -36,7 +37,7 @@ class PenggunaAdapter implements CommonAdapter {
         $pengguna->setPassword("");
         $pengguna->setEmail($object['email']);
         $pengguna->setFotoprofil($object['foto_profile']);
-        $pengguna->setJenisKelamin($object['jenis_kelamin']);
+        $pengguna->setJenisKelamin(JenisKelamin::getEnumBy($object['jenis_kelamin']));
         $pengguna->setNotelepon($object['notelepon']);
         $pengguna->setTanggalLahir(new DateTime($object['tanggal_lahir']));
         $pengguna->setTempatLahir($object['tempat_lahir']);

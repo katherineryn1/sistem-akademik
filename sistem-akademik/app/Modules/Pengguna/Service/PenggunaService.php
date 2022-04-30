@@ -1,6 +1,7 @@
 <?php
     namespace App\Modules\Pengguna\Service;
     use App\Modules\Pengguna\Entity\Jabatan;
+use App\Modules\Pengguna\Entity\JenisKelamin;
 use App\Modules\Pengguna\Helper\PenggunaAdapter;
     use App\Providers\PenggunaServiceProvider;
     use DateTime;
@@ -92,7 +93,7 @@ use App\Modules\Pengguna\Helper\PenggunaAdapter;
             $newPengguna->setEmail($email);
             $newPengguna->setTanggalLahir(new DateTime($tanggalLahir));
             $newPengguna->setTempatLahir($tempatLahir);
-            $newPengguna->setJenisKelamin($jenisKelamin);
+            $newPengguna->setJenisKelamin(JenisKelamin::getEnumBy($jenisKelamin));
             $newPengguna->setAlamat($alamat);
             $newPengguna->setNotelepon($notelepon);
             $newPengguna->setJabatan(Jabatan::getEnumBy($jabatan));
@@ -124,7 +125,7 @@ use App\Modules\Pengguna\Helper\PenggunaAdapter;
             $newPengguna->setEmail($email);
             $newPengguna->setTanggalLahir(new DateTime($tanggalLahir));
             $newPengguna->setTempatLahir($tempatLahir);
-            $newPengguna->setJenisKelamin($jenisKelamin);
+            $newPengguna->setJenisKelamin(JenisKelamin::getEnumBy($jenisKelamin));
             $newPengguna->setAlamat($alamat);
             $newPengguna->setNotelepon($notelepon);
             $newPengguna->setFotoprofil("");

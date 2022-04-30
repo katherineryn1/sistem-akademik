@@ -8,7 +8,7 @@ class Pengguna {
 	private string $nama = "";
 	private DateTime $tanggalLahir;
 	private string $tempatLahir = "";
-	private string $jenisKelamin = "";
+	private JenisKelamin $jenisKelamin;
 	private string $alamat = "";
 	private string $notelepon = "";
 	private string $password = "";
@@ -19,6 +19,7 @@ class Pengguna {
 	function __construct(){
 	    $this->setTanggalLahir(new DateTime());
 	    $this->setJabatan(new Jabatan());
+	    $this->setJenisKelamin(new JenisKelamin());
 	}
 
 	function __destruct(){
@@ -57,9 +58,9 @@ class Pengguna {
     }
 
     /**
-     * @return string
+     * @return JenisKelamin
      */
-    public function getJenisKelamin(): string
+    public function getJenisKelamin(): JenisKelamin
     {
         return $this->jenisKelamin;
     }
@@ -145,9 +146,9 @@ class Pengguna {
     }
 
     /**
-     * @param string $jenisKelamin
+     * @param JenisKelamin $jenisKelamin
      */
-    public function setJenisKelamin(string $jenisKelamin): void
+    public function setJenisKelamin(JenisKelamin $jenisKelamin): void
     {
         $this->jenisKelamin = $jenisKelamin;
     }
