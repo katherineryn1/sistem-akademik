@@ -1,6 +1,8 @@
 <?php
 namespace App\Modules\Dosen\Service;
 
+use App\Modules\Dosen\Entity\StatusDosen;
+use App\Modules\Dosen\Entity\StatusIkatanKerja;
 use App\Modules\Dosen\Helper\DosenAdapter;
 use App\Modules\Pengguna\Helper\PenggunaAdapter;
 use App\Modules\Perkuliahan\Service\KurikulumService;
@@ -40,9 +42,8 @@ class DosenService {
         $newDosen->setProgramStudi($programStudi);
         $newDosen->setBidangIlmu($bidangIlmu);
         $newDosen->setGelarAkademik($gelarAkademik);
-        $newDosen->setStatusIkatanKerja($statusIkatanKerja);
-        $newDosen->setStatusDosen($statusDosen);
-
+        $newDosen->setStatusIkatanKerja(StatusIkatanKerja::getEnumBy($statusIkatanKerja));
+        $newDosen->setStatusDosen(StatusDosen::getEnumBy($statusDosen));
         return  self::$pm->insertSingle($newDosen);
 
     }
@@ -63,8 +64,8 @@ class DosenService {
         $newDosen->setProgramStudi($programStudi);
         $newDosen->setBidangIlmu($bidangIlmu);
         $newDosen->setGelarAkademik($gelarAkademik);
-        $newDosen->setStatusIkatanKerja($statusIkatanKerja);
-        $newDosen->setStatusDosen($statusDosen);
+        $newDosen->setStatusIkatanKerja(StatusIkatanKerja::getEnumBy($statusIkatanKerja));
+        $newDosen->setStatusDosen(StatusDosen::getEnumBy($statusDosen));
 
         return self::$pm->updateSingle($newDosen);
     }

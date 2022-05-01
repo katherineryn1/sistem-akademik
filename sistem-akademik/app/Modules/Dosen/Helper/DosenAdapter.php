@@ -7,6 +7,8 @@ namespace App\Modules\Dosen\Helper;
 use App\Modules\Common\CommonAdapter;
 
 use App\Modules\Dosen\Entity\Dosen;
+use App\Modules\Dosen\Entity\StatusDosen;
+use App\Modules\Dosen\Entity\StatusIkatanKerja;
 use App\Modules\Pengguna\Helper\PenggunaAdapter;
 
 
@@ -34,8 +36,8 @@ class DosenAdapter implements CommonAdapter{
         $dosen->setProgramStudi($object['program_studi']);
         $dosen->setBidangIlmu($object['bidang_ilmu']);
         $dosen->setGelarAkademik($object['gelar_akademik']);
-        $dosen->setStatusIkatanKerja($object['status_ikatan_kerja']);
-        $dosen->setStatusDosen($object['status_dosen']);
+        $dosen->setStatusIkatanKerja(StatusIkatanKerja::getEnumBy( $object['status_ikatan_kerja']));
+        $dosen->setStatusDosen(StatusDosen::getEnumBy($object['status_dosen']));
         return $dosen;
     }
 

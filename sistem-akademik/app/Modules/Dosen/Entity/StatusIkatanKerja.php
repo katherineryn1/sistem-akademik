@@ -4,6 +4,7 @@
 namespace App\Modules\Dosen\Entity;
 
 use ReflectionClass;
+
 class StatusIkatanKerja{
     public const  TETAP = [ "string" => "Tetap" , "int" => 0 ];
     public const  HONORER = [ "string" => "Honorer" , "int" => 1 ];

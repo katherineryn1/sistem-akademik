@@ -13,6 +13,8 @@ class Dosen extends Pengguna {
 
 	function __construct(){
 	    parent::__construct();
+	    $this->setStatusIkatanKerja(new StatusIkatanKerja());
+	    $this->setStatusDosen(new StatusDosen());
 	}
 
 	function __destruct()

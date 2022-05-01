@@ -38,34 +38,22 @@ class Jabatan{
         $newJabatan->set($jabatan);
         return $newJabatan;
     }
-    protected static function getEnumByString(string $str): array {
-
+    protected static function getEnumByKey(string $keyType,$data): array {
         $oClass = new ReflectionClass(__CLASS__);
-        $str = strtolower($str);
         foreach ($oClass->getConstants() as $key=>$val){
-            if(strtolower($val['string']) == $str){
+            if($val[$keyType] == $data){
                 return $val;
             }
         }
         return self::DEFAULT;
     }
 
-    protected static function getEnumByInt(int $int): array {
-        $oClass = new ReflectionClass(__CLASS__);
-        foreach ($oClass->getConstants() as $key=>$val){
-            if($val['int'] == $int){
-                return $val;
-            }
-        }
-        return self::DEFAULT;
-    }
-
-    public static function getEnumBy($data): Jabatan {
+    public static function getEnumBy($data): self {
         if(is_string($data)){
-            return  self::createInstance(self::getEnumByString($data));
+            return  self::createInstance(self::getEnumByKey("string",$data));
         }
         if(is_numeric($data)){
-            return  self::createInstance(self::getEnumByInt($data));
+            return  self::createInstance(self::getEnumByKey("int",$data));
         }
         return  self::createInstance(self::DEFAULT);
     }

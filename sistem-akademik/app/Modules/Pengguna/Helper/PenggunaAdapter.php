@@ -44,25 +44,6 @@ class PenggunaAdapter implements CommonAdapter {
         return $pengguna;
     }
 
-    public static function InjectPenggunaToDictionary($object): array {
-        if(!array_key_exists('nomor_induk',$object)){
-            return [];
-        }
-        $tempPengguna =  PenggunaService::userInfo("nomor_induk", $object['nomor_induk']);
-        if(count($tempPengguna) == 0){
-            return [];
-        }
-        $object['nama'] = $tempPengguna[0]['nama'];
-        $object['email'] = $tempPengguna[0]['email'];
-        $object['tanggal_lahir'] = $tempPengguna[0]['tanggal_lahir'];
-        $object['tempat_lahir'] = $tempPengguna[0]['tempat_lahir'];
-        $object['jenis_kelamin'] = $tempPengguna[0]['jenis_kelamin'];
-        $object['alamat'] = $tempPengguna[0]['alamat'];
-        $object['notelepon'] = $tempPengguna[0]['notelepon'];
-        $object['foto_profile'] = $tempPengguna[0]['foto_profile'];
-        $object['jabatan'] = $tempPengguna[0]['jabatan'];
-        return $object;
-    }
     public static function ArrayEntitiesToDictionaries($object): array {
         $tempArr = Array();
         foreach ($object as $value) {
