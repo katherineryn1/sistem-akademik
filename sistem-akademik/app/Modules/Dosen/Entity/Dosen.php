@@ -8,8 +8,8 @@ class Dosen extends Pengguna {
 	private string $programStudi = "";
 	private string $bidangIlmu = "";
 	private string $gelarAkademik = "";
-	private string $statusIkatanKerja = "";
-	private bool $statusDosen = false;
+	private StatusIkatanKerja $statusIkatanKerja;
+	private StatusDosen $statusDosen;
 
 	function __construct(){
 	    parent::__construct();
@@ -44,17 +44,17 @@ class Dosen extends Pengguna {
     }
 
     /**
-     * @return string
+     * @return StatusIkatanKerja
      */
-    public function getStatusIkatanKerja(): string
+    public function getStatusIkatanKerja(): StatusIkatanKerja
     {
         return $this->statusIkatanKerja;
     }
 
     /**
-     * @return bool
+     * @return StatusDosen
      */
-    public function  getStatusDosen(): bool {
+    public function  getStatusDosen(): StatusDosen {
         return  $this->statusDosen;
     }
 
@@ -83,17 +83,17 @@ class Dosen extends Pengguna {
     }
 
     /**
-     * @param string $statusIkatanKerja
+     * @param StatusIkatanKerja $statusIkatanKerja
      */
-    public function setStatusIkatanKerja(string $statusIkatanKerja): void
+    public function setStatusIkatanKerja(StatusIkatanKerja $statusIkatanKerja): void
     {
         $this->statusIkatanKerja = $statusIkatanKerja;
     }
 
     /**
-     * @param bool $statusDosen
+     * @param StatusDosen $statusDosen
      */
-    public function setStatusDosen(bool $statusDosen): void
+    public function setStatusDosen(StatusDosen $statusDosen): void
     {
         $this->statusDosen = $statusDosen;
     }
