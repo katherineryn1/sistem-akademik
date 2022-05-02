@@ -5,7 +5,7 @@ namespace App\Modules\Dosen\Entity;
 
 use ReflectionClass;
 
-class StatusIkatanKerja{
+class StatusIkatanKerja {
     public const  TETAP = [ "string" => "Tetap" , "int" => 0 ];
     public const  HONORER = [ "string" => "Honorer" , "int" => 1 ];
     private const DEFAULT = [ "string" => "" , "int" => -1 ];
@@ -35,11 +35,10 @@ class StatusIkatanKerja{
         $this->value = $type;
     }
     private static function createInstance(array $type):self {
-        $newType = new self();
-        $newType->set($type);
-        return $newType;
+        $newInstance = new self();
+        $newInstance->set($type);
+        return $newInstance;
     }
-
     protected static function getEnumByKey(string $keyType,$data): array {
         $oClass = new ReflectionClass(__CLASS__);
         foreach ($oClass->getConstants() as $key=>$val){
@@ -48,6 +47,15 @@ class StatusIkatanKerja{
             }
         }
         return self::DEFAULT;
+    }
+
+    public static function getEnumString(): array {
+        $oClass = new ReflectionClass(__CLASS__);
+        $enumAll = [];
+        foreach ($oClass->getConstants() as $key=>$val){
+            array_push($enumAll,$val['string']);
+        }
+        return $enumAll;
     }
 
     public static function getEnumBy($data): self {
@@ -59,5 +67,4 @@ class StatusIkatanKerja{
         }
         return  self::createInstance(self::DEFAULT);
     }
-
 }

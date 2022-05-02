@@ -1,12 +1,14 @@
 <?php
-namespace App\Modules\Pengguna\Entity;
 
-use ReflectionClass;
 
-class Jabatan{
-    public const  DAAK = [ "string" => "Daak" , "int" => 0 ];
-    public const  DOSEN = [ "string" => "Dosen" , "int" => 1 ];
-    public const  MAHASISWA = [ "string" => "Mahasiswa" , "int" => 2 ];
+namespace App\Modules\Perkuliahan\Entity;
+
+
+class JenisMatakuliah{
+    public const  UMUM = [ "string" => "Umum" , "int" => 0 ];
+    public const  KEILMUAN_KETERAMPILAN = [ "string" => "Keilmuan Keterampilan" , "int" => 1 ];
+    public const  PENGEMBANGAN_KEPRIBADIAN = [ "string" => "Pengembangan Kepribadian" , "int" => 2 ];
+    public const  KEAHLIAN_BERKARYA = [ "string" => "Keahlian Berkarya" , "int" => 3 ];
     private const DEFAULT = [ "string" => "" , "int" => -1 ];
 
     private $value = self::DEFAULT;
@@ -28,7 +30,7 @@ class Jabatan{
     }
     public function set(array $type):void {
         if(!array_key_exists("string", $type) || !array_key_exists("int", $type)){
-            error_log("Key Not Valid Jabatan");
+            error_log("Key Not Valid Jenis Matakuliah");
             return;
         }
         $this->value = $type;
@@ -66,4 +68,4 @@ class Jabatan{
         }
         return  self::createInstance(self::DEFAULT);
     }
-}?>
+}
