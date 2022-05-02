@@ -68,8 +68,8 @@
                                 <td>{{ $dosen['jenis_kelamin']->getString()}}</td>
                                 <td>{{ $dosen['program_studi']}}</td>
                                 <td>{{ $dosen['bidang_ilmu']}}</td>
-                                <td>{{ $dosen['status_ikatan_kerja']}}</td>
-                                <td>{{ $dosen['status_dosen']}}</td>
+                                <td>{{ $dosen['status_ikatan_kerja']->getString()}}</td>
+                                <td>{{ $dosen['status_dosen']->getString()}}</td>
                                 <td>
                                     <a href="{{ url("/daak/dosen/{$dosen['nomor_induk']}") }}" class="btn btn-warning" >
                                         <i width="1rem" height="1rem" fill="currentColor" class="bi bi-pencil-square"></i>

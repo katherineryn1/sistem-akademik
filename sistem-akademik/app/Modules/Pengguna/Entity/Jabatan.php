@@ -48,6 +48,15 @@ class Jabatan{
         return self::DEFAULT;
     }
 
+    protected static function getEnumString(): array {
+        $oClass = new ReflectionClass(__CLASS__);
+        $enumAll = [];
+        foreach ($oClass->getConstants() as $key=>$val){
+            array_push($enumAll,$val['string']);
+        }
+        return $enumAll;
+    }
+
     public static function getEnumBy($data): self {
         if(is_string($data)){
             return  self::createInstance(self::getEnumByKey("string",$data));
