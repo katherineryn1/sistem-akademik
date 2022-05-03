@@ -3,7 +3,7 @@
 
 namespace App\Modules\Perkuliahan\Entity;
 
-
+use ReflectionClass;
 class PosisiAmbilPengambilanMatakuliah{
     public const  PENGAJAR = [ "string" => "Pengajar" , "int" => 0 ];
     public const  MURID = [ "string" => "Murid" , "int" => 1 ];

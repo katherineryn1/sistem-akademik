@@ -53,8 +53,8 @@ class DosenData extends Model implements  DosenPersistence{
     public function updateSingle(Dosen $dosen): bool{
         $data = $this::find($dosen->getNomorInduk());
         $dosenDict = DosenAdapter::EntityToDictionary($dosen);
-        $dosenDict['status_ikatan_kerja']=$dosenDict['status_ikatan_kerja'].getInt();
-        $dosenDict['status_dosen']=$dosenDict['status_dosen'].getInt();
+        $dosenDict['status_ikatan_kerja']=$dosenDict['status_ikatan_kerja']->getInt();
+        $dosenDict['status_dosen']=$dosenDict['status_dosen']->getInt();
         $data->update($dosenDict);
         return $data->save();
     }

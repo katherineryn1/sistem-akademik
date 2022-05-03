@@ -3,7 +3,7 @@
 
 namespace App\Modules\Perkuliahan\Entity;
 
-
+use ReflectionClass;
 class SemesterKurikulum{
     public const  GANJIL = [ "string" => "Ganjil" , "int" => 0 ];
     public const  GENAP = [ "string" => "Genap" , "int" => 1 ];

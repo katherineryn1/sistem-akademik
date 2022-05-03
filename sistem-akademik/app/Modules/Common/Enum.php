@@ -3,7 +3,7 @@
 
 namespace App\Modules\Common;
 
-
+use ReflectionClass;
 abstract class Enum{
     private const DEFAULT = [ "string" => "" , "int" => -1 ];
     protected $value = self::DEFAULT;
