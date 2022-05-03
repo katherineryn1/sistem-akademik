@@ -5,6 +5,7 @@ namespace App\Modules\Perkuliahan\Helper;
 
 
 use App\Modules\Common\CommonAdapter;
+use App\Modules\Perkuliahan\Entity\KeteranganKehadiran;
 use App\Modules\Perkuliahan\Helper\PengambilanMatakuliahBuilder;
 use App\Modules\Perkuliahan\Entity\Kehadiran;
 
@@ -25,7 +26,7 @@ class KehadiranAdapter implements CommonAdapter{
         $kehadiran = new Kehadiran();
         $kehadiran->setId($object['id']);
         $kehadiran->setPengguna(PengambilanMatakuliahBuilder::setId($object['id_pengambilan_matakuliah'])::get());
-        $kehadiran->setKeterangan($object['keterangan']);
+        $kehadiran->setKeterangan(KeteranganKehadiran::getEnumBy($object['keterangan']));
         return $kehadiran;
     }
 

@@ -41,7 +41,7 @@ class AppServiceProvider extends ServiceProvider
         new DosenService(new DosenData());
         new MahasiswaService(new MahasiswaData());
         new MatakuliahService(new MatakuliahData());
-        new KurikulumService(new KurikulumData(), new PengambilanMatakuliahData());
+        new KurikulumService(new KurikulumData());
         new NilaiService(new NilaiData());
         new KehadiranService(new KehadiranData());
         new RosterService(new RosterData());

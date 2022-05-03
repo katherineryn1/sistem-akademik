@@ -28,13 +28,17 @@ class KurikulumData extends Model implements KurikulumPersistence{
     }
     public function insertSingle(Kurikulum $kurikulum): bool
     {
-        $data = $this->fill(KurikulumAdapter::EntityToDictionary($kurikulum));
+        $kData = KurikulumAdapter::EntityToDictionary($kurikulum);
+        $kData['semester'] = $kData['semester']->getInt();
+        $data = $this->fill($kData);
         return $data ->save();
     }
 
     public function updateSingle(Kurikulum $kurikulum): bool  {
         $data = $this::find($kurikulum->getId());
-        $data->update(KurikulumAdapter::EntityToDictionary($kurikulum));
+        $kData = KurikulumAdapter::EntityToDictionary($kurikulum);
+        $kData['semester'] = $kData['semester']->getInt();
+        $data->update($kData);
         return $data->save();
     }
 

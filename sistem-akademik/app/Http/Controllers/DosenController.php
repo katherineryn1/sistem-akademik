@@ -505,9 +505,12 @@ class DosenController extends Controller{
     public function updateNilaiMahasiswa(Request $request, $id_nilai) {
         DB::beginTransaction();
         try {
-            $arr_nilai = $request->nilai;
-            $na = $request->nilai_akhir;
-            $index = $request->index;
+//            $arr_nilai = $request->nilai;
+//            $na = $request->nilai_akhir;
+//            $index = $request->index;
+            $arr_nilai = $request['nilai'];
+            $na = $request['nilai_akhir'];
+            $index = $request['index'];
 
             $sql_statement = "UPDATE `nilai_data` SET `nilai_1` = {$arr_nilai[0]}, `nilai_2` = {$arr_nilai[1]}, `nilai_3` = {$arr_nilai[2]}, `nilai_4` = {$arr_nilai[3]}, `nilai_5` = {$arr_nilai[4]}, `nilai_UAS` = {$arr_nilai[5]}, `nilai_akhir` = {$na}, `index` = '{$index}' WHERE `id` = $id_nilai";
             DB::update($sql_statement);

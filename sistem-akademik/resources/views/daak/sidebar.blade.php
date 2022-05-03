@@ -118,6 +118,20 @@
             showAlerts(params.get("err"), params.get("msg"));
         }
 
+        function setYearLimitDate(elIDDateField="datefield", limitYear = -5){
+            let today = new Date();
+            let dd = today.getDate();
+            let mm = today.getMonth()+1; //January is 0!
+            let yyyy = today.getFullYear() + limitYear;
+            if(dd<10){
+                dd='0'+dd
+            }
+            if(mm<10){
+                mm='0'+mm
+            }
+            today = yyyy+'-'+mm+'-'+dd;
+            document.getElementById(elIDDateField).setAttribute("max", today);
+        }
 
     </script>
 

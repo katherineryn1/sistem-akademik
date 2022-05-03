@@ -23,7 +23,7 @@ class DosenServiceTest extends TestCase{
         $bidangIlmu = 'Teknologi';
         $gelarAkademik = "Master";
         $stausIkatanKerja = "Honorer";
-        $statusDosen = true;
+        $statusDosen = "Aktif";
 
         $res = DosenService::insert($nama,$password,  $nomorInduk, $email, $tanggalLahir, $tempatLahir,
             $jenisKelamin, $alamat,$notelepon, $jabatan,$jabatan,$programstudi,$bidangIlmu,

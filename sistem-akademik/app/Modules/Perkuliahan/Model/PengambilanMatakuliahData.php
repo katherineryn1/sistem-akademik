@@ -30,6 +30,7 @@ class PengambilanMatakuliahData extends Model implements PengambilanMatakuliahPe
     public function insertSingle(PengambilanMatakuliah $pengambilanMatakuliah, string $kurikulum): bool {
         $tempArr = PengambilanMatakuliahAdapter::EntityToDictionary($pengambilanMatakuliah);
         $tempArr['id_kurikulum'] = $kurikulum;
+        $tempArr['posisi_ambil'] = $tempArr['posisi_ambil']->getInt();
         $data = $this->fill($tempArr);
         return $data ->save();
     }

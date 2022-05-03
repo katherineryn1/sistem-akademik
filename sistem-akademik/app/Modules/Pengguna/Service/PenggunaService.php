@@ -1,6 +1,8 @@
 <?php
     namespace App\Modules\Pengguna\Service;
-    use App\Modules\Pengguna\Helper\PenggunaAdapter;
+    use App\Modules\Pengguna\Entity\Jabatan;
+use App\Modules\Pengguna\Entity\JenisKelamin;
+use App\Modules\Pengguna\Helper\PenggunaAdapter;
     use App\Providers\PenggunaServiceProvider;
     use DateTime;
     use App\Modules\Pengguna\Entity\Pengguna;
@@ -54,7 +56,7 @@
 
         /**
          * @param string $email
-         * @param string $password
+         * @param string $newPassword
          * @return bool
          */
         public static function gantiPassword(string $email, string  $newPassword): bool {
@@ -91,10 +93,10 @@
             $newPengguna->setEmail($email);
             $newPengguna->setTanggalLahir(new DateTime($tanggalLahir));
             $newPengguna->setTempatLahir($tempatLahir);
-            $newPengguna->setJenisKelamin($jenisKelamin);
+            $newPengguna->setJenisKelamin(JenisKelamin::getEnumBy($jenisKelamin));
             $newPengguna->setAlamat($alamat);
             $newPengguna->setNotelepon($notelepon);
-            $newPengguna->setJabatan($jabatan);
+            $newPengguna->setJabatan(Jabatan::getEnumBy($jabatan));
             $newPengguna->setFotoprofil($fotoprofile);
             return self::$pm->insertSingle($newPengguna);
         }
@@ -123,11 +125,11 @@
             $newPengguna->setEmail($email);
             $newPengguna->setTanggalLahir(new DateTime($tanggalLahir));
             $newPengguna->setTempatLahir($tempatLahir);
-            $newPengguna->setJenisKelamin($jenisKelamin);
+            $newPengguna->setJenisKelamin(JenisKelamin::getEnumBy($jenisKelamin));
             $newPengguna->setAlamat($alamat);
             $newPengguna->setNotelepon($notelepon);
             $newPengguna->setFotoprofil("");
-            $newPengguna->setJabatan($jabatan);
+            $newPengguna->setJabatan(Jabatan::getEnumBy($jabatan));
 
             return self::$pm->updateSingle($newPengguna);
         }

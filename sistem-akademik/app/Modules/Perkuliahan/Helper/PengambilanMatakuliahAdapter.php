@@ -7,6 +7,7 @@ namespace App\Modules\Perkuliahan\Helper;
 use App\Modules\Common\CommonAdapter;
 use App\Modules\Pengguna\Helper\PenggunaBuilder;
 use App\Modules\Perkuliahan\Entity\PengambilanMatakuliah;
+use App\Modules\Perkuliahan\Entity\PosisiAmbilPengambilanMatakuliah;
 
 class PengambilanMatakuliahAdapter implements CommonAdapter{
 
@@ -27,7 +28,7 @@ class PengambilanMatakuliahAdapter implements CommonAdapter{
         $pengambilanMK = new PengambilanMatakuliah();
         $pengambilanMK->setId($object['id']);
         $pengambilanMK->setPengguna(PenggunaBuilder::setNomorInduk($object['nomor_induk'])::get());
-        $pengambilanMK->setPosisiAmbil($object['posisi_ambil']);
+        $pengambilanMK->setPosisiAmbil(PosisiAmbilPengambilanMatakuliah::getEnumBy($object['posisi_ambil']));
         return $pengambilanMK;
     }
 

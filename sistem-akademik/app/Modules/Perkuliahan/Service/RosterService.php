@@ -53,7 +53,7 @@ class RosterService {
     }
 
     /**
-     * @param string $id
+     * @param int $id
      * @return bool
      */
     public static function delete(int $id):bool {

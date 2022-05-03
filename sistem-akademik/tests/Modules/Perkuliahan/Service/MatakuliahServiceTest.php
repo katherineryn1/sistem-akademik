@@ -11,7 +11,7 @@ class MatakuliahServiceTest extends TestCase
     public function testInsert(){
         $kode = "IF-001";
         $nama = "New Matakuliah";
-        $jenis = "Insititusi";
+        $jenis = "Umum";
         $sifat = "Wajib";
         $sks= 3;
         $res = MatakuliahService::insert($kode,$nama, $jenis, $sifat, $sks);

@@ -1,6 +1,8 @@
 <?php
 namespace App\Modules\Dosen\Service;
 
+use App\Modules\Dosen\Entity\StatusDosen;
+use App\Modules\Dosen\Entity\StatusIkatanKerja;
 use App\Modules\Dosen\Helper\DosenAdapter;
 use App\Modules\Pengguna\Helper\PenggunaAdapter;
 use App\Modules\Perkuliahan\Service\KurikulumService;
@@ -40,26 +42,20 @@ class DosenService {
         $newDosen->setProgramStudi($programStudi);
         $newDosen->setBidangIlmu($bidangIlmu);
         $newDosen->setGelarAkademik($gelarAkademik);
-        $newDosen->setStatusIkatanKerja($statusIkatanKerja);
-        $newDosen->setStatusDosen($statusDosen);
-
+        $newDosen->setStatusIkatanKerja(StatusIkatanKerja::getEnumBy($statusIkatanKerja));
+        $newDosen->setStatusDosen(StatusDosen::getEnumBy($statusDosen));
         return  self::$pm->insertSingle($newDosen);
 
     }
 
     /**
-     * @param string $nama
-     * @param string $password
      * @param string $nomorInduk
-     * @param string $email
-     * @param string $tanggalLahir
-     * @param string $tempatLahir
-     * @param string $jenisKelamin
-     * @param string $alamat
-     * @param string $notelepon
-     * @param string $jabatan
+     * @param string $programStudi
+     * @param string $bidangIlmu
+     * @param string $gelarAkademik
+     * @param string $statusIkatanKerja
+     * @param bool $statusDosen
      * @return bool
-     * @throws \Exception
      */
     public static function update(string $nomorInduk,string $programStudi,string $bidangIlmu,
                                   string $gelarAkademik,string $statusIkatanKerja,bool $statusDosen):bool {
@@ -68,8 +64,8 @@ class DosenService {
         $newDosen->setProgramStudi($programStudi);
         $newDosen->setBidangIlmu($bidangIlmu);
         $newDosen->setGelarAkademik($gelarAkademik);
-        $newDosen->setStatusIkatanKerja($statusIkatanKerja);
-        $newDosen->setStatusDosen($statusDosen);
+        $newDosen->setStatusIkatanKerja(StatusIkatanKerja::getEnumBy($statusIkatanKerja));
+        $newDosen->setStatusDosen(StatusDosen::getEnumBy($statusDosen));
 
         return self::$pm->updateSingle($newDosen);
     }

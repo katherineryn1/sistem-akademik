@@ -1,15 +1,14 @@
 <?php
 namespace App\Modules\Perkuliahan\Entity;
 
-use App\Modules\Pengguna\Entity\Pengguna;
-
 class Kehadiran{
     private int $id = -1 ;
-	private string $keterangan = "";
+	private KeteranganKehadiran $keterangan;
 	private PengambilanMatakuliah $pengguna;
 
 	function __construct(){
 	    $this->setPengguna(new PengambilanMatakuliah());
+        $this->setKeterangan(new KeteranganKehadiran());
 	}
 
 	function __destruct()
@@ -33,17 +32,17 @@ class Kehadiran{
     }
 
     /**
-     * @return string
+     * @return KeteranganKehadiran
      */
-    public function getKeterangan(): string
+    public function getKeterangan(): KeteranganKehadiran
     {
         return $this->keterangan;
     }
 
     /**
-     * @param string $keterangan
+     * @param KeteranganKehadiran $keterangan
      */
-    public function setKeterangan(string $keterangan): void
+    public function setKeterangan(KeteranganKehadiran $keterangan): void
     {
         $this->keterangan = $keterangan;
     }
@@ -64,14 +63,5 @@ class Kehadiran{
         $this->pengguna = $pengguna;
     }
 
-
-
-    public function getArray():array {
-        return [
-            'id' => $this->getId(),
-            'keterangan' => $this->getKeterangan(),
-            'id_pengambilan_matakuliah' => $this->getPengguna()->getId(),
-        ];
-    }
 }
 ?>

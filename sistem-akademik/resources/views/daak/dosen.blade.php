@@ -65,11 +65,11 @@
                                 <td>{{ $dosen['nama'] }}</td>
                                 <td>{{ $dosen['email'] }}</td>
                                 <td>{{ $dosen['notelepon'] }}</td>
-                                <td>{{ $dosen['jenis_kelamin']}}</td>
+                                <td>{{ $dosen['jenis_kelamin']->getString()}}</td>
                                 <td>{{ $dosen['program_studi']}}</td>
                                 <td>{{ $dosen['bidang_ilmu']}}</td>
-                                <td>{{ $dosen['status_ikatan_kerja']}}</td>
-                                <td>{{ $dosen['status_dosen']}}</td>
+                                <td>{{ $dosen['status_ikatan_kerja']->getString()}}</td>
+                                <td>{{ $dosen['status_dosen']->getString()}}</td>
                                 <td>
                                     <a href="{{ url("/daak/dosen/{$dosen['nomor_induk']}") }}" class="btn btn-warning" >
                                         <i width="1rem" height="1rem" fill="currentColor" class="bi bi-pencil-square"></i>
@@ -145,15 +145,15 @@
                         <legend class="col-form-label col-sm-2 pt-0">Jenis Kelamin</legend>
                         <div class="col-sm-10">
                             <div class="col-3">
-                                <input class="form-check-input" type="radio" name="inputJenisKelamin" id="inputJKPria" value="Pria">
+                                <input class="form-check-input" type="radio" name="inputJenisKelamin" id="inputJKPria" value="Laki-Laki">
                                 <label class="form-check-label" for="inputJKPria">
-                                    Pria
+                                    Laki-Laki
                                 </label>
                             </div>
                             <div class="col-3">
-                                <input class="form-check-input" type="radio" name="inputJenisKelamin" id="inputJKWanita" value="Wanita">
+                                <input class="form-check-input" type="radio" name="inputJenisKelamin" id="inputJKWanita" value="Perempuan">
                                 <label class="form-check-label" for="inputJKWanita">
-                                    Wanita
+                                    Perempuan
                                 </label>
                             </div>
                         </div>
