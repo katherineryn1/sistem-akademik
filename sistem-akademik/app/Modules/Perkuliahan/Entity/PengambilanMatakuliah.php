@@ -7,13 +7,14 @@ use App\Modules\Pengguna\Entity\Pengguna;
 class PengambilanMatakuliah{
     private int $id = -1;
     private Pengguna $pengguna;
-    private string $posisiAmbil = "";
+    private PosisiAmbilPengambilanMatakuliah $posisiAmbil;
 
     /**
      * PengambilanMatakuliah constructor.
      */
     public function __construct(){
         $this->setPengguna(new Pengguna());
+        $this->setPosisiAmbil(new PosisiAmbilPengambilanMatakuliah());
     }
 
     function __destruct()
@@ -53,28 +54,18 @@ class PengambilanMatakuliah{
     }
 
     /**
-     * @return string
+     * @return PosisiAmbilPengambilanMatakuliah
      */
-    public function getPosisiAmbil(): string
+    public function getPosisiAmbil(): PosisiAmbilPengambilanMatakuliah
     {
         return $this->posisiAmbil;
     }
 
     /**
-     * @param string $posisiAmbil
+     * @param PosisiAmbilPengambilanMatakuliah $posisiAmbil
      */
-    public function setPosisiAmbil(string $posisiAmbil): void
+    public function setPosisiAmbil(PosisiAmbilPengambilanMatakuliah $posisiAmbil): void
     {
         $this->posisiAmbil = $posisiAmbil;
     }
-
-    public function getArray():array {
-        return [
-            'id' => $this->getId(),
-            'nomor_induk' => $this->getPengguna()->getNomorInduk(),
-            'posisi_ambil' => $this->getPosisiAmbil(),
-        ];
-    }
-
-
 }

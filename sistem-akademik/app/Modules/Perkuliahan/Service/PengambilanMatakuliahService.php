@@ -8,6 +8,7 @@ namespace App\Modules\Perkuliahan\Service;
 
 use App\Modules\Pengguna\Helper\PenggunaBuilder;
 use App\Modules\Perkuliahan\Entity\PengambilanMatakuliah;
+use App\Modules\Perkuliahan\Entity\PosisiAmbilPengambilanMatakuliah;
 use App\Modules\Perkuliahan\Helper\PengambilanMatakuliahAdapter;
 use App\Modules\Perkuliahan\Persistence\PengambilanMatakuliahPersistence;
 
@@ -30,7 +31,7 @@ class PengambilanMatakuliahService{
     public static function insert(string  $nomorInduk,string $posisiAmbil,int $kurikulum):bool {
         $newPengambilan = new PengambilanMatakuliah();
         $newPengambilan->setPengguna(PenggunaBuilder::setNomorInduk($nomorInduk)::get());
-        $newPengambilan->setPosisiAmbil($posisiAmbil);
+        $newPengambilan->setPosisiAmbil(PosisiAmbilPengambilanMatakuliah::getEnumBy($posisiAmbil));
         return self::$pm->insertSingle($newPengambilan,$kurikulum);
     }
 
