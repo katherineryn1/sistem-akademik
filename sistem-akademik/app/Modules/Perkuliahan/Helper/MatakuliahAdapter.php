@@ -5,7 +5,9 @@ namespace App\Modules\Perkuliahan\Helper;
 
 
 use App\Modules\Common\CommonAdapter;
+use App\Modules\Perkuliahan\Entity\JenisMatakuliah;
 use App\Modules\Perkuliahan\Entity\Matakuliah;
+use App\Modules\Perkuliahan\Entity\SifatMatakuliah;
 
 class MatakuliahAdapter implements CommonAdapter{
 
@@ -26,9 +28,9 @@ class MatakuliahAdapter implements CommonAdapter{
     {
         $matakuliah = new Matakuliah();
         $matakuliah->setKode($object['kode']);
-        $matakuliah->setJenis($object['jenis']);
+        $matakuliah->setJenis(JenisMatakuliah::getEnumBy($object['jenis']));
         $matakuliah->setNama($object['nama']);
-        $matakuliah->setSifat($object['sifat']);
+        $matakuliah->setSifat(SifatMatakuliah::getEnumBy($object['sifat']));
         $matakuliah->setSks($object['sks']);
         return $matakuliah;
     }

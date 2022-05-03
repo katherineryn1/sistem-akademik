@@ -3,7 +3,7 @@
 
 namespace App\Modules\Perkuliahan\Entity;
 
-
+use ReflectionClass;
 class JenisMatakuliah{
     public const  UMUM = [ "string" => "Umum" , "int" => 0 ];
     public const  KEILMUAN_KETERAMPILAN = [ "string" => "Keilmuan Keterampilan" , "int" => 1 ];

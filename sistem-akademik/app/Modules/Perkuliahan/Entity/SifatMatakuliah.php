@@ -3,7 +3,7 @@
 
 namespace App\Modules\Perkuliahan\Entity;
 
-
+use ReflectionClass;
 class SifatMatakuliah{
     public const  WAJIB = [ "string" => "Wajib" , "int" => 0 ];
     public const  PILIHAN = [ "string" => "Pilihan" , "int" => 1 ];

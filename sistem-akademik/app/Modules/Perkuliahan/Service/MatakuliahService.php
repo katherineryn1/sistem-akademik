@@ -1,7 +1,8 @@
 <?php
 namespace App\Modules\Perkuliahan\Service;
+use App\Modules\Perkuliahan\Entity\JenisMatakuliah;
+use App\Modules\Perkuliahan\Entity\SifatMatakuliah;
 use App\Modules\Perkuliahan\Helper\MatakuliahAdapter;
-use DateTime;
 use App\Modules\Perkuliahan\Entity\Matakuliah;
 use App\Modules\Perkuliahan\Persistence\MatakuliahPersistence;
 
@@ -27,8 +28,8 @@ class MatakuliahService {
         $newMatakuliah = new Matakuliah();
         $newMatakuliah->setKode($kode);
         $newMatakuliah->setNama($nama);
-        $newMatakuliah->setJenis($jenis);
-        $newMatakuliah->setSifat($sifat);
+        $newMatakuliah->setJenis(JenisMatakuliah::getEnumBy($jenis));
+        $newMatakuliah->setSifat(SifatMatakuliah::getEnumBy($sifat));
         $newMatakuliah->setSks($sks);
         return self::$pm->insertSingle($newMatakuliah);
     }
@@ -45,8 +46,8 @@ class MatakuliahService {
         $newMatakuliah = new Matakuliah();
         $newMatakuliah->setKode($kode);
         $newMatakuliah->setNama($nama);
-        $newMatakuliah->setJenis($jenis);
-        $newMatakuliah->setSifat($sifat);
+        $newMatakuliah->setJenis(JenisMatakuliah::getEnumBy($jenis));
+        $newMatakuliah->setSifat(SifatMatakuliah::getEnumBy($sifat));
         $newMatakuliah->setSks($sks);
         return self::$pm->updateSingle($newMatakuliah);
     }

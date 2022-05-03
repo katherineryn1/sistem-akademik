@@ -42,8 +42,8 @@
                             <tr>
                                 <th scope="row">{{ $matakuliah['kode'] }}</th>
                                 <td>{{ $matakuliah['nama'] }}</td>
-                                <td>{{ $matakuliah['jenis'] }}</td>
-                                <td>{{ $matakuliah['sifat'] }}</td>
+                                <td>{{ $matakuliah['jenis']->getString() }}</td>
+                                <td>{{ $matakuliah['sifat']->getString() }}</td>
                                 <td>{{ $matakuliah['sks'] }}</td>
                                 <td>
                                     <a href="{{ url("/daak/matakuliah/{$matakuliah['kode']}") }}" class="btn btn-warning" >
