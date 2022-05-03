@@ -3,7 +3,7 @@
 
 namespace App\Modules\Perkuliahan\Entity;
 
-
+use ReflectionClass;
 class KeteranganKehadiran{
     public const  HADIR = [ "string" => "Hadir" , "int" => 0 ];
     public const  IZIN = [ "string" => "Izin" , "int" => 1 ];

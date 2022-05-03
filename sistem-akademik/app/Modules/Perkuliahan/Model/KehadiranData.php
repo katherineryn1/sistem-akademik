@@ -31,6 +31,7 @@ class KehadiranData extends Model implements KehadiranPersistence{
     {
         $k = KehadiranAdapter::EntityToDictionary($kehadiran);
         $k['id_roster'] = $roster;
+        $k['keterangan'] = $k['keterangan']->getInt();
         $data = $this->fill($k);
         return $data ->save();
     }
@@ -38,7 +39,9 @@ class KehadiranData extends Model implements KehadiranPersistence{
     public function updateSingle(Kehadiran $kehadiran): bool
     {
         $data = $this::find($kehadiran->getId());
-        $data->update(KehadiranAdapter::EntityToDictionary($kehadiran));
+        $k = KehadiranAdapter::EntityToDictionary($kehadiran);
+        $k['keterangan'] = $k['keterangan']->getInt();
+        $data->update($k);
         return $data->save();
     }
 
