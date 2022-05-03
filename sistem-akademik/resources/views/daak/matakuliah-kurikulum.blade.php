@@ -100,7 +100,7 @@
                                 <th scope="row">{{ $kurikulum['id'] }}</th>
                                 <td>{{ $kurikulum['kode_matakuliah'] }}</td>
                                 <td>{{ $kurikulum['tahun'] }}</td>
-                                <td>{{ $kurikulum['semester'] }}</td>
+                                <td>{{ $kurikulum['semester']->getString() }}</td>
                                 <td>{{ $kurikulum['kelas'] }}</td>
                                 <td>{{ $kurikulum['jumlah_pertemuan'] }}</td>
                                 <td>
