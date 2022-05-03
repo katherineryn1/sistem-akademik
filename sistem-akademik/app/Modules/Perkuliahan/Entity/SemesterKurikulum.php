@@ -1,12 +1,13 @@
 <?php
-namespace App\Modules\Pengguna\Entity;
 
-use ReflectionClass;
 
-class JenisKelamin{
-    public const  LAKI_LAKI = [ "string" => "Laki-Laki" , "int" => 0 ];
-    public const  PEREMPUAN = [ "string" => "Perempuan" , "int" => 1 ];
-    public const  LAINNYA = [ "string" => "Lainnya" , "int" => 2 ];
+namespace App\Modules\Perkuliahan\Entity;
+
+
+class SemesterKurikulum{
+    public const  GANJIL = [ "string" => "Ganjil" , "int" => 0 ];
+    public const  GENAP = [ "string" => "Genap" , "int" => 1 ];
+    public const  PENDEK = [ "string" => "Pendek" , "int" => 2 ];
     private const DEFAULT = [ "string" => "" , "int" => -1 ];
 
     private $value = self::DEFAULT;
@@ -28,17 +29,16 @@ class JenisKelamin{
     }
     public function set(array $type):void {
         if(!array_key_exists("string", $type) || !array_key_exists("int", $type)){
-            error_log("Key Not Valid Jenis Kelamin");
+            error_log("Key Not Valid Jenis Matakuliah");
             return;
         }
         $this->value = $type;
     }
     private static function createInstance(array $type):self {
-        $newType = new self();
-        $newType->set($type);
-        return $newType;
+        $newInstance = new self();
+        $newInstance->set($type);
+        return $newInstance;
     }
-
     protected static function getEnumByKey(string $keyType,$data): array {
         $oClass = new ReflectionClass(__CLASS__);
         foreach ($oClass->getConstants() as $key=>$val){
