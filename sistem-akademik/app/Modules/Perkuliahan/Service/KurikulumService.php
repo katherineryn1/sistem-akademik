@@ -2,6 +2,7 @@
 namespace App\Modules\Perkuliahan\Service;
 
 use App\Modules\Perkuliahan\Entity\Kurikulum;
+use App\Modules\Perkuliahan\Entity\SemesterKurikulum;
 use App\Modules\Perkuliahan\Helper\KurikulumAdapter;
 use App\Modules\Perkuliahan\Helper\MatakuliahBuilder;
 use App\Modules\Perkuliahan\Persistence\KurikulumPersistence;
@@ -29,7 +30,7 @@ class KurikulumService {
                                    string  $kodeMatakuliah):bool {
         $newKurikulum = new Kurikulum();
         $newKurikulum->setTahun($tahun);
-        $newKurikulum->setSemester($semester);
+        $newKurikulum->setSemester(SemesterKurikulum::getEnumBy($semester));
         $newKurikulum->setKelas($kelas);
         $newKurikulum->setJumlahPertemuan($jumlahPertemuan);
         $newKurikulum->setMatakuliah(MatakuliahBuilder::setKode($kodeMatakuliah)::get());
@@ -52,7 +53,7 @@ class KurikulumService {
         $newKurikulum = new Kurikulum();
         $newKurikulum->setId($id);
         $newKurikulum->setTahun($tahun);
-        $newKurikulum->setSemester($semester);
+        $newKurikulum->setSemester(SemesterKurikulum::getEnumBy($semester));
         $newKurikulum->setKelas($kelas);
         $newKurikulum->setJumlahPertemuan($jumlahPertemuan);
         $newKurikulum->setMatakuliah(MatakuliahBuilder::setKode($kodeMatakuliah)::get());

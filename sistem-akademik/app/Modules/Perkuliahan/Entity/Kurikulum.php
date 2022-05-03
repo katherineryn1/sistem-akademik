@@ -8,7 +8,7 @@ use App\Modules\Dosen\Entity\Dosen;
 class Kurikulum{
 	private int $id = -1;
 	private int $tahun = 0;
-	private string $semester = "" ;
+	private SemesterKurikulum $semester;
 	private string $kelas = "";
 	private int $jumlahPertemuan = 0;
 	private Matakuliah $matakuliah ;
@@ -18,6 +18,7 @@ class Kurikulum{
 
 	function __construct(){
 	    $this->setMatakuliah(new Matakuliah());
+        $this->setSemester(new SemesterKurikulum());
 	}
 
 	function __destruct()
@@ -57,17 +58,17 @@ class Kurikulum{
     }
 
     /**
-     * @return string
+     * @return SemesterKurikulum
      */
-    public function getSemester(): string
+    public function getSemester(): SemesterKurikulum
     {
         return $this->semester;
     }
 
     /**
-     * @param string $semester
+     * @param SemesterKurikulum $semester
      */
-    public function setSemester(string $semester): void
+    public function setSemester(SemesterKurikulum $semester): void
     {
         $this->semester = $semester;
     }
@@ -181,15 +182,5 @@ class Kurikulum{
 	public function hitungKehadiran(){
 	}
 
-    public function getArray():array {
-        return [
-            'id' => $this->getId(),
-            'tahun' => $this->getTahun(),
-            'semester' => $this->getSemester(),
-            'kelas' => $this->getKelas(),
-            'jumlah_pertemuan' => $this->getJumlahPertemuan(),
-            'kode_matakuliah' => ($this->getMatakuliah())->getKode(),
-        ];
-    }
 }
 ?>

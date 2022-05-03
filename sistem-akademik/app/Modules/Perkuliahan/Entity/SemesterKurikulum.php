@@ -29,7 +29,7 @@ class SemesterKurikulum{
     }
     public function set(array $type):void {
         if(!array_key_exists("string", $type) || !array_key_exists("int", $type)){
-            error_log("Key Not Valid Jenis Matakuliah");
+            error_log("Key Not Valid Semester Kurikulum");
             return;
         }
         $this->value = $type;

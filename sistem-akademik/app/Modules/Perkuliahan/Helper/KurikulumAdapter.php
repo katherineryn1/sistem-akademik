@@ -6,6 +6,7 @@ namespace App\Modules\Perkuliahan\Helper;
 
 use App\Modules\Common\CommonAdapter;
 use App\Modules\Perkuliahan\Entity\Kurikulum;
+use App\Modules\Perkuliahan\Entity\SemesterKurikulum;
 
 class KurikulumAdapter implements CommonAdapter{
 
@@ -29,7 +30,7 @@ class KurikulumAdapter implements CommonAdapter{
         $kurikulum = new Kurikulum();
         $kurikulum->setId($object['id']);
         $kurikulum->setTahun($object['tahun']);
-        $kurikulum->setSemester($object['semester']);
+        $kurikulum->setSemester(SemesterKurikulum::getEnumBy($object['semester']));
         $kurikulum->setKelas($object['kelas']);
         $kurikulum->setJumlahPertemuan($object['jumlah_pertemuan']);
         $kurikulum->setMatakuliahByKode($object['kode_matakuliah']);
