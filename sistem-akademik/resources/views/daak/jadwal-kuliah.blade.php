@@ -42,7 +42,7 @@
                         @foreach ($data as $key => $roster)
                             <tr>
                                 <td scope="row" colspan="7"><b>Kurikulum Info: ({{ $roster['kurikulum']['id'] }}) {{ $roster['kurikulum']['kode_matakuliah'] }} {{ $roster['kurikulum']['kelas'] }}
-                                        {{ $roster['kurikulum']['semester'] }} {{ $roster['kurikulum']['tahun'] }} </b></td>
+                                        {{ $roster['kurikulum']['semester']->getString() }} {{ $roster['kurikulum']['tahun'] }} </b></td>
                             </tr>
                             @foreach($roster['jadwal'] as $jadwal)
                                 <tr>

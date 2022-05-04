@@ -40,7 +40,7 @@
                             <tr>
                                 <th scope="row">{{ $pengumuman['id'] }}</th>
                                 <td>{{ $pengumuman['judul'] }}</td>
-                                <td>{{ $pengumuman['keterangan'] }}</td>
+                                <td>{!! $pengumuman['keterangan'] !!}</td>
                                 <td>{{ $pengumuman['tanggal']->format('Y-M-d') }}</td>
                                 <td>
                                     <a href="{{ url("/daak/pengumuman/{$pengumuman['id']}/edit") }}" class="btn btn-warning" >
