@@ -121,9 +121,20 @@ class KurikulumService {
         return  [];
     }
 
-    public static  function addMahasiswa(int  $id,string  $nomorInduk):array {
+    public static  function addMahasiswa(int  $id,string  $nomorInduk):bool {
+        $kurikulum = self::kurikulumByInfo("id",$id);
+        if(count($kurikulum) == 0 ){
+            return false;
+        }
+        if(!PengambilanMatakuliahService::insert($nomorInduk,"murid", $kurikulum)){
+            return  false;
+        };
+        if(!NilaiService::insert()){
+
+        }
+
         // Todo: Implement
-        return  [];
+        return  true;
     }
 
     public static  function removeMahasiswa(int  $id,string $nomorInduk):array {

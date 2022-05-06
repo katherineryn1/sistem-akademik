@@ -93,7 +93,7 @@
                 <h5 class="card-title">Tambah Pengguna</h5>
                 @include('layouts.erros-default')
                 <!-- Horizontal Form -->
-                <form action="{{ url("/v1/pengguna")  }}"  method="post" enctype='multipart/form-data'>
+                <form action="{{ url("/v1/pengguna")  }}"  method="post" enctype='multipart/form-data' autocomplete="off">
                     @csrf
                     <div class="row mb-3 form-horizontal">
                         <h5 class="card-subtitle mb-2 text-muted">Form Pengguna</h5>
@@ -132,7 +132,14 @@
                     <div class="row mb-3 form-horizontal">
                         <label for="inputTempatLahir" class="col-sm-2 col-form-label control-label">Tempat Lahir</label>
                         <div class="col-sm-10 ">
-                            <input type="text" class="form-control" id="inputTempatLahir" name="inputTempatLahir" required>
+                            <input type="text" class="form-control" id="inputTempatLahir" list="datalistOptions" name="inputTempatLahir"  placeholder="Ketik untuk mencari..." required>
+                            <datalist id="datalistOptions">
+                                <option value="San Francisco">
+                                <option value="New York">
+                                <option value="Seattle">
+                                <option value="Los Angeles">
+                                <option value="Chicago">
+                            </datalist>
                         </div>
                     </div>
                     <fieldset class="row mb-3 form-horizontal">
