@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Modules\Pengguna\Model;
 
 use App\Modules\Pengguna\Helper\PenggunaAdapter;
 use DateTime;
@@ -93,23 +93,33 @@ class User extends Authenticatable implements PenggunaPersistence{
     }
 
     public function insertSingle(Pengguna $pengguna): bool {
-        $data = $this->fill(PenggunaAdapter::EntityToDictionary($pengguna));
+        $penggunaArr = PenggunaAdapter::EntityToDictionary($pengguna);
+        $penggunaArr['jabatan'] = $penggunaArr['jabatan']->getInt();
+        $penggunaArr['jenis_kelamin'] = $penggunaArr['jenis_kelamin']->getInt();
 
-        print_r(PenggunaAdapter::EntityToDictionary($pengguna));
-
+        $data = $this->fill($penggunaArr);
         $res  = $data ->save();
         return $res;
     }
 
     public function updateSingle(Pengguna $pengguna): bool{
         $data = $this::find($pengguna->getNomorInduk());
-        $data->update(PenggunaAdapter::EntityToDictionary($pengguna));
+        $penggunaArr = PenggunaAdapter::EntityToDictionary($pengguna);
+        $penggunaArr['jabatan'] = $penggunaArr['jabatan']->getInt();
+        $penggunaArr['jenis_kelamin'] = $penggunaArr['jenis_kelamin']->getInt();
+
+        $data->update($penggunaArr);
         return $data->save();
     }
 
     public function deleteSingle($nomorInduk): bool {
         $data = $this::find($nomorInduk);
         return $data->delete();
+    }
+
+    public function getInByAttribute(string $attribute, array $value): array    {
+        $allData = $this::whereIn($attribute, $value)->get();
+        return $this->modelToEntity($allData);
     }
 }
 

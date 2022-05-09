@@ -61,11 +61,11 @@
                                 <td>{{ $pengguna['nama'] }}</td>
                                 <td>{{ $pengguna['email'] }}</td>
                                 <td>{{ $pengguna['notelepon'] }}</td>
-                                <td>{{ $pengguna['jenis_kelamin']}}</td>
-                                <td>{{ $pengguna['jabatan']}}</td>
+                                <td>{{ $pengguna['jenis_kelamin']->getString()}}</td>
+                                <td>{{ $pengguna['jabatan']->getString()}}</td>
                                 <td>{{ $pengguna['alamat']}}</td>
                                 <td>
-                                    <a href="{{ url("/daak/pengguna/{$pengguna['nomor_induk']}/edit") }}" class="btn btn-warning" >
+                                    <a href="{{ url("/daak/pengguna/{$pengguna['nomor_induk']}") }}" class="btn btn-warning" >
                                         <i width="1rem" height="1rem" fill="currentColor" class="bi bi-pencil-square"></i>
                                     </a>
                                     <button onclick="modalConfirmDeletion({{ $pengguna['nomor_induk'] }})" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modal-confirmation-delete">
@@ -91,14 +91,7 @@
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title">Tambah Pengguna</h5>
-                @if (!is_array($errors))
-                    @foreach ($errors->all() as $error)
-                        <div class="alert alert-danger bg-danger text-light border-0 alert-dismissible fade show" role="alert">
-                            {{ $error  }}
-                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
-                    @endforeach
-                @endif
+                @include('layouts.erros-default')
                 <!-- Horizontal Form -->
                 <form action="{{ url("/v1/pengguna")  }}"  method="post" enctype='multipart/form-data'>
                     @csrf
@@ -146,15 +139,15 @@
                         <legend class="col-form-label col-sm-2 pt-0">Jenis Kelamin</legend>
                         <div class="col-sm-10">
                             <div class="col-3">
-                                <input class="form-check-input" type="radio" name="inputJenisKelamin" id="inputJKPria" value="Pria">
+                                <input class="form-check-input" type="radio" name="inputJenisKelamin" id="inputJKPria" value="Laki-Laki">
                                 <label class="form-check-label" for="inputJKPria">
-                                    Pria
+                                    Laki-Laki
                                 </label>
                             </div>
                             <div class="col-3">
-                                <input class="form-check-input" type="radio" name="inputJenisKelamin" id="inputJKWanita" value="Wanita" required>
+                                <input class="form-check-input" type="radio" name="inputJenisKelamin" id="inputJKWanita" value="Perempuan" required>
                                 <label class="form-check-label" for="inputJKWanita">
-                                    Wanita
+                                    Perempuan
                                 </label>
                             </div>
                         </div>
@@ -193,6 +186,9 @@
                         <button type="reset" class="btn btn-secondary">Batal</button>
                     </div>
                 </form>
+                <script>
+                    setYearLimitDate("inputTanggalLahir", -12);
+                </script>
                 <!-- End Horizontal Form -->
             </div>
         </div>

@@ -66,6 +66,7 @@ class PenggunaServiceTest extends TestCase{
     public function testGetAll(){
         $hasil = PenggunaService::getAll();
         print_r($hasil);
+        var_dump($hasil);
         self::assertGreaterThan(0, count($hasil));
     }
 

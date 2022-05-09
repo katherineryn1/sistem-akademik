@@ -6,7 +6,7 @@ namespace App\Modules\Pengumuman\Helper;
 
 use App\Modules\Pengumuman\Entity\Pengumuman;
 
-class PengumumanBuilder{
+final class PengumumanBuilder{
     private static Pengumuman $pengumuman;
 
     public static function setId(int $id){

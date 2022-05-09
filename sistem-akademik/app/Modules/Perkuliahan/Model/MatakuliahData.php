@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Modules\Perkuliahan\Model;
 
 use App\Modules\Perkuliahan\Entity\Matakuliah;
 use App\Modules\Perkuliahan\Helper\MatakuliahAdapter;
@@ -43,14 +43,20 @@ class MatakuliahData extends Model implements MatakuliahPersistence{
     }
 
     public function insertSingle(Matakuliah $matakuliah): bool {
-        $data = $this->fill(MatakuliahAdapter::EntityToDictionary($matakuliah));
+        $dataMK = MatakuliahAdapter::EntityToDictionary($matakuliah);
+        $dataMK['jenis'] = $dataMK['jenis']->getInt();
+        $dataMK['sifat'] = $dataMK['sifat']->getInt();
+        $data = $this->fill($dataMK);
         return $data ->save();
     }
 
     public function updateSingle(Matakuliah $matakuliah): bool
     {
         $data = $this::find($matakuliah->getKode());
-        $data->update(MatakuliahAdapter::EntityToDictionary($matakuliah));
+        $dataMK = MatakuliahAdapter::EntityToDictionary($matakuliah);
+        $dataMK['jenis'] = $dataMK['jenis']->getInt();
+        $dataMK['sifat'] = $dataMK['sifat']->getInt();
+        $data->update($dataMK);
         return $data->save();
     }
 

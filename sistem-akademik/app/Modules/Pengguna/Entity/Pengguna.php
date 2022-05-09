@@ -8,16 +8,18 @@ class Pengguna {
 	private string $nama = "";
 	private DateTime $tanggalLahir;
 	private string $tempatLahir = "";
-	private string $jenisKelamin = "";
+	private JenisKelamin $jenisKelamin;
 	private string $alamat = "";
 	private string $notelepon = "";
 	private string $password = "";
 	private string $email = "";
 	private string $fotoprofil = "";
-	private string $jabatan = "";
+	private Jabatan $jabatan;
 
 	function __construct(){
 	    $this->setTanggalLahir(new DateTime());
+	    $this->setJabatan(new Jabatan());
+	    $this->setJenisKelamin(new JenisKelamin());
 	}
 
 	function __destruct(){
@@ -56,9 +58,9 @@ class Pengguna {
     }
 
     /**
-     * @return string
+     * @return JenisKelamin
      */
-    public function getJenisKelamin(): string
+    public function getJenisKelamin(): JenisKelamin
     {
         return $this->jenisKelamin;
     }
@@ -104,9 +106,9 @@ class Pengguna {
     }
 
     /**
-     * @return string
+     * @return Jabatan
      */
-    public function getJabatan(): string
+    public function getJabatan(): Jabatan
     {
         return $this->jabatan;
     }
@@ -144,9 +146,9 @@ class Pengguna {
     }
 
     /**
-     * @param string $jenisKelamin
+     * @param JenisKelamin $jenisKelamin
      */
-    public function setJenisKelamin(string $jenisKelamin): void
+    public function setJenisKelamin(JenisKelamin $jenisKelamin): void
     {
         $this->jenisKelamin = $jenisKelamin;
     }
@@ -191,7 +193,7 @@ class Pengguna {
     }
 
     /**
-     * @param array $fotoprofil
+     * @param string $fotoprofil
      */
     public function setFotoprofil(string $fotoprofil): void
     {
@@ -199,9 +201,9 @@ class Pengguna {
     }
 
     /**
-    * @param string $jabatan
-    */
-    public function setJabatan(string $jabatan): void
+     * @param Jabatan $jabatan
+     */
+    public function setJabatan(Jabatan $jabatan): void
     {
         $this->jabatan = $jabatan;
     }

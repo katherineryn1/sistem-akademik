@@ -1,7 +1,10 @@
 <?php
 namespace App\Modules\Dosen\Service;
 
+use App\Modules\Dosen\Entity\StatusDosen;
+use App\Modules\Dosen\Entity\StatusIkatanKerja;
 use App\Modules\Dosen\Helper\DosenAdapter;
+use App\Modules\Pengguna\Helper\PenggunaAdapter;
 use App\Modules\Perkuliahan\Service\KurikulumService;
 use DateTime;
 use App\Modules\Dosen\Entity\Dosen;
@@ -29,9 +32,9 @@ class DosenService {
      */
     public static function insert(string  $nama,string $password, string $nomorInduk,string $email,
                                   string $tanggalLahir, string $tempatLahir,string $jenisKelamin, string  $alamat,
-                                  string $notelepon, string $jabatan,string $programStudi,string $bidangIlmu,
+                                  string $notelepon, string $jabatan, string $fotoProfile,string $programStudi,string $bidangIlmu,
                                   string $gelarAkademik,string $statusIkatanKerja,bool $statusDosen):bool {
-        if(!PenggunaService::insert($nama,$password,  $nomorInduk, $email, $tanggalLahir, $tempatLahir,$jenisKelamin, $alamat,$notelepon, $jabatan)){
+        if(!PenggunaService::insert($nama,$password,  $nomorInduk, $email, $tanggalLahir, $tempatLahir,$jenisKelamin, $alamat,$notelepon, $jabatan,$fotoProfile)){
             return false;
         }
         $newDosen = new Dosen();
@@ -39,26 +42,20 @@ class DosenService {
         $newDosen->setProgramStudi($programStudi);
         $newDosen->setBidangIlmu($bidangIlmu);
         $newDosen->setGelarAkademik($gelarAkademik);
-        $newDosen->setStatusIkatanKerja($statusIkatanKerja);
-        $newDosen->setStatusDosen($statusDosen);
-
+        $newDosen->setStatusIkatanKerja(StatusIkatanKerja::getEnumBy($statusIkatanKerja));
+        $newDosen->setStatusDosen(StatusDosen::getEnumBy($statusDosen));
         return  self::$pm->insertSingle($newDosen);
 
     }
 
     /**
-     * @param string $nama
-     * @param string $password
      * @param string $nomorInduk
-     * @param string $email
-     * @param string $tanggalLahir
-     * @param string $tempatLahir
-     * @param string $jenisKelamin
-     * @param string $alamat
-     * @param string $notelepon
-     * @param string $jabatan
+     * @param string $programStudi
+     * @param string $bidangIlmu
+     * @param string $gelarAkademik
+     * @param string $statusIkatanKerja
+     * @param bool $statusDosen
      * @return bool
-     * @throws \Exception
      */
     public static function update(string $nomorInduk,string $programStudi,string $bidangIlmu,
                                   string $gelarAkademik,string $statusIkatanKerja,bool $statusDosen):bool {
@@ -67,8 +64,8 @@ class DosenService {
         $newDosen->setProgramStudi($programStudi);
         $newDosen->setBidangIlmu($bidangIlmu);
         $newDosen->setGelarAkademik($gelarAkademik);
-        $newDosen->setStatusIkatanKerja($statusIkatanKerja);
-        $newDosen->setStatusDosen($statusDosen);
+        $newDosen->setStatusIkatanKerja(StatusIkatanKerja::getEnumBy($statusIkatanKerja));
+        $newDosen->setStatusDosen(StatusDosen::getEnumBy($statusDosen));
 
         return self::$pm->updateSingle($newDosen);
     }
@@ -94,7 +91,8 @@ class DosenService {
         if(count($found) <= 0){
             return [];
         }
-        return DosenAdapter::ArrayEntitiesToDictionaries($found);
+        $arrDosen = DosenAdapter::ArrayEntitiesToDictionaries($found);
+        return PenggunaAdapter::ArrayInjectPenggunaDictionary($arrDosen);
     }
 
     public static function getRekapMengajar(string $nomorInduk){

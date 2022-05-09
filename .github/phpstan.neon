@@ -1,0 +1,14 @@
+parameters:
+
+    paths:
+        - ../sistem-akademik/app
+
+    # The level 9 is the highest level
+    level: 2
+
+    ignoreErrors:
+        #- '#Call to an undefined method [a-zA-Z0-9\\_]+::[a-zA-Z0-9\\_]+\(\)#'
+        - '#Call to an undefined method [a-zA-Z0-9\\_]+::flash#'
+        - '#Call to an undefined method [a-zA-Z0-9\\_]+::create#'
+        - '#Call to an undefined static method [a-zA-Z0-9\\_]+::find()#'
+        - '#Call to an undefined static method [a-zA-Z0-9\\_]+::where()#'

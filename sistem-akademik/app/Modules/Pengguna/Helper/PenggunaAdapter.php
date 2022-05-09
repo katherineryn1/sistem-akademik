@@ -1,6 +1,9 @@
 <?php
 namespace App\Modules\Pengguna\Helper;
 
+use App\Modules\Pengguna\Entity\Jabatan;
+use App\Modules\Pengguna\Entity\JenisKelamin;
+use App\Modules\Pengguna\Service\PenggunaService;
 use DateTime;
 use App\Modules\Common\CommonAdapter;
 use App\Modules\Pengguna\Entity\Pengguna;
@@ -29,12 +32,12 @@ class PenggunaAdapter implements CommonAdapter {
         $pengguna = new Pengguna();
         $pengguna->setNomorInduk($object['nomor_induk']);
         $pengguna->setNama($object['nama']);
-        $pengguna->setJabatan($object['jabatan']);
+        $pengguna->setJabatan(Jabatan::getEnumBy($object['jabatan']));
         $pengguna->setAlamat($object['alamat']);
         $pengguna->setPassword("");
         $pengguna->setEmail($object['email']);
         $pengguna->setFotoprofil($object['foto_profile']);
-        $pengguna->setJenisKelamin($object['jenis_kelamin']);
+        $pengguna->setJenisKelamin(JenisKelamin::getEnumBy($object['jenis_kelamin']));
         $pengguna->setNotelepon($object['notelepon']);
         $pengguna->setTanggalLahir(new DateTime($object['tanggal_lahir']));
         $pengguna->setTempatLahir($object['tempat_lahir']);
@@ -55,5 +58,31 @@ class PenggunaAdapter implements CommonAdapter {
             array_push($tempArr,self::DictionaryToEntity($value));
         }
         return  $tempArr;
+    }
+
+    public static function ArrayInjectPenggunaDictionary($object): array {
+        $objectNomorInduk  = Array() ;
+        foreach ($object as $value) {
+            if(!array_key_exists('nomor_induk',$value)){
+                echo "Cannot Inject No Key";
+                return [];
+            }
+            array_push($objectNomorInduk,$value['nomor_induk']);
+        }
+        $hasilData = PenggunaService::usersInfo("nomor_induk",$objectNomorInduk);
+        $currIdx = 0;
+        foreach ($hasilData as $tempPengguna) {
+            $object[$currIdx]['nama'] = $tempPengguna['nama'];
+            $object[$currIdx]['email'] = $tempPengguna['email'];
+            $object[$currIdx]['tanggal_lahir'] = $tempPengguna['tanggal_lahir'];
+            $object[$currIdx]['tempat_lahir'] = $tempPengguna['tempat_lahir'];
+            $object[$currIdx]['jenis_kelamin'] = $tempPengguna['jenis_kelamin'];
+            $object[$currIdx]['alamat'] = $tempPengguna['alamat'];
+            $object[$currIdx]['notelepon'] = $tempPengguna['notelepon'];
+            $object[$currIdx]['foto_profile'] = $tempPengguna['foto_profile'];
+            $object[$currIdx]['jabatan'] = $tempPengguna['jabatan'];
+            $currIdx++;
+        }
+        return  $object;
     }
 }

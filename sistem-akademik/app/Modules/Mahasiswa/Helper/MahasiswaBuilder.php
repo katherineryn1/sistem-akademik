@@ -6,11 +6,11 @@ namespace App\Modules\Mahasiswa\Helper;
 
 use App\Modules\Mahasiswa\Entity\Mahasiswa;
 
-class MahasiswaBuilder{
+final class MahasiswaBuilder{
     private static Mahasiswa $mhs;
 
     public static function setNomorInduk(string $nomorInduk){
-        self::$mhs = new Dosen();
+        self::$mhs = new Mahasiswa();
         self::$mhs->setNomorInduk($nomorInduk);
         return new static();
     }

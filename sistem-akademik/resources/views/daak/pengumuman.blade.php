@@ -39,14 +39,14 @@
                         @foreach ($data as $pengumuman)
                             <tr>
                                 <th scope="row">{{ $pengumuman['id'] }}</th>
-                                <td>{{ $pengumuman['nama'] }}</td>
-                                <td>{{ $pengumuman['type'] }}</td>
-                                <td>{{ $pengumuman['age'] }}</td>
+                                <td>{{ $pengumuman['judul'] }}</td>
+                                <td>{{ $pengumuman['keterangan'] }}</td>
+                                <td>{{ $pengumuman['tanggal']->format('Y-M-d') }}</td>
                                 <td>
                                     <a href="{{ url("/daak/pengumuman/{$pengumuman['id']}/edit") }}" class="btn btn-warning" >
                                         <i width="1rem" height="1rem" fill="currentColor" class="bi bi-pencil-square"></i>
                                     </a>
-                                    <button onclick="modalConfirmDeletion({{ $pengumuman['id'] }})" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modal-confirmation-delete">
+                                    <button onclick="modalConfirmDeletion({{ $pengumuman['id'] }},nameForm = 'id')" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modal-confirmation-delete">
                                         <i width="1rem" height="1rem" fill="currentColor" class="bi bi-trash"></i>
                                     </button>
                                 </td>
@@ -69,9 +69,10 @@
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title">Buat Pengumuman</h5>
-
+                @include('layouts.erros-default')
                 <!-- Horizontal Form -->
-                <form action=""  method="post" enctype='multipart/form-data'>
+                <form action="{{ url("v1/pengumuman") }}"  method="post" enctype='multipart/form-data'>
+                    @csrf
                     <div class="row mb-3 form-horizontal">
                         <h5 class="card-subtitle mb-2 text-muted">Form Pengumuman</h5>
                         <hr>
@@ -85,7 +86,8 @@
                     <div class="row mb-3 form-horizontal">
                         <label for="inputKeterangan" class="col-sm-2 col-form-label control-label">Keterangan</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="inputKeterangan" name="inputKeterangan" required>
+                            <textarea  type="text" id="inputKeterangan" name="inputKeterangan" class="form-control" style="height: 100px"
+                            ></textarea>
                         </div>
                     </div>
                     <div class="row mb-3 form-horizontal">
@@ -117,7 +119,8 @@
                         <h5 class="modal-title">Hapus Pengumuman</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <form method="post"  class="row g-3 needs-validation was-validated" novalidate>
+                    <form action="{{ url("v1/pengumuman") }}" method="post"  class="row g-3 needs-validation was-validated" novalidate>
+                        @csrf
                         @method('DELETE')
                         <div class="modal-body" id="modal-body-delete">
                         </div>

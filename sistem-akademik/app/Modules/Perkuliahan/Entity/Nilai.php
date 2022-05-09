@@ -185,18 +185,17 @@ class Nilai{
     }
 
 
+    /**
+     *
+     * @param int $bobot1
+     * @param int $bobot2
+     * @param int $bobot3
+     * @param int $bobot4
+     * @param int $bobot5
+     * @param int $bobotUAS
+     */
+	public function hitungNA(int $bobot1, int $bobot2, int $bobot3, int $bobot4, int $bobot5, int $bobotUAS) :void{
 
-	/**
-	 *
-	 * @param bobot1
-	 * @param bobot2
-	 * @param bobot3
-	 * @param bobot4
-	 * @param bobot5
-	 * @param bobotUAS
-	 */
-	public function hitungNA(int $bobot1, int $bobot2, int $bobot3, int $bobot4, int $bobot5, int $bobotUAS)
-	{
 	}
 
 	public function konvertNAkeIndex()	{
@@ -219,5 +218,3 @@ class Nilai{
 
 }
 ?>
-
-

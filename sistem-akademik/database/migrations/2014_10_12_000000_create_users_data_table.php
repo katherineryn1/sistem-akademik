@@ -24,9 +24,9 @@ return new class extends Migration
             $table->string("tempat_lahir");
             $table->integer("jenis_kelamin"); // 0 = Laki-laki; 1 = Perempuan
             $table->string("alamat");
-            $table->string("no_telepon");
+            $table->string("notelepon");
             $table->binary("foto_profile")->nullable();
-            $table->integer("jabatan"); // 0 = Dosen; 1 = Mahasiswa
+            $table->integer("jabatan"); // 0 = Daak ; 1 = Dosen ; 2 = Mahasiswa
             $table->rememberToken();
             $table->timestamps();
         });

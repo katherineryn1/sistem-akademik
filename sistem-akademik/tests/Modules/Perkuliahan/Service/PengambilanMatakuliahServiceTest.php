@@ -17,7 +17,7 @@ class PengambilanMatakuliahServiceTest extends TestCase
         self::assertGreaterThan(0, count($dataKurikulum));
 
         $nomorInduk = $dataDosen[0]['nomor_induk'];
-        $posisiAmbil = "Dosen";
+        $posisiAmbil = "Pengajar";
         $kurikulum =$dataKurikulum[0]['id'];
 
         $hasilInsert = PengambilanMatakuliahService::insert($nomorInduk,$posisiAmbil,$kurikulum);

@@ -1,12 +1,10 @@
 <?php
-
-
 namespace App\Modules\Perkuliahan\Helper;
 
 
 use App\Modules\Perkuliahan\Entity\PengambilanMatakuliah;
 
-class PengambilanMatakuliahBuilder{
+final class PengambilanMatakuliahBuilder{
     private static PengambilanMatakuliah $pengambilanMK;
 
     public static function setId(int $id){

@@ -4,8 +4,8 @@ namespace App\Modules\Perkuliahan\Entity;
 class Matakuliah{
 	private string $kode = "";
 	private string $nama  = "";
-	private string $jenis  = "";
-	private string $sifat  = "";
+	private JenisMatakuliah $jenis ;
+	private SifatMatakuliah $sifat ;
 	private int $sks  = -1;
 
 	function __construct()
@@ -35,17 +35,17 @@ class Matakuliah{
 
 
     /**
-     * @return string
+     * @return JenisMatakuliah
      */
-    public function getJenis(): string
+    public function getJenis(): JenisMatakuliah
     {
         return $this->jenis;
     }
 
     /**
-     * @return string
+     * @return SifatMatakuliah
      */
-    public function getSifat(): string
+    public function getSifat(): SifatMatakuliah
     {
         return $this->sifat;
     }
@@ -75,17 +75,17 @@ class Matakuliah{
     }
 
     /**
-     * @param string $jenis
+     * @param JenisMatakuliah $jenis
      */
-    public function setJenis(string $jenis): void
+    public function setJenis(JenisMatakuliah $jenis): void
     {
         $this->jenis = $jenis;
     }
 
     /**
-     * @param string $sifat
+     * @param SifatMatakuliah $sifat
      */
-    public function setSifat(string $sifat): void
+    public function setSifat(SifatMatakuliah $sifat): void
     {
         $this->sifat = $sifat;
     }
@@ -109,9 +109,4 @@ class Matakuliah{
     }
 
 }
-
-
-
 ?>
-
-

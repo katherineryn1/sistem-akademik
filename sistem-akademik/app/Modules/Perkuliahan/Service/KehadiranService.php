@@ -1,8 +1,7 @@
 <?php
 namespace App\Modules\Perkuliahan\Service;
-use App\Modules\Common\PengambilanMatakuliahBuilder;
-use App\Modules\Pengguna\Entity\Pengguna;
-use App\Modules\Perkuliahan\Entity\PengambilanMatakuliah;
+use App\Modules\Perkuliahan\Entity\KeteranganKehadiran;
+use App\Modules\Perkuliahan\Helper\PengambilanMatakuliahBuilder;
 use App\Modules\Perkuliahan\Helper\KehadiranAdapter;
 use App\Modules\Perkuliahan\Persistence\KehadiranPersistence;
 use App\Modules\Perkuliahan\Entity\Kehadiran;
@@ -25,7 +24,7 @@ class KehadiranService {
      */
     public static function insert(string  $keterangan,int $id_pengambilan_mk, int $roster):bool {
         $newKehadiran = new Kehadiran();
-        $newKehadiran->setKeterangan($keterangan);
+        $newKehadiran->setKeterangan(KeteranganKehadiran::getEnumBy($keterangan));
         $newKehadiran->setPengguna(PengambilanMatakuliahBuilder::setId($id_pengambilan_mk)::get());
         return self::$pm->insertSingle($newKehadiran,$roster);
     }
@@ -39,13 +38,13 @@ class KehadiranService {
     public static function update(int $id,string  $keterangan,int $id_pengambilan_mk):bool {
         $updateKehadiran = new Kehadiran();
         $updateKehadiran->setId($id);
-        $updateKehadiran->setKeterangan($keterangan);
+        $updateKehadiran->setKeterangan(KeteranganKehadiran::getEnumBy($keterangan));
         $updateKehadiran->setPengguna(PengambilanMatakuliahBuilder::setId($id_pengambilan_mk)::get());
         return self::$pm->updateSingle($updateKehadiran);
     }
 
     /**
-     * @param string $id
+     * @param int $id
      * @return bool
      */
     public static function delete(int $id):bool {

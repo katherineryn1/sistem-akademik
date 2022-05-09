@@ -15,14 +15,14 @@ return new class extends Migration
     {
         Schema::create('nilai_data', function (Blueprint $table) {
             $table->id();
-            $table->float("nilai_1");
+            $table->float("nilai_1")->nullable();
             $table->float("nilai_2")->nullable();
             $table->float("nilai_3")->nullable();
             $table->float("nilai_4")->nullable();
             $table->float("nilai_5")->nullable();
             $table->float("nilai_UAS")->nullable();
-            $table->float("nilai_akhir");
-            $table->string("index");
+            $table->float("nilai_akhir")->nullable();
+            $table->string("index")->nullable();
             $table->bigInteger("pengambilan_matakuliah",false,true);
             $table->foreign('pengambilan_matakuliah')->references('id')->on("pengambilan_matakuliah_data");
             $table->timestamps();

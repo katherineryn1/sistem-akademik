@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Modules\Pengumuman\Model;
 
 use App\Modules\Pengumuman\Helper\PengumumanAdapter;
 use DateTime;

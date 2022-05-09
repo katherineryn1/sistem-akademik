@@ -5,7 +5,7 @@ namespace App\Modules\Perkuliahan\Helper;
 use App\Modules\Perkuliahan\Entity\Matakuliah;
 
 
-class MatakuliahBuilder{
+final class MatakuliahBuilder{
     private static Matakuliah $matakuliah;
 
     public static function setKode(string $kode){

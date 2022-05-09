@@ -10,33 +10,77 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-use function PHPSTORM_META\map;
 
 class DosenController extends Controller{
-    public function  insertNewDosen(){
-        $nama = "Test Dosen";
-        $password = "12345678";
-        $nomorInduk = "2099002";
-        $email = "dosen@test.com";
-        $tanggalLahir = "10/16/2003";
-        $tempatLahir= "Bali";
-        $jenisKelamin ="L";
-        $alamat ="Dipatiukur";
-        $notelepon ="086537956";
-        $jabatan ="Dosen";
-        $programstudi = "Informatika";
-        $bidangIlmu = 'Teknologi';
-        $gelarAkademik = "Master";
-        $stausIkatanKerja = "Honorer";
-        $statusDosen = true;
+    public function  insert(Request $request){
+        $input = $request->validate([
+            'inputNama' => ['required'],
+            'inputPassword' => ['required'],
+            'inputNomorInduk' => ['required', 'unique:users_data,nomor_induk'],
+            'inputEmail' => ['required' , 'unique:users_data,email'],
+            'inputTanggalLahir' => ['required'],
+            'inputTempatLahir' => ['required'],
+            'inputJenisKelamin' => ['required'],
+            'inputAlamat' => ['required'],
+            'inputNoTelp' => ['required'],
+            'inputProgramStudi' => ['required'],
+            'inputBidangIlmu' => ['required'],
+            'inputGelarAkademik' => ['required'],
+            'inputStatusIkatanKerja' => ['required'],
+            'inputStatusDosen' => ['required'],
+        ]);
 
-        $res = DosenService::insert($nama,$password,  $nomorInduk, $email, $tanggalLahir, $tempatLahir,
-            $jenisKelamin, $alamat,$notelepon, $jabatan,$jabatan,$programstudi,$bidangIlmu,
-            $gelarAkademik, $stausIkatanKerja,$statusDosen );
-        echo $res;
+        if (!$request->hasFile('inputFotoProfile')) {
+            $request->session()->flash('errors', [ ['type' => "danger" , 'message' => "Gagal Menambah Dosen - Foto tidak diterima"] ]);
+            return back();
+        }
+
+        $file = $request->file('inputFotoProfile');
+        $photoProfileDir = $file->store('profile', 'public');
+        if($photoProfileDir == false){
+            $request->session()->flash('errors', [ ['type' => "danger" , 'message' => "Gagal Menambah Dosen - Foto gagal disimpan"] ]);
+            return back();
+        }
+
+        $hasil = DosenService::insert(
+            $input['inputNama'],
+            $input['inputPassword'],
+            $input['inputNomorInduk'],
+            $input['inputEmail'],
+            $input['inputTanggalLahir'],
+            $input['inputTempatLahir'],
+            $input['inputJenisKelamin'],
+            $input['inputAlamat'],
+            $input['inputNoTelp'],
+            "Dosen",
+            $photoProfileDir,
+            $input['inputProgramStudi'],
+            $input['inputBidangIlmu'],
+            $input['inputGelarAkademik'],
+            $input['inputStatusIkatanKerja'],
+            $input['inputStatusDosen']);
+
+        if($hasil == false){
+            $request->session()->flash('errors', [ ['type' => "danger" , 'message' => "Gagal Menambah Dosen"] ]);
+        }else{
+            $request->session()->flash('errors', [ ['type' => "success" , 'message' => "Success Menambah Dosen"] ]);
+        }
+        return back();
     }
 
-    public function  updateDataDosen(){
+    public function delete(Request $request){
+        $input = $request->validate([
+            'nomor_induk' => ['required'],
+        ]);
+        if(DosenService::delete($input['nomor_induk']) == false){
+            $request->session()->flash('errors', [ ['type' => "danger" , 'message' => "Gagal Hapus Dosen"] ]);
+        }else{
+            $request->session()->flash('errors', [ ['type' => "success" , 'message' => "Success Hapus Dosen"] ]);
+        }
+        return back();
+    }
+
+    public function  update(){
         // Todo: Implement
     }
 
@@ -462,9 +506,12 @@ class DosenController extends Controller{
     public function updateNilaiMahasiswa(Request $request, $id_nilai) {
         DB::beginTransaction();
         try {
-            $arr_nilai = $request->nilai;
-            $na = $request->nilai_akhir;
-            $index = $request->index;
+//            $arr_nilai = $request->nilai;
+//            $na = $request->nilai_akhir;
+//            $index = $request->index;
+            $arr_nilai = $request['nilai'];
+            $na = $request['nilai_akhir'];
+            $index = $request['index'];
 
             $sql_statement = "UPDATE `nilai_data` SET `nilai_1` = {$arr_nilai[0]}, `nilai_2` = {$arr_nilai[1]}, `nilai_3` = {$arr_nilai[2]}, `nilai_4` = {$arr_nilai[3]}, `nilai_5` = {$arr_nilai[4]}, `nilai_UAS` = {$arr_nilai[5]}, `nilai_akhir` = {$na}, `index` = '{$index}' WHERE `id` = $id_nilai";
             DB::update($sql_statement);

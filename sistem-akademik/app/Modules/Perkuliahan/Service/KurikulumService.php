@@ -2,6 +2,7 @@
 namespace App\Modules\Perkuliahan\Service;
 
 use App\Modules\Perkuliahan\Entity\Kurikulum;
+use App\Modules\Perkuliahan\Entity\SemesterKurikulum;
 use App\Modules\Perkuliahan\Helper\KurikulumAdapter;
 use App\Modules\Perkuliahan\Helper\MatakuliahBuilder;
 use App\Modules\Perkuliahan\Persistence\KurikulumPersistence;
@@ -29,7 +30,7 @@ class KurikulumService {
                                    string  $kodeMatakuliah):bool {
         $newKurikulum = new Kurikulum();
         $newKurikulum->setTahun($tahun);
-        $newKurikulum->setSemester($semester);
+        $newKurikulum->setSemester(SemesterKurikulum::getEnumBy($semester));
         $newKurikulum->setKelas($kelas);
         $newKurikulum->setJumlahPertemuan($jumlahPertemuan);
         $newKurikulum->setMatakuliah(MatakuliahBuilder::setKode($kodeMatakuliah)::get());
@@ -52,7 +53,7 @@ class KurikulumService {
         $newKurikulum = new Kurikulum();
         $newKurikulum->setId($id);
         $newKurikulum->setTahun($tahun);
-        $newKurikulum->setSemester($semester);
+        $newKurikulum->setSemester(SemesterKurikulum::getEnumBy($semester));
         $newKurikulum->setKelas($kelas);
         $newKurikulum->setJumlahPertemuan($jumlahPertemuan);
         $newKurikulum->setMatakuliah(MatakuliahBuilder::setKode($kodeMatakuliah)::get());
@@ -103,42 +104,51 @@ class KurikulumService {
     }
 
     public static  function addDosen(int  $idKurikulum,string  $nomorInduk):bool {
-        return self::$pmPengambilanMK->insertUserKurikulum($nomorInduk,$idKurikulum);
+        //return self::$pm->insertUserKurikulum($nomorInduk,$idKurikulum);
         // Todo: Implement
+        return  false;
     }
 
     public static  function removeDosen(int  $id,string $nomorInduk):bool {
 
         // Todo: Implement
+        return  false;
     }
 
 
     public static  function getMahasiswa(string  $id):array {
         // Todo: Implement
+        return  [];
     }
 
     public static  function addMahasiswa(int  $id,string  $nomorInduk):array {
         // Todo: Implement
+        return  [];
     }
 
     public static  function removeMahasiswa(int  $id,string $nomorInduk):array {
         // Todo: Implement
+        return  [];
     }
 
     public static  function generateNilai(int  $id):array {
         // Todo: Implement
+        return  [];
     }
 
     public static  function destroyNilai(int  $id):array {
         // Todo: Implement
+        return  [];
     }
 
     public static  function generateRoster(int $id):array {
         // Todo: Implement
+        return  [];
     }
 
     public static  function destroyRoster(int $id):array {
         // Todo: Implement
+        return  [];
     }
 
 }
