@@ -109,9 +109,10 @@ Route::put('v1/jadwal/{id}', [RosterController::class, 'update']);
 Route::delete('v1/jadwal', [RosterController::class, 'delete']);
 
 // Dosen
-Route::get('/dosen', function () {
-    return view('dosen.dashboard');
-});
+// Route::get('/dosen', function () {
+//     return view('dosen.dashboard');
+// });
+Route::get('/dosen', [DosenController::class, 'getJadwalMengajarDashboard']);
 
 Route::get('/dosen/jadwal-mengajar', [DosenController::class, 'getJadwalMengajar']);
 Route::get('/dosen/jadwal-mengajar/{week}', [DosenController::class, 'getDataJadwalMengajar']);
