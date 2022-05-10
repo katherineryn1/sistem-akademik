@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use stdClass;
 use App\Modules\Dosen\Service\DosenService;
+use App\Modules\Skripsi\Service\SkripsiService;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -456,11 +457,26 @@ class DosenController extends Controller{
         //  Todo: Implement
     }
 
+    public function getBimbinganSkripsi($id){
+        $data = DB::table('skripsi')
+        ->where('nim', '=', $id)
+        ->select('nim', 'judul')
+        ->get();
+        return $data;
+
     public function bimbinganSkripsi(){
         //  Todo: Implement
     }
 
     public function validasiSkripsi(){
         //  Todo: Implement
+    }
+
+    public function deleteMahasiswaSkripsi($id){
+        if(SkripsiService::delete($id) == true){
+            echo "Success Delete";
+        }else{
+            echo "Gagal Delete";
+        }
     }
 }
