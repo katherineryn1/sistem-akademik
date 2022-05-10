@@ -6,15 +6,23 @@
     <div class="row">
         <div class="col-sm-6">
             <div class="card card-body h-100">
-                <h5 class="card-title">Jadwal Hari Ini</h5>
+                <h5 class="card-title">Jadwal Hari Ini - {{ $tanggalHariIni }}</h5>
                 <div class="list-group">
                     <ul class="list-group">
-                        <li class="list-group-item list-group-item-warning">
-                            <div class="d-flex w-100 justify-content-between">
-                                <p class="mb-1 bold500">Rekayasa Perangkat Lunak Lanjut</p>
-                            </div>
-                            <p class="mb-1">7 - 10</p>
-                        </li>
+                        @forelse($jadwalMengajar as $jadwalHarian)
+                            <li class="list-group-item list-group-item-warning" style="margin-bottom: 4px;">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <p class="mb-1 bold500">{{ $jadwalHarian['nama'] }} </p>
+                                </div>
+                                <p class="mb-1">{{ $jadwalHarian['jam_mulai'] }} - {{ $jadwalHarian['jam_selesai'] }}</p>
+                            </li>
+                        @empty
+                            <li class="list-group-item list-group-item-success" style="margin-bottom: 4px;">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <p class="mb-1 bold500">Tidak ada jadwal.</p>
+                                </div>
+                            </li>
+                        @endforelse
                     </ul>
                 </div>
             </div>

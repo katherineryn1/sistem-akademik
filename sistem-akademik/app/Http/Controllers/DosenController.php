@@ -138,13 +138,54 @@ class DosenController extends Controller{
         for ($i = 0; $i <= 12; $i++) {
             array_push($arr_jadwal, array(1, 1, 1, 1, 1, 1, 1));
         }
-
+        
         return [
             'week' => $week,
             'jadwal_mengajar' => $arr_jadwal_mengajar,
             'jadwal' => $arr_jadwal,
             'tanggal' => $arr_tanggal,
         ];
+    }
+
+    public function  getJadwalMengajarDashboard(){
+        $nik = request('nik', 10171);
+        $arr_id_kurikulum = $this->getIdKurikulum($nik);
+        $tanggal_hari_ini = Carbon::now()->format("Y-m-d");
+
+        $data_jadwal_mengajar = $this->getJadwalDashboard($arr_id_kurikulum, $tanggal_hari_ini);
+        $data_pengumuman = $this->getPengumumanDashboard();
+
+        $arr_jadwal_mengajar = array();
+        for ($i = 0; $i < count($data_jadwal_mengajar); $i++) {
+            $tanggal = Carbon::parse($data_jadwal_mengajar[$i]->tanggal)->locale('id');
+
+            $jadwal = [
+                'tanggal' => $tanggal->isoFormat('dddd, D MMMM'),
+                'jam_mulai' => $data_jadwal_mengajar[$i]->jam_mulai,
+                'jam_selesai' => $data_jadwal_mengajar[$i]->jam_selesai,
+                'nama' => $data_jadwal_mengajar[$i]->nama
+            ];
+            array_push($arr_jadwal_mengajar, $jadwal);
+        }
+
+        $arr_pengumuman = array();
+        for ($i = 0; $i < count($data_pengumuman); $i++) {
+            $tanggal = Carbon::parse($data_pengumuman[$i]->tanggal)->locale('id');
+
+            $pengumuman = [
+                'tanggal' => $tanggal->isoFormat('D MMMM'),
+                'judul' => $data_pengumuman[$i]->judul,
+                'keterangan' => $data_pengumuman[$i]->keterangan
+            ];
+            array_push($arr_pengumuman, $pengumuman);
+        }
+
+        
+        return view('dosen.dashboard', [
+            'tanggalHariIni' => Carbon::parse($tanggal_hari_ini)->locale('id')->isoFormat('D MMMM'),
+            'jadwalMengajar' => $arr_jadwal_mengajar,
+            'pengumuman' => $arr_pengumuman,
+        ]);
     }
 
     function getIdKurikulum($nik) {
@@ -156,9 +197,7 @@ class DosenController extends Controller{
         foreach ($db as $d) {
             array_push($data, $d->id_kurikulum);
         }
-
-        // Mock
-        // $data = ['123556', '123456'];
+        
         return $data;
     }
 
@@ -183,21 +222,34 @@ class DosenController extends Controller{
                 'matakuliah_data.nama as nama')
             ->get();
 
-        // Mock
-        // $jadwal = new stdClass();
-        // $jadwal->tanggal = Carbon::now()->timestamp;
-        // $jadwal->jam_mulai = 11;
-        // $jadwal->jam_selesai = 13;
-        // $jadwal->ruangan = 'R101';
-        // $jadwal->nama = 'Rekayasa Perangkat Lunak Lanjut (RPLL)';
+        return $data;
+    }
 
-        // $jadwal2 = new stdClass();
-        // $jadwal2->tanggal = Carbon::yesterday()->timestamp;
-        // $jadwal2->jam_mulai = 12;
-        // $jadwal2->jam_selesai = 14;
-        // $jadwal2->ruangan = 'R102';
-        // $jadwal2->nama = 'Komputer Masyarakat';
-        // $data = [$jadwal, $jadwal2];
+    function getJadwalDashboard($arr_id_kurikulum, $tanggal_hari_ini) {
+        $data = DB::table('roster_data')
+            ->join('kurikulum_data', 'kurikulum_data.id', '=', 'roster_data.id_kurikulum')
+            ->join('matakuliah_data', 'matakuliah_data.kode', '=', 'kurikulum_data.kode_matakuliah')
+            ->whereIn('roster_data.id_kurikulum', $arr_id_kurikulum)
+            ->where('roster_data.tanggal', $tanggal_hari_ini)
+            ->select('roster_data.tanggal as tanggal',
+                'roster_data.jam_mulai as jam_mulai',
+                'roster_data.jam_selesai as jam_selesai',
+                'matakuliah_data.nama as nama')
+            ->orderBy('roster_data.jam_mulai', 'asc')
+            ->get();
+
+        return $data;
+    }
+
+    function getPengumumanDashboard() {
+        $data = DB::table('pengumuman_data')
+            ->select('pengumuman_data.tanggal as tanggal',
+                'pengumuman_data.judul as judul',
+                'pengumuman_data.keterangan as keterangan',)
+            ->orderBy('pengumuman_data.tanggal', 'desc')
+            ->limit(3)
+            ->get();
+
         return $data;
     }
 
@@ -223,16 +275,6 @@ class DosenController extends Controller{
             ->distinct()
             ->get();
 
-        // Mock
-        // $mk1 = new stdClass();
-        // $mk1->kode_matkul = 101;
-        // $mk1->nama = 'Rekayasa Perangkat Lunak Lanjut';
-
-        // $mk2 = new stdClass();
-        // $mk2->kode_matkul = 102;
-        // $mk2->nama = 'Komputer Masyarakat';
-
-        // $data = [$mk1, $mk2];
         return $data;
     }
 
@@ -246,16 +288,6 @@ class DosenController extends Controller{
             ->distinct()
             ->get();
 
-        // Mock
-        // $kk1 = new stdClass();
-        // $kk1->id_kurikulum = 11;
-        // $kk1->kelas = 'Kelas A';
-
-        // $kk2 = new stdClass();
-        // $kk2->id_kurikulum = 12;
-        // $kk2->kelas = 'Kelas B';
-
-        // $data = [$kk1, $kk2];
         return $data;
     }
 
@@ -266,16 +298,6 @@ class DosenController extends Controller{
             ->distinct()
             ->get();
 
-        // Mock
-        // $jadwal1 = new stdClass();
-        // $jadwal1->tanggal = Carbon::yesterday()->toDateTimeString();
-        // $jadwal1->id_roster = 1;
-
-        // $jadwal2 = new stdClass();
-        // $jadwal2->tanggal = Carbon::now()->toDateTimeString();
-        // $jadwal2->id_roster = 2;
-
-        // $data = [$jadwal1, $jadwal2];
         return $data;
     }
 
@@ -314,26 +336,6 @@ class DosenController extends Controller{
             ->select('a.id as id_kehadiran', 'c.nomor_induk as nim', 'd.nama as nama', 'a.keterangan')
             ->get();
 
-        // Mock
-        // $khd1 = new stdClass();
-        // $khd1->id_kehadiran = 1;
-        // $khd1->nim = 1118001;
-        // $khd1->nama = 'Jhon Doe';
-        // $khd1->keterangan = 'Hadir';
-
-        // $khd2 = new stdClass();
-        // $khd2->id_kehadiran = 2;
-        // $khd2->nim = 1118002;
-        // $khd2->nama = 'Jhon Doen';
-        // $khd2->keterangan = 'Sakit';
-
-        // $khd3 = new stdClass();
-        // $khd3->id_kehadiran = 3;
-        // $khd3->nim = 1118003;
-        // $khd3->nama = 'Jhon Doer';
-        // $khd3->keterangan = 'Alpha';
-
-        // $data = [$khd1, $khd2, $khd3];
         return $data;
     }
 
@@ -347,13 +349,6 @@ class DosenController extends Controller{
             ->select('a.id as id_kehadiran', 'c.nomor_induk as nim', 'd.nama as nama', 'a.keterangan')
             ->get();
 
-        // Mock
-        // $khd1 = new stdClass();
-        // $khd1->id_kehadiran = 1;
-        // $khd1->nim = 1118001;
-        // $khd1->nama = 'Jhon Doe';
-
-        // $data = [$khd1];
         return $data;
     }
 
@@ -423,47 +418,6 @@ class DosenController extends Controller{
                 'a.nilai_3 as n3', 'a.nilai_4 as n4', 'a.nilai_5 as n5', 'a.nilai_UAS as nUAS', 'a.nilai_akhir as na', 'a.index as index')
             ->get();
 
-        // Mock
-        // $mhs1 = new stdClass();
-        // $mhs1->id_nilai = 1;
-        // $mhs1->nim = 1118001;
-        // $mhs1->nama = 'Jhon Doe';
-        // $mhs1->n1 = 70;
-        // $mhs1->n2 = 75;
-        // $mhs1->n3 = -1;
-        // $mhs1->n4 = -1;
-        // $mhs1->n5 = -1;
-        // $mhs1->nUAS = -1;
-        // $mhs1->na = -1;
-        // $mhs1->index = '-';
-
-        // $mhs2 = new stdClass();
-        // $mhs2->id_nilai = 2;
-        // $mhs2->nim = 1118002;
-        // $mhs2->nama = 'Jhon Doen';
-        // $mhs2->n1 = 80;
-        // $mhs2->n2 = -1;
-        // $mhs2->n3 = -1;
-        // $mhs2->n4 = -1;
-        // $mhs2->n5 = -1;
-        // $mhs2->nUAS = -1;
-        // $mhs2->na = -1;
-        // $mhs2->index = '-';
-
-        // $mhs3 = new stdClass();
-        // $mhs3->id_nilai = 3;
-        // $mhs3->nim = 1118003;
-        // $mhs3->nama = 'Jhon Doer';
-        // $mhs3->n1 = 100;
-        // $mhs3->n2 = 90;
-        // $mhs3->n3 = -1;
-        // $mhs3->n4 = -1;
-        // $mhs3->n5 = -1;
-        // $mhs3->nUAS = -1;
-        // $mhs3->na = -1;
-        // $mhs3->index = '-';
-
-        // $data = [$mhs1, $mhs2, $mhs3];
         return $data;
     }
 
@@ -474,40 +428,12 @@ class DosenController extends Controller{
                'a.nilai_4 as n4', 'a.nilai_5 as n5', 'a.nilai_UAS as nUAS', 'a.nilai_akhir as na', 'a.index as index')
             ->first();
 
-        // Mock
-        // $mhs = new stdClass();
-        // $mhs->id_nilai = $id_nilai;
-        // switch($id_nilai) {
-        //     case(1):
-        //         $mhs->n1 = 70;
-        //         $mhs->n2 = 75;
-        //         break;
-        //     case(2):
-        //         $mhs->n1 = 80;
-        //         $mhs->n2 = -1;
-        //         break;
-        //     default:
-        //         $mhs->n1 = 100;
-        //         $mhs->n2 = 90;
-        //         break;
-        // }
-        // $mhs->n3 = -1;
-        // $mhs->n4 = -1;
-        // $mhs->n5 = -1;
-        // $mhs->nUAS = -1;
-        // $mhs->na = -1;
-        // $mhs->index = '-';
-
-        // $data = $mhs;
         return $data;
     }
 
     public function updateNilaiMahasiswa(Request $request, $id_nilai) {
         DB::beginTransaction();
         try {
-//            $arr_nilai = $request->nilai;
-//            $na = $request->nilai_akhir;
-//            $index = $request->index;
             $arr_nilai = $request['nilai'];
             $na = $request['nilai_akhir'];
             $index = $request['index'];
@@ -530,7 +456,7 @@ class DosenController extends Controller{
         //  Todo: Implement
     }
 
-    public function bimbunganSkripsi(){
+    public function bimbinganSkripsi(){
         //  Todo: Implement
     }
 

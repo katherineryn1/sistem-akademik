@@ -31,7 +31,7 @@ class PengumumanDataSeeder extends Seeder
         ]);
         DB::table('pengumuman_data')->insert([
             'judul'         => 'Pelaksanaan Kembali Perkuliahan Tatap Muka Terbatas Semester Genap 2021/2022',
-            'keterangan'    => 'Kepada Yth.Seluruh Mahasiswa ITHB<br>
+            'keterangan'    => 'Kepada Yth.Seluruh Mahasiswa ITHB<br><br>
             Berdasarkan perkembangan situasi terkini Covid-19 di Kota Bandung, kami informasikan bahwa mulai hari Senin tanggal 21 Maret 2022, Perkuliahan Tatap Muka Terbatas akan kembali dilaksanakan di Institut Teknologi Harapan Bangsa. Mata kuliah dan jadwal perkuliahan tatap muka dapat dilihat pada Roster Perkuliahan di SIA maupun di MyITHB. Kuliah tatap muka yang dilaksanakan tetap mengacu kepada protokol kesehatan yang berlaku.<br><br>
             
             Kami sampaikan kembali Panduan Perkuliahan Tatap Muka Terbatas di https://bit.ly/3CZG5sZ untuk dilaksanakan dengan baik oleh seluruh mahasiswa.<br><br>
