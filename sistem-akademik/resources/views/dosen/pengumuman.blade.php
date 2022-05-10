@@ -3,34 +3,20 @@
         <h1>Pengumuman</h1>
     </div>
 
-    <table class="table table-striped">
+    <div class="col-sm-12">
+      <table class="table table-striped">
         <tbody>
+          @foreach($pengumuman as $itemPengumuman)
           <tr>
-            <th scope="row"> <input type="checkbox" id="#" name="#" value="#"></th>
-            <td>
-                <div class="bold500">Kuliah Pengganti IF-001</div>
-                Lorem ipsum dolor sit amet
+            <th scope="row"><input type="checkbox" disabled="true" id="#" name="#" value="#"></th>
+            <td style="width: 90%;">
+                <div class="bold500">{{ $itemPengumuman['judul'] }}</div>
+                {!! $itemPengumuman['keterangan'] !!}
             </td>
-            <td>Feb 7 <i class="bi bi-trash-fill"></i>
-
-            </td>
+            <td style="width: 20%;">{{ $itemPengumuman['tanggal'] }} <i class="bi bi-trash-fill"></i></td>
           </tr>
-          <tr>
-            <th scope="row"> <input type="checkbox" id="#" name="#" value="#"></th>
-            <td>
-                <div class="bold500">Kuliah Pengganti IF-001</div>
-                Lorem ipsum dolor sit amet 
-            </td>
-            <td>Feb 7 <i class="bi bi-trash-fill"></i></td>
-          </tr>
-          <tr>
-            <th scope="row"> <input type="checkbox" id="#" name="#" value="#"></th>
-            <td>
-                <div class="bold500">Kuliah Pengganti IF-001</div>
-                Lorem ipsum dolor sit amet
-            </td>
-            <td>Feb 7 <i class="bi bi-trash-fill"></i></td>
-          </tr>
+          @endforeach
         </tbody>
       </table>
+    </div>
 </main>

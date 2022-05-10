@@ -28,7 +28,7 @@ class UsersDataSeeder extends Seeder
             'tempat_lahir'  => 'Bandung',
             'jenis_kelamin' => 1,
             'alamat'        => $faker->address,
-            'no_telepon'    => $faker->phoneNumber,
+            'notelepon'    => $faker->phoneNumber,
             'jabatan'       => 0
         ]);
         DB::table('users_data')->insert([
@@ -40,7 +40,7 @@ class UsersDataSeeder extends Seeder
             'tempat_lahir'  => 'Surabaya',
             'jenis_kelamin' => 0,
             'alamat'        => $faker->address,
-            'no_telepon'    => $faker->phoneNumber,
+            'notelepon'    => $faker->phoneNumber,
             'jabatan'       => 0
         ]);
         DB::table('users_data')->insert([
@@ -52,7 +52,7 @@ class UsersDataSeeder extends Seeder
             'tempat_lahir'  => 'Jakarta',
             'jenis_kelamin' => 0,
             'alamat'        => $faker->address,
-            'no_telepon'    => $faker->phoneNumber,
+            'notelepon'    => $faker->phoneNumber,
             'jabatan'       => 0
         ]);
 
@@ -66,7 +66,7 @@ class UsersDataSeeder extends Seeder
             'tempat_lahir'  => 'Garut',
             'jenis_kelamin' => 0,
             'alamat'        => $faker->address,
-            'no_telepon'    => $faker->phoneNumber,
+            'notelepon'    => $faker->phoneNumber,
             'jabatan'       => 1
         ]);
         DB::table('users_data')->insert([
@@ -78,7 +78,7 @@ class UsersDataSeeder extends Seeder
             'tempat_lahir'  => 'Palembang',
             'jenis_kelamin' => 1,
             'alamat'        => $faker->address,
-            'no_telepon'    => $faker->phoneNumber,
+            'notelepon'    => $faker->phoneNumber,
             'jabatan'       => 1
         ]);
         DB::table('users_data')->insert([
@@ -90,7 +90,7 @@ class UsersDataSeeder extends Seeder
             'tempat_lahir'  => 'Kupang',
             'jenis_kelamin' => 1,
             'alamat'        => $faker->address,
-            'no_telepon'    => $faker->phoneNumber,
+            'notelepon'    => $faker->phoneNumber,
             'jabatan'       => 1
         ]);
 

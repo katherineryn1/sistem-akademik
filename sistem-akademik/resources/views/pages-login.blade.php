@@ -1,3 +1,4 @@
+@extends('layouts.app')
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,6 +7,7 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
     <title>Log In</title>
+
     <meta content="" name="description">
     <meta content="" name="keywords">
 
@@ -33,7 +35,6 @@
 </head>
 
 <body>
-
     <main>
         <div class="container">
             <section class="vh-100">
