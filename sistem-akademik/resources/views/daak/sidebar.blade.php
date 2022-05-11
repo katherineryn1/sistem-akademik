@@ -21,8 +21,14 @@
 
       <li class="nav-item">
         <a class="nav-link " href="{{ url('/daak/matakuliah-kurikulum') }}">
-          <i style="color: inherit" class="bi bi-qr-code"></i>
+          <i style="color: inherit" class="bi bi-clipboard"></i>
           <span>Matakuliah & Kurikulum</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link " href="{{ url('/daak/pengambilan-matakuliah') }}">
+            <i style="color: inherit" class="bi bi-bezier2"></i>
+            <span>Pengambilan Matakuliah</span>
         </a>
       </li>
 
@@ -37,7 +43,7 @@
 
       <li class="nav-item">
         <a class="nav-link " href="{{ url('/daak/mahasiswa') }}">
-          <i style="color: inherit" class="bi bi-gear"></i>
+          <i style="color: inherit" class="bi bi-people-fill"></i>
           <span>Akun Mahasiswa</span>
         </a>
       </li>
@@ -45,14 +51,14 @@
 
       <li class="nav-item">
         <a class="nav-link" href="{{ url('/daak/dosen') }}">
-            <i style="color: inherit" class="bi bi-gear"></i>
+            <i style="color: inherit" class="bi bi-people-fill"></i>
             <span>Akun Dosen</span>
         </a>
       </li>
 
       <li class="nav-item">
         <a class="nav-link" href="{{ url('/daak/pengguna') }}">
-            <i style="color: inherit" class="bi bi-gear"></i>
+            <i style="color: inherit" class="bi bi-person-lines-fill"></i>
             <span>Akun Pengguna</span>
         </a>
       </li>

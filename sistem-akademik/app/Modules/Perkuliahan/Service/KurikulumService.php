@@ -128,12 +128,17 @@ class KurikulumService {
         }
         if(!PengambilanMatakuliahService::insert($nomorInduk,"murid", $kurikulum)){
             return  false;
-        };
-        if(!NilaiService::insert()){
+        }
+        $pengambilanKurikulum = PengambilanMatakuliahService::pengambilanMatakuliahByInfo('id_kurikulum' , $kurikulum);
+//        foreach ($pengambilanKurikulum as $key=>$val){
+//            if($val[''])
+//        }
+//
+//        if()
+
+        if(!NilaiService::insert($kurikulum, 0,0,0,0,0,0, 0,"",       )){
 
         }
-
-        // Todo: Implement
         return  true;
     }
 

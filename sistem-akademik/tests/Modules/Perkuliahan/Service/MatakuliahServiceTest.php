@@ -37,6 +37,7 @@ class MatakuliahServiceTest extends TestCase
     public function testGetAll()
     {
         $data = MatakuliahService::getAll();
+        print_r($data);
         self::assertGreaterThan(0, count($data));
     }
 

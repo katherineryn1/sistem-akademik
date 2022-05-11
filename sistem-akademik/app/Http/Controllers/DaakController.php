@@ -37,6 +37,11 @@ class DaakController extends Controller{
         return view('daak.matakuliah-kurikulum', ['page_title' => 'Matakuliah Kurikulum', 'data_matakuliah' => $dataMatakuliah, 'data_kurikulum' => $dataKurikulum]);
     }
 
+    public function pengambilanMatakuliah(){
+        $data = [];
+        return view('daak.pengambilan-matakuliah', ['page_title' => 'Pengambilan Matakuliah' , 'data' => $data]);
+    }
+
     public function pengumuman(){
         $data = PengumumanService::getAll();
         return view('daak.pengumuman', ['page_title' => 'Pengumuman' , 'data' => $data]);
