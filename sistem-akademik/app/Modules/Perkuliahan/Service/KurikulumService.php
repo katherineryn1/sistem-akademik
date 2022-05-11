@@ -103,14 +103,22 @@ class KurikulumService {
         return KurikulumAdapter::ArrayEntitiesToDictionaries($found);
     }
 
-    public static  function addDosen(int  $idKurikulum,string  $nomorInduk):bool {
-        //return self::$pm->insertUserKurikulum($nomorInduk,$idKurikulum);
-        // Todo: Implement
-        return  false;
+    public static  function addDosen(int  $id,string  $nomorInduk):bool {
+        $kurikulum = self::kurikulumByInfo("id",$id);
+        if(count($kurikulum) == 0 ){
+            return false;
+        }
+        if(!PengambilanMatakuliahService::insert($nomorInduk,"Pengajar", $id)){
+            return  false;
+        }
+        $pengambilanKurikulum = PengambilanMatakuliahService::pengambilanMatakuliahByInfo('id_kurikulum' , $id);
+        if(count($pengambilanKurikulum) == 0 ){
+            return false;
+        }
+        return  true;
     }
 
     public static  function removeDosen(int  $id,string $nomorInduk):bool {
-
         // Todo: Implement
         return  false;
     }
@@ -126,33 +134,31 @@ class KurikulumService {
         if(count($kurikulum) == 0 ){
             return false;
         }
-        if(!PengambilanMatakuliahService::insert($nomorInduk,"murid", $kurikulum)){
+        if(!PengambilanMatakuliahService::insert($nomorInduk,"Murid", $id)){
             return  false;
         }
-        $pengambilanKurikulum = PengambilanMatakuliahService::pengambilanMatakuliahByInfo('id_kurikulum' , $kurikulum);
-//        foreach ($pengambilanKurikulum as $key=>$val){
-//            if($val[''])
-//        }
-//
-//        if()
+        $pengambilanKurikulum = PengambilanMatakuliahService::pengambilanMatakuliahByInfo('id_kurikulum' , $id);
+        if(count($pengambilanKurikulum) == 0 ){
+            return false;
+        }
+        $currentPengambilan = [];
+        foreach ($pengambilanKurikulum as $data){
+            if($data['nomor_induk'] == $nomorInduk){
+                $currentPengambilan = $data;
+                break;
+            }
+        }
+        if(count($currentPengambilan) == 0){
+            return false;
+        }
 
-        if(!NilaiService::insert($kurikulum, 0,0,0,0,0,0, 0,"",       )){
-
+        if(!NilaiService::insert($id, 0,0,0,0,0,0, 0,"",   $currentPengambilan['id'] )){
+            return false;
         }
         return  true;
     }
 
     public static  function removeMahasiswa(int  $id,string $nomorInduk):array {
-        // Todo: Implement
-        return  [];
-    }
-
-    public static  function generateNilai(int  $id):array {
-        // Todo: Implement
-        return  [];
-    }
-
-    public static  function destroyNilai(int  $id):array {
         // Todo: Implement
         return  [];
     }
