@@ -31,8 +31,9 @@ class PengambilanMatakuliahServiceTest extends TestCase
     }
 
     public function testPengambilanMatakuliahByInfo() {
-        $posisiAmbil = "Dosen";
-        $hasil = PengambilanMatakuliahService::pengambilanMatakuliahByInfo("posisi_ambil" , $posisiAmbil);
+
+        $hasil = PengambilanMatakuliahService::pengambilanMatakuliahByInfo("id_kurikulum" , 1);
+        print_r($hasil);
         self::assertGreaterThan(0, count($hasil));
     }
 

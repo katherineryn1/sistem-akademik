@@ -195,8 +195,12 @@ class Pengguna {
     /**
      * @param string $fotoprofil
      */
-    public function setFotoprofil(string $fotoprofil): void
+    public function setFotoprofil(?string $fotoprofil): void
     {
+        if($fotoprofil == null){
+            $this->fotoprofil = "";
+            return;
+        }
         $this->fotoprofil = $fotoprofil;
     }
 

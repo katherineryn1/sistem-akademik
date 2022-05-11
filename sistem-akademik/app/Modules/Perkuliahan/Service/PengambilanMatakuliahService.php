@@ -32,6 +32,15 @@ class PengambilanMatakuliahService{
         $newPengambilan = new PengambilanMatakuliah();
         $newPengambilan->setPengguna(PenggunaBuilder::setNomorInduk($nomorInduk)::get());
         $newPengambilan->setPosisiAmbil(PosisiAmbilPengambilanMatakuliah::getEnumBy($posisiAmbil));
+        $dataCheck = self::pengambilanMatakuliahByInfo("id_kurikulum",  $kurikulum);
+        if(count($dataCheck) > 0){
+            foreach ($dataCheck as $data){
+                if($data['nomor_induk'] == $newPengambilan->getPengguna()->getNomorInduk() &&
+                   $data['posisi_ambil'] == $newPengambilan->getPosisiAmbil()){
+                    return false;
+                }
+            }
+        }
         return self::$pm->insertSingle($newPengambilan,$kurikulum);
     }
 

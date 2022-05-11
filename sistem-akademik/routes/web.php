@@ -51,6 +51,7 @@ Route::get('/daak',  [DaakController::class, 'dashboard']);
 Route::get('/daak/jadwal-kuliah',[DaakController::class, 'jadwalKuliah']);
 Route::get('/daak/jadwal-kuliah/{id}',[DaakController::class, 'jadwalKuliah']);
 Route::get('/daak/matakuliah-kurikulum',[DaakController::class, 'matakuliahKurikulum']);
+Route::get('/daak/pengambilan-matakuliah',[DaakController::class, 'pengambilanMatakuliah']);
 Route::get('/daak/matakuliah/{kode}',[DaakController::class, 'matakuliahKurikulum']);
 Route::get('/daak/kurikulum/{kurikulum}',[DaakController::class, 'matakuliahKurikulum']);
 Route::get('/daak/jadwal-ujian',[DaakController::class, 'jadwalKuliah']);

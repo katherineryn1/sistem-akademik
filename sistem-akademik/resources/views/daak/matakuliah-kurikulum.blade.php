@@ -154,13 +154,21 @@
                     <div class="row mb-3 form-horizontal">
                         <label for="inputJenis" class="col-sm-2 col-form-label control-label">Jenis</label>
                         <div class="col-sm-10 ">
-                            <input type="text" class="form-control" id="inputJenis" name="inputJenis" required>
+                            <input type="text" class="form-control" id="inputJenis" name="inputJenis" list="jenisDatalist" required>
+                            <datalist id="jenisDatalist">
+                                <option value="Umum">
+                                <option value="Keilmuan Keterampilan">
+                            </datalist>
                         </div>
                     </div>
                     <div class="row mb-3 form-horizontal">
                         <label for="inputSifat" class="col-sm-2 col-form-label control-label">Sifat</label>
                         <div class="col-sm-10 ">
-                            <input type="text" class="form-control" id="inputSifat" name="inputSifat" required>
+                            <input type="text" class="form-control" id="inputSifat" name="inputSifat" list="sifatDatalist" required>
+                            <datalist id="sifatDatalist">
+                                <option value="Wajib">
+                                <option value="Pilihan">
+                            </datalist>
                         </div>
                     </div>
                     <div class="row mb-3 form-horizontal">
@@ -204,6 +212,10 @@
                         <label for="inputSemester" class="col-sm-2 col-form-label control-label">Semester</label>
                         <div class="col-sm-10 ">
                             <input type="text" class="form-control" id="inputSemester" name="inputSemester" required>
+                            <datalist id="jenisDatalist">
+                                <option value="Ganjil">
+                                <option value="Genap">
+                            </datalist>
                         </div>
                     </div>
                     <div class="row mb-3 form-horizontal">

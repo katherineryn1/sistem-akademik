@@ -54,7 +54,10 @@ class KurikulumServiceTest extends TestCase
     }
 
     public function testAddMahasiswa() {
-
+        $idKurikulum = 3;
+        $nomorIndukMahasiswa = "1118002";
+        $hasil = KurikulumService::addMahasiswa($idKurikulum,$nomorIndukMahasiswa);
+        self::assertEquals(true,$hasil);
     }
 
     public function testRemoveMahasiswa()
