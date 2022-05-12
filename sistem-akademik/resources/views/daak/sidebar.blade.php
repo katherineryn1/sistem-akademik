@@ -79,11 +79,11 @@
             }
             console.log(i.getAttribute("href"));
         }
-        function modalConfirmDeletion(idDeleteVal = -1, modalID = "modal-body-delete") {
+        function modalConfirmDeletion(idDeleteVal = -1, nameForm = "nomor_induk", modalID = "modal-body-delete") {
             const modalHapusDosen = document.getElementById(modalID);
             modalHapusDosen.innerHTML = `
                 <label for="validationCustom02" class="form-label">Tuliskan kembali <code>${idDeleteVal}</code> untuk konfirmasi :</label>
-                <input onkeyup="checkInputEnableButtonSubmit(this,${idDeleteVal})" autocomplete="off" type="text" class="form-control was-validated" name="nomor_induk" placeholder="${idDeleteVal}" required>
+                <input onkeyup="checkInputEnableButtonSubmit(this,${idDeleteVal})" autocomplete="off" type="text" class="form-control was-validated" name="${nameForm}" placeholder="${idDeleteVal}" required>
                 <div class="valid-feedback">
                     Tuliskan <code>${idDeleteVal}</code>
                 </div>
