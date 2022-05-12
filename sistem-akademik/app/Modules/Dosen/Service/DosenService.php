@@ -186,8 +186,8 @@ class DosenService {
                     echo "Belum ada Jadwal\n";
                 }
             }
-            return false;
         }
+        return false;
     }
 
 }
