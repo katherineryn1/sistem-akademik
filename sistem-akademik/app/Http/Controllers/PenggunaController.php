@@ -131,11 +131,10 @@ class PenggunaController extends Controller{
         $currentUser = $request->session()->pull('currentuser');
         if($currentUser == null){
             echo "Tidak login";
-            return;
         }else{
             echo "Success logoout";
-            return;
         }
+        return back();
     }
 
     public function resetPassword(){

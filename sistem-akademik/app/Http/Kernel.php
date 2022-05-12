@@ -65,6 +65,9 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'checklogin' => \App\Http\Middleware\CheckLoginSession::class,
+        'onlyDaak' => \App\Http\Middleware\RouteOnlyDaak::class,
+        'onlyDosen' => \App\Http\Middleware\RouteOnlyDosen::class,
+        'onlyMahasiswa' => \App\Http\Middleware\RouteOnlyMahasiswa::class,
 
     ];
 }
