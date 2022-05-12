@@ -1,4 +1,3 @@
-@extends('layouts.app')
 <!DOCTYPE html>
 <html lang="en">
 
@@ -49,22 +48,30 @@
                             <div class="d-flex align-items-center h-custom-2 px-5 ms-xl-4 mt-5 pt-5 pt-xl-0 mt-xl-n5">
                                 <div class="card mb-3">
                                     <div class="card-body">
+                                        @if(Session::has('errors-login'))
+                                            @if(Session::pull('errors-login',false) == true)
+                                            <div class="alert alert-danger bg-danger text-light border-0 alert-dismissible fade show" role="alert">
+                                                Login tidak dapat dilakukan, check kembali email dan password !
+                                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+                                            </div>
+                                            @endif
+                                        @endif
+
                                         <form class="row g-3 needs-validation" method="post" novalidate
                                             action="{{ route('login_form') }}">
                                             {{ csrf_field() }}
                                             <h3 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Log in</h3>
                                             <div class="form-outline mb-4">
-                                                <label class="form-label" for="form2Example18">NIM / NIK</label>
+                                                <label class="form-label" for="email">Email</label>
                                                 <div class="input-group has-validation">
-                                                    <input type="text" name="username" class="form-control"
-                                                        id="yourUsername" required>
-                                                    <div class="invalid-feedback">Please enter your username.</div>
+                                                    <input type="text" name="email" class="form-control"
+                                                        id="email" required>
+                                                    <div class="invalid-feedback">Please enter your Nomor Induk.</div>
                                                 </div>
                                             </div>
                                             <div class="form-outline mb-4">
-                                                <label class="form-label" for="form2Example28">Password</label>
-                                                <input type="password" name="password" class="form-control"
-                                                    id="yourPassword" required>
+                                                <label class="form-label" for="password">Password</label>
+                                                <input type="password" name="password" class="form-control" id="password" required>
                                                 <div class="invalid-feedback">Please enter your password!</div>
                                             </div>
                                             <div class="pt-1 mb-4">
@@ -172,7 +179,7 @@
 
     <!-- Template Main JS File -->
     <script src="assets/js/main.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
 
 </html>

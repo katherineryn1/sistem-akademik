@@ -101,14 +101,29 @@ class PenggunaController extends Controller{
     }
 
     public function login(Request $request){
-        $email = "if-10171@dosen.ithb.ac.id";
-        $password = "ithb2022 PASSWORDNYA SALAH";
+        $input = $request->validate([
+            'email' => ['required'],
+            'password' => ['required'],
+        ]);
+        $email = $input['email'];
+        $password = $input['password'];
         if(PenggunaService::login($email,$password) == true){
-            $curr = PenggunaService::userInfo('email',$email);
+            $curr = PenggunaService::userInfo('email',$email)[0];
             $request->session()->put('currentuser', $curr);
             echo "Success Login";
+            $redirectPath = "/";
+            if($curr['jabatan']->getString() == "Daak"){
+                $redirectPath = "/daak";
+            }else if($curr['jabatan']->getString() == "Dosen"){
+                $redirectPath = "/dosen";
+            }else if($curr['jabatan']->getString() == "Mahasiswa"){
+                $redirectPath = "/mahasiswa";
+            }
+            return redirect($redirectPath);
         }else{
             echo "Gagal Login";
+            $request->session()->flash('errors-login', true);
+            return back();
         }
     }
 
