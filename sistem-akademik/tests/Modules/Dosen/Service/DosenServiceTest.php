@@ -48,8 +48,31 @@ class DosenServiceTest extends TestCase{
     }
     public function testDosenInfo(){
         $data = DosenService::dosenInfo("nomor_induk", "2099002");
+        print_r($data);
         self::assertGreaterThan(0, count($data));
     }
+
+    public function testRekapMengajar(){
+        $nomorInduk = "10171";
+        $data = DosenService::getRekapMengajar($nomorInduk);
+        print_r($data);
+        self::assertGreaterThan(0, count($data));
+    }
+
+    public function testJadwalMengajar(){
+        $nomorInduk = "10171";
+        $data = DosenService::getJadwalMengajar($nomorInduk);
+        print_r($data);
+        self::assertGreaterThan(0, count($data));
+    }
+
+    public function testLakukanAbsensi(){
+        $nomorInduk = "10171";
+        $data = DosenService::lakukanAbsensi($nomorInduk);
+        print_r($data);
+        self::assertGreaterThan(0, 1);
+    }
+
     public function testDelete(){
         $nomorInduk = "2099002";
         $status = DosenService::delete($nomorInduk);

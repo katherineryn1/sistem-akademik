@@ -82,7 +82,7 @@
                 <h5 class="card-title">Buat Jadwal Kuliah</h5>
 
                 <!-- Horizontal Form -->
-                <form action="{{ url("v1/jadwal") }}"  method="post" enctype='multipart/form-data'>
+                <form action="{{ url("v1/jadwal") }}"  method="post" enctype='multipart/form-data' autocomplete="off">
                     @csrf
                     <div class="row mb-3 form-horizontal">
                         <h5 class="card-subtitle mb-2 text-muted">Form Jadwal Kuliah</h5>
@@ -97,13 +97,12 @@
                     <div class="row mb-3 form-horizontal">
                         <label for="inputKurikulum" class="col-sm-2 col-form-label control-label">Kurikulum MK</label>
                         <div class="col-sm-10 ">
-{{--                            <select  id="inputKurikulum" class="form-select" name="inputKurikulum" required>--}}
-{{--                                <option selected="">--Pilih Kurikulum MK--</option>--}}
-{{--                                <option value="1">1 - IF-201 - Struktur Data</option>--}}
-{{--                                <option value="2">2 - IF-301 - RPL</option>--}}
-{{--                                <option value="3">3 - IF-101 - Algoritma</option>--}}
-{{--                            </select>--}}
-                            <input type="text" class="form-control" id="inputKurikulum" name="inputKurikulum" required>
+                            <input type="text" list="kurikulumDatalist" class="form-control" id="inputKurikulum" name="inputKurikulum" placeholder="Ketikan untuk mencari kurikulum..."  required>
+                            <datalist id="kurikulumDatalist">
+                                @foreach($dl_kurikulum as $val)
+                                    <option value="{{  $val['id'] . " - ".  $val['kode_matakuliah']  . " - ".  $val['tahun']. " - ". $val['semester']->getString()   . " - ".  $val['kelas']}}">
+                                @endforeach
+                            </datalist>
                         </div>
                     </div>
                     <div class="row mb-3 form-horizontal">

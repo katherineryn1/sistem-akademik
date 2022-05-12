@@ -97,17 +97,12 @@ class RosterService {
         }
         $dataDosenKurikulum = KurikulumService::getDosen($idKurikulum);
         foreach ($dataDosenKurikulum as $d){
-            $status = KehadiranService::insert( KeteranganKehadiran::APLHA["string"],$d["id"], $roster['id']);
+            $status = KehadiranService::insert( KeteranganKehadiran::HADIR['string'],$d["id"], $roster['id']);
             if($status == false){
                 return  false;
             }
         }
         return  true;
-    }
-
-    public static  function destroyKehadiran(int $id):array {
-        // Todo: Implement
-        return  [];
     }
 
     public static function getAll():array {

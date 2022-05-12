@@ -53,6 +53,40 @@ class MahasiswaServiceTest extends TestCase
         $hasil = MahasiswaService::mahasiswaInfo("nomor_induk",$nomorInduk );
         self::assertGreaterThan(0, count($hasil));
     }
+
+    public function testGetRencanaStudi()
+    {
+        $nomorInduk = "1117001";
+        $hasil = MahasiswaService::getRencanaStudi($nomorInduk);
+        print_r($hasil);
+        self::assertGreaterThan(0, count($hasil));
+    }
+
+    public function testGetTranscript()
+    {
+        $nomorInduk = "1117001";
+        $hasil = MahasiswaService::getTranscript($nomorInduk);
+        print_r($hasil);
+        self::assertGreaterThan(0, count($hasil));
+    }
+
+    public function testGetJadwalMatakuliah()
+    {
+        $nomorInduk = "1117001";
+        $hasil = MahasiswaService::getJadwalMatakuliah($nomorInduk);
+        print_r($hasil);
+        self::assertGreaterThan(0, count($hasil));
+    }
+
+    public function testGetKehadiran()
+    {
+        $nomorInduk = "1117001";
+        $hasil = MahasiswaService::getKehadiran($nomorInduk);
+        print_r($hasil);
+        self::assertGreaterThan(0, count($hasil));
+    }
+
+
     public function testDelete()
     {
         $nomorInduk = "19999001";
