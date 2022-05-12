@@ -5,8 +5,10 @@ use App\Modules\Dosen\Service\DosenService;
 use App\Modules\Mahasiswa\Service\MahasiswaService;
 use App\Modules\Pengguna\Service\PenggunaService;
 use App\Modules\Pengumuman\Service\PengumumanService;
+use App\Modules\Perkuliahan\Entity\PosisiAmbilPengambilanMatakuliah;
 use App\Modules\Perkuliahan\Service\KurikulumService;
 use App\Modules\Perkuliahan\Service\MatakuliahService;
+use App\Modules\Perkuliahan\Service\PengambilanMatakuliahService;
 use App\Modules\Perkuliahan\Service\RosterService;
 use Illuminate\Http\Request;
 
@@ -38,8 +40,19 @@ class DaakController extends Controller{
     }
 
     public function pengambilanMatakuliah(){
-        $data = [];
-        return view('daak.pengambilan-matakuliah', ['page_title' => 'Pengambilan Matakuliah' , 'data' => $data]);
+        $data = array();
+        $allPengguna = PenggunaService::getAll();
+        $allKurikulum = KurikulumService::getAll();
+        foreach ($allKurikulum as $kur){
+            $resPengambilan = PengambilanMatakuliahService::pengambilanMatakuliahByInfo("id_kurikulum" ,$kur['id'] );
+            if(count($resPengambilan) == 0){
+                continue;
+            }
+            $data[$kur['id']] = array();
+            $data[$kur['id']]['pengambilan_mk'] = $resPengambilan;
+            $data[$kur['id']]['kurikulum'] = $kur;
+        }
+        return view('daak.pengambilan-matakuliah', ['page_title' => 'Pengambilan Matakuliah' , 'data' => $data, 'enum_pengambilan_mk' =>PosisiAmbilPengambilanMatakuliah::getEnumString() , 'dl_pengguna' => $allPengguna, 'dl_kurikulum' => $allKurikulum]);
     }
 
     public function pengumuman(){

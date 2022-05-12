@@ -101,8 +101,8 @@ class PenggunaController extends Controller{
     }
 
     public function login(Request $request){
-        $email = "tes22t@mail.com";
-        $password = "newPWD";
+        $email = "if-10171@dosen.ithb.ac.id";
+        $password = "ithb2022 PASSWORDNYA SALAH";
         if(PenggunaService::login($email,$password) == true){
             $curr = PenggunaService::userInfo('email',$email);
             $request->session()->put('currentuser', $curr);

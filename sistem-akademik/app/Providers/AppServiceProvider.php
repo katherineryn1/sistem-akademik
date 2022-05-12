@@ -24,6 +24,8 @@ use App\Modules\Perkuliahan\Service\NilaiService;
 use App\Modules\Perkuliahan\Service\PengambilanMatakuliahService;
 use App\Modules\Perkuliahan\Service\RosterService;
 
+use App\Modules\Skripsi\Model\SkripsiData;
+use App\Modules\Skripsi\Service\SkripsiService;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -46,6 +48,7 @@ class AppServiceProvider extends ServiceProvider
         new KehadiranService(new KehadiranData());
         new RosterService(new RosterData());
         new PengambilanMatakuliahService(new PengambilanMatakuliahData());
+        new SkripsiService(new SkripsiData());
     }
 
     /**

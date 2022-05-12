@@ -139,7 +139,7 @@ class DosenController extends Controller{
         for ($i = 0; $i <= 12; $i++) {
             array_push($arr_jadwal, array(1, 1, 1, 1, 1, 1, 1));
         }
-        
+
         return [
             'week' => $week,
             'jadwal_mengajar' => $arr_jadwal_mengajar,
@@ -181,7 +181,7 @@ class DosenController extends Controller{
             array_push($arr_pengumuman, $pengumuman);
         }
 
-        
+
         return view('dosen.dashboard', [
             'tanggalHariIni' => Carbon::parse($tanggal_hari_ini)->locale('id')->isoFormat('D MMMM'),
             'jadwalMengajar' => $arr_jadwal_mengajar,
@@ -198,7 +198,7 @@ class DosenController extends Controller{
         foreach ($db as $d) {
             array_push($data, $d->id_kurikulum);
         }
-        
+
         return $data;
     }
 
@@ -459,11 +459,11 @@ class DosenController extends Controller{
 
     public function getBimbinganSkripsi($id){
         $data = DB::table('skripsi')
-        ->where('nim', '=', $id)
-        ->select('nim', 'judul')
-        ->get();
+            ->where('nim', '=', $id)
+            ->select('nim', 'judul')
+            ->get();
         return $data;
-
+    }
     public function bimbinganSkripsi(){
         //  Todo: Implement
     }
