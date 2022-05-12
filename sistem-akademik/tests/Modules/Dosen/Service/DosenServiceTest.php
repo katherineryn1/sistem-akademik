@@ -24,9 +24,9 @@ class DosenServiceTest extends TestCase{
         $gelarAkademik = "Master";
         $stausIkatanKerja = "Honorer";
         $statusDosen = "Aktif";
-
+        $fotoProfile = "";
         $res = DosenService::insert($nama,$password,  $nomorInduk, $email, $tanggalLahir, $tempatLahir,
-            $jenisKelamin, $alamat,$notelepon, $jabatan,$jabatan,$programstudi,$bidangIlmu,
+            $jenisKelamin, $alamat,$notelepon, $jabatan,$jabatan, $fotoProfile,$programstudi,$bidangIlmu,
             $gelarAkademik, $stausIkatanKerja,$statusDosen );
         self::assertEquals(true,$res);
     }

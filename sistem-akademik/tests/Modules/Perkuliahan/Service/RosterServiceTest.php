@@ -47,10 +47,17 @@ class RosterServiceTest extends TestCase
     }
 
     public function testDelete(){
-        $hasil = NilaiService::getAll();
+        $hasil = RosterService::getAll();
         self::assertGreaterThan(0, count($hasil));
-        $hasilDelete = NilaiService::delete($hasil[0]['id']);
+        $hasilDelete = RosterService::delete($hasil[0]['id']);
         self::assertEquals(true,$hasilDelete);
 
+    }
+
+    public function testGenerateKehadiran(){
+        $hasil = RosterService::getAll();
+        self::assertGreaterThan(0, count($hasil));
+        $hasilGenerate = RosterService::generateKehadiran($hasil[0]['id'],3);
+        self::assertEquals(true,$hasilGenerate);
     }
 }

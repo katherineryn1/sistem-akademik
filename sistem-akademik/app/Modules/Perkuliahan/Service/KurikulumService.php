@@ -104,6 +104,11 @@ class KurikulumService {
         return KurikulumAdapter::ArrayEntitiesToDictionaries($found);
     }
 
+    /**
+     * @param int $id
+     * @param string $nomorInduk
+     * @return bool
+     */
     public static  function addDosen(int  $id,string  $nomorInduk):bool {
         $kurikulum = self::kurikulumByInfo("id",$id);
         if(count($kurikulum) == 0 ){
@@ -116,20 +121,74 @@ class KurikulumService {
         if(count($pengambilanKurikulum) == 0 ){
             return false;
         }
+        $currentPengambilan = [];
+        foreach ($pengambilanKurikulum as $data){
+            if($data['nomor_induk'] == $nomorInduk && $data['posisi_ambil']->get() == PosisiAmbilPengambilanMatakuliah::MURID ){
+                $currentPengambilan = $data;
+                break;
+            }
+        }
         return  true;
     }
 
+    /**
+     * @param int $id
+     * @param string $nomorInduk
+     * @return bool
+     */
     public static  function removeDosen(int  $id,string $nomorInduk):bool {
-        // Todo: Implement
+        $allDosen = self::getDosen($id);
+        foreach ($allDosen as $dosen){
+            if($dosen['nomor_induk'] == $nomorInduk){
+                return PengambilanMatakuliahService::delete($dosen['id']);
+            }
+        }
         return  false;
     }
 
-
+    /**
+     * @param string $id
+     * @return array
+     */
     public static  function getMahasiswa(string  $id):array {
-        // Todo: Implement
-        return  [];
+        $kurikulum = self::kurikulumByInfo("id",$id);
+        if(count($kurikulum) == 0 ){
+            return [];
+        }
+        $pengambilan = PengambilanMatakuliahService::pengambilanMatakuliahByInfo("id_kurikulum",$id);
+        $listMhs = [];
+        foreach ($pengambilan as $data){
+            if($data['posisi_ambil']->get() == PosisiAmbilPengambilanMatakuliah::MURID){
+                array_push($listMhs,$data);
+            }
+        }
+        return $listMhs;
     }
 
+    /**
+     * @param string $id
+     * @return array
+     */
+    public static  function getDosen(string  $id):array {
+        $kurikulum = self::kurikulumByInfo("id",$id);
+        if(count($kurikulum) == 0 ){
+            return false;
+        }
+        $pengambilan = PengambilanMatakuliahService::pengambilanMatakuliahByInfo("id_kurikulum",$id);
+        $listDosen = [];
+        foreach ($pengambilan as $data){
+            if($data['posisi_ambil']->get() == PosisiAmbilPengambilanMatakuliah::PENGAJAR){
+                array_push($listDosen,$data);
+            }
+        }
+        return $listDosen;
+    }
+
+    /**
+     * @param int $id
+     * @param string $nomorInduk
+     * @return bool
+     */
     public static  function addMahasiswa(int  $id,string  $nomorInduk):bool {
         $kurikulum = self::kurikulumByInfo("id",$id);
         if(count($kurikulum) == 0 ){
@@ -152,21 +211,36 @@ class KurikulumService {
         if(count($currentPengambilan) == 0){
             return false;
         }
-
         if(!NilaiService::insert($id, 0,0,0,0,0,0, 0,"",   $currentPengambilan['id'] )){
             return false;
         }
         return  true;
     }
 
-    public static  function removeMahasiswa(int  $id,string $nomorInduk):array {
-        // Todo: Implement
-        return  [];
+    /**
+     * @param int $id
+     * @param string $nomorInduk
+     * @return bool
+     */
+    public static  function removeMahasiswa(int  $id,string $nomorInduk):bool {
+        $allMhs = self::getMahasiswa($id);
+        foreach ($allMhs as $mhs){
+            if($mhs['nomor_induk'] == $nomorInduk){
+                return PengambilanMatakuliahService::delete($mhs['id']);
+            }
+        }
+        return  false;
     }
 
-    public static  function generateRoster(int $id):array {
-        // Todo: Implement
-        return  [];
+    public static  function generateRoster(int $idKurikulum, int $idSampleRoster):bool {
+        $kurikulum = self::kurikulumByInfo("id",$idKurikulum);
+        if(count($kurikulum) == 0 ){
+            return false;
+        }
+        print_r($kurikulum[0]['jumlah_pertemuan']);
+        $sampleRoster = RosterService::rosterByInfo("id", $idSampleRoster);
+        print_r($sampleRoster[0]);
+        return  false;
     }
 
     public static  function destroyRoster(int $id):array {

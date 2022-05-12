@@ -22,13 +22,24 @@ class DosenService {
     }
 
     /**
+     * @param string $nama
+     * @param string $password
      * @param string $nomorInduk
+     * @param string $email
+     * @param string $tanggalLahir
+     * @param string $tempatLahir
+     * @param string $jenisKelamin
+     * @param string $alamat
+     * @param string $notelepon
+     * @param string $jabatan
+     * @param string $fotoProfile
      * @param string $programStudi
      * @param string $bidangIlmu
      * @param string $gelarAkademik
      * @param string $statusIkatanKerja
      * @param bool $statusDosen
      * @return bool
+     * @throws \Exception
      */
     public static function insert(string  $nama,string $password, string $nomorInduk,string $email,
                                   string $tanggalLahir, string $tempatLahir,string $jenisKelamin, string  $alamat,

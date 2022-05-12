@@ -1,5 +1,6 @@
 <?php
 namespace App\Modules\Perkuliahan\Service;
+use App\Modules\Perkuliahan\Entity\KeteranganKehadiran;
 use App\Modules\Perkuliahan\Helper\RosterAdapter;
 use DateTime;
 use App\Modules\Perkuliahan\Entity\Roster;
@@ -73,9 +74,35 @@ class RosterService {
         return RosterAdapter::ArrayEntitiesToDictionaries($found);
     }
 
-    public static  function generateKehadiran(int $id):array {
-        // Todo: Implement
-        return  [];
+    public static function generateKehadiran(int $idKurikulum,int $idSelectedRoster):bool{
+        $dataRoster = self::rosterByInfo("id_kurikulum", $idKurikulum);
+        if(count($dataRoster) == 0){
+            return false;
+        }
+        $roster = [];
+        foreach ($dataRoster as $r){
+            if($r['id'] == $idSelectedRoster){
+                $roster = $r;
+            }
+        }
+        if(count($roster) == 0){
+            return false;
+        }
+        $dataMuridKurikulum = KurikulumService::getMahasiswa($idKurikulum);
+        foreach ($dataMuridKurikulum as $m){
+            $status = KehadiranService::insert( KeteranganKehadiran::APLHA["string"],$m["id"], $roster['id']);
+            if($status == false){
+                return  false;
+            }
+        }
+        $dataDosenKurikulum = KurikulumService::getDosen($idKurikulum);
+        foreach ($dataDosenKurikulum as $d){
+            $status = KehadiranService::insert( KeteranganKehadiran::APLHA["string"],$d["id"], $roster['id']);
+            if($status == false){
+                return  false;
+            }
+        }
+        return  true;
     }
 
     public static  function destroyKehadiran(int $id):array {

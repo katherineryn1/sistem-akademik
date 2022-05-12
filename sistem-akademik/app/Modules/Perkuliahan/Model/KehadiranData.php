@@ -32,7 +32,7 @@ class KehadiranData extends Model implements KehadiranPersistence{
         $k = KehadiranAdapter::EntityToDictionary($kehadiran);
         $k['id_roster'] = $roster;
         $k['keterangan'] = $k['keterangan']->getInt();
-        $data = $this->fill($k);
+        $data = $this->create($k);
         return $data ->save();
     }
 

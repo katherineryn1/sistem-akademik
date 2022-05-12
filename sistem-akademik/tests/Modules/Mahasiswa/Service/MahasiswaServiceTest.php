@@ -23,8 +23,10 @@ class MahasiswaServiceTest extends TestCase
         $jurusan = "Teknik Informatika";
         $tahunMasuk = 2019;
 	    $tahunLulus = 0;
+        $fotoProfile = "";
+
         $hasil = MahasiswaService::insert($nama,$password,  $nomorInduk, $email, $tanggalLahir,
-            $tempatLahir,$jenisKelamin, $alamat,$notelepon, $jabatan, $jurusan, $tahunMasuk,$tahunLulus);
+            $tempatLahir,$jenisKelamin, $alamat,$notelepon, $jabatan, $fotoProfile, $jurusan, $tahunMasuk,$tahunLulus);
         self::assertEquals(true,$hasil);
     }
 

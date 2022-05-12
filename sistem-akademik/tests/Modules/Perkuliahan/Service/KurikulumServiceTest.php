@@ -46,23 +46,49 @@ class KurikulumServiceTest extends TestCase
     }
 
     public function testAddDosen() {
-
+        $idKurikulum = 1;
+        $nomorIndukMahasiswa = "2099002";
+        $hasil = KurikulumService::addDosen($idKurikulum,$nomorIndukMahasiswa);
+        self::assertEquals(true,$hasil);
     }
 
     public function testGetMahasiswa() {
+        $data = KurikulumService::getMahasiswa(1);
+        print_r($data);
+        self::assertGreaterThan(0, count($data));
 
+    }
+
+    public function testGetDosen() {
+        $data = KurikulumService::getDosen(1);
+        print_r($data);
+        self::assertGreaterThan(0, count($data));
     }
 
     public function testAddMahasiswa() {
         $idKurikulum = 1;
-        $nomorIndukMahasiswa = "10171";
+        $nomorIndukMahasiswa = "19999001";
         $hasil = KurikulumService::addMahasiswa($idKurikulum,$nomorIndukMahasiswa);
         self::assertEquals(true,$hasil);
     }
 
-    public function testRemoveMahasiswa()
-    {
+    public function testRemoveMahasiswa(){
+        $idKurikulum = 1;
+        $nomorIndukMahasiswa = "19999001";
+        $hasil = KurikulumService::removeMahasiswa($idKurikulum,$nomorIndukMahasiswa);
+        self::assertEquals(true,$hasil);
+    }
 
+    public function testRemoveDosen(){
+        $idKurikulum = 1;
+        $nomorIndukDosen = "2099002";
+        $hasil = KurikulumService::removeDosen($idKurikulum,$nomorIndukDosen);
+        self::assertEquals(true,$hasil);
+    }
+
+    public function testGenerateRoster(){
+        $res = KurikulumService::generateRoster(1, 1);
+        self::assertEquals(true,$res);
     }
 
     public function testDelete(){
