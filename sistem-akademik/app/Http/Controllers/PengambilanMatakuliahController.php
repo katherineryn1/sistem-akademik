@@ -34,14 +34,14 @@ class PengambilanMatakuliahController extends Controller{
 
     public function delete(Request $request){
         $input = $request->validate([
-            'kode' => ['required'],
+            'id' => ['required'],
         ]);
 
-        $hasil = MatakuliahService::delete($input['kode']);
+        $hasil = PengambilanMatakuliahService::delete($input['id']);
         if($hasil == false){
-            $request->session()->flash('errors', [ ['type' => "danger" , 'message' => "Gagal Menghapus Matakuliah"] ]);
+            $request->session()->flash('errors', [ ['type' => "danger" , 'message' => "Gagal Menghapus Pengambilan Matakuliah"] ]);
         }else{
-            $request->session()->flash('errors', [ ['type' => "success" , 'message' => "Success Menghapus Matakuliah"] ]);
+            $request->session()->flash('errors', [ ['type' => "success" , 'message' => "Success Menghapus Pengambilan Matakuliah"] ]);
         }
         return back();
     }
