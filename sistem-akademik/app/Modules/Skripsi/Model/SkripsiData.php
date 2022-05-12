@@ -24,25 +24,35 @@ class SkripsiData extends Model implements SkripsiPersistence{
     public function insertSingle(Skripsi $skripsi): bool
     {
         // TODO: Implement insertSingle() method.
+
+        return false;
     }
 
     public function updateSingle(Skripsi $skripsi): bool
     {
         // TODO: Implement updateSingle() method.
+
+        return false;
     }
 
     public function deleteSingle(string $skripsi): bool
     {
         // TODO: Implement deleteSingle() method.
+
+        return false;
     }
 
     public function getAll(): array
     {
         // TODO: Implement getAll() method.
+
+        return [];
     }
 
     public function getByAttribute(array $attribute, array $value, array $logic): array
     {
         // TODO: Implement getByAttribute() method.
+
+        return [];
     }
 }
