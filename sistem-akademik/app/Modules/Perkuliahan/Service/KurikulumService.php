@@ -2,6 +2,7 @@
 namespace App\Modules\Perkuliahan\Service;
 
 use App\Modules\Perkuliahan\Entity\Kurikulum;
+use App\Modules\Perkuliahan\Entity\PosisiAmbilPengambilanMatakuliah;
 use App\Modules\Perkuliahan\Entity\SemesterKurikulum;
 use App\Modules\Perkuliahan\Helper\KurikulumAdapter;
 use App\Modules\Perkuliahan\Helper\MatakuliahBuilder;
@@ -143,7 +144,7 @@ class KurikulumService {
         }
         $currentPengambilan = [];
         foreach ($pengambilanKurikulum as $data){
-            if($data['nomor_induk'] == $nomorInduk){
+            if($data['nomor_induk'] == $nomorInduk && $data['posisi_ambil']->get() == PosisiAmbilPengambilanMatakuliah::MURID ){
                 $currentPengambilan = $data;
                 break;
             }

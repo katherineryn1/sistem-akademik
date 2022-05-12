@@ -29,7 +29,7 @@ class UsersDataSeeder extends Seeder
             'jenis_kelamin' => 1,
             'alamat'        => $faker->address,
             'notelepon'    => $faker->phoneNumber,
-            'jabatan'       => 0
+            'jabatan'       => 1
         ]);
         DB::table('users_data')->insert([
             'nomor_induk'   => '10172',
@@ -41,7 +41,7 @@ class UsersDataSeeder extends Seeder
             'jenis_kelamin' => 0,
             'alamat'        => $faker->address,
             'notelepon'    => $faker->phoneNumber,
-            'jabatan'       => 0
+            'jabatan'       => 1
         ]);
         DB::table('users_data')->insert([
             'nomor_induk'   => '10173',
@@ -53,7 +53,7 @@ class UsersDataSeeder extends Seeder
             'jenis_kelamin' => 0,
             'alamat'        => $faker->address,
             'notelepon'    => $faker->phoneNumber,
-            'jabatan'       => 0
+            'jabatan'       => 1
         ]);
 
         // Mahasiswa
@@ -67,7 +67,7 @@ class UsersDataSeeder extends Seeder
             'jenis_kelamin' => 0,
             'alamat'        => $faker->address,
             'notelepon'    => $faker->phoneNumber,
-            'jabatan'       => 1
+            'jabatan'       => 2
         ]);
         DB::table('users_data')->insert([
             'nomor_induk'   => '1118001',
@@ -79,7 +79,7 @@ class UsersDataSeeder extends Seeder
             'jenis_kelamin' => 1,
             'alamat'        => $faker->address,
             'notelepon'    => $faker->phoneNumber,
-            'jabatan'       => 1
+            'jabatan'       => 2
         ]);
         DB::table('users_data')->insert([
             'nomor_induk'   => '1118002',
@@ -91,7 +91,7 @@ class UsersDataSeeder extends Seeder
             'jenis_kelamin' => 1,
             'alamat'        => $faker->address,
             'notelepon'    => $faker->phoneNumber,
-            'jabatan'       => 1
+            'jabatan'       => 2
         ]);
 
     }

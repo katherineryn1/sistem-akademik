@@ -23,8 +23,8 @@ class PenggunaServiceTest extends TestCase{
         self::assertEquals(true,$hasil);
     }
     public function testLogin() {
-        $email = "newUser@test.com";
-        $password = "12345678";
+        $email = "if-10171@dosen.ithb.ac.id";
+        $password = "ithb2022";
         $this->assertEquals(true,PenggunaService::login($email,$password));
     }
 

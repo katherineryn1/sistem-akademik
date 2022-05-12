@@ -10,6 +10,7 @@ use App\Modules\Perkuliahan\Persistence\PengambilanMatakuliahPersistence;
 use App\Modules\Perkuliahan\Persistence\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\QueryException;
 
 class PengambilanMatakuliahData extends Model implements PengambilanMatakuliahPersistence {
     use HasFactory;
@@ -32,7 +33,13 @@ class PengambilanMatakuliahData extends Model implements PengambilanMatakuliahPe
         $tempArr['id_kurikulum'] = $kurikulum;
         $tempArr['posisi_ambil'] = $tempArr['posisi_ambil']->getInt();
         $data = $this->fill($tempArr);
-        return $data ->save();
+        $stat = false;
+        try {
+           $stat  = $data ->save();
+        }catch(QueryException $e) {
+            echo 'Message: ' .$e->getMessage();
+        }
+        return $stat;
     }
 
     public function deleteSingle(int $id): bool {

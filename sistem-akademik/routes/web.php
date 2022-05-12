@@ -8,6 +8,7 @@ use App\Http\Controllers\MatakuliahController;
 use App\Http\Controllers\PengumumanController;
 use App\Http\Controllers\KurikulumController;
 use App\Http\Controllers\RosterController;
+use App\Http\Controllers\PengambilanMatakuliahController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -102,6 +103,10 @@ Route::get('v1/kurikulum',  [KurikulumController::class, 'kurikulumInfo']);
 Route::post('v1/kurikulum',  [KurikulumController::class, 'insert']);
 Route::put('v1/kurikulum/{id}',  [KurikulumController::class, 'update']);
 Route::delete('v1/kurikulum',  [KurikulumController::class, 'delete']);
+
+Route::get('v1/kurikulum/pengambilan',  [PengambilanMatakuliahController::class, 'pengambilanInfo']);
+Route::post('v1/kurikulum/pengambilan',  [PengambilanMatakuliahController::class, 'insert']);
+Route::delete('v1/kurikulum/pengambilan',  [PengambilanMatakuliahController::class, 'delete']);
 
 Route::get('v1/jadwal/{id}', [RosterController::class, 'getAll']);
 Route::get('v1/jadwal', [RosterController::class, 'jadwalInfo']);
