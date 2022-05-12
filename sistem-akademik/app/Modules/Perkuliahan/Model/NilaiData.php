@@ -35,7 +35,7 @@ class NilaiData extends Model implements NilaiPersistence{
     {
         $n = NilaiAdapter::EntityToDictionary($nilai);
         $n['id_kurikulum'] = $kurikulum;
-        $data = $this->fill($n);
+        $data = $this->create($n);
         return $data ->save();
     }
 

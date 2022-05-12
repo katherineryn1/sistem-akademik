@@ -41,7 +41,7 @@ class MahasiswaData extends Model implements MahasiswaPersistence{
         return MahasiswaAdapter::ArrayDictionariesToEntities($model->toArray());
     }
     public function insertSingle(Mahasiswa $mahasiswa): bool {
-        $data = $this->fill(MahasiswaAdapter::EntityToDictionary($mahasiswa));
+        $data = $this->create(MahasiswaAdapter::EntityToDictionary($mahasiswa));
         return $data ->save();
     }
 

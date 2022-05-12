@@ -26,7 +26,7 @@ class PengumumanData extends Model implements  PengumumanPersistence{
         return PengumumanAdapter::ArrayDictionariesToEntities($model->toArray());
     }
     public function insertSingle(Pengumuman $pengumuman): bool {
-        $data = $this->fill(PengumumanAdapter::EntityToDictionary($pengumuman));
+        $data = $this->create(PengumumanAdapter::EntityToDictionary($pengumuman));
         return $data ->save();
     }
 

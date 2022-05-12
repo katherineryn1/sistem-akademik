@@ -97,7 +97,7 @@ class User extends Authenticatable implements PenggunaPersistence{
         $penggunaArr['jabatan'] = $penggunaArr['jabatan']->getInt();
         $penggunaArr['jenis_kelamin'] = $penggunaArr['jenis_kelamin']->getInt();
 
-        $data = $this->fill($penggunaArr);
+        $data = $this->create($penggunaArr);
         $res  = $data ->save();
         return $res;
     }
