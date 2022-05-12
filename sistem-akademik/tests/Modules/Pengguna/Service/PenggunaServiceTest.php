@@ -17,7 +17,7 @@ class PenggunaServiceTest extends TestCase{
         $jenisKelamin ="L";
         $alamat ="Dipatiukur";
         $notelepon ="086537956";
-        $jabatan ="DAAK";
+        $jabatan ="Daak";
         $hasil = PenggunaService::insert($nama,$password,  $nomorInduk, $email, $tanggalLahir,
                                     $tempatLahir,$jenisKelamin, $alamat,$notelepon, $jabatan, "");
         self::assertEquals(true,$hasil);

@@ -26,6 +26,16 @@ class KehadiranService {
         $newKehadiran = new Kehadiran();
         $newKehadiran->setKeterangan(KeteranganKehadiran::getEnumBy($keterangan));
         $newKehadiran->setPengguna(PengambilanMatakuliahBuilder::setId($id_pengambilan_mk)::get());
+
+        $dataCheck = self::kehadiranByInfo("id_roster", $roster);
+        if(count($dataCheck) > 0){
+            foreach ($dataCheck as $data){
+                if($data['id_pengambilan_matakuliah'] ==  $id_pengambilan_mk){
+                    echo "ouuuu";
+                    return false;
+                }
+            }
+        }
         return self::$pm->insertSingle($newKehadiran,$roster);
     }
 

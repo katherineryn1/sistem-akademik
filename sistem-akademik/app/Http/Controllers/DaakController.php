@@ -30,7 +30,7 @@ class DaakController extends Controller{
             $tempData[$kur['id']]['kurikulum'] = $kur;
             $tempData[$kur['id']]['jadwal'] = $resJadwal;
         }
-        return view('daak.jadwal-kuliah', ['page_title' => 'Dashboard' , 'data' => $tempData]);
+        return view('daak.jadwal-kuliah', ['page_title' => 'Dashboard' , 'data' => $tempData , 'dl_kurikulum' =>$dataKurikulum]);
     }
 
     public function matakuliahKurikulum(){

@@ -46,7 +46,7 @@ class DosenData extends Model implements  DosenPersistence{
         $dosenDict = DosenAdapter::EntityToDictionary($dosen);
         $dosenDict['status_ikatan_kerja']= $dosenDict['status_ikatan_kerja']->getInt();
         $dosenDict['status_dosen']=$dosenDict['status_dosen']->getInt();
-        $data = $this->fill($dosenDict);
+        $data = $this->create($dosenDict);
         return $data ->save();
     }
 

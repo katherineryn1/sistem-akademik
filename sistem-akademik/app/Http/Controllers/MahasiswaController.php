@@ -6,6 +6,10 @@ use App\Modules\Mahasiswa\Service\MahasiswaService;
 use Illuminate\Http\Request;
 
 class MahasiswaController extends Controller{
+    public function dashboard(){
+        return view('mahasiswa.dashboard', ['page_title' => 'Dashboard']);
+    }
+
     public function insert(Request $request){
         $input = $request->validate([
             'inputNama' => ['required'],

@@ -52,7 +52,7 @@
                                 <td>{{ $pengambil['nomor_induk'] }}</td>
                                 <td>{{ $pengambil['posisi_ambil']->getString() }}</td>
                                 <td>
-                                    <button onclick="modalConfirmDeletion({{ $pengambil['id'] }})" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modal-confirmation-delete">
+                                    <button onclick="modalConfirmDeletion({{ $pengambil['id'] }}, 'id')" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modal-confirmation-delete">
                                         <i width="1rem" height="1rem" fill="currentColor" class="bi bi-trash"></i>
                                     </button>
                                 </td>

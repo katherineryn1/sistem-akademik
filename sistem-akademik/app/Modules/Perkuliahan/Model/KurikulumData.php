@@ -30,7 +30,7 @@ class KurikulumData extends Model implements KurikulumPersistence{
     {
         $kData = KurikulumAdapter::EntityToDictionary($kurikulum);
         $kData['semester'] = $kData['semester']->getInt();
-        $data = $this->fill($kData);
+        $data = $this->create($kData);
         return $data ->save();
     }
 

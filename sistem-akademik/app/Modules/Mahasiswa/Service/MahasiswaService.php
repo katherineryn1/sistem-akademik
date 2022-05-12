@@ -3,6 +3,11 @@ namespace App\Modules\Mahasiswa\Service;
 
 use App\Modules\Mahasiswa\Helper\MahasiswaAdapter;
 use App\Modules\Pengguna\Helper\PenggunaAdapter;
+use App\Modules\Perkuliahan\Service\KehadiranService;
+use App\Modules\Perkuliahan\Service\KurikulumService;
+use App\Modules\Perkuliahan\Service\NilaiService;
+use App\Modules\Perkuliahan\Service\PengambilanMatakuliahService;
+use App\Modules\Perkuliahan\Service\RosterService;
 use DateTime;
 use App\Modules\Mahasiswa\Entity\Mahasiswa;
 use App\Modules\Mahasiswa\Persistence\MahasiswaPersistence;
@@ -92,16 +97,34 @@ class MahasiswaService {
         return  PenggunaAdapter::ArrayInjectPenggunaDictionary($arrMhs);
     }
 
-    public static function getRencanaStudi(string $nomorInduk){
-        // Todo : Implementation
-    }
-
-    public static function setRencanaStudi(string $nomorInduk){
-        // Todo : Implementation
+    public static function getRencanaStudi(string $nomorInduk): array{
+        $kurikulum = KurikulumService::getAll();
+        $rencanaStudi = [];
+        foreach ($kurikulum as $k){
+             $mhs = KurikulumService::getMahasiswa($k['id']);
+             foreach ($mhs as $m){
+                 if($m['nomor_induk'] == $nomorInduk ){
+                     $k['pengambilan_matakuliah'] = $m;
+                     array_push($rencanaStudi,$k);
+                     break;
+                 }
+             }
+        }
+        return $rencanaStudi;
     }
 
     public static function getTranscript(string $nomorInduk){
-        // Todo : Implementation
+        $rs = self::getRencanaStudi($nomorInduk);
+        $transcript = [];
+        $totalSKS = 0;
+        $totalPoint = 0;
+        foreach ($rs as $kur){
+            $transcript[$kur['id']]= [];
+            $transcript[$kur['id']]['kurikulum'] = $kur;
+            $transcript[$kur['id']]['nilai'] = NilaiService::nilaiByInfo("pengambilan_matakuliah" , $kur['pengambilan_matakuliah']['id']);
+        }
+        return $transcript;
+
     }
 
     public static function getSkripsi(string $nomorInduk){
@@ -109,11 +132,29 @@ class MahasiswaService {
     }
 
     public static function getJadwalMatakuliah(string $nomorInduk){
-        // Todo : Implementation
+        $rs = self::getRencanaStudi($nomorInduk);
+        $jadwalMK = [];
+        foreach ($rs as $kur){
+            $jadwalMK[$kur['id']]= [];
+            $jadwalMK[$kur['id']]['kurikulum'] = $kur;
+            $jadwalMK[$kur['id']]['roster'] = RosterService::rosterByInfo("id_kurikulum", $kur['id']);
+        }
+        return $jadwalMK;
     }
 
     public static function getKehadiran(string $nomorInduk){
-        // Todo : Implementation
+        $jMK = self::getJadwalMatakuliah($nomorInduk);
+        $kehadiran = [];
+        foreach ($jMK as $key => $item){
+            $kehadiran[$key]= [];
+            $kehadiran[$key]['kurikulum'] = $item['kurikulum'];
+            $kehadiran[$key]['roster'] = $item['roster'];
+            $kehadiran[$key]['kehadiran'] = [];
+            foreach ($item['roster'] as $roster){
+                array_push($kehadiran[$key]['kehadiran'], KehadiranService::kehadiranByInfo('id_pengambilan_matakuliah',$roster['id'])[0]);
+            }
+        }
+        return $kehadiran;
     }
 }
 ?>

@@ -37,9 +37,7 @@ Route::get('/logout', [PenggunaController::class, 'logout'])->name("logout_form"
 
 
 // Mahasiswa
-Route::get('/mahasiswa', function () {
-    return view('mahasiswa.dashboard');
-})->middleware();
+Route::get('/mahasiswa', [MahasiswaController::class, 'dashboard'])->middleware(['checklogin' , 'onlyMahasiswa']);
 Route::get('/mahasiswa/jadwal-kuliah',[]);
 Route::get('/mahasiswa/transkrip-nilai',[]);
 Route::get('/mahasiswa/tracking-skripsi',[]);
@@ -48,7 +46,7 @@ Route::get('/mahasiswa/profile',[]);
 
 
 // DAAK
-Route::get('/daak',  [DaakController::class, 'dashboard']);
+Route::get('/daak',  [DaakController::class, 'dashboard'])->middleware(['checklogin' , 'onlyDaak']);;
 Route::get('/daak/jadwal-kuliah',[DaakController::class, 'jadwalKuliah']);
 Route::get('/daak/jadwal-kuliah/{id}',[DaakController::class, 'jadwalKuliah']);
 Route::get('/daak/matakuliah-kurikulum',[DaakController::class, 'matakuliahKurikulum']);
@@ -115,10 +113,7 @@ Route::put('v1/jadwal/{id}', [RosterController::class, 'update']);
 Route::delete('v1/jadwal', [RosterController::class, 'delete']);
 
 // Dosen
-// Route::get('/dosen', function () {
-//     return view('dosen.dashboard');
-// });
-Route::get('/dosen', [DosenController::class, 'getJadwalMengajarDashboard']);
+Route::get('/dosen', [DosenController::class, 'getJadwalMengajarDashboard'])->middleware(['checklogin' , 'onlyDosen']);
 
 Route::get('/dosen/jadwal-mengajar', [DosenController::class, 'getJadwalMengajar']);
 Route::get('/dosen/jadwal-mengajar/{week}', [DosenController::class, 'getDataJadwalMengajar']);

@@ -46,7 +46,7 @@ class MatakuliahData extends Model implements MatakuliahPersistence{
         $dataMK = MatakuliahAdapter::EntityToDictionary($matakuliah);
         $dataMK['jenis'] = $dataMK['jenis']->getInt();
         $dataMK['sifat'] = $dataMK['sifat']->getInt();
-        $data = $this->fill($dataMK);
+        $data = $this->create($dataMK);
         return $data ->save();
     }
 

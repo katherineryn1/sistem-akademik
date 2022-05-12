@@ -32,7 +32,7 @@ class PengambilanMatakuliahData extends Model implements PengambilanMatakuliahPe
         $tempArr = PengambilanMatakuliahAdapter::EntityToDictionary($pengambilanMatakuliah);
         $tempArr['id_kurikulum'] = $kurikulum;
         $tempArr['posisi_ambil'] = $tempArr['posisi_ambil']->getInt();
-        $data = $this->fill($tempArr);
+        $data = $this->create($tempArr);
         $stat = false;
         try {
            $stat  = $data ->save();

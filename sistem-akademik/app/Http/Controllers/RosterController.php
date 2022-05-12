@@ -21,7 +21,7 @@ class RosterController extends Controller{
             $dateEnd = strtotime("+1 week", $dateStart);
             array_push($tempTanggal,date('Y-m-d', $dateEnd));
         }
-
+        $input['inputKurikulum'] = intval(trim(explode("-" ,$input['inputKurikulum'])[0]));
         foreach ($tempTanggal as $week){
             echo  $week . "<br>";
             $hasil = RosterService::insert(
