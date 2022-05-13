@@ -65,9 +65,9 @@
                                 <td>{{ $mahasiswa['tahun_masuk']}}</td>
                                 <td>{{ $mahasiswa['tahun_lulus']}}</td>
                                 <td>
-                                    <a href="{{ url("/daak/mahasiswa/{$mahasiswa['nomor_induk']}") }}" class="btn btn-warning" >
+                                    <!-- <a href="{{ url("/daak/mahasiswa/{$mahasiswa['nomor_induk']}") }}" class="btn btn-warning" >
                                         <i width="1rem" height="1rem" fill="currentColor" class="bi bi-pencil-square"></i>
-                                    </a>
+                                    </a> -->
                                     <button onclick="modalConfirmDeletion({{ $mahasiswa['nomor_induk'] }})" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modal-confirmation-delete">
                                         <i width="1rem" height="1rem" fill="currentColor" class="bi bi-trash"></i>
                                     </button>

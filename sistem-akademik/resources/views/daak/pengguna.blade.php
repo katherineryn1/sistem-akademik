@@ -65,9 +65,9 @@
                                 <td>{{ $pengguna['jabatan']->getString()}}</td>
                                 <td>{{ $pengguna['alamat']}}</td>
                                 <td>
-                                    <a href="{{ url("/daak/pengguna/{$pengguna['nomor_induk']}") }}" class="btn btn-warning" >
+                                    <!-- <a href="{{ url("/daak/pengguna/{$pengguna['nomor_induk']}") }}" class="btn btn-warning" >
                                         <i width="1rem" height="1rem" fill="currentColor" class="bi bi-pencil-square"></i>
-                                    </a>
+                                    </a> -->
                                     <button onclick="modalConfirmDeletion({{ $pengguna['nomor_induk'] }})" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modal-confirmation-delete">
                                         <i width="1rem" height="1rem" fill="currentColor" class="bi bi-trash"></i>
                                     </button>

@@ -46,9 +46,9 @@
                                 <td>{{ $matakuliah['sifat']->getString() }}</td>
                                 <td>{{ $matakuliah['sks'] }}</td>
                                 <td>
-                                    <a href="{{ url("/daak/matakuliah/{$matakuliah['kode']}") }}" class="btn btn-warning" >
+                                    <!-- <a href="{{ url("/daak/matakuliah/{$matakuliah['kode']}") }}" class="btn btn-warning" >
                                         <i width="1rem" height="1rem" fill="currentColor" class="bi bi-pencil-square"></i>
-                                    </a>
+                                    </a> -->
                                     <button onclick="modalConfirmDeletion('{{ $matakuliah['kode'] }}', 'kode' , 'modal-matakuliah-body-delete', 'btnDeleteMatakuliahConfirm' )"
                                             class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modal-matakuliah-confirmation-delete">
                                         <i width="1rem" height="1rem" fill="currentColor" class="bi bi-trash"></i>
@@ -104,9 +104,9 @@
                                 <td>{{ $kurikulum['kelas'] }}</td>
                                 <td>{{ $kurikulum['jumlah_pertemuan'] }}</td>
                                 <td>
-                                    <a href="{{ url("/daak/kurikulum/{$kurikulum['id']}") }}" class="btn btn-warning" >
+                                    <!-- <a href="{{ url("/daak/kurikulum/{$kurikulum['id']}") }}" class="btn btn-warning" >
                                         <i width="1rem" height="1rem" fill="currentColor" class="bi bi-pencil-square"></i>
-                                    </a>
+                                    </a> -->
                                     <button onclick="modalConfirmDeletion('{{ $kurikulum['id'] }}',  'id', 'modal-kurikulum-body-delete', 'btnDeleteKurikulumConfirm' )"
                                             class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modal-kurikulum-confirmation-delete">
                                         <i width="1rem" height="1rem" fill="currentColor" class="bi bi-trash"></i>
@@ -133,7 +133,7 @@
             <div class="card-body">
                 <h5 class="card-title">Buat Matakuliah</h5>
                 <!-- Horizontal Form -->
-                <form action="{{ url("v1/matakuliah")  }}"  method="post" enctype='multipart/form-data'>
+                <form action="{{ url("v1/matakuliah")  }}"  method="post" enctype='multipart/form-data'  autocomplete="off">
                     @csrf
                     <div class="row mb-3 form-horizontal">
                         <h5 class="card-subtitle mb-2 text-muted">Form Matakuliah</h5>
@@ -156,8 +156,9 @@
                         <div class="col-sm-10 ">
                             <input type="text" class="form-control" id="inputJenis" name="inputJenis" list="jenisDatalist" required>
                             <datalist id="jenisDatalist">
-                                <option value="Umum">
-                                <option value="Keilmuan Keterampilan">
+                                @foreach($jenis_mk as $val)
+                                    <option value="{{ $val }}">
+                                @endforeach
                             </datalist>
                         </div>
                     </div>
@@ -166,8 +167,9 @@
                         <div class="col-sm-10 ">
                             <input type="text" class="form-control" id="inputSifat" name="inputSifat" list="sifatDatalist" required>
                             <datalist id="sifatDatalist">
-                                <option value="Wajib">
-                                <option value="Pilihan">
+                                @foreach($sifat_mk as $val)
+                                    <option value="{{ $val }}">
+                                @endforeach
                             </datalist>
                         </div>
                     </div>
@@ -190,7 +192,7 @@
             <div class="card-body">
                 <h5 class="card-title">Buat Kurikulum</h5>
                 <!-- Horizontal Form -->
-                <form action="{{ url("v1/kurikulum")  }}" method="post" enctype='multipart/form-data'>
+                <form action="{{ url("v1/kurikulum")  }}" method="post" enctype='multipart/form-data' autocomplete="off">
                     @csrf
                     <div class="row mb-3 form-horizontal">
                         <h5 class="card-subtitle mb-2 text-muted">Form Kurikulum</h5>
@@ -199,7 +201,12 @@
                     <div class="row mb-3 form-horizontal">
                         <label for="inputKode" class="col-sm-2 col-form-label control-label">Kode Matakuliah</label>
                         <div class="col-sm-10 ">
-                            <input type="text" class="form-control" id="inputKode" name="inputKode" required>
+                            <input type="text" list="matakuliahDatalist" class="form-control" id="inputKode" name="inputKode" placeholder="Ketikan untuk mencari matakuliah..."  required>
+                            <datalist id="matakuliahDatalist">
+                                @foreach($data_matakuliah as $val)
+                                    <option value="{{  $val['kode'] . " | ".  $val['nama']  . " | ".  $val['jenis']->getString(). " | ". $val['sifat']->getString()   . " | ".  $val['sks']}}">
+                                @endforeach
+                            </datalist>
                         </div>
                     </div>
                     <div class="row mb-3 form-horizontal">
@@ -211,10 +218,11 @@
                     <div class="row mb-3 form-horizontal">
                         <label for="inputSemester" class="col-sm-2 col-form-label control-label">Semester</label>
                         <div class="col-sm-10 ">
-                            <input type="text" class="form-control" id="inputSemester" name="inputSemester" required>
-                            <datalist id="jenisDatalist">
-                                <option value="Ganjil">
-                                <option value="Genap">
+                            <input type="text" list="semesterDatalist"  class="form-control" id="inputSemester" name="inputSemester" required>
+                            <datalist id="semesterDatalist">
+                                @foreach($semester_kr as $val)
+                                    <option value="{{ $val }}">
+                                @endforeach
                             </datalist>
                         </div>
                     </div>

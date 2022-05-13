@@ -24,6 +24,8 @@
     <nav class="header-nav ms-auto">
       <ul class="d-flex align-items-center">
         <li class="nav-item pe-3">
+
+
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="{{ url('/dosen/profil') }}" data-bs-toggle="dropdown">
             <img src="{{ asset('profile.png') }}" alt="Profile" class="rounded-circle">
             <span class="d-none d-md-block ps-2">
@@ -33,7 +35,14 @@
                     Jhon Doe
                 @endif
             </span>
+
           </a><!-- End Profile Iamge Icon -->
+            @else
+                <a class="nav-link nav-profile d-flex align-items-center pe-0" href="{{ url('/dosen/profil') }}" data-bs-toggle="dropdown">
+                    <img src="{{ asset('profile.png') }}" alt="Profile" class="rounded-circle">
+                    <span class="d-none d-md-block ps-2">John Doe</span>
+                </a><!-- End Profile Iamge Icon -->
+           @endif
         </li><!-- End Profile Nav -->
       </ul>
     </nav><!-- End Icons Navigation -->

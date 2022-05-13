@@ -13,6 +13,7 @@ class KurikulumController extends Controller{
             'inputJmlPertemuan' => ['required'],
         ]);
 
+        $input['inputKode'] = trim(explode("|", $input['inputKode'])[0] );
         $hasil = KurikulumService::insert(
             $input['inputTahun'],
             $input['inputSemester'],

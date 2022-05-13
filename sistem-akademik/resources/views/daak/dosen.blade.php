@@ -71,9 +71,9 @@
                                 <td>{{ $dosen['status_ikatan_kerja']->getString()}}</td>
                                 <td>{{ $dosen['status_dosen']->getString()}}</td>
                                 <td>
-                                    <a href="{{ url("/daak/dosen/{$dosen['nomor_induk']}") }}" class="btn btn-warning" >
+                                    <!-- <a href="{{ url("/daak/dosen/{$dosen['nomor_induk']}") }}" class="btn btn-warning" >
                                         <i width="1rem" height="1rem" fill="currentColor" class="bi bi-pencil-square"></i>
-                                    </a>
+                                    </a> -->
                                     <button onclick="modalConfirmDeletion({{ $dosen['nomor_induk'] }})" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modal-confirmation-delete">
                                         <i width="1rem" height="1rem" fill="currentColor" class="bi bi-trash"></i>
                                     </button>
