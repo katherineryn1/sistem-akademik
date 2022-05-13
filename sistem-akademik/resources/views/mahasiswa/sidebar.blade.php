@@ -1,5 +1,3 @@
-@extends('header')
-
 @section('sidebar')
       <!-- ======= Sidebar ======= -->
   <aside id="sidebar" class="sidebar">
@@ -21,10 +19,23 @@
         </a>
       </li>
 
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#">
+                <i class="bi bi-mortarboard"></i>
+                <span>Rencana Studi</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#">
+                <i class="bi bi-mortarboard"></i>
+                <span>Transcript Nilai</span>
+            </a>
+        </li>
+
       <li class="nav-heading">Pengaturan</li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="{{ url('/edit-profil') }}">
+        <a class="nav-link collapsed" href="{{ url('/mahasiswa/edit-profil') }}">
           <i class="bi bi-gear"></i>
           <span>Edit Profil</span>
         </a>

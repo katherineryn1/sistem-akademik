@@ -6,8 +6,19 @@ use App\Modules\Mahasiswa\Service\MahasiswaService;
 use Illuminate\Http\Request;
 
 class MahasiswaController extends Controller{
-    public function dashboard(){
-        return view('mahasiswa.dashboard', ['page_title' => 'Dashboard']);
+    public static function checkFotoProfile($img){
+        if($img != ""){
+            return  "/storage/" . $img;
+        }
+        return 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png';
+    }
+
+    public function dashboard(Request $request){
+        $currUser = $request->session()->get('currentuser', null);
+        return view('mahasiswa.dashboard', ['page_title' => 'Dashboard',
+                                                'url_profile' => '/daak/profile',
+                                            'img_user' => self::checkFotoProfile($currUser['foto_profile']),
+                                            'currentuser' => $currUser['nama']]);
     }
 
     public function insert(Request $request){

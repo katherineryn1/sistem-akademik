@@ -13,11 +13,24 @@ use App\Modules\Perkuliahan\Service\RosterService;
 use Illuminate\Http\Request;
 
 class DaakController extends Controller{
-    public function dashboard(){
-          return view('daak.dashboard', ['page_title' => 'Dashboard']);
+    public static function checkFotoProfile($img){
+        if($img != ""){
+           return  "/storage/" . $img;
+        }
+        return 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png';
+    }
+    public function dashboard(Request $request){
+        $currUser = $request->session()->get('currentuser', null);
+
+        return view('daak.dashboard', ['page_title' => 'Dashboard' ,
+                                            'url_profile' => '/daak/profile',
+                                            'img_user' => self::checkFotoProfile($currUser['foto_profile']),
+                                            'currentuser' => $currUser['nama']
+                                            ]);
     }
 
-    public function jadwalKuliah(){
+    public function jadwalKuliah(Request $request){
+        $currUser = $request->session()->get('currentuser', null);
         $dataKurikulum = KurikulumService::getAll();
 
         $tempData = array();
@@ -30,16 +43,28 @@ class DaakController extends Controller{
             $tempData[$kur['id']]['kurikulum'] = $kur;
             $tempData[$kur['id']]['jadwal'] = $resJadwal;
         }
-        return view('daak.jadwal-kuliah', ['page_title' => 'Dashboard' , 'data' => $tempData , 'dl_kurikulum' =>$dataKurikulum]);
+        return view('daak.jadwal-kuliah', ['page_title' => 'Dashboard' ,
+                                                'url_profile' => '/daak/profile',
+                                                'img_user' => self::checkFotoProfile($currUser['foto_profile']),
+                                                'currentuser' => $currUser['nama'],
+                                                'data' => $tempData ,
+                                                'dl_kurikulum' =>$dataKurikulum]);
     }
 
-    public function matakuliahKurikulum(){
+    public function matakuliahKurikulum(Request $request){
+        $currUser = $request->session()->get('currentuser', null);
         $dataKurikulum = KurikulumService::getAll();
         $dataMatakuliah = MatakuliahService::getAll();
-        return view('daak.matakuliah-kurikulum', ['page_title' => 'Matakuliah Kurikulum', 'data_matakuliah' => $dataMatakuliah, 'data_kurikulum' => $dataKurikulum]);
+        return view('daak.matakuliah-kurikulum', ['page_title' => 'Matakuliah Kurikulum',
+                                                        'url_profile' => '/daak/profile',
+                                                        'img_user' => self::checkFotoProfile($currUser['foto_profile']),
+                                                        'currentuser' => $currUser['nama'],
+                                                        'data_matakuliah' => $dataMatakuliah,
+                                                        'data_kurikulum' => $dataKurikulum]);
     }
 
-    public function pengambilanMatakuliah(){
+    public function pengambilanMatakuliah(Request $request){
+        $currUser = $request->session()->get('currentuser', null);
         $data = array();
         $allPengguna = PenggunaService::getAll();
         $allKurikulum = KurikulumService::getAll();
@@ -52,27 +77,52 @@ class DaakController extends Controller{
             $data[$kur['id']]['pengambilan_mk'] = $resPengambilan;
             $data[$kur['id']]['kurikulum'] = $kur;
         }
-        return view('daak.pengambilan-matakuliah', ['page_title' => 'Pengambilan Matakuliah' , 'data' => $data, 'enum_pengambilan_mk' =>PosisiAmbilPengambilanMatakuliah::getEnumString() , 'dl_pengguna' => $allPengguna, 'dl_kurikulum' => $allKurikulum]);
+        return view('daak.pengambilan-matakuliah', ['page_title' => 'Pengambilan Matakuliah' ,
+                                                            'url_profile' => '/daak/profile',
+                                                            'img_user' => self::checkFotoProfile($currUser['foto_profile']),
+                                                            'currentuser' => $currUser['nama'],
+                                                            'data' => $data,
+                                                            'enum_pengambilan_mk' =>PosisiAmbilPengambilanMatakuliah::getEnumString() , 'dl_pengguna' => $allPengguna, 'dl_kurikulum' => $allKurikulum]);
     }
 
-    public function pengumuman(){
+    public function pengumuman(Request $request){
+        $currUser = $request->session()->get('currentuser', null);
         $data = PengumumanService::getAll();
-        return view('daak.pengumuman', ['page_title' => 'Pengumuman' , 'data' => $data]);
+        return view('daak.pengumuman', ['page_title' => 'Pengumuman',
+                                            'url_profile' => '/daak/profile',
+                                            'img_user' => self::checkFotoProfile($currUser['foto_profile']),
+                                            'currentuser' => $currUser['nama'],
+                                            'data' => $data]);
     }
 
-    public function akunMahasiswa(){
+    public function akunMahasiswa(Request $request){
+        $currUser = $request->session()->get('currentuser', null);
         $data = MahasiswaService::getAll();
-        return view('daak.mahasiswa', ['page_title' => 'Daak Mahasiswa','data' => $data]);
+        return view('daak.mahasiswa', ['page_title' => 'Daak Mahasiswa',
+                                            'url_profile' => '/daak/profile',
+                                            'img_user' => self::checkFotoProfile($currUser['foto_profile']),
+                                            'currentuser' => $currUser['nama'],
+                                            'data' => $data]);
     }
 
     public function akunDosen(Request $request){
+        $currUser = $request->session()->get('currentuser', null);
         $data = DosenService::getAll();
-        return view('daak.dosen', ['page_title' => 'Daak Dosen','data' => $data]);
+        return view('daak.dosen', ['page_title' => 'Daak Dosen',
+                                        'url_profile' => '/daak/profile',
+                                        'img_user' => self::checkFotoProfile($currUser['foto_profile']),
+                                        'currentuser' => $currUser['nama']
+                                            ,'data' => $data]);
     }
 
-    public function akunPengguna(){
+    public function akunPengguna(Request $request){
+        $currUser = $request->session()->get('currentuser', null);
         $data = PenggunaService::getAll();
-        return view('daak.pengguna', ['page_title' => 'Daak Pengguna','data' => $data]);
+        return view('daak.pengguna', ['page_title' => 'Daak Pengguna',
+                                            'url_profile' => '/daak/profile',
+                                            'img_user' => self::checkFotoProfile($currUser['foto_profile']),
+                                            'currentuser' => $currUser['nama'],
+                                            'data' => $data]);
     }
 
 }
