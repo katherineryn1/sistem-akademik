@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\DB;
 
 
 class DosenController extends Controller{
+
     public function  insert(Request $request){
         $input = $request->validate([
             'inputNama' => ['required'],
@@ -80,19 +81,15 @@ class DosenController extends Controller{
         return back();
     }
 
-    public function  update(){
-        // Todo: Implement
-    }
-
-    public function  getJadwalMengajar(){
-        $data = $this->getDataJadwalMengajar(0);
+    public function  getJadwalMengajar(Request $request){
+        $data = $this->getDataJadwalMengajar(0, $request);
         // dd($data);
 
         return view('dosen.jadwal_mengajar', $data);
     }
 
-    public function getDataJadwalMengajar($week) {
-        $nik = request('nik', 10171);
+    public function getDataJadwalMengajar($week, Request $request) {
+        $nik = $request->session()->get('currentuser', null)['nomor_induk'];
         $arr_id_kurikulum = $this->getIdKurikulum($nik);
 
         $now = $this->getDayBasedWeek($week);
@@ -148,8 +145,8 @@ class DosenController extends Controller{
         ];
     }
 
-    public function  getJadwalMengajarDashboard(){
-        $nik = request('nik', 10171);
+    public function  getJadwalMengajarDashboard(Request $request){
+        $nik = $request->session()->get('currentuser', null)['nomor_induk'];
         $arr_id_kurikulum = $this->getIdKurikulum($nik);
         $tanggal_hari_ini = Carbon::now()->format("Y-m-d");
 
@@ -254,12 +251,8 @@ class DosenController extends Controller{
         return $data;
     }
 
-    public function  getRekapMengajar(){
-        //  Todo: Implement
-    }
-
-    public function  getKehadiranMengajar() {
-        $nik = request('nik', 10171);
+    public function  getKehadiranMengajar(Request $request) {
+        $nik = $request->session()->get('currentuser', null)['nomor_induk'];
         $arr_matakuliah = $this->getMatakuliah($nik);
 
         return view('dosen.absensi', [
@@ -279,8 +272,8 @@ class DosenController extends Controller{
         return $data;
     }
 
-    public function getKelasMatakuliah($kode) {
-        $nik = request('nik', 10171);
+    public function getKelasMatakuliah($kode, Request $request) {
+        $nik = $request->session()->get('currentuser', null)['nomor_induk'];
         $data = DB::table('pengambilan_matakuliah_data')
             ->join('kurikulum_data', 'kurikulum_data.id', '=', 'pengambilan_matakuliah_data.id_kurikulum')
             ->where('pengambilan_matakuliah_data.nomor_induk', '=', $nik)
@@ -457,15 +450,30 @@ class DosenController extends Controller{
         //  Todo: Implement
     }
 
-    public function getBimbinganSkripsi($id){
+    public function getBimbinganSkripsi($nik, $is_accepted){
         $data = DB::table('skripsi_data as sd')
             ->join('users_data as ud', 'ud.nomor_induk', '=', 'sd.nim')
-            ->where('sd.nik', '=', $id)
-            ->select('sd.nim as nim',
+            ->where('sd.nik', '=', $nik)
+            ->where('sd.is_accepted', '=', $is_accepted)
+            ->select('sd.id as id',
+                'sd.nim as nim',
                 'ud.nama as nama',
                 'sd.judul as judul',
                 'sd.milestone as milestone')
             ->get();
+        return $data;
+    }
+
+    public function getDataSkripsi($id_skripsi) {
+        $data = DB::table('skripsi_data as sd')
+            ->join('users_data as ud', 'ud.nomor_induk', '=', 'sd.nik')
+            ->where('sd.id', '=', $id_skripsi)
+            ->select('sd.id as id',
+                'sd.nik as nik',
+                'ud.nama as nama',
+                'sd.judul as judul',
+                'sd.milestone as milestone')
+            ->first();
         return $data;
     }
 
@@ -477,7 +485,7 @@ class DosenController extends Controller{
             ->first();
         return $data;
     }
-        
+
     public function getDetailSkripsi($id_skripsi) {
         $data = DB::table('detail_skripsi_data')
             ->where('id_skripsi', '=', $id_skripsi)
@@ -488,22 +496,101 @@ class DosenController extends Controller{
     }
 
     public function bimbinganSkripsi(){
-        $arr_list_skripsi = $this->getBimbinganSkripsi('10171');
+        $arr_list_skripsi = $this->getBimbinganSkripsi('10171', 1);
 
         $arr_skripsi = array();
         foreach($arr_list_skripsi as $skripsi) {
             $data = new stdClass();
             $data->id = $skripsi->id;
-            $data->nim = $skripsi->id;
-            $data->nama = $skripsi->id;
-            $data->judul = $skripsi->id;
-            $data->komentar = $this->getKomentarTerakhir($skripsi->id);
-            $data->milestone = $skripsi->id;
+            $data->nim = $skripsi->nim;
+            $data->nama = $skripsi->nama;
+            $data->judul = $skripsi->judul;
+
+            $data_komentar = $this->getKomentarTerakhir($skripsi->id);
+            // dd($data_komentar);
+
+            if ($skripsi->milestone == 0) {
+                $data->milestone = 'Belum dimulai';
+                $data->komentar = '';
+            } else {
+                $data->milestone = $data_komentar->label;
+                $data->komentar = $data_komentar->komentar;
+            }
             array_push($arr_skripsi, $data);
         }
 
         return view('dosen.tracking_skripsi_home', [
-            'skripsi' => []
+            'skripsi' => $arr_skripsi,
+        ]);
+    }
+
+    public function addBimbinganSkripsi(){
+        $arr_list_skripsi = $this->getBimbinganSkripsi('10171', 0);
+
+        $arr_skripsi = array();
+        foreach($arr_list_skripsi as $skripsi) {
+            $data = new stdClass();
+            $data->id = $skripsi->id;
+            $data->nim = $skripsi->nim;
+            $data->nama = $skripsi->nama;
+            $data->judul = $skripsi->judul;
+            array_push($arr_skripsi, $data);
+        }
+
+        return view('dosen.tracking_skripsi_add_mhs', [
+            'skripsi' => $arr_skripsi,
+        ]);
+    }
+
+    public function detailBimbinganSkripsi($id_skripsi) {
+        $data_skripsi = $this->getDataSkripsi($id_skripsi);
+        $skripsi = new stdClass();
+        $skripsi->id = $data_skripsi->id;
+        $skripsi->nik = $data_skripsi->nik;
+        $skripsi->nama = $data_skripsi->nama;
+        $skripsi->judul = $data_skripsi->judul;
+        $skripsi->milestone = $data_skripsi->milestone;
+        // dd($skripsi);
+
+        $data_detail_skripsi = $this->getDetailSkripsi($id_skripsi);
+        $arr_komentar = array();
+        foreach ($data_detail_skripsi as $detail) {
+            $komentar = new stdClass();
+            $komentar->label = $detail->label;
+            $komentar->komentar = $detail->komentar;
+            $komentar->is_accepted = $detail->is_accepted;
+            array_push($arr_komentar, $komentar);
+        }
+
+        return view('dosen.tracking_skripsi_mhs', [
+            'skripsi' => $skripsi,
+            'komentar' => $arr_komentar,
+        ]);
+    }
+
+    public function editDetailBimbinganSkripsi($id_skripsi) {
+        $data_skripsi = $this->getDataSkripsi($id_skripsi);
+        $skripsi = new stdClass();
+        $skripsi->id = $data_skripsi->id;
+        $skripsi->nik = $data_skripsi->nik;
+        $skripsi->nama = $data_skripsi->nama;
+        $skripsi->judul = $data_skripsi->judul;
+        $skripsi->milestone = $data_skripsi->milestone;
+        // dd($skripsi);
+
+        $data_detail_skripsi = $this->getDetailSkripsi($id_skripsi);
+        $arr_komentar = array();
+        foreach ($data_detail_skripsi as $detail) {
+            $komentar = new stdClass();
+            $komentar->label = $detail->label;
+            $komentar->komentar = $detail->komentar;
+            $komentar->is_accepted = $detail->is_accepted;
+            array_push($arr_komentar, $komentar);
+        }
+
+        return view('dosen.tracking_skripsi_edit_komentar', [
+            'skripsi' => $skripsi,
+            'komentar' => $arr_komentar,
         ]);
     }
 
@@ -517,5 +604,26 @@ class DosenController extends Controller{
         }else{
             echo "Gagal Delete";
         }
+    }
+
+    public function showProfileDosen(Request $request) {
+        $user = $request->session()->get('currentuser', null);
+
+        $data = DB::table('dosen_data as dd')
+            ->join('users_data as ud', 'ud.nomor_induk', '=', 'dd.nomor_induk')
+            ->where('dd.nomor_induk', '=', $user['nomor_induk'])
+            ->select('dd.nomor_induk as nik',
+                'ud.nama as nama',
+                'dd.program_studi as program_studi',
+                'ud.email as email',
+                'ud.tanggal_lahir as tanggal_lahir',
+                'ud.tempat_lahir as tempat_lahir',
+                'ud.jenis_kelamin as jenis_kelamin',
+                'ud.notelepon as no_telepon')
+            ->first();
+
+        return view('dosen.profil', [
+            'profil' => $data
+        ]);
     }
 }

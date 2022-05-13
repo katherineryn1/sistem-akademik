@@ -15,42 +15,48 @@
                     <tr>
                         <td class="col-sm-5" style="border: none;">NIK</td>
                         <td class="col-sm-1" style="border: none;">:</td>
-                        <td id="nik" class="col-sm-6" style="border: none;">1118000</td>
+                        <td id="nik" class="col-sm-6" style="border: none;"> {{ $profil->nik }} </td>
                     </tr>
                     <tr>
                         <td class="col-sm-5" style="border: none;">Nama Lengkap</td>
                         <td class="col-sm-1" style="border: none;">:</td>
-                        <td id="nama_lengkap" class="col-sm-6" style="border: none;">John Doe</td>
+                        <td id="nama_lengkap" class="col-sm-6" style="border: none;"> {{ $profil->nama }} </td>
                     </tr>
                     <tr>
                         <td class="col-sm-5" style="border: none;">Dosen Jurusan</td>
                         <td class="col-sm-1" style="border: none;">:</td>
-                        <td id="dosen_jurusan" class="col-sm-6" style="border: none;">1118000</td>
+                        <td id="dosen_jurusan" class="col-sm-6" style="border: none;"> {{ $profil->program_studi }} </td>
                     </tr>
                     <tr>
                         <td class="col-sm-5" style="border: none;">Tempat Lahir</td>
                         <td class="col-sm-1" style="border: none;">:</td>
-                        <td id="tempat_lahir" class="col-sm-6" style="border: none;">Bandung</td>
+                        <td id="tempat_lahir" class="col-sm-6" style="border: none;"> {{ $profil->tempat_lahir }} </td>
                     </tr>
                     <tr>
                         <td class="col-sm-5" style="border: none;">Tanggal Lahir</td>
                         <td class="col-sm-1" style="border: none;">:</td>
-                        <td id="tanggal_lahir" class="col-sm-6" style="border: none;">01 Januari 2010</td>
+                        <td id="tanggal_lahir" class="col-sm-6" style="border: none;"> {{ $profil->tanggal_lahir }} </td>
                     </tr>
                     <tr>
                         <td class="col-sm-5" style="border: none;">Jenis Kelamin</td>
                         <td class="col-sm-1" style="border: none;">:</td>
-                        <td id="jenis_kelamin" class="col-sm-6" style="border: none;">Laki-laki</td>
+                        <td id="jenis_kelamin" class="col-sm-6" style="border: none;">
+                            @if ($profil->jenis_kelamin == 1)
+                                Laki-laki
+                            @else
+                                Perempuan
+                            @endif
+                        </td>
                     </tr>
                     <tr>
                         <td class="col-sm-5" style="border: none;">Email</td>
                         <td class="col-sm-1" style="border: none;">:</td>
-                        <td id="email" class="col-sm-6" style="border: none;">johndoe@gmail.com</td>
+                        <td id="email" class="col-sm-6" style="border: none;"> {{ $profil->email }} </td>
                     </tr>
                     <tr>
                         <td class="col-sm-5" style="border: none;">Nomor Telepon</td>
                         <td class="col-sm-1" style="border: none;">:</td>
-                        <td id="nomor_telepon" class="col-sm-6" style="border: none;">08512345678</td>
+                        <td id="nomor_telepon" class="col-sm-6" style="border: none;"> {{ $profil->no_telepon }} </td>
                     </tr>
                 </table>
             </div>

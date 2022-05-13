@@ -17,9 +17,9 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('id_skripsi', false, true);
             $table->string('label');
-            $table->string('komentar');
+            $table->string('komentar')->nullable();
             $table->boolean("is_accepted");
-            $table->date("tanggal_accepted");
+            $table->date("tanggal_accepted")->nullable();
             $table->foreign('id_skripsi')->references('id')->on("skripsi_data");
             $table->timestamps();
         });
