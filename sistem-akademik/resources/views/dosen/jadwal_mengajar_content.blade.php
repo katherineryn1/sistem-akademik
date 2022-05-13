@@ -49,13 +49,14 @@
                                             @php
                                                 $is_true = True;
                                                 $ind = $k;
-                                                for ($it = 1; $it <= $jadwal_mengajar[$ind]['lama_mengajar']; $it++) {
+                                                for ($it = 1; $it < $jadwal_mengajar[$ind]['lama_mengajar']; $it++) {
                                                     $jadwal[$i+$it][$j] = 0;
                                                 }
                                             @endphp
                                         @endif
                                     @endfor
                                     @if ($is_true)
+                                        {{ logger($str_tgl) }}
                                         <td rowspan="{{$jadwal_mengajar[$ind]['lama_mengajar']}}" style="color: #FF730D; background: #FFF4F1; font-size: 12px; border: #FF730D 1px solid;">
                                             {{$jadwal_mengajar[$ind]['nama']}} <br><br> {{$jadwal_mengajar[$ind]['ruangan']}}
                                         </td>
