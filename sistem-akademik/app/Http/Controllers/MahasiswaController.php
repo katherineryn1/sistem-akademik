@@ -90,12 +90,24 @@ class MahasiswaController extends Controller{
         //  Todo: Implement
     }
 
-    public function  getRencanaStudi(){
-        //  Todo: Implement
+    public function  rencanaStudi(Request $request){
+        $currUser = $request->session()->get('currentuser', null);
+        $rsMhs = MahasiswaService::getRencanaStudi($currUser['nomor_induk']);
+        return view('mahasiswa.rencana-studi', ['page_title' => 'Rencana Studi',
+            'url_profile' => '/mahasiswa/profile',
+            'img_user' => self::checkFotoProfile($currUser['foto_profile']),
+            'currentuser' => $currUser['nama'] ,
+            'rencana_studi' => $rsMhs]);
     }
 
-    public function  getTransripNilai(){
-        //  Todo: Implement
+    public function  transkripNilai(Request $request){
+        $currUser = $request->session()->get('currentuser', null);
+        $transcriptNilai = MahasiswaService::getTranscript($currUser['nomor_induk']);
+        return view('mahasiswa.transkrip-nilai', ['page_title' => 'Transcript Nilai',
+            'url_profile' => '/mahasiswa/profile',
+            'img_user' => self::checkFotoProfile($currUser['foto_profile']),
+            'currentuser' => $currUser['nama'] ,
+            'transript_nilai' => $transcriptNilai]);
     }
 
     public function  getSkripsi(){

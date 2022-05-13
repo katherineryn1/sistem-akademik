@@ -20,13 +20,13 @@
       </li>
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="#">
+            <a class="nav-link collapsed" href="{{ url('/mahasiswa/rencana-studi') }}">
                 <i class="bi bi-mortarboard"></i>
                 <span>Rencana Studi</span>
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link collapsed" href="#">
+            <a class="nav-link collapsed" href="{{ url('/mahasiswa/transkrip-nilai') }}">
                 <i class="bi bi-mortarboard"></i>
                 <span>Transcript Nilai</span>
             </a>
