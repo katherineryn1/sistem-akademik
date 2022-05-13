@@ -47,21 +47,21 @@ Route::get('/mahasiswa/profile',[]);
 
 // DAAK
 Route::get('/daak',  [DaakController::class, 'dashboard'])->middleware(['checklogin' , 'onlyDaak']);;
-Route::get('/daak/jadwal-kuliah',[DaakController::class, 'jadwalKuliah']);
-Route::get('/daak/jadwal-kuliah/{id}',[DaakController::class, 'jadwalKuliah']);
-Route::get('/daak/matakuliah-kurikulum',[DaakController::class, 'matakuliahKurikulum']);
-Route::get('/daak/pengambilan-matakuliah',[DaakController::class, 'pengambilanMatakuliah']);
-Route::get('/daak/matakuliah/{kode}',[DaakController::class, 'matakuliahKurikulum']);
-Route::get('/daak/kurikulum/{kurikulum}',[DaakController::class, 'matakuliahKurikulum']);
-Route::get('/daak/jadwal-ujian',[DaakController::class, 'jadwalKuliah']);
-Route::get('/daak/pengumuman',[DaakController::class, 'pengumuman']);
-Route::get('/daak/pengumuman/{id}',[DaakController::class, 'pengumuman']);
-Route::get('/daak/mahasiswa',[DaakController::class, 'akunMahasiswa']);
-Route::get('/daak/mahasiswa/{nomorInduk}',[DaakController::class, 'akunMahasiswa']);
-Route::get('/daak/dosen',[DaakController::class, 'akunDosen']);
-Route::get('/daak/dosen/{nomorInduk}',[DaakController::class, 'akunDosen']);
-Route::get('/daak/pengguna',[DaakController::class, 'akunPengguna']);
-Route::get('/daak/pengguna/{nomorInduk}',[DaakController::class, 'akunPengguna']);
+Route::get('/daak/jadwal-kuliah',[DaakController::class, 'jadwalKuliah'])->middleware(['checklogin' , 'onlyDaak']);
+Route::get('/daak/jadwal-kuliah/{id}',[DaakController::class, 'jadwalKuliah'])->middleware(['checklogin' , 'onlyDaak']);
+Route::get('/daak/matakuliah-kurikulum',[DaakController::class, 'matakuliahKurikulum'])->middleware(['checklogin' , 'onlyDaak']);
+Route::get('/daak/pengambilan-matakuliah',[DaakController::class, 'pengambilanMatakuliah'])->middleware(['checklogin' , 'onlyDaak']);
+Route::get('/daak/matakuliah/{kode}',[DaakController::class, 'matakuliahKurikulum'])->middleware(['checklogin' , 'onlyDaak']);
+Route::get('/daak/kurikulum/{kurikulum}',[DaakController::class, 'matakuliahKurikulum'])->middleware(['checklogin' , 'onlyDaak']);
+Route::get('/daak/jadwal-ujian',[DaakController::class, 'jadwalKuliah'])->middleware(['checklogin' , 'onlyDaak']);
+Route::get('/daak/pengumuman',[DaakController::class, 'pengumuman'])->middleware(['checklogin' , 'onlyDaak']);
+Route::get('/daak/pengumuman/{id}',[DaakController::class, 'pengumuman'])->middleware(['checklogin' , 'onlyDaak']);
+Route::get('/daak/mahasiswa',[DaakController::class, 'akunMahasiswa'])->middleware(['checklogin' , 'onlyDaak']);
+Route::get('/daak/mahasiswa/{nomorInduk}',[DaakController::class, 'akunMahasiswa'])->middleware(['checklogin' , 'onlyDaak']);
+Route::get('/daak/dosen',[DaakController::class, 'akunDosen'])->middleware(['checklogin' , 'onlyDaak']);
+Route::get('/daak/dosen/{nomorInduk}',[DaakController::class, 'akunDosen'])->middleware(['checklogin' , 'onlyDaak']);
+Route::get('/daak/pengguna',[DaakController::class, 'akunPengguna'])->middleware(['checklogin' , 'onlyDaak']);
+Route::get('/daak/pengguna/{nomorInduk}',[DaakController::class, 'akunPengguna'])->middleware(['checklogin' , 'onlyDaak']);
 
 // Global
 Route::put('v1/reset-password', [PenggunaController::class, 'resetPassword'])->name("resetpassword_form");
@@ -159,9 +159,3 @@ Route::get('/dosen/tracking-skripsi-edit-id', function () { #nanti dikasih id mh
 });
 
 Route::delete('/tolakMhs/{id}', [DosenController::class, 'tolakMahasiswa']);
-// Mahasiswa
-Route::get('/mahasiswa', function () {
-    return view('mahasiswa.dashboard');
-});
-
-
