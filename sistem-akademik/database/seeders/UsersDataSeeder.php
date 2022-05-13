@@ -28,7 +28,7 @@ class UsersDataSeeder extends Seeder
             'tempat_lahir'  => 'Bandung',
             'jenis_kelamin' => 1,
             'alamat'        => $faker->address,
-            'notelepon'    => $faker->phoneNumber,
+            'notelepon'     => $faker->phoneNumber,
             'jabatan'       => 1
         ]);
         DB::table('users_data')->insert([

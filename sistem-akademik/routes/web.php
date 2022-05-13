@@ -22,8 +22,8 @@ use App\Http\Controllers\PengambilanMatakuliahController;
 
 // Landing Page
 Route::get('/', function () {
-    return view('index');
-});
+    return view('pages-login');
+})->name("login");
 
 // Coba Router dan controller + View
 Route::get('/coba', [PenggunaController::class, 'show']);
@@ -139,31 +139,24 @@ Route::get('/dosen/nilai-mahasiswa/{id_kurikulum}', [DosenController::class, 'ge
 Route::get('/dosen/nilai-mahasiswa/mahasiswa/{id_nilai}', [DosenController::class, 'getNilaiMahasiswaByIdNilai']);
 Route::post('/dosen/nilai-mahasiswa/update/{id_nilai}', [DosenController::class, 'updateNilaiMahasiswa']);
 
+
 Route::get('/dosen/profil', function () {
     return view('dosen.profil');
 })->middleware(['checklogin' , 'onlyDosen']);
+
+// Route::get('/dosen/profil', function () {
+//     return view('dosen.profil');
+// });
+Route::get('/dosen/profil', [DosenController::class, 'showProfileDosen']);
+
 
 Route::get('/dosen/edit-profil', array('as' => 'edit-profil', function () {
     return view('dosen.edit_profil');
 }))->middleware(['checklogin' , 'onlyDosen']);
 
-// Route::get('/dosen/tracking-skripsi', function () {
-//     return view('dosen.tracking_skripsi_home');
-// });
-
 Route::get('/dosen/tracking-skripsi', [DosenController::class, 'bimbinganSkripsi']);
-
-
-Route::get('/dosen/tracking-skripsi-add-mhs-bimbingan', function () {
-    return view('dosen.tracking_skripsi_add_mhs');
-});
-
-Route::get('/dosen/tracking-skripsi-id', function () { #nanti dikasih id mhs di route nya
-    return view('dosen.tracking_skripsi_mhs');
-});
-
-Route::get('/dosen/tracking-skripsi-edit-id', function () { #nanti dikasih id mhs di route nya
-    return view('dosen.tracking_skripsi_edit_komentar');
-});
+Route::get('/dosen/tracking-skripsi-add-mhs-bimbingan', [DosenController::class, 'addBimbinganSkripsi']);
+Route::get('/dosen/tracking-skripsi/{id_skripsi}', [DosenController::class, 'detailBimbinganSkripsi']);
+Route::get('/dosen/tracking-skripsi/{id_skripsi}/edit', [DosenController::class, 'editDetailBimbinganSkripsi']);
 
 Route::delete('/tolakMhs/{id}', [DosenController::class, 'tolakMahasiswa']);

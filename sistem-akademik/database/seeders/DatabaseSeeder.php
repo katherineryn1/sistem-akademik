@@ -24,7 +24,9 @@ class DatabaseSeeder extends Seeder
             PengambilanMatakuliahDataSeeder::class,
             RosterDataSeeder::class,
             KehadiranDataSeeder::class,
-            NilaiDataSeeder::class
+            NilaiDataSeeder::class,
+            SkripsiDataSeeder::class,
+            DetailSkripsiDataSeeder::class,
         ]);
     }
 }

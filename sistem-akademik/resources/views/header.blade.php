@@ -24,10 +24,17 @@
     <nav class="header-nav ms-auto">
       <ul class="d-flex align-items-center">
         <li class="nav-item pe-3">
-           @if(isset($img_user) && isset($currentuser) )
-          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="{{ url($url_profile) }}" data-bs-toggle="dropdown">
-            <img src="{{  $img_user }}" alt="Profile" class="rounded-circle">
-            <span class="d-none d-md-block ps-2">  {{ $currentuser  }}</span>
+
+
+          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="{{ url('/dosen/profil') }}" data-bs-toggle="dropdown">
+            <img src="{{ asset('profile.png') }}" alt="Profile" class="rounded-circle">
+            <span class="d-none d-md-block ps-2">
+                @if (Session::has('currentuser'))
+                    {{ Session::get('currentuser')['nama'] }}
+                @else
+                    Jhon Doe
+                @endif
+            </span>
 
           </a><!-- End Profile Iamge Icon -->
             @else

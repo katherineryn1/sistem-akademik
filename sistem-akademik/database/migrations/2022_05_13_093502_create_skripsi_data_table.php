@@ -18,10 +18,11 @@ return new class extends Migration
             $table->string('nik');
             $table->string('nim');
             $table->string('judul');
-            $table->string('batas_akhir');
-            $table->string('file');
-            $table->integer('milestone');
+            $table->string('batas_akhir')->nullable();
+            $table->string('file')->nullable();
+            $table->integer('milestone')->nullable();
             $table->string("matakuliah");
+            $table->boolean("is_accepted");
             $table->foreign('matakuliah')->references('kode')->on("matakuliah_data");
             $table->foreign('nik')->references('nomor_induk')->on("users_data");
             $table->foreign('nim')->references('nomor_induk')->on("users_data");

@@ -25,10 +25,13 @@
                 </tr>
                 <tr>
             @endif --}}
+
+            @php $counter = 1; @endphp
             @foreach ($skripsi as $s)
             <tr>
                 <th scope="row">
-                    {{ $s->id }}
+                    {{ $counter }}
+                    @php $counter += 1; @endphp
                 </th>
                 <td>
                     {{ $s->nim }}
@@ -46,7 +49,7 @@
                     {{ $s->milestone }}
                 </td>
                 <td>
-                    <a href="{{ url('/dosen/tracking-skripsi-id') }}" class="btn btn-primary" style="background-color: #33297D;">Detail</a>
+                    <a href="<?php echo '/dosen/tracking-skripsi/' . $s->id;?>" class="btn btn-primary" style="background-color: #33297D;">Detail</a>
                     <form action="/hapusMhs/{{ $s->nim }}" method="POST">
                         {{ csrf_field() }}
                         {{ method_field('DELETE') }}

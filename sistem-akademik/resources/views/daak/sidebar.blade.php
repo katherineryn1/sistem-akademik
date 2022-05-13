@@ -3,7 +3,7 @@
   <aside id="sidebar" class="sidebar">
 
     <ul class="nav-pills sidebar-nav" id="sidebar-nav">
-      <li class="nav-heading">Layanan Administrasi</li>
+      <li class="nav-heading">Layanan Administrasi - DAAK</li>
 
       <li class="nav-item">
         <a class="nav-link" href="{{ url('/daak') }}">

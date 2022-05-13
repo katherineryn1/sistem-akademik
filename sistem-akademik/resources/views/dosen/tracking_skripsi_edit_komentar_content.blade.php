@@ -4,14 +4,14 @@
     </div>
 
     <ul class="progressbar">
-        <li class="active">Bab 1</li>
-        <li class="active">Bab 2</li>
-        <li>Bab 3</li>
-        <li>Seminar</li>
-        <li>Bab 4</li>
-        <li>Bab 5</li>
-        <li>Prasidang</li>
-        <li>Sidang</li>
+        <li class="<?php if ( $skripsi->milestone > 0 ) { echo "active"; } ?>">Bab 1</li>
+        <li class="<?php if ( $skripsi->milestone > 1 ) { echo "active"; } ?>">Bab 2</li>
+        <li class="<?php if ( $skripsi->milestone > 2 ) { echo "active"; } ?>">Bab 3</li>
+        <li class="<?php if ( $skripsi->milestone > 3 ) { echo "active"; } ?>">Seminar</li>
+        <li class="<?php if ( $skripsi->milestone > 4 ) { echo "active"; } ?>">Bab 4</li>
+        <li class="<?php if ( $skripsi->milestone > 5 ) { echo "active"; } ?>">Bab 5</li>
+        <li class="<?php if ( $skripsi->milestone > 6 ) { echo "active"; } ?>">Prasidang</li>
+        <li class="<?php if ( $skripsi->milestone > 7 ) { echo "active"; } ?>">Sidang</li>
     </ul>
 
     <div class="clear-left"></div>
@@ -19,17 +19,17 @@
     <table>
         <tr>
             <td><strong>Judul Tugas Akhir</strong></td>
-            <td>: Lorem ipsum dolor sit amet consectetur adipisicing elit nihil aut possimus tenetur similique</td>
+            <td>: {{ $skripsi->judul }} </td>
         </tr>
         <tr>
             <td><strong>Dosen Pembimbing</strong></td>
-            <td>: Lorem Ipsum</td>
+            <td>: {{ $skripsi->nama }}</td>
         </tr>
     </table>
 
     <br>
 
-    <div class="bold500">Bab 2</div>
+    <div class="bold500">{{ $komentar[0]->label }}</div>
     <div class="float-right">
         <a href="#" class="edit">Edit Komentar</a>
         <a href="#" class="delete">Hapus Komentar</a>
@@ -38,10 +38,7 @@
 
     <div class="mb-3">
         <textarea class="form-control" id="komentar-dosen" rows="5">
-        Perbaiki lagi yang bagian X, jadi begini:
-        - a
-        - a
-        - a
+            {{ $komentar[0]->komentar }}
         </textarea>
     </div>
 
@@ -50,15 +47,18 @@
     </div>
 
     <br>
-    <div class="bold500">Bab 1</div>
-    <strong>Komentar Dosen :</strong>
-    Sudah oke, silahkan lanjut ke bab 2!
+
+    @for ($i = 1; $i < count($komentar); $i++)
+        <div class="bold500">{{ $komentar[$i]->label }}</div>
+        <strong>Komentar Dosen :</strong>
+        {{ $komentar[$i]->komentar }}
+    @endfor
 
 
     <center>
         <br>
 
-        <a href="#" class="btn btn-outline-dark">Setujui Bab 2</a>
+        <a href="#" class="btn btn-outline-dark">Setujui {{ $komentar[0]->label }}</a>
         <a href="#" class="btn btn-primary" style="background-color: #33297D;">Download File Skripsi</a>
     </center>
 

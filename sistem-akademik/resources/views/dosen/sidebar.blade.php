@@ -5,7 +5,7 @@
   <aside id="sidebar" class="sidebar">
 
     <ul class="sidebar-nav" id="sidebar-nav">
-      <li class="nav-heading">Layanan Akademik</li>
+      <li class="nav-heading">Layanan Akademik - Dosen</li>
 
       <li class="nav-item">
         <a class="nav-link " href="{{ url('/dosen') }}">

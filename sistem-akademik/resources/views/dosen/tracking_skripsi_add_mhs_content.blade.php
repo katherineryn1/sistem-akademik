@@ -20,10 +20,12 @@
                 </tr>
                 <tr>
             @endif
+            @php $counter = 1; @endphp
             @foreach ($skripsi as $s)
                 <tr>
                     <th scope="row">
-                        {{ $s->id }}
+                        {{ $counter }}
+                        @php $counter += 1; @endphp
                     </th>
                     <td>
                         {{ $s->nim }}
