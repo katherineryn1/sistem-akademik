@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Modules\Mahasiswa\Service\MahasiswaService;
+use App\Modules\Pengumuman\Service\PengumumanService;
 use Illuminate\Http\Request;
 
 class MahasiswaController extends Controller{
@@ -15,10 +16,14 @@ class MahasiswaController extends Controller{
 
     public function dashboard(Request $request){
         $currUser = $request->session()->get('currentuser', null);
+        $penggumuman = PengumumanService::getAll();
         return view('mahasiswa.dashboard', ['page_title' => 'Dashboard',
                                                 'url_profile' => '/daak/profile',
                                             'img_user' => self::checkFotoProfile($currUser['foto_profile']),
-                                            'currentuser' => $currUser['nama']]);
+                                            'currentuser' => $currUser['nama'],
+                                            'pengumuman' => $penggumuman
+            ]
+        );
     }
 
     public function insert(Request $request){
@@ -86,8 +91,14 @@ class MahasiswaController extends Controller{
         return back();
     }
 
-    public function  getJadwalMatakuliah(){
-        //  Todo: Implement
+    public function  jadwalKuliah(Request $request){
+        $currUser = $request->session()->get('currentuser', null);
+        $jadwal = MahasiswaService::getJadwalMatakuliah($currUser['nomor_induk']);
+        return view('mahasiswa.jadwal-kuliah', ['page_title' => 'Jadwal Kuliah',
+            'url_profile' => '/mahasiswa/profile',
+            'img_user' => self::checkFotoProfile($currUser['foto_profile']),
+            'currentuser' => $currUser['nama'] ,
+            'jadwal' => $jadwal]);
     }
 
     public function  rencanaStudi(Request $request){
