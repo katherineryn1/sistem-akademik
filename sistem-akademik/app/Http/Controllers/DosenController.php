@@ -458,14 +458,53 @@ class DosenController extends Controller{
     }
 
     public function getBimbinganSkripsi($id){
-        $data = DB::table('skripsi')
-            ->where('nim', '=', $id)
-            ->select('nim', 'judul')
+        $data = DB::table('skripsi_data as sd')
+            ->join('users_data as ud', 'ud.nomor_induk', '=', 'sd.nim')
+            ->where('sd.nik', '=', $id)
+            ->select('sd.nim as nim',
+                'ud.nama as nama',
+                'sd.judul as judul',
+                'sd.milestone as milestone')
             ->get();
         return $data;
     }
+
+    public function getKomentarTerakhir($id_skripsi) {
+        $data = DB::table('detail_skripsi_data')
+            ->where('id_skripsi', '=', $id_skripsi)
+            ->select('label', 'komentar')
+            ->orderBy('id', 'desc')
+            ->first();
+        return $data;
+    }
+        
+    public function getDetailSkripsi($id_skripsi) {
+        $data = DB::table('detail_skripsi_data')
+            ->where('id_skripsi', '=', $id_skripsi)
+            ->select('label', 'komentar', 'is_accepted')
+            ->orderBy('id', 'desc')
+            ->get();
+        return $data;
+    }
+
     public function bimbinganSkripsi(){
-        //  Todo: Implement
+        $arr_list_skripsi = $this->getBimbinganSkripsi('10171');
+
+        $arr_skripsi = array();
+        foreach($arr_list_skripsi as $skripsi) {
+            $data = new stdClass();
+            $data->id = $skripsi->id;
+            $data->nim = $skripsi->id;
+            $data->nama = $skripsi->id;
+            $data->judul = $skripsi->id;
+            $data->komentar = $this->getKomentarTerakhir($skripsi->id);
+            $data->milestone = $skripsi->id;
+            array_push($arr_skripsi, $data);
+        }
+
+        return view('dosen.tracking_skripsi_home', [
+            'skripsi' => []
+        ]);
     }
 
     public function validasiSkripsi(){
