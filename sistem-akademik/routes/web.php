@@ -39,7 +39,8 @@ Route::get('/logout', [PenggunaController::class, 'logout'])->name("logout_form"
 // Mahasiswa
 Route::get('/mahasiswa', [MahasiswaController::class, 'dashboard'])->middleware(['checklogin' , 'onlyMahasiswa']);
 Route::get('/mahasiswa/jadwal-kuliah',[]);
-Route::get('/mahasiswa/transkrip-nilai',[]);
+Route::get('/mahasiswa/transkrip-nilai', [MahasiswaController::class, 'transkripNilai'])->middleware(['checklogin' , 'onlyMahasiswa']);
+Route::get('/mahasiswa/rencana-studi', [MahasiswaController::class, 'rencanaStudi'])->middleware(['checklogin' , 'onlyMahasiswa']);
 Route::get('/mahasiswa/tracking-skripsi',[]);
 Route::get('/mahasiswa/transaksi-keuangan',[]);
 Route::get('/mahasiswa/profile',[]);

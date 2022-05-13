@@ -51,8 +51,11 @@ class Nilai{
     /**
      * @param float $nilai1
      */
-    public function setNilai1(float $nilai1): void
+    public function setNilai1(?float $nilai1): void
     {
+        if($nilai1 == null){
+            $nilai1 = 0;
+        }
         $this->nilai1 = $nilai1;
     }
 
@@ -67,8 +70,11 @@ class Nilai{
     /**
      * @param float $nilai2
      */
-    public function setNilai2(float $nilai2): void
+    public function setNilai2(?float $nilai2): void
     {
+        if($nilai2 == null){
+            $nilai2 = 0;
+        }
         $this->nilai2 = $nilai2;
     }
 
@@ -83,8 +89,11 @@ class Nilai{
     /**
      * @param float $nilai3
      */
-    public function setNilai3(float $nilai3): void
+    public function setNilai3(?float $nilai3): void
     {
+        if($nilai3 == null){
+            $nilai3 = 0;
+        }
         $this->nilai3 = $nilai3;
     }
 
@@ -99,8 +108,11 @@ class Nilai{
     /**
      * @param float $nilai4
      */
-    public function setNilai4(float $nilai4): void
+    public function setNilai4(?float $nilai4): void
     {
+        if($nilai4 == null){
+            $nilai4 = 0;
+        }
         $this->nilai4 = $nilai4;
     }
 
@@ -115,8 +127,11 @@ class Nilai{
     /**
      * @param float $nilai5
      */
-    public function setNilai5(float $nilai5): void
+    public function setNilai5(?float $nilai5): void
     {
+        if($nilai5 == null){
+            $nilai5 = 0;
+        }
         $this->nilai5 = $nilai5;
     }
 
@@ -131,8 +146,11 @@ class Nilai{
     /**
      * @param float $nilaiUAS
      */
-    public function setNilaiUAS(float $nilaiUAS): void
+    public function setNilaiUAS(?float $nilaiUAS): void
     {
+        if($nilaiUAS == null){
+            $nilaiUAS = 0;
+        }
         $this->nilaiUAS = $nilaiUAS;
     }
 
@@ -147,7 +165,7 @@ class Nilai{
     /**
      * @param float $nilaiAkhir
      */
-    public function setNilaiAkhir(float $nilaiAkhir): void
+    public function setNilaiAkhir(?float $nilaiAkhir): void
     {
         $this->nilaiAkhir = $nilaiAkhir;
     }

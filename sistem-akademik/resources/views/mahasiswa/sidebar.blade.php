@@ -20,14 +20,14 @@
       </li>
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="#">
-                <i class="bi bi-mortarboard"></i>
+            <a class="nav-link collapsed" href="{{ url('/mahasiswa/rencana-studi') }}">
+                <i class="bi bi-card-checklist"></i>
                 <span>Rencana Studi</span>
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link collapsed" href="#">
-                <i class="bi bi-mortarboard"></i>
+            <a class="nav-link collapsed" href="{{ url('/mahasiswa/transkrip-nilai') }}">
+                <i class="bi bi-clipboard2-pulse"></i>
                 <span>Transcript Nilai</span>
             </a>
         </li>
