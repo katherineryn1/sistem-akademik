@@ -5,7 +5,10 @@ use App\Modules\Dosen\Service\DosenService;
 use App\Modules\Mahasiswa\Service\MahasiswaService;
 use App\Modules\Pengguna\Service\PenggunaService;
 use App\Modules\Pengumuman\Service\PengumumanService;
+use App\Modules\Perkuliahan\Entity\JenisMatakuliah;
 use App\Modules\Perkuliahan\Entity\PosisiAmbilPengambilanMatakuliah;
+use App\Modules\Perkuliahan\Entity\SemesterKurikulum;
+use App\Modules\Perkuliahan\Entity\SifatMatakuliah;
 use App\Modules\Perkuliahan\Service\KurikulumService;
 use App\Modules\Perkuliahan\Service\MatakuliahService;
 use App\Modules\Perkuliahan\Service\PengambilanMatakuliahService;
@@ -55,12 +58,19 @@ class DaakController extends Controller{
         $currUser = $request->session()->get('currentuser', null);
         $dataKurikulum = KurikulumService::getAll();
         $dataMatakuliah = MatakuliahService::getAll();
+        $jenisDatalist = JenisMatakuliah::getEnumString();
+        $sifatDatalist = SifatMatakuliah::getEnumString();
+        $semesterDatalist =SemesterKurikulum::getEnumString();
         return view('daak.matakuliah-kurikulum', ['page_title' => 'Matakuliah Kurikulum',
                                                         'url_profile' => '/daak/profile',
                                                         'img_user' => self::checkFotoProfile($currUser['foto_profile']),
                                                         'currentuser' => $currUser['nama'],
                                                         'data_matakuliah' => $dataMatakuliah,
-                                                        'data_kurikulum' => $dataKurikulum]);
+                                                        'data_kurikulum' => $dataKurikulum,
+                                              'jenis_mk' => $jenisDatalist,
+                                            'sifat_mk' => $sifatDatalist,
+                                            'semester_kr' => $semesterDatalist
+        ]);
     }
 
     public function pengambilanMatakuliah(Request $request){

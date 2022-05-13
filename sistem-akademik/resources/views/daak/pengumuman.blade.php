@@ -43,9 +43,9 @@
                                 <td>{!! $pengumuman['keterangan'] !!}</td>
                                 <td>{{ $pengumuman['tanggal']->format('Y-M-d') }}</td>
                                 <td>
-                                    <a href="{{ url("/daak/pengumuman/{$pengumuman['id']}/edit") }}" class="btn btn-warning" >
+                                    <!-- <a href="{{ url("/daak/pengumuman/{$pengumuman['id']}/edit") }}" class="btn btn-warning" >
                                         <i width="1rem" height="1rem" fill="currentColor" class="bi bi-pencil-square"></i>
-                                    </a>
+                                    </a> -->
                                     <button onclick="modalConfirmDeletion({{ $pengumuman['id'] }},nameForm = 'id')" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modal-confirmation-delete">
                                         <i width="1rem" height="1rem" fill="currentColor" class="bi bi-trash"></i>
                                     </button>

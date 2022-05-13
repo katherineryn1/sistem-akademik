@@ -63,6 +63,13 @@ Route::get('/daak/dosen',[DaakController::class, 'akunDosen'])->middleware(['che
 Route::get('/daak/dosen/{nomorInduk}',[DaakController::class, 'akunDosen'])->middleware(['checklogin' , 'onlyDaak']);
 Route::get('/daak/pengguna',[DaakController::class, 'akunPengguna'])->middleware(['checklogin' , 'onlyDaak']);
 Route::get('/daak/pengguna/{nomorInduk}',[DaakController::class, 'akunPengguna'])->middleware(['checklogin' , 'onlyDaak']);
+Route::get('/daak/profil', function () {
+    return view('daak.profil');
+})->middleware(['checklogin' , 'onlyDaak']);
+
+Route::get('/daak/edit-profil', array('as' => 'edit-profil', function () {
+    return view('daak.edit_profil');
+}))->middleware(['checklogin' , 'onlyDaak']);
 
 // Global
 Route::put('v1/reset-password', [PenggunaController::class, 'resetPassword'])->name("resetpassword_form");
@@ -116,17 +123,17 @@ Route::delete('v1/jadwal', [RosterController::class, 'delete']);
 // Dosen
 Route::get('/dosen', [DosenController::class, 'getJadwalMengajarDashboard'])->middleware(['checklogin' , 'onlyDosen']);
 
-Route::get('/dosen/jadwal-mengajar', [DosenController::class, 'getJadwalMengajar']);
+Route::get('/dosen/jadwal-mengajar', [DosenController::class, 'getJadwalMengajar'])->middleware(['checklogin' , 'onlyDosen']);
 Route::get('/dosen/jadwal-mengajar/{week}', [DosenController::class, 'getDataJadwalMengajar']);
 
-Route::get('/dosen/absensi', [DosenController::class, 'getKehadiranMengajar']);
+Route::get('/dosen/absensi', [DosenController::class, 'getKehadiranMengajar'])->middleware(['checklogin' , 'onlyDosen']);
 Route::get('/dosen/absensi/kelas/{id}', [DosenController::class, 'getKelasMatakuliah']);
 Route::get('/dosen/absensi/tanggal/{id}', [DosenController::class, 'getTanggalKurikulum']);
 Route::get('/dosen/absensi/roster/{id_roster}/{id_kurikulum}', [DosenController::class, 'getKehadiranMahasiswa']);
 Route::get('/dosen/absensi/roster/{id_roster}/{id_kurikulum}/{status}', [DosenController::class, 'getKehadiranMahasiswaByStatus']);
 Route::post('/dosen/absensi/update', [DosenController::class, 'updateKehadiranMahasiswa']);
 
-Route::get('/dosen/nilai-mahasiswa', [DosenController::class, 'getNilaiMahasiswa']);
+Route::get('/dosen/nilai-mahasiswa', [DosenController::class, 'getNilaiMahasiswa'])->middleware(['checklogin' , 'onlyDosen']);
 Route::get('/dosen/nilai-mahasiswa/kelas/{id}', [DosenController::class, 'getKelasMatakuliah']);
 Route::get('/dosen/nilai-mahasiswa/{id_kurikulum}', [DosenController::class, 'getListNilaiMahasiswa']);
 Route::get('/dosen/nilai-mahasiswa/mahasiswa/{id_nilai}', [DosenController::class, 'getNilaiMahasiswaByIdNilai']);
@@ -134,11 +141,11 @@ Route::post('/dosen/nilai-mahasiswa/update/{id_nilai}', [DosenController::class,
 
 Route::get('/dosen/profil', function () {
     return view('dosen.profil');
-});
+})->middleware(['checklogin' , 'onlyDosen']);
 
 Route::get('/dosen/edit-profil', array('as' => 'edit-profil', function () {
     return view('dosen.edit_profil');
-}));
+}))->middleware(['checklogin' , 'onlyDosen']);
 
 // Route::get('/dosen/tracking-skripsi', function () {
 //     return view('dosen.tracking_skripsi_home');
