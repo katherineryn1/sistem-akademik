@@ -15,13 +15,16 @@ return new class extends Migration
     {
         Schema::create('skripsi_data', function (Blueprint $table) {
             $table->id();
+            $table->string('nik');
+            $table->string('nim');
             $table->string('judul');
-            $table->string('batasAkhir');
+            $table->string('batas_akhir');
             $table->string('file');
-            $table->boolean("isTugasAkhir");
             $table->integer('milestone');
             $table->string("matakuliah");
             $table->foreign('matakuliah')->references('kode')->on("matakuliah_data");
+            $table->foreign('nik')->references('nomor_induk')->on("users_data");
+            $table->foreign('nim')->references('nomor_induk')->on("users_data");
             $table->timestamps();
         });
     }

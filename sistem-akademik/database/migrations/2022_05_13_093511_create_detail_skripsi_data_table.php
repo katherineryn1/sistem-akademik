@@ -15,10 +15,12 @@ return new class extends Migration
     {
         Schema::create('detail_skripsi_data', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('id_skripsi', false, true);
             $table->string('label');
             $table->string('komentar');
-            $table->boolean("isAccepted");
-            $table->date("tanggalAccepted");
+            $table->boolean("is_accepted");
+            $table->date("tanggal_accepted");
+            $table->foreign('id_skripsi')->references('id')->on("skripsi_data");
             $table->timestamps();
         });
     }
