@@ -9,7 +9,7 @@ class Skripsi
     private string $judul = "";
     private string $batasAkhir = "";
     private string $file = "";
-    private bool $isTugasAkhir;
+    private bool $isTugasAkhir = false;
     private int $milestone = 0;
     private Matakuliah $matakuliah;
     private array $detail;
