@@ -178,11 +178,23 @@ class DosenController extends Controller{
             array_push($arr_pengumuman, $pengumuman);
         }
 
+        $arr_skripsi = $this->getBimbinganSkripsi($nik, 1);
+        $skripsi = new stdClass();
+        $skripsi->filled = 0;
+        if (count($arr_skripsi) > 0) {
+            $skripsi->id = $arr_skripsi[0]->id;
+            $skripsi->nim = $arr_skripsi[0]->nim;
+            $skripsi->nama = $arr_skripsi[0]->nama;
+            $skripsi->judul = $arr_skripsi[0]->judul;
+            $skripsi->milestone = "Bab " . $arr_skripsi[0]->milestone;
+            $skripsi->filled = 1;
+        }
 
         return view('dosen.dashboard', [
             'tanggalHariIni' => Carbon::parse($tanggal_hari_ini)->locale('id')->isoFormat('D MMMM'),
             'jadwalMengajar' => $arr_jadwal_mengajar,
             'pengumuman' => $arr_pengumuman,
+            'skripsi' => $skripsi,
         ]);
     }
 

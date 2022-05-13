@@ -28,17 +28,24 @@
             </div>
         </div>
         <div class="col-sm-6">
-            <div class="card card-body h-100">
-                <h5 class="card-title">Tracking Skripsi Terakhir</h5>
-                <p class="card-text">NIM: 1118000</p>
-                <p class="card-text">Nama Lengkap: Lorem Ipsum</p>
-                <p class="card-text">Judul Tugas Akhir: Lorem ipsum dolor sit amet consectetur adipisicing elit
-                    Perspiciatis id voluptate blanditiis debitis.</p>
-                <p class="card-text">Milestone: Bab 1</p>
-                <center>
-                    <a href="#" class="btn btn-primary" style="background-color: #33297D;">Download File Skripsi</a>
-                </center>
-            </div>
-        </div>
+            @if ($skripsi->filled == 1)
+                <div class="card card-body h-100">
+                        <h5 class="card-title">Tracking Skripsi Terakhir</h5>
+                        <p class="card-text">NIM: {{ $skripsi->nim }} </p>
+                        <p class="card-text">Nama Lengkap: {{ $skripsi->nama }} </p>
+                        <p class="card-text">Judul Tugas Akhir: {{ $skripsi->judul }} </p>
+                        <p class="card-text">Milestone:
+                            @if ($skripsi->milestone == "Bab 0")
+                                Belum mulai
+                            @else
+                                {{ $skripsi->milestone }}
+                            @endif
+                        </p>
+                        <center>
+                            <a href="#" class="btn btn-primary" style="background-color: #33297D;">Download File Skripsi</a>
+                        </center>
+                    </div>
+                </div>
+            @endif
     </div>
 </main>
